@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{08A2EECC-1FCD-42BF-9B75-B573F644E277}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Invoicing.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Invoicing.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\AssertionFailedException.cs" />
+    <Compile Include="Extensions\TestExtensions.cs" />
+    <Compile Include="GeneralInvoice\TestInvoiceFreeTextParsing.cs" />
+    <Compile Include="Site\TestCustomOrderValidation.cs" />
+    <Compile Include="Site\TestValidationTypeRequired.cs" />
+    <Compile Include="Factory\Factory.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomControlCalculations.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomControlTaxTotal.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomInvoice.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomInvoiceLine.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxCategory.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxScheme.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateSellerParty.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaCompleteparsing.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaFormatting.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaInvoiceParsing.cs" />
+    <Compile Include="Mock\Utility.cs" />
+    <Compile Include="Mock\MockAdkHandler.cs" />
+    <Compile Include="Mock\MockWebServiceClient.cs" />
+    <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
+    <Compile Include="Mock\TestMockFlow.cs" />
+    <Compile Include="App\AssertionExtensions.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceLineAllowanceCharge.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateCustomRules.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateAddressLine.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateAllowanceCharge.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateBasePrice.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateCodeType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateDocumentReference.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateExchangeRate.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceLine.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateIssueDateType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateItemIdentification.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLegalTotal.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLineItemCountNumericType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLineReference.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateParty.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyIdentification.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyName.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyTaxScheme.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePaymentMeans.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateSimpleIdentifierType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxCategory.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxScheme.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxSubTotal.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxTotal.cs" />
+    <Compile Include="Svefaktura\XmlSerialization\TestMockXmlSerialization.cs" />
+    <Compile Include="SynologenService.cs" />
+    <Compile Include="Visma\TestVisma.cs" />
+    <Compile Include="Visma\TestVismaFormatting.cs" />
+    <Compile Include="Webservice\TestWebService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EDI\TestEDI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
+      <Name>Synologen.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EDI\Synologen EDI.csproj">
+      <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
+      <Name>Synologen EDI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
+      <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
+      <Name>Synologen ServiceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Synologen Invoicing Utility.csproj">
+      <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
+      <Name>Synologen Invoicing Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Visma\Synologen Visma.csproj">
+      <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
+      <Name>Synologen Visma</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

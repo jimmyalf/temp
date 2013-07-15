@@ -1,0 +1,182 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18D0E3C1-8912-43E9-91C7-D12B5A316819}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Forum.Controls</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Forum.Controls</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FreeTextBox, Version=3.1.6.34851, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\FreeTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\ForumPermissionRepeater.cs" />
+    <Compile Include="Admin\UI\Controls\DomainDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\ForumDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\RankDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\ReportDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\RoleDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\ServiceDropDownList.cs" />
+    <Compile Include="Admin\UI\Controls\StyleDropDownList.cs" />
+    <Compile Include="Admin\UI\Views\BuiltInReportsView.cs" />
+    <Compile Include="BaseClasses\ForumDataListControl.cs" />
+    <Compile Include="BaseClasses\SkinnedForumWebControl.cs" />
+    <Compile Include="CreateEditPost.cs" />
+    <Compile Include="ForumRepeater.cs" />
+    <Compile Include="FreeTextBox\CSharpButton.cs" />
+    <Compile Include="FreeTextBox\VBButton.cs" />
+    <Compile Include="Login.cs" />
+    <Compile Include="Logout.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="Moderation\DeletePost.cs" />
+    <Compile Include="Moderation\ModerationMenu.cs" />
+    <Compile Include="Moderation\ModerationStats.cs" />
+    <Compile Include="Moderation\ThreadJoin.cs" />
+    <Compile Include="Moderation\ThreadMove.cs" />
+    <Compile Include="Moderation\ThreadSplit.cs" />
+    <Compile Include="Navigation\BreadCrumb.cs" />
+    <Compile Include="Navigation\JumpDropDownList.cs" />
+    <Compile Include="Navigation\NavigationMenu.cs" />
+    <Compile Include="PageTitle.cs" />
+    <Compile Include="PostDisplay\DownloadPostAttachment.cs" />
+    <Compile Include="PostDisplay\PollPost.cs" />
+    <Compile Include="PostDisplay\PostAttachment.cs" />
+    <Compile Include="PostDisplay\PostImageButtons.cs" />
+    <Compile Include="PostDisplay\ProgressBar.cs" />
+    <Compile Include="PostDisplay\TextPost.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\SearchOptions.cs" />
+    <Compile Include="Search\SearchRedirect.cs" />
+    <Compile Include="SendEmail.cs" />
+    <Compile Include="SiteStats.cs" />
+    <Compile Include="Skins\Banner.cs" />
+    <Compile Include="Skins\DisplayLegendForum.cs" />
+    <Compile Include="Skins\DisplayLegendThread.cs" />
+    <Compile Include="Skins\DisplayTitle.cs" />
+    <Compile Include="Skins\DisplayUserWelcome.cs" />
+    <Compile Include="SortableThreadColumn.cs" />
+    <Compile Include="Style.cs" />
+    <Compile Include="User\ChangePassword.cs" />
+    <Compile Include="User\ChangePasswordAnswer.cs" />
+    <Compile Include="User\CreateUser.cs" />
+    <Compile Include="User\EditProfile.cs" />
+    <Compile Include="User\ForgottenPassword.cs" />
+    <Compile Include="User\PostIcons.cs" />
+    <Compile Include="User\RoleIcons.cs" />
+    <Compile Include="User\UserAttribute.cs" />
+    <Compile Include="User\UserAvatar.cs" />
+    <Compile Include="User\UserIcons.cs" />
+    <Compile Include="User\UserImageButtons.cs" />
+    <Compile Include="User\UserOnlineStatus.cs" />
+    <Compile Include="User\UserPermissions.cs" />
+    <Compile Include="User\UserProfile.cs" />
+    <Compile Include="Utility\AccountActivationRadioButtonList.cs" />
+    <Compile Include="Utility\AccountStatusDropDownList.cs" />
+    <Compile Include="Utility\ActiveUsers.cs" />
+    <Compile Include="Utility\AddRemoveListBox.cs" />
+    <Compile Include="Utility\AlphaPicker.cs" />
+    <Compile Include="Utility\CurrentPage.cs" />
+    <Compile Include="Utility\CurrentTime.cs" />
+    <Compile Include="Utility\DateFilter.cs" />
+    <Compile Include="Utility\DateFormatDropDownList.cs" />
+    <Compile Include="Utility\DatePicker.cs" />
+    <Compile Include="Utility\EmailNotificationDropDownList.cs" />
+    <Compile Include="Utility\FilterUsersDropDownList.cs" />
+    <Compile Include="Utility\Footer.cs" />
+    <Compile Include="Utility\ForumAnchor.cs" />
+    <Compile Include="Utility\ForumImageButton.cs" />
+    <Compile Include="Utility\ForumListBox.cs" />
+    <Compile Include="Utility\ForumModerators.cs" />
+    <Compile Include="Utility\GenderRadioButtonList.cs" />
+    <Compile Include="Utility\HideReadPosts.cs" />
+    <Compile Include="Utility\LanguageDropDownList.cs" />
+    <Compile Include="Utility\MarkAllRead.cs" />
+    <Compile Include="Utility\MemberSortDropDownList.cs" />
+    <Compile Include="Utility\ModerationLevelDropDownList.cs" />
+    <Compile Include="Utility\Pager.cs" />
+    <Compile Include="Utility\PasswordFormatDropDownList.cs" />
+    <Compile Include="Utility\PasswordRecoveryRadioButtonList.cs" />
+    <Compile Include="Utility\QuestionsDropDownList.cs" />
+    <Compile Include="Utility\RatePost.cs" />
+    <Compile Include="Utility\RatingImageButton.cs" />
+    <Compile Include="Utility\RssFeed.cs" />
+    <Compile Include="Utility\RssLink.cs" />
+    <Compile Include="Utility\SearchForumsRadioButtonList.cs" />
+    <Compile Include="Utility\SearchModeDropDownList.cs" />
+    <Compile Include="Utility\SortOrderDropDownList.cs" />
+    <Compile Include="Utility\StatusDropDownList.cs" />
+    <Compile Include="Utility\ThemeDropDownList.cs" />
+    <Compile Include="Utility\ThreadPager.cs" />
+    <Compile Include="Utility\ThreadSortDropDownList.cs" />
+    <Compile Include="Utility\ThreadStatusImage.cs" />
+    <Compile Include="Utility\ThreadSubscribeLinkButton.cs" />
+    <Compile Include="Utility\TimezoneDropDownList.cs" />
+    <Compile Include="Utility\UserBanDropDownList.cs" />
+    <Compile Include="Utility\YesNoRadioButtonList.cs" />
+    <Compile Include="Views\CalendarView.cs" />
+    <Compile Include="Views\ForumGroupView.cs" />
+    <Compile Include="Views\ForumMembersView.cs" />
+    <Compile Include="Views\MyForumsView.cs" />
+    <Compile Include="Views\PostFlatView.cs" />
+    <Compile Include="Views\PostModerateView.cs" />
+    <Compile Include="Views\PostView.cs" />
+    <Compile Include="Views\PrivateMessageView.cs" />
+    <Compile Include="Views\RatingSummaryView.cs" />
+    <Compile Include="Views\RoleMembersView.cs" />
+    <Compile Include="Views\SearchResultsView.cs" />
+    <Compile Include="Views\SearchView.cs" />
+    <Compile Include="Views\SmiliesView.cs" />
+    <Compile Include="Views\ThreadView.cs" />
+    <Compile Include="Views\WhoIsOnlineView.cs" />
+    <Compile Include="WhoIsOnline.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{8EE413C7-D04F-41B8-B6F4-374711009725}</Project>
+      <Name>Components</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

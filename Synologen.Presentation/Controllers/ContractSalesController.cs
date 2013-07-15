@@ -87,5 +87,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			Execute(new SettleNewAutogiroTransactions(settlementId));
 			return RedirectToAction("ViewSettlement", new { id = settlementId });
 		}
+
+        public ActionResult Statistics(StatisticsView model = null)
+        {
+            if (model == null)
+            {
+                model = _viewService.GetStatisticsView();
+            }
+            else
+            {
+                _viewService.UpdateView(model);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult StatisticsDownload(StatisticsView model)
+        {
+            throw new NotImplementedException();
+        }
 	}
 }

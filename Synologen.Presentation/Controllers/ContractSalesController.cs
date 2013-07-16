@@ -88,17 +88,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("ViewSettlement", new { id = settlementId });
 		}
 
-        public ActionResult Statistics(StatisticsView model = null)
+        [HttpGet]
+        public ActionResult Statistics()
         {
-            if (model == null)
-            {
-                model = _viewService.GetStatisticsView();
-            }
-            else
-            {
-                _viewService.UpdateView(model);
-            }
+            var model = _viewService.GetStatisticsView();
+            return View(model);
+        }
 
+        [HttpPost]
+        public ActionResult Statistics(StatisticsView model)
+        {
+            _viewService.UpdateView(model, this, "StatisticsDownload");
             return View(model);
         }
 

@@ -15,6 +15,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
 using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
@@ -245,10 +246,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	        return new StatisticsView { Contracts = GetAllContracts(), Companies = GetAllCompanies() };
 	    }
 
-	    public void UpdateView(StatisticsView view)
+	    public void UpdateView(StatisticsView view, Controller controller, string downloadAction)
 	    {
 	        view.Contracts = GetAllContracts();
 	        view.Companies = GetAllCompanies();
+            var routeValues = controller.Request.Form.ToRouteValueDictionary().BlackList("controller", "action");
+            var url = controller.Url.Action("StatisticsDownload", routeValues);
+            view.Download.Set(url);
 	    }
 
         protected List<ContractListItem> GetAllContracts()

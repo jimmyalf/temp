@@ -30,8 +30,8 @@
 	<div class="fullBox">
 		<div class="wrap">
 		    <% Html.EnableClientValidation(); %>
-			<%= Html.ValidationSummary(true) %>
-	        <% using (Html.BeginForm()) { %>		
+		    <%= Html.ValidationSummary(true) %>
+	        <% using (Html.BeginForm()) { %>
 			<fieldset>
 				<legend>Generera statistik</legend>
 				<div class="formItem clearLeft">
@@ -54,8 +54,15 @@
                 <div class="formCommands">
                     <button type="submit" class="btnBig" data-bind="enable: selectedContract()">Generera</button>
                 </div>
-			</fieldset>
+			</fieldset>	
             <% } %>		
+            <%if(Model.Download.DisplayUrl){ %>
+            <br/>
+            <fieldset>
+                <legend>Nedladdning</legend>
+                <a id="statistics-download" href="<%=Model.Download.Url%>" title="Ladda ner statistik">Ladda ner statistik</a>
+            </fieldset>
+            <% } %>	
 		</div>
 	</div>
 </div>	

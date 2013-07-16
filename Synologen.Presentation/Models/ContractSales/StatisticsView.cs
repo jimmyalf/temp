@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         {
             Contracts = new List<ContractListItem>();
             Companies = new List<CompanyListItem>();
+            Download = new DownloadContext();
         }
 
         [DisplayName("Avtal"), Required]
@@ -28,6 +29,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         [DisplayName("To")]
         public DateTime? To { get; set; }
 
+        public DownloadContext Download { get; set; }
+
         public SelectList GetContractsSelectList()
         {
             return new SelectList(Contracts, "Id", "Name");
@@ -36,6 +39,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         public SelectList GetCompaniesSelectList()
         {
             return new SelectList(Companies, "Id", "Name");
+        }
+    }
+
+    public class DownloadContext
+    {
+        public bool DisplayUrl { get; protected set; }
+        public string Url { get; protected set; }
+        public void Set(string url)
+        {
+            Url = url;
+            DisplayUrl = true;
+        }
+
+        public void Reset()
+        {
+            Url = null;
+            DisplayUrl = false;
         }
     }
 

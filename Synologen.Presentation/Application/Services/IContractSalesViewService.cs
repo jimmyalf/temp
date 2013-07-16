@@ -1,4 +1,5 @@
 using System;
+using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
@@ -22,6 +23,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		string GetContractArticleRoute(int contractId);
 		Core.Domain.Model.ContractSales.Article GetArticle(int articleId);
 	    StatisticsView GetStatisticsView();
-        void UpdateView(StatisticsView view);
+        void UpdateView(StatisticsView view, Controller controller, string downloadAction);
 	}
 }

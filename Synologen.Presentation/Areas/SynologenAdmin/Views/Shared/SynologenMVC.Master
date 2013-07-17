@@ -9,6 +9,7 @@
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js" type="text/javascript"></script>
     <script src="/Components/Synologen/Scripts/modernizr.custom.97088.js" type="text/javascript"></script>
 	<script src="/Components/Synologen/Scripts/Synologen.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server"></asp:ContentPlaceHolder>
 </asp:Content>
 
 <asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" runat="server">

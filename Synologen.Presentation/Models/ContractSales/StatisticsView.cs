@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 {
@@ -12,24 +15,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         {
             Contracts = new List<ContractListItem>();
             Companies = new List<CompanyListItem>();
-            Download = new DownloadContext();
         }
 
         [DisplayName("Avtal"), Required]
         public int SelectedContractId { get; set; }
         public List<ContractListItem> Contracts { get; set; }
+        public string SelectedContractName { get; set; }
 
         [DisplayName("Företag")]
         public int? SelectedContractCompanyId { get; set; }
         public List<CompanyListItem> Companies { get; set; }
+        public string SelectedContractCompanyName { get; set; }
 
         [DisplayName("Från")]
         public DateTime? From { get; set; }
 
         [DisplayName("To")]
         public DateTime? To { get; set; }
-
-        public DownloadContext Download { get; set; }
 
         public SelectList GetContractsSelectList()
         {
@@ -40,22 +42,64 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         {
             return new SelectList(Companies, "Id", "Name");
         }
-    }
 
-    public class DownloadContext
-    {
-        public bool DisplayUrl { get; protected set; }
-        public string Url { get; protected set; }
-        public void Set(string url)
+        public StatisticsQueryArgument GetQueryArgument()
         {
-            Url = url;
-            DisplayUrl = true;
+            return new StatisticsQueryArgument
+            {
+                CompanyId = SelectedContractCompanyId,
+                ContractId = SelectedContractId,
+                From = From,
+                To = To.HasValue ? To.Value.AddDays(1) : (DateTime?)null
+            };
         }
 
-        public void Reset()
+        public string Serialize()
         {
-            Url = null;
-            DisplayUrl = false;
+            return new JavaScriptSerializer().Serialize(this);
+        }
+
+        public string CreateFileName()
+        {
+            return "Statistik{SelectedContractCompany}{Interval}.xlsx"
+                .ReplaceWith(new
+                {
+                    SelectedContractCompany = GetContractCompanyFormat(), 
+                    Interval = GetCurrentIntervalFormat()
+                });
+        }
+
+        protected string GetContractCompanyFormat()
+        {
+            if (!string.IsNullOrEmpty(SelectedContractCompanyName) && !string.IsNullOrEmpty(SelectedContractName))
+            {
+                return string.Format(" {0} - {1}", SelectedContractName, SelectedContractCompanyName);
+            }
+
+            if (!string.IsNullOrEmpty(SelectedContractName))
+            {
+                return string.Format(" {0}", SelectedContractName);
+            }
+            return null;
+        }
+
+        protected string GetCurrentIntervalFormat()
+        {
+            if (From.HasValue && To.HasValue)
+            {
+                return string.Format(" {0} - {1}", From.Value.ToShortDateString(), To.Value.ToShortDateString());
+            }
+
+            if (From.HasValue)
+            {
+                return string.Format(" Från {0}", From.Value.ToShortDateString());
+            }
+
+            if (To.HasValue)
+            {
+                return string.Format(" Till {0}", To.Value.ToShortDateString());
+            }
+            return null;
         }
     }
 

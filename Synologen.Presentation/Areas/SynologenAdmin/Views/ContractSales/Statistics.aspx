@@ -1,32 +1,21 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.ContractSales.StatisticsView>" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="SubMenu" runat="server">
-<% Html.RenderPartial("ContractSalesSubMenu"); %>
-</asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="ScriptContent" runat="server">
+<script src="<%=Url.Content("~/Components/Synologen/Scripts/ContractSales/statistics.js")%>"></script> 
 <script>
     $(document).ready(function () {
-        function statisticsViewModel(model) {
-            var self = this;
-            self.selectedContract = ko.observable(model.SelectedContractId);
-            self.selectedCompany = ko.observable(model.SelectedContractCompanyId);            
-            self.contracts = ko.observableArray(model.Contracts);
-            self.companies = ko.observableArray(model.Companies);    
-            self.selectableCompanies = ko.computed(function () {
-                if (self.selectedContract()) {
-                    return ko.utils.arrayFilter(self.companies(), function (item) {
-                        return item.ContractId === self.selectedContract();
-                    });
-                } else {
-                    return ko.observableArray([]);
-                }
-            }, self);
-        }
-
-        var viewModel = new statisticsViewModel(<%= new JavaScriptSerializer().Serialize(Model) %>);
+        var viewModel = new StatisticsViewModel(<%=Model.Serialize()%>);
         ko.applyBindings(viewModel);
     });
-</script>    
-<div id="dCompMain" class="Components-Synologen-ContractSales-OrderView-aspx">
+</script>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="SubMenu" runat="server">
+<% Html.RenderPartial("ContractSalesSubMenu"); %>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+<div id="dCompMain" class="Components-Synologen-ContractSales-Statistics-aspx">
 	<div class="fullBox">
 		<div class="wrap">
 		    <% Html.EnableClientValidation(); %>
@@ -52,17 +41,12 @@
 					<%= Html.TextBoxFor(x => x.To, new { type = "date", @class = "datepicker"}) %>
 				</div>
                 <div class="formCommands">
+                    <input type="hidden" id="SelectedContractName" name="SelectedContractName" data-bind="value: selectedContractName()"/>
+                    <input type="hidden" id="SelectedContractCompanyName" name="SelectedContractCompanyName" data-bind="value: selectedCompanyName()"/>
                     <button type="submit" class="btnBig" data-bind="enable: selectedContract()">Generera</button>
                 </div>
 			</fieldset>	
-            <% } %>		
-            <%if(Model.Download.DisplayUrl){ %>
-            <br/>
-            <fieldset>
-                <legend>Nedladdning</legend>
-                <a id="statistics-download" href="<%=Model.Download.Url%>" title="Ladda ner statistik">Ladda ner statistik</a>
-            </fieldset>
-            <% } %>	
+            <% } %>
 		</div>
 	</div>
 </div>	

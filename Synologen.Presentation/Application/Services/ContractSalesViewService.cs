@@ -2,23 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
-using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
-using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
@@ -243,19 +236,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 	    public StatisticsView GetStatisticsView()
 	    {
-	        return new StatisticsView { Contracts = GetAllContracts(), Companies = GetAllCompanies() };
+	        return new StatisticsView
+	        {
+	            Contracts = GetAllContracts(), 
+                Companies = GetAllCompanies(),
+	        };
 	    }
 
-	    public void UpdateView(StatisticsView view, Controller controller, string downloadAction)
+	    public void UpdateStatisticsView(StatisticsView model)
 	    {
-	        view.Contracts = GetAllContracts();
-	        view.Companies = GetAllCompanies();
-            var routeValues = controller.Request.Form.ToRouteValueDictionary().BlackList("controller", "action");
-            var url = controller.Url.Action("StatisticsDownload", routeValues);
-            view.Download.Set(url);
+	        model.Contracts = GetAllContracts();
+            model.Companies = GetAllCompanies();
 	    }
 
-        protected List<ContractListItem> GetAllContracts()
+	    protected List<ContractListItem> GetAllContracts()
         {
             return _synologenSqlProvider.GetContracts(FetchCustomerContract.All, 0, 0, null)
                 .Tables[0].AsEnumerable()

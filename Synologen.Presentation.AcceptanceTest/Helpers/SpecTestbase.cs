@@ -12,6 +12,8 @@ using Spinit.Test.Web;
 using Spinit.Test.Web.MVC;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Test.Data;
 using StoryQ.Infrastructure;
 using StoryQ.sv_SE;
@@ -94,6 +96,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		    };
 		    return controller;
 		}
+
+        protected IList<IWpcActionMessage> GetActionMessages(Controller controller)
+        {
+            return controller.TempData[WpcActionMessageExtensions.DefaultActionMessagesTempDataKey] as IList<IWpcActionMessage>;
+        }
 
 		protected TShop CreateShop<TShop>(string shopName = "Testbutik")
 		{

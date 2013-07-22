@@ -20,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
         protected readonly EntityListItem DefaultFrame = new EntityListItem { Id = 0, Name = "-- Välj båge --" };
         protected readonly EntityListItem DefaultSupplier = new EntityListItem { Id = 0, Name = "-- Välj leverantör --" };
         protected readonly EntityListItem DefaultGlassType = new EntityListItem { Id = 0, Name = "-- Välj glastyp --" };
-		protected readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
         private readonly IFrameRepository _frameRepository;
         private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
         private readonly IFrameOrderRepository _frameOrderRepository;
@@ -63,8 +62,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
             View.Model.SelectedFrameId = 0;
             View.Model.SelectedGlassTypeId = 0;
 
-            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
-            View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameGlassTypeViewList().InsertFirst(DefaultGlassType);
+            View.Model.FramesList = GetFrames(e.SelectedSupplierId);
+            View.Model.GlassTypesList = GetGlassTypes(e.SelectedSupplierId);
         }
 
 	    public void GlassType_Selected(object sender, IGlassTypeSelectedEventArgs e)
@@ -105,8 +104,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 	    }
 
 	    public void View_Load(object sender, EventArgs e)
-		{
-            View.Model.SupplierList = _frameSupplierRepository.GetAll().ToFrameSupplierList().InsertFirst(DefaultSupplier);
+	    {
+	        View.Model.SupplierList = GetSuppliers();
             View.Model.FramesList = new List<Frame>().ToFrameViewList().InsertFirst(DefaultFrame);
             View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
             View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
@@ -154,6 +153,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		{
 		}
 
+        protected IEnumerable<EntityListItem> GetFrames(int selectedSupplierId)
+        {
+            return _frameRepository
+                .FindBy(new AllOrderableFramesCriteria(selectedSupplierId))
+                .ToFrameViewList()
+                .InsertFirst(DefaultFrame);
+        }
+
+        protected IEnumerable<EntityListItem> GetGlassTypes(int selectedSupplierId)
+        {
+            return _frameGlassTypeRepository
+                .GetAll()
+                .Where(x => x.Supplier.Id == selectedSupplierId)
+                .OrderBy(x => x.Name).ToFrameGlassTypeViewList()
+                .InsertFirst(DefaultGlassType);
+        }
+
+        protected IEnumerable<EntityListItem> GetSuppliers()
+        {
+            return _frameSupplierRepository
+                .GetAll().ToFrameSupplierList()
+                .OrderBy(x => x.Name)
+                .InsertFirst(DefaultSupplier);
+        }
+
         protected void InitiateEventHandlers()
         {
             View.Load += View_Load;
@@ -178,8 +202,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
                 return;
             }
 
-            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == frameOrder.Frame.Supplier.Id).ToFrameViewList().InsertFirst(DefaultFrame);
-            View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().Where(x => x.Supplier.Id == frameOrder.Supplier.Id).ToFrameGlassTypeViewList().InsertFirst(DefaultGlassType);
+            View.Model.FramesList = GetFrames(frameOrder.Frame.Supplier.Id);
+            View.Model.GlassTypesList = GetGlassTypes(frameOrder.Supplier.Id);
             View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
             View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.GlassType.Sphere.GetList(), "Sfär");
             View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.GlassType.Cylinder.GetList(), "Cylinder");

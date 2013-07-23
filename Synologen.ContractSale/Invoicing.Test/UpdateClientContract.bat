@@ -1,0 +1,1 @@
+"C:\Program\Microsoft SDKs\Windows\v6.0A\bin\svcutil.exe" /noConfig http://orchid.colors.se/SynologenWebService/SynologenService.svc?wsdl

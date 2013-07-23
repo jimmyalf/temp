@@ -1,0 +1,96 @@
+/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+================================================*/
+/* =Valid colors
+	---------------------------------
+	#990000		Background (error)
+	#444		Text
+	#AAA		Borders, Background (dark)
+	#DDD		Background, Gradient (medium)
+	#EEE		Background, Gradient (light)
+	#FFFFDD		Hoverstyle
+	White		Background, Borders, Text
+	---------------------------------
+*/
+
+/* =Body, Head
+================================================*/
+body
+{
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif;
+	font-size: 62.5%;
+	color: #444;
+	background-color: White;
+}
+
+/* =Headings
+================================================*/
+h1,h2,h3,h4,h5,h6
+{
+	font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif;
+	color: #444;
+	background-color: inherit;
+}
+h1 {margin-top: 0; margin-bottom: .4em; font-size: 1.5em;}
+h2 {margin-top: 0; margin-bottom: .2em; font-size: 1.3em;}
+h3 {margin-top: 0; margin-bottom: .2em; font-size: 1.1em;}
+
+/* =Text
+================================================*/
+p {}
+
+/* =Links
+================================================*/
+a {font-weight: bold; text-decoration: none; color: #444; background-color: inherit;}
+a,
+a:link,
+a:visited {border-bottom: dotted 1px #444;}
+a:hover,
+a:focus {color: #444; background-color: #FFFFDD; border-bottom: solid 1px #444;}
+a[disabled="disabled"] {color: #AAA; background-color: inherit; border-bottom: solid 1px #AAA;}
+
+/* =Lists
+================================================*/
+ul {list-style-type: none;}
+
+/* =Images
+================================================*/
+img  {border: 0; color: #444; background-color: inherit;}
+
+/* =Tables
+================================================*/
+table {clear: both; width: 100%; margin-top: 0; font-size: 1em;}
+table caption {display: none;}
+thead th {padding: .5em; text-align: center; color: #444; background: #DDD url(../img/TableHeaderBG.png) repeat-x bottom left; border: solid 1px #AAA;}
+tbody {border: solid 1px #AAA;}
+tbody td,
+tbody th {padding: .3em .5em; vertical-align: middle; font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif; background-color: White; border-bottom: solid 1px #DDD;}
+tbody tr:hover th,
+tbody tr:hover td {color: inherit; background-color: #FFFFDD;}
+tbody tr:last-child td {border-bottom: solid 1px #AAA;}
+
+/* =Forms
+================================================*/
+fieldset {margin: 0; padding: 10px; color: inherit; background-color: #EEE; border: solid 1px #AAA;}
+fieldset + fieldset {margin-top: 1em;}
+legend {padding: .2em .5em; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; font-weight: bold; color: White; background-color: #AAA;}
+label {display: block; float: left; width: auto; margin-right: .5em; padding-bottom: .2em; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1em; font-weight: bold; color: #444; background-color: inherit;}
+label em {font-weight: normal; font-style: normal;}
+select {font-family: "Lucida Grande", Verdana, Arial, Tahoma, Sans-Serif; font-size: 1em; color: #444; background-color: White;}
+textarea {width: 90%; font-family: "Lucida Grande", Verdana, Arial, Tahoma, Sans-Serif; font-size: 1em; color: #444; background: White;}
+input[type="text"],
+input[type="password"] {width: 20em; padding-left: 0.2em; font-size: 1em; font-family: "Lucida Grande", Verdana, Arial, Tahoma, Sans-Serif; color: #444; background: White;}
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input[type="file"],
+button {color: #444; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-weight: normal;}
+button img {border: 0; vertical-align: middle;}
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {color: #444; background-color: #FFFFDD;}

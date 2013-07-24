@@ -76,39 +76,36 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 		{
 			return new SvefakturaConversionSettings
 			{
-				SellingOrganizationName = "Synhälsan Svenska AB",
+				SellingOrganizationName = "Synologen Service AB",
 				Adress = new SFTIAddressType
 				{
-					StreetName = new StreetNameType{ Value = "Strandbergsgatan 61" },
-					CityName = new CityNameType{ Value = "Stockholm" },
+					StreetName = new StreetNameType { Value = "Strandbergsgatan 61" },
+					CityName = new CityNameType { Value = "Stockholm" },
 					Country = GetSwedishSFTICountryType(),
-					//Postbox = new PostboxType{ Value = "Box 123" },
-					PostalZone = new ZoneType{ Value = "112 51"}
+					PostalZone = new ZoneType { Value = "112 51" }
 
 				},
 				RegistrationAdress = new SFTIAddressType
 				{
-					CityName = new CityNameType{ Value = "Klippan" },
+					CityName = new CityNameType { Value = "Klippan" },
 					Country = GetSwedishSFTICountryType(),
 				},
 				Contact = new SFTIContactType
 				{
-					ElectronicMail = new MailType{Value = "info@synologen.se"},
-					Name = new NameType{ Value = "Violetta Nordlöf"},
-					Telefax = new TelefaxType{Value = "084407359"},
-					Telephone = new TelephoneType{ Value = "084407350" }
+					ElectronicMail = new MailType { Value = "info@synologen.se" },
+					Name = new NameType { Value = "Violetta Nordlöf" },
+					Telefax = new TelefaxType { Value = "084407359" },
+					Telephone = new TelephoneType { Value = "084407350" }
 				},
 				SellingOrganizationNumber = "5562626100",
 				ExemptionReason = "Innehar F-skattebevis",
 				TaxAccountingCode = "SE556262610001",
-				InvoiceIssueDate = new DateTime(2009, 10, 30),
+				InvoiceIssueDate = DateTime.Now.Date,//new DateTime(2009, 10, 30),
 				InvoiceTypeCode = "380",
 				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
 				VATAmount = 0.25m,
 				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "BGABSESS",
-				//Postgiro = "123456",
-				//PostgiroBankIdentificationCode = "PGSISESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
 				InvoiceExpieryPenaltySurchargePercent = 8m,
 				VATFreeReasonMessage = "Momsfri"

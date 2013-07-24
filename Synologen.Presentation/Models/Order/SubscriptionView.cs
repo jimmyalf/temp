@@ -112,8 +112,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public SubscriptionItemListItem(SubscriptionItem subscriptionItem)
 		{
 			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
-			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
-			//Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
+			PerformedWithdrawals = subscriptionItem.IsOngoing 
+                ? subscriptionItem.PerformedWithdrawals.ToString()
+                : "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
+		    Status = subscriptionItem.Status.GetEnumDisplayName();
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 		}
 		public string Status { get; set; }

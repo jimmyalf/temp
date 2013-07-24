@@ -113,10 +113,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		{
 			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
 			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
-			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
+			//Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 		}
-		public string Active { get; set; }
+		public string Status { get; set; }
 		public string PerformedWithdrawals { get; set; }
 		public string MontlyAmount { get; set; }
 		public string CreatedDate { get; set; }		

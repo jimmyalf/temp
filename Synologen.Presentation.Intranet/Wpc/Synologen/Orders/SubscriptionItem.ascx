@@ -51,8 +51,18 @@
 			<label>Dragningsbelopp</label>
 			<span><%#Model.MonthlyWithdrawalAmount %></span>
     	</p>
+    	<p>
+			<label>Status</label>
+			<span><%#Model.Status %></span>
+    	</p>
 		<p class="control-actions">
-			<asp:Button runat="server" OnClick="Submit_SubscriptionItem" Text="Spara"/>
+   			<asp:Button runat="server" OnClick="Submit_SubscriptionItem" Text="Spara"/>
+            <% if (Model.IsActive) { %>
+            <asp:Button runat="server" OnClick="Stop_SubscriptionItem" Text="Stoppa"/>
+            <% } %>
+            <% if (Model.IsStopped) { %>
+            <asp:Button runat="server" OnClick="Start_SubscriptionItem" Text="Starta"/>
+            <% } %>
 		</p>
 		<asp:ValidationSummary runat="server" CssClass="error-list" />
 		<p>

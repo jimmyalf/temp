@@ -5,6 +5,8 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -13,7 +15,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 	[TestFixture, Category("View_SubscriptionItem")]
-	public class View_SubscriptionItem : GeneralOrderSpecTestbase<SubscriptionItemPresenter,ISubscriptionItemView>
+	public class View_SubscriptionItem : GeneralOrderSpecTestbase<SubscriptionItemPresenter, ISubscriptionItemView>
 	{
 		private SubscriptionItemPresenter _presenter;
 		private Shop _shop;
@@ -48,8 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(BegränsatDelAbonnemangFinns)
 				.När(SidanVisas)
 				.Så(VisasDelAbonnemangsInformation)
-					.Och(TillbakaLänkVisas)
-			);
+					.Och(TillbakaLänkVisas));
 		}
 
 		[Test]
@@ -59,8 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(LöpandeDelAbonnemangFinns)
 				.När(SidanVisas)
 				.Så(VisasDelAbonnemangsInformation)
-					.Och(TillbakaLänkVisas)
-			);
+					.Och(TillbakaLänkVisas));
 		}
 
 		[Test]
@@ -70,8 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(BegränsatDelAbonnemangFinns)
 					.Och(FormuläretÄrIfylltFörBegränsatAbonnemang)
 				.När(FormuläretSparas)
-				.Så(UppdaterasDelabonnemanget)
-			);
+				.Så(UppdaterasDelabonnemanget));
 		}
 
 		[Test]
@@ -81,9 +80,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(LöpandeDelAbonnemangFinns)
 					.Och(FormuläretÄrIfylltFörLöpandeAbonnemang)
 				.När(FormuläretSparas)
-				.Så(UppdaterasDelabonnemanget)
-			);
+				.Så(UppdaterasDelabonnemanget));
 		}
+
+        [Test]
+        public void StoppaAbonnemang()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(LöpandeDelAbonnemangFinns)
+                    .Och(OchAbonnemangStatusÄr, SubscriptionItemStatus.Active)
+                .När(AbonnemangetStoppas)
+                .Så(StoppasDelabonnemanget));
+        }
+
+	    [Test]
+        public void StartaAbonnemang()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(LöpandeDelAbonnemangFinns)
+                    .Och(OchAbonnemangStatusÄr, SubscriptionItemStatus.Stopped)
+                .När(AbonnemangetStartas)
+                .Så(StartasDelabonnemanget));
+        }
 
 		[Test]
 		public void DelAbonnemangTillhörInteAktuellButik()
@@ -91,11 +109,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			SetupScenario(scenario => scenario
 				.Givet(DelAbonnemangFinnsSomTillhörEnAnnanButik)
 				.När(SidanVisas)
-				.Så(SkallEttExceptionKastas)
-			);
+				.Så(SkallEttExceptionKastas));
 		}
 
 		#region Arrange
+
 		private void BegränsatDelAbonnemangFinns()
 		{
 			_subscriptionItem = CreateSubscriptionItem(_subscription);
@@ -125,6 +143,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				WithdrawalsLimit = 10
 			};
 		}
+
 		private void FormuläretÄrIfylltFörLöpandeAbonnemang()
 		{
 			_form = new SubmitSubscriptionItemEventArgs
@@ -135,27 +154,61 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				CustomMonthlyProductAmount = 850
 			};
 		}
+
+        private void OchAbonnemangStatusÄr(SubscriptionItemStatus status)
+        {
+            if (status == SubscriptionItemStatus.Active)
+            {
+                _subscriptionItem.Start();
+            }
+
+            if (status == SubscriptionItemStatus.Stopped)
+            {
+                _subscriptionItem.Stop();
+            }
+
+            WithRepository<SubscriptionItemRepository, SubscriptionItem>(repo =>
+            {
+                repo.Save(_subscriptionItem);
+                return _subscriptionItem;
+            });
+        }
+
 		#endregion
 
 		#region Act
+
 		private void SidanVisas()
 		{
 			_thrownException = CatchExceptionWhile(() => _presenter.View_Load(null, new EventArgs()));
 		}
+
 		private void FormuläretSparas()
 		{
 			_presenter.View_Submit(null, _form);
 		}
+
+        private void AbonnemangetStartas()
+        {
+            _presenter.StartSubscriptionItem(null, new EventArgs());
+        }
+
+        private void AbonnemangetStoppas()
+        {
+            _presenter.StopSubscriptionItem(null, new EventArgs());
+        }
+
 		#endregion
 
 		#region Assert
+
 		private void VisasDelAbonnemangsInformation()
 		{
-			View.Model.Active.ShouldBe(_subscriptionItem.IsActive ? "Ja" : "Nej");
-			View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Taxed);
+		    AssertSubscriptionItemStatus(View.Model.Status, _subscriptionItem);
+		    View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Taxed);
 			View.Model.FeePrice.ShouldBe(_subscriptionItem.Value.TaxFree);
 			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Total.ToString("C2"));
-			if(View.Model.IsOngoing)
+			if (View.Model.IsOngoing)
 			{
 				View.Model.CustomMonthlyFeeAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.TaxFree);
 				View.Model.CustomMonthlyProductAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Taxed);
@@ -164,6 +217,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit.Value);
 			}
+
 			View.Model.CreatedDate.ShouldBe(_subscriptionItem.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.NumerOfPerformedWithdrawals.ShouldBe(_subscriptionItem.PerformedWithdrawals);
 			View.Model.SubscriptionBankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
@@ -173,7 +227,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void UppdaterasDelabonnemanget()
 		{
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
-			if(_subscriptionItem.IsOngoing)
+			if (_subscriptionItem.IsOngoing)
 			{
 				updatedSubscriptionItem.MonthlyWithdrawal.TaxFree.ShouldBe(_form.CustomMonthlyFeeAmount.Value);
 				updatedSubscriptionItem.MonthlyWithdrawal.Taxed.ShouldBe(_form.CustomMonthlyProductAmount.Value);
@@ -182,20 +236,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
 			}
+
 			updatedSubscriptionItem.Value.TaxFree.ShouldBe(_form.FeeAmount);
 			updatedSubscriptionItem.Value.Taxed.ShouldBe(_form.ProductAmount);
 		}
 
 		private void TillbakaLänkVisas()
 		{
-			View.Model.ReturnUrl.ShouldBe(_returnUrl + "?subscription=" +_subscription.Id);
+			View.Model.ReturnUrl.ShouldBe(_returnUrl + "?subscription=" + _subscription.Id);
 		}
 
     	private void SkallEttExceptionKastas()
     	{
     		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
     	}
+
+        private void StartasDelabonnemanget()
+        {
+            var subscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
+            subscriptionItem.Status.ShouldBe(SubscriptionItemStatus.Active);
+        }
+
+        private void StoppasDelabonnemanget()
+        {
+            var subscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
+            subscriptionItem.Status.ShouldBe(SubscriptionItemStatus.Stopped);
+        }
+
 		#endregion
 	}
-
 }

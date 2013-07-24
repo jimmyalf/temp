@@ -49,35 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label10 = new DataDynamics.ActiveReports.Label();
             this.label11 = new DataDynamics.ActiveReports.Label();
             this.label12 = new DataDynamics.ActiveReports.Label();
-            this.label13 = new DataDynamics.ActiveReports.Label();
-            this.label14 = new DataDynamics.ActiveReports.Label();
-            this.label15 = new DataDynamics.ActiveReports.Label();
-            this.label16 = new DataDynamics.ActiveReports.Label();
-            this.label17 = new DataDynamics.ActiveReports.Label();
-            this.label18 = new DataDynamics.ActiveReports.Label();
-            this.label19 = new DataDynamics.ActiveReports.Label();
-            this.label20 = new DataDynamics.ActiveReports.Label();
-            this.label21 = new DataDynamics.ActiveReports.Label();
-            this.label22 = new DataDynamics.ActiveReports.Label();
-            this.label23 = new DataDynamics.ActiveReports.Label();
-            this.label24 = new DataDynamics.ActiveReports.Label();
-            this.label25 = new DataDynamics.ActiveReports.Label();
-            this.label26 = new DataDynamics.ActiveReports.Label();
-            this.label28 = new DataDynamics.ActiveReports.Label();
-            this.label29 = new DataDynamics.ActiveReports.Label();
-            this.label30 = new DataDynamics.ActiveReports.Label();
-            this.label31 = new DataDynamics.ActiveReports.Label();
-            this.label32 = new DataDynamics.ActiveReports.Label();
-            this.label33 = new DataDynamics.ActiveReports.Label();
-            this.label34 = new DataDynamics.ActiveReports.Label();
             this.label35 = new DataDynamics.ActiveReports.Label();
-            this.label36 = new DataDynamics.ActiveReports.Label();
-            this.label37 = new DataDynamics.ActiveReports.Label();
-            this.label38 = new DataDynamics.ActiveReports.Label();
-            this.label39 = new DataDynamics.ActiveReports.Label();
-            this.label40 = new DataDynamics.ActiveReports.Label();
-            this.label41 = new DataDynamics.ActiveReports.Label();
-            this.label42 = new DataDynamics.ActiveReports.Label();
             this.label53 = new DataDynamics.ActiveReports.Label();
             this.label54 = new DataDynamics.ActiveReports.Label();
             this.label55 = new DataDynamics.ActiveReports.Label();
@@ -129,35 +101,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             ((System.ComponentModel.ISupportInitialize)(this.label10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label25)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label26)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label28)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label30)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label31)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label32)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label33)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label34)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label35)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label36)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label37)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label38)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label39)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label40)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label41)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label42)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label53)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label54)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.label55)).BeginInit();
@@ -211,7 +155,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             label5.Name = "label5";
             label5.Style = "";
             label5.Text = "Epost";
-            label5.Top = 1.771654F;
+            label5.Top = 1.968504F;
             label5.Width = 1.476378F;
             // 
             // label6
@@ -222,7 +166,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             label6.Name = "label6";
             label6.Style = "";
             label6.Text = "Mobiltelefon";
-            label6.Top = 1.968505F;
+            label6.Top = 2.165355F;
             label6.Width = 1.476378F;
             // 
             // label7
@@ -233,7 +177,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             label7.Name = "label7";
             label7.Style = "";
             label7.Text = "Telefon";
-            label7.Top = 2.165355F;
+            label7.Top = 2.362205F;
             label7.Width = 1.476378F;
             // 
             // label27
@@ -245,7 +189,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             label27.Name = "label27";
             label27.Style = "";
             label27.Text = "";
-            label27.Top = 2.952756F;
+            label27.Top = 3.051181F;
             label27.Width = 1.476378F;
             // 
             // lblHeader
@@ -278,36 +222,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label10,
             this.label11,
             this.label12,
-            this.label13,
-            this.label14,
-            this.label15,
-            this.label16,
-            this.label17,
-            this.label18,
-            this.label19,
-            this.label20,
-            this.label21,
-            this.label22,
-            this.label23,
-            this.label24,
-            this.label25,
-            this.label26,
             label27,
-            this.label28,
-            this.label29,
-            this.label30,
-            this.label31,
-            this.label32,
-            this.label33,
-            this.label34,
             this.label35,
-            this.label36,
-            this.label37,
-            this.label38,
-            this.label39,
-            this.label40,
-            this.label41,
-            this.label42,
             this.label53,
             this.label54,
             this.label55,
@@ -363,7 +279,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.lblPersonalNumber.Name = "lblPersonalNumber";
             this.lblPersonalNumber.Style = "";
             this.lblPersonalNumber.Text = "";
-            this.lblPersonalNumber.Top = 1.574804F;
+            this.lblPersonalNumber.Top = 1.771654F;
             this.lblPersonalNumber.Width = 1.476378F;
             // 
             // lblEmail
@@ -375,7 +291,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Style = "";
             this.lblEmail.Text = "";
-            this.lblEmail.Top = 1.771654F;
+            this.lblEmail.Top = 1.968504F;
             this.lblEmail.Width = 1.476379F;
             // 
             // lblMobilePhone
@@ -387,7 +303,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.lblMobilePhone.Name = "lblMobilePhone";
             this.lblMobilePhone.Style = "";
             this.lblMobilePhone.Text = "";
-            this.lblMobilePhone.Top = 1.968505F;
+            this.lblMobilePhone.Top = 2.165355F;
             this.lblMobilePhone.Width = 1.476379F;
             // 
             // lblTelephone
@@ -399,7 +315,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.lblTelephone.Name = "lblTelephone";
             this.lblTelephone.Style = "";
             this.lblTelephone.Text = "";
-            this.lblTelephone.Top = 2.165355F;
+            this.lblTelephone.Top = 2.362205F;
             this.lblTelephone.Width = 1.476379F;
             // 
             // lblAddressRowOne
@@ -431,11 +347,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label9.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label9.Height = 0.1968504F;
             this.label9.HyperLink = null;
-            this.label9.Left = 0.0984252F;
+            this.label9.Left = 0.09842544F;
             this.label9.Name = "label9";
             this.label9.Style = "font-size: 9.75pt; font-weight: bold; ddo-char-set: 0";
             this.label9.Text = "Höger öga";
-            this.label9.Top = 2.755906F;
+            this.label9.Top = 2.854331F;
             this.label9.Width = 2.952756F;
             // 
             // label10
@@ -447,7 +363,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label10.Name = "label10";
             this.label10.Style = "font-size: 9.75pt; font-weight: bold; ddo-char-set: 0";
             this.label10.Text = "Vänster öga";
-            this.label10.Top = 2.755906F;
+            this.label10.Top = 2.854331F;
             this.label10.Width = 2.952756F;
             // 
             // label11
@@ -458,257 +374,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label11.Name = "label11";
             this.label11.Style = "";
             this.label11.Text = "Artikel";
-            this.label11.Top = 2.952756F;
+            this.label11.Top = 3.051181F;
             this.label11.Width = 1.476378F;
             // 
             // label12
             // 
             this.label12.Height = 0.1968504F;
             this.label12.HyperLink = null;
-            this.label12.Left = 0.0984252F;
+            this.label12.Left = 0.09842544F;
             this.label12.Name = "label12";
             this.label12.Style = "";
             this.label12.Text = "Artikel";
-            this.label12.Top = 2.952756F;
+            this.label12.Top = 3.051181F;
             this.label12.Width = 1.476378F;
-            // 
-            // label13
-            // 
-            this.label13.Height = 0.1968504F;
-            this.label13.HyperLink = null;
-            this.label13.Left = 0.0984252F;
-            this.label13.Name = "label13";
-            this.label13.Style = "";
-            this.label13.Text = "Antal boxar";
-            this.label13.Top = 3.346457F;
-            this.label13.Width = 1.476378F;
-            // 
-            // label14
-            // 
-            this.label14.Height = 0.1968504F;
-            this.label14.HyperLink = null;
-            this.label14.Left = 3.248032F;
-            this.label14.Name = "label14";
-            this.label14.Style = "";
-            this.label14.Text = "Antal boxar";
-            this.label14.Top = 3.346457F;
-            this.label14.Width = 1.476378F;
-            // 
-            // label15
-            // 
-            this.label15.Height = 0.1968504F;
-            this.label15.HyperLink = null;
-            this.label15.Left = 0.0984252F;
-            this.label15.Name = "label15";
-            this.label15.Style = "";
-            this.label15.Text = "Styrka";
-            this.label15.Top = 3.543307F;
-            this.label15.Width = 1.476378F;
-            // 
-            // label16
-            // 
-            this.label16.Height = 0.1968504F;
-            this.label16.HyperLink = null;
-            this.label16.Left = 3.248032F;
-            this.label16.Name = "label16";
-            this.label16.Style = "";
-            this.label16.Text = "Styrka";
-            this.label16.Top = 3.543307F;
-            this.label16.Width = 1.476378F;
-            // 
-            // label17
-            // 
-            this.label17.Height = 0.1968504F;
-            this.label17.HyperLink = null;
-            this.label17.Left = 0.0984252F;
-            this.label17.Name = "label17";
-            this.label17.Style = "";
-            this.label17.Text = "Addition";
-            this.label17.Top = 3.740158F;
-            this.label17.Width = 1.476378F;
-            // 
-            // label18
-            // 
-            this.label18.Height = 0.1968504F;
-            this.label18.HyperLink = null;
-            this.label18.Left = 3.248032F;
-            this.label18.Name = "label18";
-            this.label18.Style = "";
-            this.label18.Text = "Addition";
-            this.label18.Top = 3.740158F;
-            this.label18.Width = 1.476378F;
-            // 
-            // label19
-            // 
-            this.label19.Height = 0.1968504F;
-            this.label19.HyperLink = null;
-            this.label19.Left = 0.0984252F;
-            this.label19.Name = "label19";
-            this.label19.Style = "";
-            this.label19.Text = "Baskurva";
-            this.label19.Top = 3.937008F;
-            this.label19.Width = 1.476378F;
-            // 
-            // label20
-            // 
-            this.label20.Height = 0.1968504F;
-            this.label20.HyperLink = null;
-            this.label20.Left = 3.248032F;
-            this.label20.Name = "label20";
-            this.label20.Style = "";
-            this.label20.Text = "Baskurva";
-            this.label20.Top = 3.937008F;
-            this.label20.Width = 1.476378F;
-            // 
-            // label21
-            // 
-            this.label21.Height = 0.1968504F;
-            this.label21.HyperLink = null;
-            this.label21.Left = 0.0984252F;
-            this.label21.Name = "label21";
-            this.label21.Style = "";
-            this.label21.Text = "Diameter";
-            this.label21.Top = 4.133859F;
-            this.label21.Width = 1.476378F;
-            // 
-            // label22
-            // 
-            this.label22.Height = 0.1968504F;
-            this.label22.HyperLink = null;
-            this.label22.Left = 3.248032F;
-            this.label22.Name = "label22";
-            this.label22.Style = "";
-            this.label22.Text = "Diameter";
-            this.label22.Top = 4.133859F;
-            this.label22.Width = 1.476378F;
-            // 
-            // label23
-            // 
-            this.label23.Height = 0.1968504F;
-            this.label23.HyperLink = null;
-            this.label23.Left = 0.0984252F;
-            this.label23.Name = "label23";
-            this.label23.Style = "";
-            this.label23.Text = "Cylinder";
-            this.label23.Top = 4.330709F;
-            this.label23.Width = 1.476378F;
-            // 
-            // label24
-            // 
-            this.label24.Height = 0.1968504F;
-            this.label24.HyperLink = null;
-            this.label24.Left = 3.248032F;
-            this.label24.Name = "label24";
-            this.label24.Style = "";
-            this.label24.Text = "Cylinder";
-            this.label24.Top = 4.330709F;
-            this.label24.Width = 1.476378F;
-            // 
-            // label25
-            // 
-            this.label25.Height = 0.1968504F;
-            this.label25.HyperLink = null;
-            this.label25.Left = 0.0984252F;
-            this.label25.Name = "label25";
-            this.label25.Style = "";
-            this.label25.Text = "Axel";
-            this.label25.Top = 4.527559F;
-            this.label25.Width = 1.476378F;
-            // 
-            // label26
-            // 
-            this.label26.Height = 0.1968504F;
-            this.label26.HyperLink = null;
-            this.label26.Left = 3.248032F;
-            this.label26.Name = "label26";
-            this.label26.Style = "";
-            this.label26.Text = "Axel";
-            this.label26.Top = 4.527559F;
-            this.label26.Width = 1.476378F;
-            // 
-            // label28
-            // 
-            this.label28.DataField = "Recipie.Quantity.Right";
-            this.label28.Height = 0.1968504F;
-            this.label28.HyperLink = null;
-            this.label28.Left = 1.574803F;
-            this.label28.Name = "label28";
-            this.label28.Style = "";
-            this.label28.Text = "";
-            this.label28.Top = 3.346457F;
-            this.label28.Width = 1.476378F;
-            // 
-            // label29
-            // 
-            this.label29.DataField = "Recipie.Power.Right";
-            this.label29.Height = 0.1968504F;
-            this.label29.HyperLink = null;
-            this.label29.Left = 1.574803F;
-            this.label29.Name = "label29";
-            this.label29.Style = "";
-            this.label29.Text = "";
-            this.label29.Top = 3.543307F;
-            this.label29.Width = 1.476378F;
-            // 
-            // label30
-            // 
-            this.label30.DataField = "Recipie.Addition.Right";
-            this.label30.Height = 0.1968504F;
-            this.label30.HyperLink = null;
-            this.label30.Left = 1.574803F;
-            this.label30.Name = "label30";
-            this.label30.Style = "";
-            this.label30.Text = "";
-            this.label30.Top = 3.740158F;
-            this.label30.Width = 1.476378F;
-            // 
-            // label31
-            // 
-            this.label31.DataField = "Recipie.BaseCurve.Right";
-            this.label31.Height = 0.1968504F;
-            this.label31.HyperLink = null;
-            this.label31.Left = 1.574803F;
-            this.label31.Name = "label31";
-            this.label31.Style = "";
-            this.label31.Text = "";
-            this.label31.Top = 3.937008F;
-            this.label31.Width = 1.476378F;
-            // 
-            // label32
-            // 
-            this.label32.DataField = "Recipie.Diameter.Right";
-            this.label32.Height = 0.1968504F;
-            this.label32.HyperLink = null;
-            this.label32.Left = 1.574803F;
-            this.label32.Name = "label32";
-            this.label32.Style = "";
-            this.label32.Text = "";
-            this.label32.Top = 4.133859F;
-            this.label32.Width = 1.476378F;
-            // 
-            // label33
-            // 
-            this.label33.DataField = "Recipie.Cylinder.Right";
-            this.label33.Height = 0.1968504F;
-            this.label33.HyperLink = null;
-            this.label33.Left = 1.574803F;
-            this.label33.Name = "label33";
-            this.label33.Style = "";
-            this.label33.Text = "";
-            this.label33.Top = 4.330709F;
-            this.label33.Width = 1.476378F;
-            // 
-            // label34
-            // 
-            this.label34.DataField = "Recipie.Axis.Right";
-            this.label34.Height = 0.1968504F;
-            this.label34.HyperLink = null;
-            this.label34.Left = 1.574803F;
-            this.label34.Name = "label34";
-            this.label34.Style = "";
-            this.label34.Text = "";
-            this.label34.Top = 4.527559F;
-            this.label34.Width = 1.476378F;
             // 
             // label35
             // 
@@ -719,92 +397,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label35.Name = "label35";
             this.label35.Style = "";
             this.label35.Text = "";
-            this.label35.Top = 2.952756F;
+            this.label35.Top = 3.051181F;
             this.label35.Width = 1.476378F;
-            // 
-            // label36
-            // 
-            this.label36.DataField = "Recipie.Quantity.Left";
-            this.label36.Height = 0.1968504F;
-            this.label36.HyperLink = null;
-            this.label36.Left = 4.72441F;
-            this.label36.Name = "label36";
-            this.label36.Style = "";
-            this.label36.Text = "";
-            this.label36.Top = 3.346457F;
-            this.label36.Width = 1.476378F;
-            // 
-            // label37
-            // 
-            this.label37.DataField = "Recipie.Power.Left";
-            this.label37.Height = 0.1968504F;
-            this.label37.HyperLink = null;
-            this.label37.Left = 4.72441F;
-            this.label37.Name = "label37";
-            this.label37.Style = "";
-            this.label37.Text = "";
-            this.label37.Top = 3.543307F;
-            this.label37.Width = 1.476378F;
-            // 
-            // label38
-            // 
-            this.label38.DataField = "Recipie.Addition.Left";
-            this.label38.Height = 0.1968504F;
-            this.label38.HyperLink = null;
-            this.label38.Left = 4.72441F;
-            this.label38.Name = "label38";
-            this.label38.Style = "";
-            this.label38.Text = "";
-            this.label38.Top = 3.740158F;
-            this.label38.Width = 1.476378F;
-            // 
-            // label39
-            // 
-            this.label39.DataField = "Recipie.BaseCurve.Left";
-            this.label39.Height = 0.1968504F;
-            this.label39.HyperLink = null;
-            this.label39.Left = 4.72441F;
-            this.label39.Name = "label39";
-            this.label39.Style = "";
-            this.label39.Text = "";
-            this.label39.Top = 3.937008F;
-            this.label39.Width = 1.476378F;
-            // 
-            // label40
-            // 
-            this.label40.DataField = "Recipie.Diameter.Left";
-            this.label40.Height = 0.1968504F;
-            this.label40.HyperLink = null;
-            this.label40.Left = 4.72441F;
-            this.label40.Name = "label40";
-            this.label40.Style = "";
-            this.label40.Text = "";
-            this.label40.Top = 4.133859F;
-            this.label40.Width = 1.476378F;
-            // 
-            // label41
-            // 
-            this.label41.DataField = "Recipie.Cylinder.Left";
-            this.label41.Height = 0.1968504F;
-            this.label41.HyperLink = null;
-            this.label41.Left = 4.72441F;
-            this.label41.Name = "label41";
-            this.label41.Style = "";
-            this.label41.Text = "";
-            this.label41.Top = 4.330709F;
-            this.label41.Width = 1.476378F;
-            // 
-            // label42
-            // 
-            this.label42.DataField = "Recipie.Axis.Left";
-            this.label42.Height = 0.1968504F;
-            this.label42.HyperLink = null;
-            this.label42.Left = 4.72441F;
-            this.label42.Name = "label42";
-            this.label42.Style = "";
-            this.label42.Text = "";
-            this.label42.Top = 4.527559F;
-            this.label42.Width = 1.476378F;
             // 
             // label53
             // 
@@ -907,7 +501,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label2.Name = "label2";
             this.label2.Style = "";
             this.label2.Text = "Personnummer";
-            this.label2.Top = 1.574804F;
+            this.label2.Top = 1.771654F;
             this.label2.Width = 1.476378F;
             // 
             // label3
@@ -974,19 +568,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label63.Name = "label63";
             this.label63.Style = "font-size: 7pt; font-weight: bold; vertical-align: bottom; ddo-char-set: 1";
             this.label63.Text = "Medgivande till betalning via Autogiro";
-            this.label63.Top = 5.118111F;
-            this.label63.Width = 2.952756F;
+            this.label63.Top = 4.429134F;
+            this.label63.Width = 6.102363F;
             // 
             // label64
             // 
-            this.label64.Height = 0.4921275F;
+            this.label64.Height = 0.2952777F;
             this.label64.HyperLink = null;
             this.label64.Left = 0.0984252F;
             this.label64.Name = "label64";
             this.label64.Style = "font-size: 7pt; ddo-char-set: 1";
             this.label64.Text = resources.GetString("label64.Text");
-            this.label64.Top = 5.31496F;
-            this.label64.Width = 2.952756F;
+            this.label64.Top = 4.625983F;
+            this.label64.Width = 6.102363F;
             // 
             // label66
             // 
@@ -994,13 +588,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label66.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label66.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label66.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label66.Height = 0.3937008F;
+            this.label66.Height = 0.5905516F;
             this.label66.HyperLink = null;
-            this.label66.Left = 3.248032F;
+            this.label66.Left = 0.09842515F;
             this.label66.Name = "label66";
             this.label66.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label66.Text = "Ort datum *";
-            this.label66.Top = 5.118111F;
+            this.label66.Top = 5.019685F;
             this.label66.Width = 2.952756F;
             // 
             // label65
@@ -1009,14 +603,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label65.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label65.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label65.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label65.Height = 0.3937008F;
+            this.label65.Height = 0.5905516F;
             this.label65.HyperLink = null;
-            this.label65.Left = 3.248032F;
+            this.label65.Left = 3.051181F;
             this.label65.Name = "label65";
             this.label65.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label65.Text = "Betalarens underskrift *";
-            this.label65.Top = 5.511811F;
-            this.label65.Width = 2.952756F;
+            this.label65.Top = 5.019685F;
+            this.label65.Width = 3.149607F;
             // 
             // label67
             // 
@@ -1026,7 +620,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label67.Name = "label67";
             this.label67.Style = "font-size: 7pt; ddo-char-set: 1";
             this.label67.Text = resources.GetString("label67.Text");
-            this.label67.Top = 6.200788F;
+            this.label67.Top = 6.003938F;
             this.label67.Width = 6.102362F;
             // 
             // label68
@@ -1038,7 +632,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label68.Name = "label68";
             this.label68.Style = "font-size: 7pt; font-weight: bold; vertical-align: bottom; ddo-char-set: 1";
             this.label68.Text = "Medgivande till betalning via Autogiro";
-            this.label68.Top = 6.003937F;
+            this.label68.Top = 5.807087F;
             this.label68.Width = 6.102363F;
             // 
             // label69
@@ -1050,7 +644,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label69.Name = "label69";
             this.label69.Style = "font-size: 7pt; font-weight: bold; vertical-align: bottom; ddo-char-set: 1";
             this.label69.Text = "Information om betalningen";
-            this.label69.Top = 7.283463F;
+            this.label69.Top = 7.18504F;
             this.label69.Width = 6.102362F;
             // 
             // label70
@@ -1061,7 +655,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label70.Name = "label70";
             this.label70.Style = "font-size: 7pt; ddo-char-set: 1";
             this.label70.Text = resources.GetString("label70.Text");
-            this.label70.Top = 7.480316F;
+            this.label70.Top = 7.381893F;
             this.label70.Width = 6.102362F;
             // 
             // label71
@@ -1070,7 +664,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label71.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label71.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label71.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label71.Height = 0.3937008F;
+            this.label71.Height = 0.5905513F;
             this.label71.HyperLink = null;
             this.label71.Left = 3.248032F;
             this.label71.Name = "label71";
@@ -1087,7 +681,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label72.Name = "label72";
             this.label72.Style = "";
             this.label72.Text = "Konto";
-            this.label72.Top = 1.377953F;
+            this.label72.Top = 1.574803F;
             this.label72.Width = 1.476378F;
             // 
             // label73
@@ -1099,7 +693,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label73.Name = "label73";
             this.label73.Style = "";
             this.label73.Text = "";
-            this.label73.Top = 1.377953F;
+            this.label73.Top = 1.574803F;
             this.label73.Width = 1.476378F;
             // 
             // label43
@@ -1154,24 +748,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label47.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label47.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
             this.label47.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label47.Height = 0.3937008F;
+            this.label47.Height = 0.5905516F;
             this.label47.HyperLink = null;
             this.label47.Left = 0.0984252F;
             this.label47.Name = "label47";
             this.label47.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label47.Text = "Butikens signatur *";
-            this.label47.Top = 8.267717F;
+            this.label47.Top = 8.070867F;
             this.label47.Width = 2.952756F;
             // 
             // label48
             // 
-            this.label48.Height = 0.3937008F;
+            this.label48.Height = 0.6889765F;
             this.label48.HyperLink = null;
             this.label48.Left = 3.248032F;
             this.label48.Name = "label48";
             this.label48.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label48.Text = "Butikens stämpel *";
-            this.label48.Top = 8.267717F;
+            this.label48.Top = 8.070867F;
             this.label48.Width = 2.952756F;
             // 
             // groupHeader1
@@ -1235,35 +829,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             ((System.ComponentModel.ISupportInitialize)(this.label10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label25)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label26)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label28)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label30)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label31)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label32)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label33)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label34)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label35)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label36)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label37)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label38)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label39)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label40)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label41)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.label42)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label53)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label54)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.label55)).EndInit();
@@ -1312,36 +878,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 		private DataDynamics.ActiveReports.Label label9;
 		private DataDynamics.ActiveReports.Label label10;
 		private DataDynamics.ActiveReports.Label label11;
-		private DataDynamics.ActiveReports.Label label12;
-		private DataDynamics.ActiveReports.Label label13;
-		private DataDynamics.ActiveReports.Label label14;
-		private DataDynamics.ActiveReports.Label label15;
-		private DataDynamics.ActiveReports.Label label16;
-		private DataDynamics.ActiveReports.Label label17;
-		private DataDynamics.ActiveReports.Label label18;
-		private DataDynamics.ActiveReports.Label label19;
-		private DataDynamics.ActiveReports.Label label20;
-		private DataDynamics.ActiveReports.Label label21;
-		private DataDynamics.ActiveReports.Label label22;
-		private DataDynamics.ActiveReports.Label label23;
-		private DataDynamics.ActiveReports.Label label24;
-		private DataDynamics.ActiveReports.Label label25;
-		private DataDynamics.ActiveReports.Label label26;
-		private DataDynamics.ActiveReports.Label label28;
-		private DataDynamics.ActiveReports.Label label29;
-		private DataDynamics.ActiveReports.Label label30;
-		private DataDynamics.ActiveReports.Label label31;
-		private DataDynamics.ActiveReports.Label label32;
-		private DataDynamics.ActiveReports.Label label33;
-		private DataDynamics.ActiveReports.Label label34;
-		private DataDynamics.ActiveReports.Label label35;
-		private DataDynamics.ActiveReports.Label label36;
-		private DataDynamics.ActiveReports.Label label37;
-		private DataDynamics.ActiveReports.Label label38;
-		private DataDynamics.ActiveReports.Label label39;
-		private DataDynamics.ActiveReports.Label label40;
-		private DataDynamics.ActiveReports.Label label41;
-		private DataDynamics.ActiveReports.Label label42;
+        private DataDynamics.ActiveReports.Label label12;
+        private DataDynamics.ActiveReports.Label label35;
 		private DataDynamics.ActiveReports.Label label53;
 		private DataDynamics.ActiveReports.Label label55;
 		private DataDynamics.ActiveReports.Label label56;

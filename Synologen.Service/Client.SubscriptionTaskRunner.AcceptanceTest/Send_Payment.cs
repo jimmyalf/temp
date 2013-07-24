@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using StructureMap;
 using Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments;
@@ -46,7 +47,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				});
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Select(x => x.MonthlyWithdrawal).Sum();
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).Select(x => x.MonthlyWithdrawal).Sum();
 
 			};
 
@@ -75,7 +76,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 			pendingPayment.GetValue().ShouldBe(_expectedPaymentAmount);
 			pendingPayment.Created.Date.ShouldBe(SystemTime.Now.Date);
 			pendingPayment.HasBeenPayed.ShouldBe(false);
-			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem =>
+			_subscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).Each(subscriptionItem =>
 			{
 				pendingPayment.GetSubscriptionItemAmounts()
 					.ShouldContain(x => x.SubscriptionItem.Id == subscriptionItem.Id);

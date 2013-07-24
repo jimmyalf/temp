@@ -94,6 +94,7 @@
     <Compile Include="Domain\Model\Deviations\DeviationSupplier.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameSupplier.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionItemStatus.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPaymentAmount.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionVersion.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfGlassTypesMatchingCriteria.cs" />

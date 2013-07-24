@@ -148,7 +148,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 
 		public static SubscriptionPendingPayment CreatePendingPayment(IList<SubscriptionItem> subscriptionItems)
 		{
-			var activeSubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList();
+			var activeSubscriptionItems = subscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).ToList();
 			return new SubscriptionPendingPayment {HasBeenPayed = false}.AddSubscriptionItems(activeSubscriptionItems);
 		}
 	}

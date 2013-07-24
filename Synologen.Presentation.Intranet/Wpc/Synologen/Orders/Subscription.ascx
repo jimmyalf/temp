@@ -72,7 +72,7 @@
 			<HeaderTemplate>
 			<table>
 				<caption>Delabonnemang</caption>
-				<thead><tr class="synologen-table-headerrow"><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Aktiv</th><th>Detaljer</th></tr></thead>
+				<thead><tr class="synologen-table-headerrow"><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th><th>Detaljer</th></tr></thead>
 				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -80,7 +80,7 @@
 					<td><%#Eval("MontlyAmount")%></td>
 					<td><%#Eval("PerformedWithdrawals")%></td>
 					<td><%#Eval("CreatedDate")%></td>
-					<td><%#Eval("Active")%></td>
+					<td><%#Eval("Status")%></td>
 					<td><a href="<%#Eval("SubscriptionItemDetailUrl")%>">Visa detaljer</a></td>
 				</tr>
 			</ItemTemplate>

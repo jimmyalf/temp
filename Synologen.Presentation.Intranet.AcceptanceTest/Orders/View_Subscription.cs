@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 
 	[TestFixture, Category("View_Subscription")]
-	public class View_Subscription : GeneralOrderSpecTestbase<SubscriptionPresenter,ISubscriptionView>
+	public class View_Subscription : GeneralOrderSpecTestbase<SubscriptionPresenter, ISubscriptionView>
 	{
 		private Shop _shop;
 		private Subscription _subscription;
@@ -78,8 +78,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(DelAbonnemangVisas)
 					.Och(TransaktionerVisas)
 					.Och(FelListaVisas)
-					.Och(FelVisas)
-			);
+					.Och(FelVisas));
 		}
 
 		[Test]
@@ -198,10 +197,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void DelAbonnemangFinns()
 		{
-			_subscriptionItems = new []{ CreateSubscriptionItem(_subscription)};
+		    _subscriptionItems = new[] { CreateSubscriptionItem(_subscription) };
 		}
 
-		private void TransaktionerFinns()
+	    private void TransaktionerFinns()
 		{
 			_transactions = StoreItems(() => OrderFactory.GetTransactions(_subscription));
 		}
@@ -288,7 +287,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			View.Model.SubscriptionItems.And(_subscriptionItems).Do((viewModel, item) =>
 			{
-				viewModel.Active.ShouldBe(item.IsActive ? "Ja" : "Nej");
+			    AssertSubscriptionItemStatus(viewModel.Status, item);
 				viewModel.MontlyAmount.ShouldBe(item.MonthlyWithdrawal.Total.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));

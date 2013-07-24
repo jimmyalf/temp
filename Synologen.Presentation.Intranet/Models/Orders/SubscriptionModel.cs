@@ -68,12 +68,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		{
 			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
 			PerformedWithdrawals = GetPerformedWithdrawals(subscriptionItem);
-			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
+		    Status = subscriptionItem.Status.GetEnumDisplayName();
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 		}
 
-        public string Active { get; set; }
+        public string Status { get; set; }
         public string PerformedWithdrawals { get; set; }
         public string MontlyAmount { get; set; }
         public string SubscriptionItemDetailUrl { get; set; }

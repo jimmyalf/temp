@@ -288,7 +288,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription)
 	    {
-	    	var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
+	    	var item = new SubscriptionItem { PerformedWithdrawals = 0, Subscription = subscription };
+            item.Start();
 	    	return useOngoingSubscription ? item.Setup(250, 50, 1250, 125) : item.Setup(3, 1000, 500);
 	    }
 

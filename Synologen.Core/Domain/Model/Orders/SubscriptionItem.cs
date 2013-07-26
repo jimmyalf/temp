@@ -48,10 +48,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
                     : SubscriptionItemStatus.Expired;
 	        }
 	    }
+        public virtual string Title { get; set; }
         protected virtual SubscriptionAmount CustomMonthlyAmount { get; set; }
         protected virtual bool Active { get; set; }
 
-        public virtual SubscriptionItem Start()
+	    public virtual SubscriptionItem Start()
         {
             Active = true;
             return this;

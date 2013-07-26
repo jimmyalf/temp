@@ -12,6 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -46,8 +47,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var order = _orderRepository.Get(RequestOrderId);
 			CheckAccess(order.Shop);
     	    var customer = order.Customer;
-            View.Model.Subscriptions = GetSubscriptionList(customer);
-    		View.Model.SelectedOption = SetSelectedOption(order);
+            var selectedOption = SetSelectedOption(order);
+            View.Model.Subscriptions = GetSubscriptionList(customer.Id, selectedOption);
+            View.Model.SelectedOption = selectedOption;
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 
@@ -109,12 +111,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(url);
 		}
 
-		private IEnumerable<ListItem> GetSubscriptionList(Entity customer)
+		private IList<SubscriptionListItemModel> GetSubscriptionList(int customerId, int selectedOption)
 		{
-    		var subscriptions = _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customer.Id));
-			Func<Subscription, string> getText = subscription => "{AccountNumber} ({ConsentStatus})".ReplaceWith(new {AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName()});
-			Func<Subscription, ListItem> parser = subscription => new ListItem(getText(subscription), subscription.Id);
-			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
+    		return _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customerId))
+                .Select(x => new SubscriptionListItemModel(x, selectedOption))
+                .ToList();
 		}
 
     	private int RequestOrderId

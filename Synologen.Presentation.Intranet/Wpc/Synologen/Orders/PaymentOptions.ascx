@@ -18,55 +18,51 @@
                 <asp:Repeater runat="server" DataSource="<%# Model.Subscriptions %>" ItemType="Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders.SubscriptionListItemModel">
                     <HeaderTemplate>
                         <table>
-                            <tr>
-                                <td>
-                                    <% if (Model.SelectedOption == 0) { %>
-                                    <input type="radio" name="Subscription" value="0" id="Subscription-0" checked="checked"> Nytt abonnemang
-                                    <% } else{ %>
-                                    <input type="radio" name="Subscription" value="0" id="Subscription-0"> Nytt abonnemang
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <table>
-                                        <thead>
-                                            <tr><th>Namn</th><th>Skapad</th><th>Dragningar</th></tr>
-                                        </thead>
-                                    </table>
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Konto</th><th>Namn</th><th>Skapad</th><th>Dragningar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td>
-                                <input type="radio" name="Subscription" id="Subscription-<%#Item.Id %>" value="<%# Item.Id %>"  <%#Item.CheckedStatement %>/><%# Item.Title %>
+                            <td rowspan="<%#Item.SubscriptionItems.Count%>">
+                                <input type="radio" name="Subscription" value="<%# Item.Id %>" <%#:Model.RenderChecked(model => Item.Id == model.SelectedOption)%>/>
+                                <%# Item.Title %>
                             </td>
-                            <td>
                                 <asp:Repeater runat="server" DataSource="<%#Item.SubscriptionItems %>" ItemType="Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders.SubscriptionItemListItemModel">
-                                    <HeaderTemplate>
-                                        <table>
-                                    </HeaderTemplate>
                                     <ItemTemplate>
-                                        <tr>
+                                    <asp:PlaceHolder runat="server" Visible="<%#Item.Index == 0 %>">
+                                        <td><%#Item.Name %></td>
+                                        <td><%#Item.Created %></td>
+                                        <td><%#Item.Withdrawals%></td>
+                                    </asp:PlaceHolder>
+                                    <asp:PlaceHolder runat="server" Visible="<%#Item.Index !=0 %>">
+                                        <tr>                                            
                                             <td><%#Item.Name %></td>
                                             <td><%#Item.Created %></td>
                                             <td><%#Item.Withdrawals%></td>
                                         </tr>
+                                    </asp:PlaceHolder>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
-                            </td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
+                        <tr>
+                            <td>
+                                <input type="radio" name="Subscription" value="0" <%#Model.RenderChecked(model => model.SelectedOption == 0) %> >    
+                                Nytt abonnemang
+                            </td>
+                            <td colspan="3" />
+                        </tr>
+                    </tbody>
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
-                <%--
-				<asp:RadioButtonList runat="server" ID="rblAccounts" SelectedValue="<%# Model.SelectedOption %>" DataSource="<%# Model.Subscriptions %>" RepeatLayout="UnorderedList" DataTextField="Text" DataValueField="Value" TextAlign="Right" CssClass="radio-list" />
-				<asp:RequiredFieldValidator runat="server" ErrorMessage="Ett konto måste anges" ControlToValidate="rblAccounts" Display="Dynamic" CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
-                --%>
                  </p>
 			</div>
 			<asp:ValidationSummary runat="server" CssClass="error-list"/>

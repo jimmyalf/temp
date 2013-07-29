@@ -47,9 +47,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var order = _orderRepository.Get(RequestOrderId);
 			CheckAccess(order.Shop);
     	    var customer = order.Customer;
-            var selectedOption = SetSelectedOption(order);
-            View.Model.Subscriptions = GetSubscriptionList(customer.Id, selectedOption);
-            View.Model.SelectedOption = selectedOption;
+            View.Model.Subscriptions = GetSubscriptionList(customer.Id);
+            View.Model.SelectedOption = SetSelectedOption(order);
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 
@@ -111,10 +110,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(url);
 		}
 
-		private IList<SubscriptionListItemModel> GetSubscriptionList(int customerId, int selectedOption)
+		private IList<SubscriptionListItemModel> GetSubscriptionList(int customerId)
 		{
     		return _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customerId))
-                .Select(x => new SubscriptionListItemModel(x, selectedOption))
+                .Select(x => new SubscriptionListItemModel(x))
                 .ToList();
 		}
 

@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[tblSynologenOrder] (
+    [cId]                     INT            IDENTITY (1, 1) NOT NULL,
+    [cCompanyId]              INT            NOT NULL,
+    [cRstText]                NVARCHAR (50)  NULL,
+    [cSalesPersonShopId]      INT            NOT NULL,
+    [cSalesPersonMemberId]    INT            NOT NULL,
+    [cStatusId]               INT            NOT NULL,
+    [cInvoiceNumber]          BIGINT         NULL,
+    [cCompanyUnit]            NVARCHAR (255) NULL,
+    [cCustomerFirstName]      NVARCHAR (50)  NULL,
+    [cCustomerLastName]       NVARCHAR (50)  NULL,
+    [cCustomerOrderNumber]    NVARCHAR (50)  NULL,
+    [cPersonalIdNumber]       NVARCHAR (50)  NULL,
+    [cPhone]                  NVARCHAR (50)  NULL,
+    [cEmail]                  NVARCHAR (50)  NULL,
+    [cCreatedDate]            SMALLDATETIME  NOT NULL,
+    [cUpdatedDate]            SMALLDATETIME  NULL,
+    [cOrderMarkedAsPayed]     BIT            CONSTRAINT [DF_tblSynologenOrder_cCustomerRecieved] DEFAULT (0) NOT NULL,
+    [cInvoiceSumIncludingVAT] FLOAT (53)     NULL,
+    [cInvoiceSumExcludingVAT] FLOAT (53)     NULL,
+    [cInvoiceDate]            DATETIME       NULL,
+    CONSTRAINT [PK_tblSynologenOrder] PRIMARY KEY CLUSTERED ([cId] ASC),
+    CONSTRAINT [FK_tblSynologenOrder_tblMembers] FOREIGN KEY ([cSalesPersonMemberId]) REFERENCES [dbo].[tblMembers] ([cId]),
+    CONSTRAINT [FK_tblSynologenOrder_tblSynologenCompany] FOREIGN KEY ([cCompanyId]) REFERENCES [dbo].[tblSynologenCompany] ([cId]),
+    CONSTRAINT [FK_tblSynologenOrder_tblSynologenOrderStatus] FOREIGN KEY ([cStatusId]) REFERENCES [dbo].[tblSynologenOrderStatus] ([cId]),
+    CONSTRAINT [FK_tblSynologenOrder_tblSynologenShop] FOREIGN KEY ([cSalesPersonShopId]) REFERENCES [dbo].[tblSynologenShop] ([cId])
+);
+

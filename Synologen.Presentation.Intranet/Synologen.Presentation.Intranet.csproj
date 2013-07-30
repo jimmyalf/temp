@@ -783,7 +783,9 @@
     <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
     <Content Include="Orders.Master" />
-    <Content Include="Wpc\Synologen\Orders\Web.config" />
+    <Content Include="Wpc\Synologen\Orders\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Testpages\CityShopList.aspx" />

@@ -73,6 +73,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			{
 				item.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
+
+		    item.Title = string.IsNullOrEmpty(args.Title) ? null : args.Title;
 			return item;
 		}
 
@@ -87,6 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			{
 				subscriptionPayment.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
+
+            subscriptionPayment.Title = string.IsNullOrEmpty(args.Title) ? null : args.Title;
 	    }
 
 	    public void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args)

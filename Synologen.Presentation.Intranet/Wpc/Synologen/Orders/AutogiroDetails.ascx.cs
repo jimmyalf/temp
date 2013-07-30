@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;

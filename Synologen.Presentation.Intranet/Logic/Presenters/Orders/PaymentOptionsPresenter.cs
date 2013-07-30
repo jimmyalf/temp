@@ -108,9 +108,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         protected IEnumerable<SubscriptionItemListModel> BuildSubscriptionItemList(IEnumerable<Subscription> subscriptions)
         {
+            yield return new SubscriptionItemListModel();
             foreach (var subscription in subscriptions)
             {
-                yield return new SubscriptionItemListModel();
                 var subscriptionItems = subscription.SubscriptionItems.ToList();
                 for (var index = 0; index < subscriptionItems.Count; index++)
                 {

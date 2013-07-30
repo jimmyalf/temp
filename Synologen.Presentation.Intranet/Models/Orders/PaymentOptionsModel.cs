@@ -11,10 +11,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     {
     	public PaymentOptionsModel()
     	{
-    		Subscriptions = new List<SubscriptionListItemModel>();
+            SubscriptionsItems = new List<SubscriptionItemListModel>();
     	}
 
-        public IList<SubscriptionListItemModel> Subscriptions { get; set; }
+        public IList<SubscriptionItemListModel> SubscriptionsItems { get; set; }
     	public string CustomerName { get; set; }
         public int SelectedOption { get; set; }
 
@@ -29,39 +29,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         }
     }
 
-    public class SubscriptionListItemModel
+    public class SubscriptionItemListModel
     {
-        public SubscriptionListItemModel() { }
-        public SubscriptionListItemModel(Subscription subscription)
+        public SubscriptionItemListModel()
         {
-            SubscriptionItems = subscription.SubscriptionItems
-                .Select((x, index) => new SubscriptionItemListItemModel(x, index))
-                .ToList();
-            Title = "{AccountNumber} ({ConsentStatus})".ReplaceWith(new { AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName() });
-            Id = subscription.Id;
+            RowSpan = 1;
+            IsDefault = true;
+            Title = "Nytt Linsabonnemang";
+            SubscriptionId = 0;
+            IsFirstInList = true;
         }
 
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public IList<SubscriptionItemListItemModel> SubscriptionItems { get; set; }
-    }
-
-    public class SubscriptionItemListItemModel
-    {
-        public SubscriptionItemListItemModel() { }
-        public SubscriptionItemListItemModel(SubscriptionItem subscriptionItem, int index)
+        public SubscriptionItemListModel(Subscription subscription, SubscriptionItem subscriptionItem, int index) : this()
         {
             Name = subscriptionItem.Title ?? "Namnlös";
             Created = subscriptionItem.CreatedDate.ToShortDateString();
-            Withdrawals = subscriptionItem.IsOngoing 
+            Withdrawals = subscriptionItem.IsOngoing
                 ? subscriptionItem.PerformedWithdrawals.ToString()
                 : string.Format("{0}/{1}", subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
-            Index = index;
+            IsFirstInList = index == 0;
+            SubscriptionId = subscription.Id;
+            RowSpan = subscription.SubscriptionItems.Count();
+            IsDefault = false;
+            Title = "{AccountNumber} ({ConsentStatus})".ReplaceWith(new { AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName() });
         }
 
+        public string Title { get; set; }
         public string Name { get; set; }
         public string Created { get; set; }
         public string Withdrawals { get; set; }
-        public int Index { get; protected set; }
+        public int SubscriptionId { get; set; }
+        public int RowSpan { get; set; }
+        public bool IsFirstInList { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

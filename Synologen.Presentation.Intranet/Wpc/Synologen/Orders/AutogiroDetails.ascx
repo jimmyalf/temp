@@ -89,7 +89,7 @@
 				Personkonto i <strong>Nordea</strong> har clearingsnummer <em>3300</em> och kontonumret är detsamma som kundens personnummer; <em>3300 – ÅÅMMDDXXXX.</em>
 			</p>
 			<p>
-				Personkonto i <strong>Nordea</strong> där kontonumret inte är ett personnummer, så är clearingsnumret de fyra sista i kontonumret.
+				Personkonto i <strong>Nordea</strong> där kontonumret inte är ett personnummer, så är clearingsnumret de fyra första i kontonumret.
 			</p>
 			<p>
 				PlusGirokonto i <strong>Nordea</strong> har clearingsnummer <em>9960</em>.

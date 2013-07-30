@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
     {
         public event EventHandler<CreateDeviationEventArgs> Submit;
         public event EventHandler<CreateDeviationEventArgs> CategorySelected;
+        public event EventHandler<CreateDeviationEventArgs> TypeSelected;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
 
         private void WireupEventProxy()
         {
+            drpTypes.SelectedIndexChanged += drpTypes_SelectedIndexChanged;
             drpCategories.SelectedIndexChanged += drpCategories_SelectedIndexChanged;
             btnConfirmInternalDeviation.Click += btnConfirmInternalDeviation_Click;
             btnConfirmExternalDeviation.Click += btnConfirmExternalDeviation_Click;
@@ -38,14 +40,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
             btnChangeInternal.Click += btnChangeInternal_Click;
         }
 
+        void drpTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var eventArgs = new CreateDeviationEventArgs
+            {
+                SelectedType = (DeviationType)drpTypes.SelectedValue.ToIntOrDefault(0)
+            };
+            TypeSelected(this, eventArgs);
+        }
+
         void btnChangeInternal_Click(object sender, EventArgs e)
         {
-            pnlCreate.Visible = true;
+            pnlCreateDeviationForm.Visible = true;
         }
 
         void btnChangeExternal_Click(object sender, EventArgs e)
         {
-            pnlCreate.Visible = true;
+            pnlCreateDeviationForm.Visible = true;
         }
 
         private void btnSubmit_OnClick(object sender, EventArgs e)
@@ -58,9 +69,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         {
             Page.Session["CreateDeviationEventArgs"] = null;
             pnlInternalDeviationConfirmation.Visible = true;
-            pnlCreate.Visible = false;
+            pnlCreateDeviationForm.Visible = false;
 
-            lblInternalDeviationCategoryName.Text = drpCategories.SelectedItem.Text;
+            lblTitle.Text = txtTitle.Text;
             lblInternalDefectDescription.Text = txtInternalDefectDescription.Text;
 
             Model.SelectedCategoryId = drpCategories.SelectedValue.ToIntOrDefault(0);
@@ -68,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
             var eventArgs = new CreateDeviationEventArgs
             {
                 SelectedType = DeviationType.Internal,
-                SelectedCategory = drpCategories.SelectedValue.ToIntOrDefault(0),
+                Title = txtTitle.Text,
                 DefectDescription = txtInternalDefectDescription.Text
             };
 
@@ -79,7 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         {
             Page.Session["CreateDeviationEventArgs"] = null;
             pnlExternalDeviationConfirmation.Visible = true;
-            pnlCreate.Visible = false;
+            pnlCreateDeviationForm.Visible = false;
 
             var defects = AddDefectsToList(cblDefects);
 

@@ -52,13 +52,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Simple.Data.SqlServer.0.14.0.3\lib\net40\Simple.Data.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+    <Reference Include="Spinit">
+      <HintPath>..\..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data">
+      <HintPath>..\..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate">
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>

@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Spinit">
-      <HintPath>..\..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

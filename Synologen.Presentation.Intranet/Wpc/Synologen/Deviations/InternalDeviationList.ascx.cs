@@ -10,8 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
 	[PresenterBinding(typeof(InternalDeviationListPresenter))] 
 	public partial class InternalDeviationList : MvpUserControl<InternalDeviationListModel>, IInternalDeviationListView
 	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-		}
+        public int? ViewPageId { get; set; }
+        protected void Page_Load(object sender, EventArgs e) { }
 	}
 }

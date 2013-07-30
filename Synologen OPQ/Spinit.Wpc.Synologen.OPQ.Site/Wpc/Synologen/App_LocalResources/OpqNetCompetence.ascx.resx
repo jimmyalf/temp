@@ -121,7 +121,7 @@
     <value>Choose User:</value>
   </data>
   <data name="ErrorConnect" xml:space="preserve">
-    <value>Error when connecting to NETCOMPETENCE. Try again later!</value>
+    <value>Error when connecting to knowledge test. Try again later!</value>
   </data>
   <data name="ErrorNoEncryption" xml:space="preserve">
     <value>Missing encryption key!</value>
@@ -136,15 +136,15 @@
     <value>Exception in send "{0}".</value>
   </data>
   <data name="GoToNetCompetence" xml:space="preserve">
-    <value>Connect</value>
+    <value>Connect to knowledge test</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Connect to NETCOMPETENCE</value>
+    <value>Connect to Optikbranschen knowledge test</value>
   </data>
   <data name="NoShopException" xml:space="preserve">
     <value>There is no shop connected to your user account!</value>
   </data>
   <data name="ShowLink" xml:space="preserve">
-    <value>Link to NETCOMPETENCE: "{0}".</value>
+    <value>Link to knowledge test: "{0}".</value>
   </data>
 </root>

@@ -23,11 +23,8 @@
 		<a href="Testpages/TestButtonPage.aspx">Validerings-sida</a>
 	</fieldset>
 	<fieldset><legend>Glasögonbeställning</legend>
-		<a href="/Testpages/FrameOrder.aspx">Skapa glasögonbeställning</a>
-		<a href="/Testpages/FrameOrderView.aspx?frameorder=1">Visa glasögonbeställning för order 1</a>
-		<a href="/Testpages/FrameOrderView.aspx?frameorder=145">Visa glasögonbeställning för order 145</a>
-		<a href="/Testpages/FrameOrderView.aspx?frameorder=-1">Visa glasögonbeställning för order -1</a>
-		<a href="/Testpages/FrameOrderList.aspx">Visa beställningslista</a>
+		<a href="/Testpages/FrameOrder/FrameOrder.aspx">Skapa glasögonbeställning</a>
+		<a href="/Testpages/FrameOrder/FrameOrderList.aspx">Visa beställningslista</a>
 	</fieldset>
 	<fieldset><legend>Linsabonnemang</legend>
 		<a href="/Testpages/LensSubscription/CustomersList.aspx">Visa linsabonnemang kunder</a>

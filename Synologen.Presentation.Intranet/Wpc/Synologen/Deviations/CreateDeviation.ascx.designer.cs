@@ -13,13 +13,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
     public partial class CreateDeviation {
         
         /// <summary>
-        /// pnlCreate control.
+        /// pnlCreateDeviationForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCreate;
+        protected global::System.Web.UI.WebControls.Panel pnlCreateDeviationForm;
         
         /// <summary>
         /// drpTypes control.
@@ -31,13 +31,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
         protected global::System.Web.UI.WebControls.DropDownList drpTypes;
         
         /// <summary>
-        /// drpCategories control.
+        /// txtTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpCategories;
+        protected global::System.Web.UI.WebControls.TextBox txtTitle;
         
         /// <summary>
         /// txtInternalDefectDescription control.
@@ -56,6 +56,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmInternalDeviation;
+        
+        /// <summary>
+        /// drpCategories control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpCategories;
         
         /// <summary>
         /// cblDefects control.
@@ -103,13 +112,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
         protected global::System.Web.UI.WebControls.Panel pnlInternalDeviationConfirmation;
         
         /// <summary>
-        /// lblInternalDeviationCategoryName control.
+        /// lblTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInternalDeviationCategoryName;
+        protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
         /// lblInternalDefectDescription control.

@@ -4,6 +4,7 @@ using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -45,7 +46,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 
 		private SubscriptionPendingPayment CreatePendingPayment(ISubscriptionPendingPaymentRepository subscriptionPendingPaymentRepository, IEnumerable<SubscriptionItem> subscriptionItems)
 		{
-			var activeSubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList();
+			var activeSubscriptionItems = subscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).ToList();
 			if (!activeSubscriptionItems.Any()) return null;
 
 			var payment = new SubscriptionPendingPayment().AddSubscriptionItems(activeSubscriptionItems);

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PaymentOptions.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.PaymentOptions" %>
+﻿spot<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PaymentOptions.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.PaymentOptions" %>
 <div id="page" class="step4">
 	<header>
 		<h1>Linsabonnemang demo</h1>
@@ -15,51 +15,36 @@
 				<label>Välj konto för betalning</label>
                 <p>
 
-                <asp:Repeater runat="server" DataSource="<%# Model.Subscriptions %>" ItemType="Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders.SubscriptionListItemModel">
+                <asp:Repeater runat="server" DataSource="<%# Model.SubscriptionsItems %>" ItemType="Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders.SubscriptionItemListModel">
                     <HeaderTemplate>
                         <table>
                             <thead>
                                 <tr>
-                                    <th rowspan="2">Konto</th><th>Namn</th><th>Skapad</th><th>Dragningar</th>
+                                    <th>Konto</th><th>Namn</th><th>Skapad</th><th>Dragningar</th>
                                 </tr>
                             </thead>
                             <tbody>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <tr>
-                            <td rowspan="<%#Item.SubscriptionItems.Count%>">
-                                <input type="radio" name="Subscription" value="<%# Item.Id %>" <%#:Model.RenderChecked(model => Item.Id == model.SelectedOption)%>/>
-                                <%# Item.Title %>
-                            </td>
-                                <asp:Repeater runat="server" DataSource="<%#Item.SubscriptionItems %>" ItemType="Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders.SubscriptionItemListItemModel">
-                                    <ItemTemplate>
-                                    <asp:PlaceHolder runat="server" Visible="<%#Item.Index == 0 %>">
-                                        <td><%#Item.Name %></td>
-                                        <td><%#Item.Created %></td>
-                                        <td><%#Item.Withdrawals%></td>
+                                <tr>
+                                    <asp:PlaceHolder runat="server" Visible="<%#Item.IsFirstInList %>">
+                                    <td rowspan="<%#Item.RowSpan%>">
+                                        <input type="radio" name="Subscription" value="<%#Item.SubscriptionId%>" <%#Model.RenderChecked(model => model.SelectedOption == Item.SubscriptionId) %>/>
+                                        <%#Item.Title %>
+                                    </td>
                                     </asp:PlaceHolder>
-                                    <asp:PlaceHolder runat="server" Visible="<%#Item.Index !=0 %>">
-                                        <tr>                                            
-                                            <td><%#Item.Name %></td>
-                                            <td><%#Item.Created %></td>
-                                            <td><%#Item.Withdrawals%></td>
-                                        </tr>
+                                    <asp:PlaceHolder runat="server" Visible="<%#Item.IsDefault %>">
+                                    <td colspan="3"></td>
                                     </asp:PlaceHolder>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                    </FooterTemplate>
-                                </asp:Repeater>
-                        </tr>
+                                    <asp:PlaceHolder runat="server" Visible="<%#!Item.IsDefault %>">
+                                    <td><%#Item.Name %></td>
+                                    <td><%#Item.Created %></td>
+                                    <td><%#Item.Withdrawals %></td>
+                                    </asp:PlaceHolder>
+                                </tr>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <tr>
-                            <td>
-                                <input type="radio" name="Subscription" value="0" <%#Model.RenderChecked(model => model.SelectedOption == 0) %> >    
-                                Nytt abonnemang
-                            </td>
-                            <td colspan="3" />
-                        </tr>
-                    </tbody>
+                            </tbody>
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>

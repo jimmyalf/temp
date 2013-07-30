@@ -61,13 +61,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
       		
-			//Set values from previously saved view
+			// Set values from previously saved view
 			if (order.SubscriptionPayment != null)
 			{
 				View.Model.Initialize(order.SubscriptionPayment);
 			}
-			//Set values from selected account in previous step
-			else if(order.SelectedPaymentOption.SubscriptionId.HasValue)
+            // Set values from selected account in previous step
+			else if (order.SelectedPaymentOption.SubscriptionId.HasValue)
 			{
 				var selectedSubscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
 			    View.Model.BankAccountNumber = selectedSubscription.BankAccountNumber;

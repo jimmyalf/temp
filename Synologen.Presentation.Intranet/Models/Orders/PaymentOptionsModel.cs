@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         {
             RowSpan = 1;
             IsDefault = true;
-            Title = "Nytt Linsabonnemang";
+            Title = "Skapa nytt konto";
             SubscriptionId = 0;
             IsFirstInList = true;
         }

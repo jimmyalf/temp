@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using FakeItEasy;
 using NHibernate;
+using NHibernate.Criterion;
 using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Test.Web;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Test.Data;
 using StoryQ.Infrastructure;
@@ -177,6 +179,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 			return session.CreateCriteria<TType>().List<TType>();
 		}
+
+        protected IList<TType> GetAll<TType>(IEnumerable<int> ids) where TType : Entity
+        {
+            var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+            return session.CreateCriteria<TType>()
+                .Add(Restrictions.In("Id", ids.ToList()))
+                .List<TType>();
+        }
+
 		protected TType Get<TType>(int id) where TType : class
 		{
 			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();

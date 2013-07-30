@@ -66,3 +66,7 @@ _UpgradeReport_Files/UpgradeReport_Warning.png
 Synologen.Data.Test/app.config
 Synologen.Service/Client.BGCTaskRunner/app.config
 Synologen.Service/Client.SubscriptionTaskRunner/app.config
+Synologen.Presentation.Intranet/Web.config
+Synologen.Presentation/Web.config
+Synologen.Service/Client.Invoicing/app.config
+Synologen.Service/Web.Invoicing/Web.config

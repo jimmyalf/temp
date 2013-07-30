@@ -1,7 +1,9 @@
 ﻿using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
+using TransactionReason = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.TransactionReason;
+using TransactionType = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.TransactionType;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationValidators
 {
@@ -46,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationVal
 			Validate(toalNumberOfPayments == 0 ? 0 : oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.MonthlyWithdrawal.Total, "montly amount");
 			Validate(oldItem.CreatedDate, subscriptionItem.CreatedDate);
 			Validate(0, subscriptionItem.Value.TaxFree);
-			Validate(_additionalWithdrawals > 0, subscriptionItem.IsActive);
+			Validate(_additionalWithdrawals > 0, subscriptionItem.Status == SubscriptionItemStatus.Active);
 			Validate(performedPayments, subscriptionItem.PerformedWithdrawals);
 			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.Value.Taxed);
 			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.Value.Total);

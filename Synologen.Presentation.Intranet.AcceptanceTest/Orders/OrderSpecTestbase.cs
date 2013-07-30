@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
@@ -116,5 +117,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if (subscription.Errors != null && subscription.Errors.Any(e => !e.IsHandled)) return "Transaktion ej genomförd";
 			return subscription.ConsentStatus.GetEnumDisplayName();
 		}
+
+        protected void AssertSubscriptionItemStatus(string viewModelValue, SubscriptionItem item)
+        {
+            switch (item.Status)
+            {
+                case SubscriptionItemStatus.Active:
+                    viewModelValue.ShouldBe("Aktiv");
+                    break;
+                case SubscriptionItemStatus.Stopped:
+                    viewModelValue.ShouldBe("Stoppad");
+                    break;
+                case SubscriptionItemStatus.Expired:
+                    viewModelValue.ShouldBe("Utgången");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 	}
 }

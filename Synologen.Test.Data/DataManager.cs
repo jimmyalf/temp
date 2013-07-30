@@ -88,34 +88,44 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			return userRepository.Add(userName, password, "Adam", "Bertil", "a.b@foretaget.se", locationId, "TestUser");
 		}
 
-		public Company CreateCompany(ISqlProvider provider)
+        public Company CreateCompany(ISqlProvider provider, string name = "Test Företag AB")
 		{
-			var contract = new Contract {Name = "Testavtal", Active = true};
-			provider.AddUpdateDeleteContract(Enumerations.Action.Create, ref contract);
-			var company = new Company
-			{
-				Active = true,
-				Name = "Test Företag AB",
-				BankCode = null,
-				City = "Askim",
-				ContractId = contract.Id,
-				Country = new Country{Id = 1},
-				EDIRecipientId = null,
-				InvoiceCompanyName = "Test Företag AktieBolag",
-				InvoiceFreeTextFormat = null,
-				InvoicingMethodId = 2,
-				OrganizationNumber = "555555-5555",
-				PaymentDuePeriod = 30,
-				PostBox = null,
-				SPCSCompanyCode = "000",
-				StreetName = "Datavägen 2",
-				TaxAccountingCode = "SE213456789",
-				Zip = "43632",
-				//CompanyValidationRules = null
-			};
-			provider.AddUpdateDeleteCompany(Enumerations.Action.Create, ref company);
-			return company;
+		    var contract = CreateContract(provider);
+		    return CreateCompany(provider, contract, name);
 		}
+
+        public Company CreateCompany(ISqlProvider provider, Contract contract, string name = "Test Företag AB")
+        {
+            var company = new Company
+            {
+                Active = true,
+                Name = name,
+                BankCode = null,
+                City = "Askim",
+                ContractId = contract.Id,
+                Country = new Country { Id = 1 },
+                EDIRecipientId = null,
+                InvoiceCompanyName = "Test Företag AktieBolag",
+                InvoiceFreeTextFormat = null,
+                InvoicingMethodId = 2,
+                OrganizationNumber = "555555-5555",
+                PaymentDuePeriod = 30,
+                PostBox = null,
+                SPCSCompanyCode = "000",
+                StreetName = "Datavägen 2",
+                TaxAccountingCode = "SE213456789",
+                Zip = "43632",
+            };
+            provider.AddUpdateDeleteCompany(Enumerations.Action.Create, ref company);
+            return company;
+        }
+
+        public Contract CreateContract(ISqlProvider provider, string name = "Testavtal")
+        {
+            var contract = new Contract { Name = name, Active = true };
+            provider.AddUpdateDeleteContract(Enumerations.Action.Create, ref contract);
+            return contract;
+        }
 
 		private void CreateShopAndTestUsers(User userRepository, SqlProvider provider)
 		{
@@ -179,6 +189,10 @@ namespace Spinit.Wpc.Synologen.Test.Data
 		{
 			DeleteAndResetIndexForTable(connection, "SynologenFrameOrder");
 			DeleteAndResetIndexForTable(connection, "SynologenFrame");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameGlassType");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameColor");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameBrand");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameSupplier");
 			Debug.WriteLine("Cleaned Frame Orders");
 		}
 
@@ -201,6 +215,10 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			DeleteAndResetIndexForTable(connection, "tblSynologenOrderHistory");
 			DeleteAndResetIndexForTable(connection, "tblSynologenOrder");
 			DeleteAndResetIndexForTable(connection, "tblSynologenArticle");
+            DeleteForTable(connection, "tblSynologenCompanyValidationRuleConnection");
+            DeleteAndResetIndexForTable(connection, "tblSynologenCompanyValidationRule");
+            DeleteAndResetIndexForTable(connection, "tblSynologenCompany");
+            DeleteAndResetIndexForTable(connection, "tblSynologenContract");
 			Debug.WriteLine("Cleaned Contract Sales");
 		}
 
@@ -221,6 +239,19 @@ namespace Spinit.Wpc.Synologen.Test.Data
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleCategory");
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleSupplier");
 			Debug.WriteLine("Cleaned Orders");
+        }
+
+        private void DeleteDeviationsAndConnections(IDbConnection connection)
+        {
+            DeleteForTable(connection, "SynologenDeviationSupplierToDeviationCategory");
+            DeleteForTable(connection, "SynologenDeviationCommentToDeviation");
+            DeleteForTable(connection, "SynologenDeviationDefectToDeviation");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationComments");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviations");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationDefects");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationCategories");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationSuppliers");
+            Debug.WriteLine("Cleaned Deviations");
         }
 
 		public virtual void ValidateConnectionIsDev(IDbConnection connection)
@@ -244,6 +275,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			var userRepository = GetUserRepository();
 			var sqlProvider = GetSqlProvider();
 			ValidateConnectionIsDev(connection);
+		    DeleteDeviationsAndConnections(connection);
 			DeleteOPQAndConnections(connection);
             DeleteOrders(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
@@ -255,7 +287,6 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			CreateAdminUsers(userRepository);
 			CreateShopAndTestUsers(userRepository, sqlProvider as SqlProvider);
 		}
-
 	}
 
 	public sealed class CreatedMemberInfo

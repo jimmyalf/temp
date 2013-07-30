@@ -113,18 +113,16 @@
 			ID="drpCylinderRight" 
 			Runat="server" 
 			DataSource='<%#Model.Cylinder.List%>' 
-			AutoPostBack="true"
 			SelectedValue='<%#Model.Cylinder.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 	</div>
 	<div class="frame-order-item left">
 		<label for="<%=drpCylinderLeft.ClientID%>">Cylinder V</label>
-		<asp:DropDownList 
-			ID="drpCylinderLeft" 
-			Runat="server" 
-			DataSource='<%#Model.Cylinder.List%>' 
-			AutoPostBack="true"
+	    <asp:DropDownList 
+	        ID="drpCylinderLeft" 
+	        Runat="server" 
+	        DataSource='<%#Model.Cylinder.List%>' 
 			SelectedValue='<%#Model.Cylinder.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />

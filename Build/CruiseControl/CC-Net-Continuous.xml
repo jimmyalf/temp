@@ -8,13 +8,13 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		<workingDirectory>C:\Develop\Synologen\</workingDirectory>
 		<webURL>http://code/cruisecontrol/server/local/project/Synologen.Continuous/ViewProjectReport.aspx</webURL>
 		<modificationDelaySeconds>300</modificationDelaySeconds>
-	  
-		<sourcecontrol type="svn">
-			<trunkUrl>https://code.spinit.local/svn/wpc/Customer Specific/Synologen/trunk</trunkUrl>
-			<username>ccnet</username>
-			<password>_CruiseControl11</password>
-			<workingDirectory>C:\Develop\Synologen</workingDirectory>
-		</sourcecontrol>
+	  	
+		<sourcecontrol type="hg">
+		  <repo>http://ccnet:_CruiseControl11@code/hg/hgweb.cgi/spinit/wpc/synologen/#develop</repo>
+		  <workingDirectory>C:\Develop\Synologen</workingDirectory>
+		  <branch>develop</branch>
+		</sourcecontrol>		
+		
 		
 		<triggers>
 			<intervalTrigger seconds="480" />

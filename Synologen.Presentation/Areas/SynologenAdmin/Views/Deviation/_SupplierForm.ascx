@@ -48,6 +48,6 @@
 </fieldset>
 <% } %>
 <p>
-    <%= Html.ActionLink("Tillbaka till Leverantörer", "ListSuppliers") %>
+    <%= Html.ActionLink("Tillbaka till Leverantörer", "Suppliers") %>
 </p>
 <% Html.RenderPartial("ClientValidationScripts"); %>

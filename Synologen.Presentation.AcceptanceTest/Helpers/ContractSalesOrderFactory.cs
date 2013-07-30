@@ -29,5 +29,31 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 				StatusId = statusId,
 			};
 		}
+
+        public static OrderItem GetOrderItem(int orderId, ContractArticleConnection connection, int quantity = 1)
+        {
+            return new OrderItem
+            {
+                ArticleDisplayName = connection.ArticleDescription,
+                ArticleDisplayNumber = connection.ArticleNumber,
+                ArticleId = connection.ArticleId,
+                DisplayTotalPrice = connection.Price * quantity,
+                NoVAT = connection.NoVAT,
+                NumberOfItems = quantity,
+                OrderId = orderId,
+                SinglePrice = connection.Price,
+            };
+        }
+
+	    public static Article GetArticle()
+	    {
+	        return new Article
+	        {
+	            DefaultSPCSAccountNumber = "123",
+	            Description = "Testartikel abc",
+	            Name = "Testartikel",
+	            Number = "123-456"
+	        };
+	    }
 	}
 }

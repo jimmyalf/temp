@@ -1,38 +1,44 @@
 ﻿using System.Collections.Generic;
 using NHibernate;
+using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using NHibernate.Criterion;
+using Spinit.Wpc.Synologen.Data.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
 {
-    public class CategoriesQuery : Query<IList<DeviationCategory>>
-	{
+    public class CategoriesQuery : Query<IExtendedEnumerable<DeviationCategory>>
+    {
         public int? SelectedCategory { get; set; }
         public bool? Active { get; set; }
         public string SearchTerms { get; set; }
+        public PagedSortedCriteria PagedSortedCriteria { get; set; }
 
-        public override IList<DeviationCategory> Execute()
+        public override IExtendedEnumerable<DeviationCategory> Execute()
         {
-            ICriteria result = Session.CreateCriteriaOf<DeviationCategory>();
+            var result = Session
+                .CreateCriteriaOf<DeviationCategory>();
 
-            if (SelectedCategory.HasValue)
-			{
-                result = ((ICriteria<DeviationCategory>)result).FilterEqual(x => x.Id, SelectedCategory);
-			}
-
-            if (Active.HasValue)
+            result = result.SynologenFilterByAny(filter =>
             {
-                result = ((ICriteria<DeviationCategory>)result).FilterEqual(x => x.Active, Active);
+                filter.Like(x => x.Name);
+            }, SearchTerms);
+
+
+            if (PagedSortedCriteria != null)
+            {
+                var count = CriteriaTransformer.Clone(result).SetProjection(Projections.RowCountInt64()).UniqueResult<long>();
+
+                var list = result
+                .Sort(PagedSortedCriteria.OrderBy, PagedSortedCriteria.SortAscending)
+                .Page(PagedSortedCriteria.Page, PagedSortedCriteria.PageSize)
+                .List<DeviationCategory>();
+                return new ExtendedEnumerable<DeviationCategory>(list, count, PagedSortedCriteria.Page, PagedSortedCriteria.PageSize, PagedSortedCriteria.OrderBy, PagedSortedCriteria.SortAscending);
             }
 
-            if (!string.IsNullOrEmpty(SearchTerms))
-            {
-                result = ((ICriteria<DeviationCategory>)result).FilterEqual(x => x.Name, SearchTerms);
-            }
+            return new ExtendedEnumerable<DeviationCategory>(result.List<DeviationCategory>());
+        }
 
-            return result.AddOrder(Order.Asc("Name")).List<DeviationCategory>();
-		}
-        
-	}
+    }
 }

@@ -9,7 +9,7 @@
             <div class="wrap">
                 <% Html.RenderPartial("_CategoryForm", Model); %>
                 <p>
-                    <%= Html.ActionLink("Tillbaka till Kategorier", "ListCategories") %>
+                    <%= Html.ActionLink("Tillbaka till Kategorier", "Categories") %>
                 </p>
             </div>
         </div>

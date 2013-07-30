@@ -4,14 +4,15 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 {
 	public class FrameGlassType : IntervalContainer<FrameGlassType>
 	{
-
 		public FrameGlassType()
 		{
 			Sphere = new Interval();
 			Cylinder = new Interval();
 		}
+
 		public virtual int Id { get; set; }
 		public virtual string Name { get; set; }
+        public virtual FrameSupplier Supplier { get; set; }
 		public virtual bool IncludeAdditionParametersInOrder { get; set; }
 		public virtual bool IncludeHeightParametersInOrder { get; set; }
 		public virtual int NumberOfConnectedOrdersWithThisGlassType { get; private set; }

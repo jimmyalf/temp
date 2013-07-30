@@ -24,6 +24,9 @@
 			AddRoute(1012,"/Testpages/Order/OrderReportLink.aspx");
 			AddRoute(1013,"/Testpages/LensSubscription/MigrateSubscription.aspx");
 			AddRoute(1050,"/Testpages/ViewSettlementPage.aspx");
+            AddRoute(1020, "/Testpages/FrameOrder/FrameOrder.aspx");
+            AddRoute(1021, "/Testpages/FrameOrder/FrameOrderList.aspx");
+            AddRoute(1022, "/Testpages/FrameOrder/FrameOrderView.aspx");
 		}
 	}
 }

@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 		public int? WithdrawalsLimit { get; set; }
 		public decimal? CustomMonthlyProductAmount { get; set; }
 		public decimal? CustomMonthlyFeeAmount { get; set; }
+	    public string Title { get; set; }
 	}
 }

@@ -3,6 +3,10 @@
 	<fieldset class="synologen-form">
 		<legend>Delabonnemang för konto <%=Model.SubscriptionBankAccountNumber %> för <%=Model.CustomerName %></legend>
     	<p>
+    		<label>Rubrik/Namn</label>
+    		<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
+    	</p>
+    	<p>
     		<label>Produkt</label>
 			<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" />
 			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>

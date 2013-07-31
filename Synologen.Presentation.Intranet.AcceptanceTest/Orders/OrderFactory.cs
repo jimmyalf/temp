@@ -9,7 +9,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
@@ -223,9 +222,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		public static AutogiroDetailsEventArgs GetAutogiroDetailsEventArgs(bool isOngoing = false)
 		{
-			if(isOngoing)
-			{
-				return new AutogiroDetailsEventArgs
+		    if (isOngoing)
+		    {
+		        return new AutogiroDetailsEventArgs
 				{
 					BankAccountNumber = "123456789",
 					ClearingNumber = "1234",
@@ -233,21 +232,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					ProductPrice = 3500,
 					FeePrice = 255,
 					MonthlyFee = 25,
-					MonthlyProduct = 175
+					MonthlyProduct = 175,
+                    Title = "Testabonnemang"
 				};				
 			}
-			else
-			{
-				return new AutogiroDetailsEventArgs
-				{
-					BankAccountNumber = "123456789",
-					ClearingNumber = "1234",
-					Type = SubscriptionType.SixMonths,
-					ProductPrice = 3500,
-					FeePrice = 255,
-				};
-			}
 
+		    return new AutogiroDetailsEventArgs
+		    {
+		        BankAccountNumber = "123456789",
+		        ClearingNumber = "1234",
+		        Type = SubscriptionType.SixMonths,
+		        ProductPrice = 3500,
+		        FeePrice = 255,
+		        Title = "Testabonnemang"
+		    };
 		}
 
 	    public static LensRecipe GetLensRecipe(Article article, ArticleCategory category, ArticleType type, ArticleSupplier supplier)
@@ -288,10 +286,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription)
 	    {
-	    	var item = new SubscriptionItem { PerformedWithdrawals = 0, Subscription = subscription };
+	    	var item = new SubscriptionItem
+	    	{
+	    	    PerformedWithdrawals = 0, 
+                Subscription = subscription,
+                Title = "Annas linser"
+	    	};
             item.Start();
 	    	return useOngoingSubscription ? item.Setup(250, 50, 1250, 125) : item.Setup(3, 1000, 500);
 	    }
+
+        public static SubscriptionItem GetSubscriptionItem(Subscription subscription, int index)
+        {
+            var item = new SubscriptionItem
+            {
+                PerformedWithdrawals = index,
+                Subscription = subscription,
+                Title = index.IsOdd() ? "Annas linser" : null
+            };
+            item.Start();
+            return index.IsOdd() ? item.Setup(250, 50, 1250, 125) : item.Setup(index + 2, 1000, 500);
+        }
 
 		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)
 		{

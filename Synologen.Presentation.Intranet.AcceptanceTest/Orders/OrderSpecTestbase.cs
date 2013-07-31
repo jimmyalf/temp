@@ -101,7 +101,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             var first = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0, Title = "Title A" }
                 .Setup(12, 1000, 200);
             Save(first);
-            var second = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0, Title = "Title B" }
+            var second = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0 }
                 .Setup(250, 50, 1600, 200);
             Save(second);
             return new[] { first, second };

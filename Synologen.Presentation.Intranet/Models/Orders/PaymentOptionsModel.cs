@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
         public SubscriptionItemListModel(Subscription subscription, SubscriptionItem subscriptionItem, int index) : this()
         {
-            Name = subscriptionItem.Title ?? "Namnlös";
+            Name = subscriptionItem.Title;
             Created = subscriptionItem.CreatedDate.ToShortDateString();
             Withdrawals = subscriptionItem.IsOngoing
                 ? subscriptionItem.PerformedWithdrawals.ToString()

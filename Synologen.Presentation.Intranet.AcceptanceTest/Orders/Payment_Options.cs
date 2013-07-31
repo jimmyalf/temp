@@ -236,7 +236,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     			var expectedText = GetExpectedSubscriptionAccountText(domainItem.Subscription);
 				viewItem.Title.ShouldBe(expectedText);
     			viewItem.SubscriptionId.ShouldBe(domainItem.Subscription.Id);
-    		    viewItem.Name.ShouldBe(domainItem.Title ?? "Namnlös");
+    		    viewItem.Name.ShouldBe(domainItem.Title);
                 viewItem.Created.ShouldBe(domainItem.CreatedDate.ToShortDateString());                
                 viewItem.Withdrawals.ShouldBe(GetExpectedWithdrawalText(domainItem));
     		});

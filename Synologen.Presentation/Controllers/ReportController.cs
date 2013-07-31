@@ -10,24 +10,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
     public class ReportController : ReportBaseController
     {
-        #region Fields
-
         private readonly IInvoiceReportViewService _invoiceReportViewService;
         private readonly ISqlProvider _sqlProvider;
-
-        #endregion
-
-        #region Constructors and Destructors
 
         public ReportController(ISqlProvider sqlProvider, IInvoiceReportViewService invoiceReportViewService)
         {
             _sqlProvider = sqlProvider;
             _invoiceReportViewService = invoiceReportViewService;
         }
-
-        #endregion
-
-        #region Public Methods and Operators
 
         public ActionResult InvoiceCopy(int id)
         {
@@ -37,7 +27,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }
 
-        // Add fkn
         public ActionResult InvoiceCredit(int id)
         {
             Order invoice = _sqlProvider.GetOrder(id);
@@ -57,6 +46,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }
 
-        #endregion
     }
 }

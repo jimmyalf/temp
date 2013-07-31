@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			    value.Map(x => x.TaxFree).Column("CustomMonthlyFee");
 			});
 			Map(x => x.CreatedDate).Not.Nullable();
+		    Map(x => x.Title).Nullable();
             Map(Reveal.Member<SubscriptionItem, object>("Active")).Not.Nullable();
 		}
 	}

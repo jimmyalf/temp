@@ -96,6 +96,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => getSubscriptions(shop, customer));
 		}
 
+        protected IEnumerable<SubscriptionItem> CreateSubscriptionItems(Subscription subscription)
+        {
+            var first = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0, Title = "Title A" }
+                .Setup(12, 1000, 200);
+            Save(first);
+            var second = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0 }
+                .Setup(250, 50, 1600, 200);
+            Save(second);
+            return new[] { first, second };
+        }
+
 		protected Subscription CreateSubscription(Shop shop, OrderCustomer customer = null, bool active = false, DateTime? consentedDate = null, SubscriptionConsentStatus? consentStatus = null)
 		{
 			customer = customer ?? CreateCustomer(shop);

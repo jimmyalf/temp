@@ -71,6 +71,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		    Status = subscriptionItem.Status.GetEnumDisplayName();
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
+		    Title = subscriptionItem.Title;
 		}
 
         public string Status { get; set; }
@@ -78,8 +79,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string MontlyAmount { get; set; }
         public string SubscriptionItemDetailUrl { get; set; }
         public string CreatedDate { get; set; }
+	    public string Title { get; set; }
 
-		protected virtual string GetPerformedWithdrawals(SubscriptionItem subscriptionItem)
+	    protected virtual string GetPerformedWithdrawals(SubscriptionItem subscriptionItem)
 		{
 			return subscriptionItem.IsOngoing 
 				? subscriptionItem.PerformedWithdrawals.ToString() 

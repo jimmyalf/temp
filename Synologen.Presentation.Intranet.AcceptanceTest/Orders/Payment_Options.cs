@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private Order _order;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
-    	private IEnumerable<Subscription> _subsciptions;
+    	private IEnumerable<Subscription> _subscriptions;
     	private OrderCustomer _customer;
     	private Shop _shop;
     	private Exception _thrownException;
@@ -134,7 +134,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
     		_customer = CreateCustomer(_shop);
-    		_subsciptions = CreateSubscriptions(_shop, _customer);
+    		var subsciptions = CreateSubscriptions(_shop, _customer).ToList();
+            foreach (var subscription in subsciptions)
+            {
+                CreateSubscriptionItems(subscription);
+            }
+            _subscriptions = GetAll<Subscription>(subsciptions.Select(x => x.Id));
         	_order = CreateOrder(_shop, _customer);
         	HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
@@ -155,7 +160,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void AttAnvändarenValtAttBetalaBefintligtKonto()
     	{
-    		_selectedSubscriptionId = _subsciptions.First().Id;
+    		_selectedSubscriptionId = _subscriptions.First().Id;
     		_submitEventArgs = new PaymentOptionsEventArgs{ SubscriptionId = _selectedSubscriptionId};
     	}
 
@@ -164,7 +169,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         	_order.SelectedPaymentOption = new PaymentOption
         	{
         		Type = PaymentOptionType.Subscription_Autogiro_Existing,
-				SubscriptionId = _subsciptions.First().Id
+				SubscriptionId = _subscriptions.First().Id
         	};
             WithRepository<IOrderRepository>().Save(_order);
         }
@@ -224,20 +229,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkallKundensBefintligaKontonListas()
     	{
-			var viewModelsubscriptions = View.Model.Subscriptions.Take(View.Model.Subscriptions.Count() - 1);
-    		var matchingSubscriptions = _subsciptions.Where(x => x.Active);
-    		viewModelsubscriptions.And(matchingSubscriptions).Do((viewItem, domainItem) =>
+			var viewModelsubscriptionItems = View.Model.SubscriptionsItems.Skip(1).ToList();
+    		var matchingSubscriptionsItems = _subscriptions.Where(x => x.Active).SelectMany(x => x.SubscriptionItems).ToList();
+            viewModelsubscriptionItems.And(matchingSubscriptionsItems).Do((viewItem, domainItem) =>
     		{
-    			var expectedText = GetExpectedSubscriptionAccountText(domainItem);
-				viewItem.Text.ShouldBe(expectedText);
-    			viewItem.Value.ShouldBe(domainItem.Id.ToString());
+    			var expectedText = GetExpectedSubscriptionAccountText(domainItem.Subscription);
+				viewItem.Title.ShouldBe(expectedText);
+    			viewItem.SubscriptionId.ShouldBe(domainItem.Subscription.Id);
+    		    viewItem.Name.ShouldBe(domainItem.Title);
+                viewItem.Created.ShouldBe(domainItem.CreatedDate.ToShortDateString());                
+                viewItem.Withdrawals.ShouldBe(GetExpectedWithdrawalText(domainItem));
     		});
-			View.Model.Subscriptions.Last().Value.ShouldBe("0");
-			View.Model.Subscriptions.Last().Text.ShouldBe("Skapa nytt konto");
-            View.Model.SelectedOption.ShouldBe(default(int) /*Default value*/);
+			View.Model.SubscriptionsItems.First().SubscriptionId.ShouldBe(0);
+            View.Model.SubscriptionsItems.First().Title.ShouldBe("Skapa nytt konto");
+            View.Model.SelectedOption.ShouldBe(0);
     	}
 
-		private string GetExpectedSubscriptionAccountText(Subscription subscription)
+        private string GetExpectedWithdrawalText(SubscriptionItem subscriptionItem)
+        {
+            return subscriptionItem.IsOngoing
+                ? subscriptionItem.PerformedWithdrawals.ToString()
+                : string.Format("{0}/{1}",
+                subscriptionItem.PerformedWithdrawals,
+                subscriptionItem.WithdrawalsLimit.Value);
+        }
+
+        private string GetExpectedSubscriptionAccountText(Subscription subscription)
 		{
 			return subscription.BankAccountNumber + " (" + subscription.ConsentStatus.GetEnumDisplayName() + ")";
 		}

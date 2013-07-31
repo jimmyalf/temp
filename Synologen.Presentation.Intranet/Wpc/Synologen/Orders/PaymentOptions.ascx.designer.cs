@@ -13,15 +13,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
     public partial class PaymentOptions {
         
         /// <summary>
-        /// rblAccounts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rblAccounts;
-        
-        /// <summary>
         /// btnPreviousStep control.
         /// </summary>
         /// <remarks>

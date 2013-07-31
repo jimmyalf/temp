@@ -25,11 +25,12 @@
 				<legend>Delabonnemang</legend>
 				<table class="formItem striped">
 					<thead>
-						<tr><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th></tr>
+						<tr><th>Rubrik</th><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th></tr>
 					</thead>
 					<tbody>
 					<% foreach (var subscriptionItem in Model.SubscriptionItems){%>
 						<tr>
+						    <td><%=subscriptionItem.Title %></td>
 							<td><%=subscriptionItem.MontlyAmount %></td>
 							<td><%=subscriptionItem.PerformedWithdrawals %></td>
 							<td><%=subscriptionItem.CreatedDate %></td>

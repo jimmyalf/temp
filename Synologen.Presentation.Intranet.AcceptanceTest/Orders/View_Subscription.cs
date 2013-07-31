@@ -197,7 +197,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void DelAbonnemangFinns()
 		{
-		    _subscriptionItems = new[] { CreateSubscriptionItem(_subscription) };
+		    _subscriptionItems = CreateSubscriptionItems(_subscription);
 		}
 
 	    private void TransaktionerFinns()
@@ -291,7 +291,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				viewModel.MontlyAmount.ShouldBe(item.MonthlyWithdrawal.Total.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));
-				viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);
+                if (item.IsOngoing)
+                {
+                    viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals.ToString());
+                }
+                else
+                {
+				    viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);
+                }
+			    viewModel.Title.ShouldBe(item.Title);
 			});
 		}
 

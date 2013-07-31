@@ -1491,7 +1491,7 @@ Påminnelseavgift 45 kronor.</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Faktura - Kopia</Value>
+                <Value>Kreditfaktura</Value>
                 <Style>
                   <FontSize>14pt</FontSize>
                 </Style>

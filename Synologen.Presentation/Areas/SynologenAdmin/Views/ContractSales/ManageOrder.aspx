@@ -26,7 +26,9 @@
 						<a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
 						<span>&nbsp;|&nbsp;</span>
 						<%if(Model.DisplayInvoiceCopyLink){ %>
-							<%=Html.ActionLink("Visa faktura","InvoiceCopy","Report", new { id= Model.Id}, null) %>	
+							<%=Html.ActionLink("Visa faktura","InvoiceCopy","Report", new { id= Model.Id}, null) %>
+                            <%--Kreditfaktura--%>
+							<%=Html.ActionLink("Visa Kreditfaktura","InvoiceCredit","Report", new { id= Model.Id}, null) %>	
 						<%} %>
 						<span>&nbsp;</span>
 						<%if(Model.DisplayCancelButton){ %>

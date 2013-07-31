@@ -64,6 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
                 CustomMonthlyProductAmount = args.MonthlyProduct.HasValue ? args.MonthlyProduct.Value.ToString("0.00") : null;
             }
             SelectedSubscriptionOption = args.Type;
+            Title = args.Title;
         }
     }
 }

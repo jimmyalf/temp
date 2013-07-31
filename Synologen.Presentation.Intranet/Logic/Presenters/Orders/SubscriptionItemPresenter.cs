@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				subscriptionItem.Setup(args.WithdrawalsLimit.Value, args.ProductAmount, args.FeeAmount);	
 			}
 
+		    subscriptionItem.Title = args.Title;
 			_subscriptionItemRepository.Save(subscriptionItem);
 			UpdateViewModel(subscriptionItem);
 		}

@@ -128,7 +128,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             {
                 var subscriptionItem = order.SubscriptionPayment; 
                 _viewParser.UpdateSubscriptionItem(e, subscriptionItem, subscription);
-                order.SubscriptionPayment = subscriptionItem;
+                _subscriptionItemRepository.Save(subscriptionItem);
+                //order.SubscriptionPayment = subscriptionItem;
             }
 		    
 			//Update order

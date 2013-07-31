@@ -117,11 +117,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
                 : "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 		    Status = subscriptionItem.Status.GetEnumDisplayName();
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
+		    Title = subscriptionItem.Title;
 		}
 		public string Status { get; set; }
 		public string PerformedWithdrawals { get; set; }
 		public string MontlyAmount { get; set; }
-		public string CreatedDate { get; set; }		
+		public string CreatedDate { get; set; }
+	    public string Title { get; set; }
 	}
 
 	public class ErrorListItem

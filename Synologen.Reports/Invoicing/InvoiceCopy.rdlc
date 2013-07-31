@@ -1,5 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
+  <DataSources>
+    <DataSource Name="DummyDataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:DataSourceID>b3c8db29-e986-49eb-a5c9-441993554998</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="InvoiceRow">
+      <Fields>
+        <Field Name="RowAmount">
+          <DataField>RowAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SinglePrice">
+          <DataField>SinglePrice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DummyDataSource</DataSourceName>
+        <CommandText />
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceRow, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="InvoiceReport">
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceRecipient">
+          <DataField>InvoiceRecipient</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceFreeText">
+          <DataField>InvoiceFreeText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PenaltyChargePercent">
+          <DataField>PenaltyChargePercent</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LineExtensionsTotalAmount">
+          <DataField>LineExtensionsTotalAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TotalTaxAmount">
+          <DataField>TotalTaxAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TaxInclusinveTotalAmount">
+          <DataField>TaxInclusinveTotalAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceFooterText">
+          <DataField>InvoiceFooterText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ShopContactText">
+          <DataField>ShopContactText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PaymentTermsNote">
+          <DataField>PaymentTermsNote</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceRecipientOrderNumber">
+          <DataField>InvoiceRecipientOrderNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceNumber">
+          <DataField>InvoiceNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OrderCreatedDate">
+          <DataField>OrderCreatedDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceDate">
+          <DataField>InvoiceDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceDueDate">
+          <DataField>InvoiceDueDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DummyDataSource</DataSourceName>
+        <CommandText />
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceCopyReport, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <Body>
     <ReportItems>
       <Image Name="image2">
@@ -16,57 +129,57 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1cm</Width>
+              <Width>0.43307in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.55001cm</Height>
+              <Height>0.21654in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -195,7 +308,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -318,7 +431,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.55001cm</Height>
+              <Height>0.21654in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -420,7 +533,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -516,7 +629,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -685,7 +798,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.5cm</Height>
+              <Height>0.19685in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -818,7 +931,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -871,7 +984,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -926,7 +1039,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -979,7 +1092,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1032,7 +1145,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>1.5cm</Height>
+              <Height>0.59055in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1087,7 +1200,7 @@ Påminnelseavgift 45 kronor.</Value>
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1244,7 +1357,7 @@ Påminnelseavgift 45 kronor.</Value>
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.63492cm</Height>
+              <Height>0.24997in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -2062,120 +2175,6 @@ Strandbergsgatan 61
     <ColumnSpacing>0cm</ColumnSpacing>
     <Style />
   </Page>
-  <AutoRefresh>0</AutoRefresh>
-  <DataSources>
-    <DataSource Name="DummyDataSource">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString />
-      </ConnectionProperties>
-      <rd:DataSourceID>b3c8db29-e986-49eb-a5c9-441993554998</rd:DataSourceID>
-    </DataSource>
-  </DataSources>
-  <DataSets>
-    <DataSet Name="InvoiceRow">
-      <Query>
-        <DataSourceName>DummyDataSource</DataSourceName>
-        <CommandText />
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
-      <Fields>
-        <Field Name="RowAmount">
-          <DataField>RowAmount</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SinglePrice">
-          <DataField>SinglePrice</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceRow, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="InvoiceReport">
-      <Query>
-        <DataSourceName>DummyDataSource</DataSourceName>
-        <CommandText />
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
-      <Fields>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceRecipient">
-          <DataField>InvoiceRecipient</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceFreeText">
-          <DataField>InvoiceFreeText</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PenaltyChargePercent">
-          <DataField>PenaltyChargePercent</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LineExtensionsTotalAmount">
-          <DataField>LineExtensionsTotalAmount</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TotalTaxAmount">
-          <DataField>TotalTaxAmount</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TaxInclusinveTotalAmount">
-          <DataField>TaxInclusinveTotalAmount</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceFooterText">
-          <DataField>InvoiceFooterText</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ShopContactText">
-          <DataField>ShopContactText</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PaymentTermsNote">
-          <DataField>PaymentTermsNote</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceRecipientOrderNumber">
-          <DataField>InvoiceRecipientOrderNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceNumber">
-          <DataField>InvoiceNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="OrderCreatedDate">
-          <DataField>OrderCreatedDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceDate">
-          <DataField>InvoiceDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="InvoiceDueDate">
-          <DataField>InvoiceDueDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceCopyReport, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <EmbeddedImages>
     <EmbeddedImage Name="synhalsan_pos_bw">
       <MIMEType>image/png</MIMEType>
@@ -2198,6 +2197,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   </EmbeddedImages>
   <Language>sv-SE</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>6247164a-758a-45da-be7f-3b74da04f8f4</rd:ReportID>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
 </Report>

@@ -59,18 +59,5 @@ Synologen OPQ/*/Properties/Settings.*
 Synologen.Maintenance/packages
 Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/CommonResources/*
 Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/Wpc/Base/*
-UpgradeLog.XML
-UpgradeLog.htm
-_UpgradeReport_Files/UpgradeReport.css
-_UpgradeReport_Files/UpgradeReport.xslt
-_UpgradeReport_Files/UpgradeReport_Error.png
-_UpgradeReport_Files/UpgradeReport_Information.png
-_UpgradeReport_Files/UpgradeReport_Success.png
-_UpgradeReport_Files/UpgradeReport_Warning.png
-Synologen.Data.Test/app.config
-Synologen.Service/Client.BGCTaskRunner/app.config
-Synologen.Service/Client.SubscriptionTaskRunner/app.config
-Synologen.Presentation.Intranet/Web.config
-Synologen.Presentation/Web.config
-Synologen.Service/Client.Invoicing/app.config
-Synologen.Service/Web.Invoicing/Web.config
+UpgradeLog.*
+_UpgradeReport_Files/

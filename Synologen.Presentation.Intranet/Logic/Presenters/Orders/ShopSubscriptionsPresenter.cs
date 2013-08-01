@@ -1,7 +1,4 @@
 ﻿using System;
-//using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-//using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -50,7 +47,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		    const string urlFormat = "{Url}?{Parameter}={ParameterValue}";
 		    return new SubscriptionListItem
 		    {
-		        CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
+		        CustomerName = subscription.Customer.ParseName(x => x.LastName, x => x.FirstName),
 		        CurrentBalance = subscription.GetCurrentAccountBalance().Total.ToString("N2"),
 		        MonthlyAmount = subscription.SubscriptionItems
                     .Where(x => x.Status == SubscriptionItemStatus.Active)

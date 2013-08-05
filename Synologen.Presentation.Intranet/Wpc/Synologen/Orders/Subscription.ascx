@@ -2,33 +2,23 @@
 <div id="synologen-order-subscription-" class="synologen-control">
 	<fieldset class="synologen-form">
 		<legend>Konto för <%=Model.CustomerName %></legend>
-		<p>
-			<label>Kontonr</label>
-			<span><%#Model.BankAccountNumber %></span>
-		</p>
-		<p>
-			<label>Clearingnr</label>
-			<span><%#Model.ClearingNumber %></span>
-		</p>
-		<p>
-			<label>Saldo</label>
-            <span>Momsbelagt: <%#Model.TaxedBalance %></span>
-            <br/>
-            <label></label>
-            <span>Momsfritt: <%#Model.TaxFreeBalance %></span>
-		</p>
-		<p>
-			<label>Medgivande</label>
-			<span><%#Model.Consented %></span>
-		</p>
-		<p>
-			<label>Abonnemang-status</label>
-			<span><%#Model.Status %></span>
-		</p>
-		<p>
-			<label>Skapat</label>
-			<span><%#Model.CreatedDate %></span>
-		</p>
+		<dl class="wide">
+			<dt>Kontonr</dt>
+			<dd><%#Model.BankAccountNumber %></dd>
+			<dt>Clearingnr</dt>
+			<dd><%#Model.ClearingNumber %></dd>
+			<dt>Saldo</dt>
+			<dd>Momsbelagt: <%#Model.TaxedBalance %>
+	            <br/>
+	           Momsfritt: <%#Model.TaxFreeBalance %>
+			</dd>
+			<dt>Medgivande</dt>
+			<dd><%#Model.Consented %></dd>
+			<dt>Abonnemang-status</dt>
+			<dd><%#Model.Status %></dd>
+			<dt>Skapat</dt>
+			<dd><%#Model.CreatedDate %></dd>
+		</dl>
 		<p>
 			<%if (Model.ShowStartButton) { %>
 				<asp:Button runat="server" OnClick="Start_Subscription" Text="Starta"/>

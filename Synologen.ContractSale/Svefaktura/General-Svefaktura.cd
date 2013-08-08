@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice.SFTIInvoiceType">
+    <Position X="10.5" Y="5.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MAAAQgqIMAAghALDAgYlEEAAAAAIQKCggAICEAEQKAg=</HashCode>
+      <FileName>Svefakt2\SFTI\Documents\BasicInvoice\SFTIInvoiceType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="InvoiceCurrencyCode" />
+      <Property Name="TaxCurrencyCode" />
+      <Property Name="BuyerParty" />
+      <Property Name="SellerParty" />
+      <Property Name="Delivery" />
+      <Property Name="PaymentTerms" />
+      <Property Name="ExchangeRate" />
+      <Property Name="LegalTotal" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="PaymentMeans" />
+      <Property Name="AllowanceCharge" />
+      <Property Name="TaxTotal" />
+      <Property Name="InvoiceLine" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIPaymentMeansType">
+    <Position X="13" Y="3" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gACAKAIAAAAAAAAAAAAAAAAAQAACIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIPaymentMeansType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIDeliveryType">
+    <Position X="7.25" Y="3" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAACAEBAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIDeliveryType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIExchangeRateType">
+    <Position X="10" Y="9.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQAAAEAAAAAwAAgAAAACBgAAAAAAAAABQAAAAIAAACA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIExchangeRateType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist.CurrencyCodeType">
+    <Position X="16.25" Y="2.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAEAQEIAAAMIABAAAEgAmAAAAIQAgQAAAoAA=</HashCode>
+      <FileName>Svefakt2\UBL\Codelist\CurrencyCodeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTILegalTotalType">
+    <Position X="14" Y="6" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAADAAAAAAAAAIAQQAgAAUAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTILegalTotalType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIPaymentTermsType">
+    <Position X="13" Y="10.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAEQAAQ=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIPaymentTermsType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTISellerPartyType">
+    <Position X="14" Y="8.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Party" Type="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIPartyType" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.75" Y="9.311" />
+        <Point X="17" Y="9.311" />
+        <Point X="17" Y="7.363" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTISellerPartyType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Party" />
+      <Property Name="AccountsContact" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIPartyType">
+    <Position X="16.75" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAAAAAAAAQKAAAAAAAAAAABAACAACBAAAAAAE=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+      <Property Name="Contact" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="PartyTaxScheme" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIInvoiceLineType">
+    <Position X="7.25" Y="5.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAASAAAAEgAICAAAkABAEAAACAKgAQAAgAAEAAAg=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIInvoiceLineType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AllowanceCharge" />
+      <Property Name="Item" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIAllowanceChargeType">
+    <Position X="7" Y="8.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAGAAAAAECAAAAAAgAAEQCSAAAAAACQAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIAllowanceChargeType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TaxCategory" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIInvoiceLineAllowanceCharge">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAAAAAAAAEAACAAAAAACQAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIInvoiceLineAllowanceCharge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIAddressType">
+    <Position X="19.5" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAgwCAAEAIgAAAEIYAQCABAAAAAAAQAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIAddressType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIContactType">
+    <Position X="16.5" Y="9.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQABAAAAAAAAAAAAAIAACAQAAAAAAAAAAIAAQAAAQAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIContactType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIBuyerPartyType">
+    <Position X="10.25" Y="1.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIBuyerPartyType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Party" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIItemType">
+    <Position X="3.5" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAgCAAAAEAAgQAAAEAAEYAAEAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIItemType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TaxCategory" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTITaxCategoryType">
+    <Position X="4.25" Y="9" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAgAAAAAAEAAAAAAAAACACAAABCAAgAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTITaxCategoryType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTITaxTotalType">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAAAIAAAAAAAAAAIAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTITaxTotalType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TaxSubTotal" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTIPartyTaxSchemeType">
+    <Position X="19.25" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAQCAAAIAAAAEAAAAAAAAAAAAAAACAAABAIAgAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyTaxSchemeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents.SFTITaxSubTotalType">
+    <Position X="4.25" Y="6" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGAAAAAAACAAAQQAAAAAAAAIiAAAAgAABAAA=</HashCode>
+      <FileName>Svefakt2\SFTI\CommonAggregateComponents\SFTITaxSubTotalType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TaxCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

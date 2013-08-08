@@ -1,0 +1,17 @@
+<asp:Button runat="Server" SkinID="Big" CssClass="btnBig" />
+
+<asp:Label runat="Server" SkinID="Short" CssClass="labelShort" />
+<asp:Label runat="Server" SkinID="Long" CssClass="labelLong" />
+
+<asp:GridView runat="Server" SkinID="Striped" CssClass="striped" GridLines="None" AutoGenerateColumns="false" >
+	<HeaderStyle CssClass="header" />
+</asp:GridView>
+
+<asp:DataGrid runat="Server" SkinID="Striped" CssClass="striped" GridLines="None" />
+
+<asp:DataList runat="Server" SkinID="Striped" CssClass="striped" />
+
+<asp:TextBox SkinId="Wide" runat="server" CssClass="txtAreaWide"/>
+
+<asp:ValidationSummary SkinID="Error" runat="server" CssClass="message error" Style="color: inherit;" />
+<asp:ValidationSummary SkinID="Success" runat="server" CssClass="message success" Style="color: inherit;" />

@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+Debug="true" 
+Service="Synologen.Service.Web.BGC.App.Services.BGWebService" 
+Factory="Synologen.Service.Web.BGC.App.IoC.BGServiceHostFactory" %>

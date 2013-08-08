@@ -61,5 +61,5 @@ Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/CommonResources/*
 Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/Wpc/Base/*
 UpgradeLog.*
 _UpgradeReport_Files/
-Synologen.Presentation/Web.Release.config
-Synologen.Presentation/Web.Debug.config
+*.Release.config
+*.Debug.config

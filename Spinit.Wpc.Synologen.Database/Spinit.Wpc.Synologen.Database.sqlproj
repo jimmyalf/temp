@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Spinit.Wpc.Synologen.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{312d41a6-fc9e-49c7-b09c-9012d89afb93}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Spinit.Wpc.Synologen.Database</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Database</AssemblyName>
+    <ModelCollation>1035,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <DefaultCollation>Finnish_Swedish_CI_AS</DefaultCollation>
+    <IsChangeTrackingOn>False</IsChangeTrackingOn>
+    <IsChangeTrackingAutoCleanupOn>True</IsChangeTrackingAutoCleanupOn>
+    <ChangeTrackingRetentionPeriod>2</ChangeTrackingRetentionPeriod>
+    <ChangeTrackingRetentionUnit>Days</ChangeTrackingRetentionUnit>
+    <IsEncryptionOn>False</IsEncryptionOn>
+    <IsBrokerPriorityHonored>False</IsBrokerPriorityHonored>
+    <Trustworthy>False</Trustworthy>
+    <AutoUpdateStatisticsAsynchronously>False</AutoUpdateStatisticsAsynchronously>
+    <PageVerify>TORN_PAGE_DETECTION</PageVerify>
+    <ServiceBrokerOption>EnableBroker</ServiceBrokerOption>
+    <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
+    <Parameterization>SIMPLE</Parameterization>
+    <AllowSnapshotIsolation>False</AllowSnapshotIsolation>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
+    <VardecimalStorageFormatOn>True</VardecimalStorageFormatOn>
+    <SupplementalLoggingOn>False</SupplementalLoggingOn>
+    <CompatibilityMode>80</CompatibilityMode>
+    <AnsiNullDefault>False</AnsiNullDefault>
+    <AnsiPadding>False</AnsiPadding>
+    <AnsiWarnings>False</AnsiWarnings>
+    <ArithAbort>False</ArithAbort>
+    <ConcatNullYieldsNull>False</ConcatNullYieldsNull>
+    <NumericRoundAbort>False</NumericRoundAbort>
+    <RecursiveTriggersEnabled>False</RecursiveTriggersEnabled>
+    <DatabaseChaining>False</DatabaseChaining>
+    <DatabaseState>ONLINE</DatabaseState>
+    <CloseCursorOnCommitEnabled>False</CloseCursorOnCommitEnabled>
+    <DefaultCursor>GLOBAL</DefaultCursor>
+    <AutoClose>False</AutoClose>
+    <AutoCreateStatistics>True</AutoCreateStatistics>
+    <AutoShrink>False</AutoShrink>
+    <AutoUpdateStatistics>True</AutoUpdateStatistics>
+    <TornPageDetection>True</TornPageDetection>
+    <DatabaseAccess>MULTI_USER</DatabaseAccess>
+    <Recovery>SIMPLE</Recovery>
+    <EnableFullTextSearch>False</EnableFullTextSearch>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <CreateProjectFromDatabaseCompleted>True</CreateProjectFromDatabaseCompleted>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Schema Compare" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tblMemberFileConnection.sql" />
+    <Build Include="dbo\Tables\tblBaseExternalComponents.sql" />
+    <Build Include="dbo\Tables\tblMembersContent.sql" />
+    <Build Include="dbo\Tables\tblSynologenContractArticleConnection.sql" />
+    <Build Include="dbo\Tables\SynologenLensSubscription.sql" />
+    <Build Include="dbo\Tables\tblSynologenFileCategory.sql" />
+    <Build Include="dbo\Tables\tblMemberPageConnection.sql" />
+    <Build Include="dbo\Tables\tblGalleryCategoryConnection.sql" />
+    <Build Include="dbo\Tables\tblCommerceAttribute.sql" />
+    <Build Include="dbo\Tables\tblMembersContent080123.sql" />
+    <Build Include="dbo\Tables\tblGalleryLanguageConnection.sql" />
+    <Build Include="dbo\Tables\SynologenLensSubscriptionCustomer.sql" />
+    <Build Include="dbo\Tables\tblGalleryLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblBaseLocationsComponents.sql" />
+    <Build Include="dbo\Tables\tblSynologenOrderItems.sql" />
+    <Build Include="dbo\Tables\tblGalleryLanguageStrings.sql" />
+    <Build Include="dbo\Tables\tblBaseLocationsLanguages.sql" />
+    <Build Include="dbo\Tables\tblCommerceAttributeCategory.sql" />
+    <Build Include="dbo\Tables\SynologenOpqNodeSupplierConnections.sql" />
+    <Build Include="dbo\Tables\tblMemberClassifiedAds.sql" />
+    <Build Include="dbo\Tables\AspNet_SqlCacheTablesForChangeNotification.sql" />
+    <Build Include="dbo\Tables\SynologenLensSubscriptionError.sql" />
+    <Build Include="dbo\Tables\tblNews.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopMemberConnection.sql" />
+    <Build Include="dbo\Tables\tblBaseLoginHistory.sql" />
+    <Build Include="dbo\Tables\SynologenLensSubscriptionTransaction.sql" />
+    <Build Include="dbo\Tables\SynologenOrderSubscriptionError.sql" />
+    <Build Include="dbo\Tables\tblSynologer.sql" />
+    <Build Include="dbo\Tables\tblBaseLogTypes.sql" />
+    <Build Include="dbo\Tables\tblContCrossPublish.sql" />
+    <Build Include="dbo\Tables\tblCommerceProduct.sql" />
+    <Build Include="dbo\Tables\tblSynologenOrderHistory.sql" />
+    <Build Include="dbo\Tables\tblUsersOld.sql" />
+    <Build Include="dbo\Tables\tblBaseObjects.sql" />
+    <Build Include="dbo\Tables\tblUsers3.sql" />
+    <Build Include="dbo\Tables\SynologenLensSubscriptionTransactionArticle.sql" />
+    <Build Include="dbo\Tables\tblSynologenArticle.sql" />
+    <Build Include="dbo\Tables\tblContPageComponents.sql" />
+    <Build Include="dbo\Tables\tblCourseApplication.sql" />
+    <Build Include="dbo\Tables\tblContPageFile.sql" />
+    <Build Include="dbo\Tables\tblBaseUsers.sql" />
+    <Build Include="dbo\Tables\tblSynologenInvoiceMethod.sql" />
+    <Build Include="dbo\Tables\SynologenOrderSubscriptionPendingPayment_SynologenOrderSubscriptionItem.sql" />
+    <Build Include="dbo\Tables\tblGalleryCategories.sql" />
+    <Build Include="dbo\Tables\tblSynologenContract.sql" />
+    <Build Include="dbo\Tables\tblCourseCategory.sql" />
+    <Build Include="dbo\Tables\tblContPagePage.sql" />
+    <Build Include="dbo\Tables\tblSynologenCompanyValidationRule.sql" />
+    <Build Include="dbo\Tables\tblSynologenGiro.sql" />
+    <Build Include="dbo\Tables\tblSynologenCompanyValidationRuleConnection.sql" />
+    <Build Include="dbo\Tables\tblMemberCategories.sql" />
+    <Build Include="dbo\Tables\SynologenOrderTransaction.sql" />
+    <Build Include="dbo\Tables\tblCourseCity.sql" />
+    <Build Include="dbo\Tables\tblCampaignCategories.sql" />
+    <Build Include="dbo\Tables\tblContTreeBaseGroups.sql" />
+    <Build Include="dbo\Tables\tblCampaignCategoryConnection.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductCategory.sql" />
+    <Build Include="dbo\Tables\%27Medlemmar Synologen 2011 09 10_%27.sql" />
+    <Build Include="dbo\Tables\tblMemberCategoryConnection.sql" />
+    <Build Include="dbo\Tables\tblCourseFileConnection.sql" />
+    <Build Include="dbo\Tables\tblCampaignLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblDocumentNode.sql" />
+    <Build Include="dbo\Tables\tblCampaignLanguageStrings.sql" />
+    <Build Include="dbo\Tables\tblDocumentNodeLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblCampaignLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblDocumentNodeLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblContCrossPublishType.sql" />
+    <Build Include="dbo\Tables\tblMemberFileCategory.sql" />
+    <Build Include="dbo\Tables\SynologenOrderSubscription.sql" />
+    <Build Include="dbo\Tables\tblCourseLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblSynologenOrder.sql" />
+    <Build Include="dbo\Tables\tblDocumentSortType.sql" />
+    <Build Include="dbo\Tables\tblSynologenSettlement.sql" />
+    <Build Include="dbo\Tables\tblMemberLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblSynologenSettlementOrderConnection.sql" />
+    <Build Include="dbo\Tables\tblSynologenRst.sql" />
+    <Build Include="dbo\Tables\tblCourseLocationConnection.sql" />
+    <Build Include="dbo\Tables\SynologenFrame.sql" />
+    <Build Include="dbo\Tables\tblMemberLanguageStrings.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopContractConnection.sql" />
+    <Build Include="dbo\Tables\tblMemberLocationConnection.sql" />
+    <Build Include="dbo\Tables\SynologenOrderArticle.sql" />
+    <Build Include="dbo\Tables\tblCourseMainCategoryConnection.sql" />
+    <Build Include="dbo\Tables\SynologenFrameBrand.sql" />
+    <Build Include="dbo\Tables\tblMembers.sql" />
+    <Build Include="dbo\Tables\SynologenFrameColor.sql" />
+    <Build Include="dbo\Tables\SynologenOrderSubscriptionItem.sql" />
+    <Build Include="dbo\Tables\tblCoursePageConnection.sql" />
+    <Build Include="dbo\Tables\tblCampaignFileCategory.sql" />
+    <Build Include="dbo\Tables\tblContPageType.sql" />
+    <Build Include="dbo\Tables\SynologenFrameGlassType.sql" />
+    <Build Include="dbo\Tables\tblCommerceAttributeAttributeCategory.sql" />
+    <Build Include="dbo\Tables\SynologenFrameOrder.sql" />
+    <Build Include="dbo\Tables\tblCourseResource.sql" />
+    <Build Include="dbo\Tables\tblCommerceConfiguration.sql" />
+    <Build Include="dbo\Tables\tblNewsCategory.sql" />
+    <Build Include="dbo\Tables\tblCampaignCategoryLocationLanguage.sql" />
+    <Build Include="dbo\Tables\tblCommerceCurrency.sql" />
+    <Build Include="dbo\Tables\tblNewsFileConnection.sql" />
+    <Build Include="dbo\Tables\SynologenOrderLensRecipe.sql" />
+    <Build Include="dbo\Tables\tblCampaignLocationLanguage.sql" />
+    <Build Include="dbo\Tables\tblCommerceCustomerData.sql" />
+    <Build Include="dbo\Tables\tblNewsPageConnection.sql" />
+    <Build Include="dbo\Tables\tblBaseLocations.sql" />
+    <Build Include="dbo\Tables\tblGallery.sql" />
+    <Build Include="dbo\Tables\tblCommerceDeliveryType.sql" />
+    <Build Include="dbo\Tables\tblNewsResources.sql" />
+    <Build Include="dbo\Tables\tblQuickForm.sql" />
+    <Build Include="dbo\Tables\tblGalleryCategoryLocationLanguage.sql" />
+    <Build Include="dbo\Tables\tblCommerceDisplayType.sql" />
+    <Build Include="dbo\Tables\tblGalleryFiles.sql" />
+    <Build Include="dbo\Tables\tblQuickFormInbox.sql" />
+    <Build Include="dbo\Tables\tblCommerceLanguageConnection.sql" />
+    <Build Include="dbo\Tables\SynologenOrderSubscriptionPendingPayment.sql" />
+    <Build Include="dbo\Tables\tblCommerceLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblQuickMailMail.sql" />
+    <Build Include="dbo\Tables\tblGalleryFileType.sql" />
+    <Build Include="dbo\Tables\SynologenOrderArticleCategory.sql" />
+    <Build Include="dbo\Tables\tblCommerceMailAddress.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopGroup.sql" />
+    <Build Include="dbo\Tables\tblGalleryFileTypeConnection.sql" />
+    <Build Include="dbo\Tables\tblCampaign.sql" />
+    <Build Include="dbo\Tables\SynologenOrderArticleType.sql" />
+    <Build Include="dbo\Tables\tblCommerceOrder.sql" />
+    <Build Include="dbo\Tables\tblMemberUserConnection.sql" />
+    <Build Include="dbo\Tables\tblGalleryGroupConnection.sql" />
+    <Build Include="dbo\Tables\tblCommerceOrderItem.sql" />
+    <Build Include="dbo\Tables\SynologenOrderArticleSupplier.sql" />
+    <Build Include="dbo\Tables\tblCommerceOrderStatus.sql" />
+    <Build Include="dbo\Tables\SynologenOpqDocumentHistories.sql" />
+    <Build Include="dbo\Tables\tblBaseUsersGroups.sql" />
+    <Build Include="dbo\Tables\tblGalleryLocationLanguage.sql" />
+    <Build Include="dbo\Tables\tblGallerySortType.sql" />
+    <Build Include="dbo\Tables\tblCommercePaymentType.sql" />
+    <Build Include="dbo\Tables\Vote.sql" />
+    <Build Include="dbo\Tables\SynologenOpqDocuments.sql" />
+    <Build Include="dbo\Tables\nntp_Newsgroups.sql" />
+    <Build Include="dbo\Tables\nntp_Posts.sql" />
+    <Build Include="dbo\Tables\tblForumAnonymousUsers.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductAttribute.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopCategory.sql" />
+    <Build Include="dbo\Tables\tblForumBlockedIpAddresses.sql" />
+    <Build Include="dbo\Tables\tblBaseFile.sql" />
+    <Build Include="dbo\Tables\tblForumCensorship.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopCategoryMemberCategoryConnection.sql" />
+    <Build Include="dbo\Tables\tblForumCodeScheduleType.sql" />
+    <Build Include="dbo\Tables\tblForumCodeServiceType.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductCategoryAttribute.sql" />
+    <Build Include="dbo\Tables\tblForumDisallowedNames.sql" />
+    <Build Include="dbo\Tables\tblContTreeType.sql" />
+    <Build Include="dbo\Tables\tblForumEmailQueue.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductCategoryFile.sql" />
+    <Build Include="dbo\Tables\tblUsersOld2.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopEquipment.sql" />
+    <Build Include="dbo\Tables\tblForumExceptions.sql" />
+    <Build Include="dbo\Tables\tblNewsCategoryConnection.sql" />
+    <Build Include="dbo\Tables\tblMemberNews.sql" />
+    <Build Include="dbo\Tables\tblForumForumGroups.sql" />
+    <Build Include="dbo\Tables\tblNewsLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductFile.sql" />
+    <Build Include="dbo\Tables\tblSynologenShopEquipmentConnection.sql" />
+    <Build Include="dbo\Tables\tblForumForumPermissions.sql" />
+    <Build Include="dbo\Tables\tblNewsLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductFileCategory.sql" />
+    <Build Include="dbo\Tables\tblForumForumPingback.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductFileConnection.sql" />
+    <Build Include="dbo\Tables\tblForumForums.sql" />
+    <Build Include="dbo\Tables\tblForumForumsRead.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductPageConnection.sql" />
+    <Build Include="dbo\Tables\tblDocuments.sql" />
+    <Build Include="dbo\Tables\tblForumImages.sql" />
+    <Build Include="dbo\Tables\tblForumMessages.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductPrice.sql" />
+    <Build Include="dbo\Tables\tblForumModerationAction.sql" />
+    <Build Include="dbo\Tables\tblForumModerationAudit.sql" />
+    <Build Include="dbo\Tables\tblCommerceProductProductCategory.sql" />
+    <Build Include="dbo\Tables\tblSynologenConcern.sql" />
+    <Build Include="dbo\Tables\tblForumModerators.sql" />
+    <Build Include="dbo\Tables\tblDocumentsBack.sql" />
+    <Build Include="dbo\Tables\tblSynologenOrderStatus.sql" />
+    <Build Include="dbo\Tables\tblDocumentDocumentFileConnection.sql" />
+    <Build Include="dbo\Tables\tblForumPostAttachments.sql" />
+    <Build Include="dbo\Tables\tblContPage.sql" />
+    <Build Include="dbo\Tables\tblQuickMailComponentConnection.sql" />
+    <Build Include="dbo\Tables\tblSynologenCountry.sql" />
+    <Build Include="dbo\Tables\tblForumPostEditNotes.sql" />
+    <Build Include="dbo\Tables\tblForumPostRating.sql" />
+    <Build Include="dbo\Tables\tblForumPosts.sql" />
+    <Build Include="dbo\Tables\tblQuickMailConfiguration.sql" />
+    <Build Include="dbo\Tables\tblDocumentNodeFileConnection.sql" />
+    <Build Include="dbo\Tables\tblForumPostsArchive.sql" />
+    <Build Include="dbo\Tables\tblBaseAccess.sql" />
+    <Build Include="dbo\Tables\tblForumPrivateMessages.sql" />
+    <Build Include="dbo\Tables\tblQuickMailFileConnection.sql" />
+    <Build Include="dbo\Tables\tblForumRanks.sql" />
+    <Build Include="dbo\Tables\tblBaseComponents.sql" />
+    <Build Include="dbo\Tables\tblForumReports.sql" />
+    <Build Include="dbo\Tables\tblForumRoles.sql" />
+    <Build Include="dbo\Tables\tblQuickMailLanguageConnection.sql" />
+    <Build Include="dbo\Tables\tblBaseGroupsLanguages.sql" />
+    <Build Include="dbo\Tables\tblForumSearchBarrel.sql" />
+    <Build Include="dbo\Tables\tblForumSearchIgnoreWords.sql" />
+    <Build Include="dbo\Tables\tblForumServiceSchedule.sql" />
+    <Build Include="dbo\Tables\tblContTree.sql" />
+    <Build Include="dbo\Tables\tblQuickMailLocationConnection.sql" />
+    <Build Include="dbo\Tables\tblNewsAttachments.sql" />
+    <Build Include="dbo\Tables\tblForumServices.sql" />
+    <Build Include="dbo\Tables\tblForumSiteSettings.sql" />
+    <Build Include="dbo\Tables\tblBaseGroupsLocations.sql" />
+    <Build Include="dbo\Tables\tblForumSmilies.sql" />
+    <Build Include="dbo\Tables\SynologenOpqDocumentTypes.sql" />
+    <Build Include="dbo\Tables\tblForumThreads.sql" />
+    <Build Include="dbo\Tables\tblNewsCategoryGroupConnection.sql" />
+    <Build Include="dbo\Tables\tblForumThreadsRead.sql" />
+    <Build Include="dbo\Tables\tblQuickMailMailType.sql" />
+    <Build Include="dbo\Tables\SynologenOpqFileCategories.sql" />
+    <Build Include="dbo\Tables\tblForumTrackedForums.sql" />
+    <Build Include="dbo\Tables\tblBaseGroupsObjects.sql" />
+    <Build Include="dbo\Tables\tblForumTrackedThreads.sql" />
+    <Build Include="dbo\Tables\tblQuickMailPageConnection.sql" />
+    <Build Include="dbo\Tables\tblForumUserAvatar.sql" />
+    <Build Include="dbo\Tables\tblBaseGroups.sql" />
+    <Build Include="dbo\Tables\tblNewsGroupConnection.sql" />
+    <Build Include="dbo\Tables\tblForumUserProfile.sql" />
+    <Build Include="dbo\Tables\SynologenOpqFiles.sql" />
+    <Build Include="dbo\Tables\SynologenOrderCustomer.sql" />
+    <Build Include="dbo\Tables\tblForumUsers.sql" />
+    <Build Include="dbo\Tables\tblForumUsersInRoles.sql" />
+    <Build Include="dbo\Tables\tblForumUsersOnline.sql" />
+    <Build Include="dbo\Tables\tblNewsRead.sql" />
+    <Build Include="dbo\Tables\tblForumVersion.sql" />
+    <Build Include="dbo\Tables\tblSynologenLog.sql" />
+    <Build Include="dbo\Tables\tblForumsStyles.sql" />
+    <Build Include="dbo\Tables\tblForumstatistics_Site.sql" />
+    <Build Include="dbo\Tables\tblBaseGroupType.sql" />
+    <Build Include="dbo\Tables\tblForumstatistics_User.sql" />
+    <Build Include="dbo\Tables\tblCourse.sql" />
+    <Build Include="dbo\Tables\tblBaseLanguages.sql" />
+    <Build Include="dbo\Tables\SynologenOrder.sql" />
+    <Build Include="dbo\Tables\tblBaseLog.sql" />
+    <Build Include="dbo\Tables\tblSynologenCompany.sql" />
+    <Build Include="dbo\Tables\tblBaseObjectType.sql" />
+    <Build Include="dbo\Tables\SynologenOpqNodes.sql" />
+    <Build Include="dbo\Tables\tblCourseMain.sql" />
+    <Build Include="dbo\Tables\tblSynologenShop.sql" />
+    <Build Include="dbo\Views\vwNewsIntranetNews.sql" />
+    <Build Include="dbo\Views\SynologenOpqDocumentView.sql" />
+    <Build Include="dbo\Views\vwBaseGroups.sql" />
+    <Build Include="dbo\Views\vwBaseGroupsObjects.sql" />
+    <Build Include="dbo\Views\vwBaseLogs.sql" />
+    <Build Include="dbo\Views\vwBaseUserNoPwd.sql" />
+    <Build Include="dbo\Views\vwContPageContent.sql" />
+    <Build Include="dbo\Views\vwBaseUserObjectsAllow.sql" />
+    <Build Include="dbo\Views\vwBaseUserObjectsDeny.sql" />
+    <Build Include="dbo\Views\vwBaseComponents.sql" />
+    <Build Include="dbo\Views\vwBaseUserLanguageAllow.sql" />
+    <Build Include="dbo\Views\vwBaseFileObjects.sql" />
+    <Build Include="dbo\Views\vwBaseLoginHistoryGroups.sql" />
+    <Build Include="dbo\Views\vwBaseLoginHistoryUsers.sql" />
+    <Build Include="Security\aspnet_ChangeNotification_ReceiveNotificationsOnlyAccess.sql" />
+    <Build Include="Security\synologen.sql" />
+    <Build Include="Security\synologen_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetArticleVATForOrderItem.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetArticleSPCSAccountNumberForOrderItem.sql" />
+    <Build Include="dbo\Functions\sfContGetTreUpString.sql" />
+    <Build Include="dbo\Functions\sfForumHasReadPost.sql" />
+    <Build Include="dbo\Functions\sfBaseGetNrOf.sql" />
+    <Build Include="dbo\Functions\sfContGetTreDownString.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetPriceIncludingVAT.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetSettlementIsMarkedAsPayed.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetTotalOrderPrice.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetSettlementOrderValue.sql" />
+    <Build Include="dbo\Functions\sfForumGetUserHasViewRightsOnForum.sql" />
+    <Build Include="dbo\Functions\sfMemberGetTopCategoryName.sql" />
+    <Build Include="dbo\Functions\sfContGetFileNameDownString.sql" />
+    <Build Include="dbo\Functions\sfContGetFileUrlDownString.sql" />
+    <Build Include="dbo\Functions\sfContGetLinkPageId.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetFullUserName.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetShopEquipmentString.sql" />
+    <Build Include="dbo\Functions\sfSynologenGetShopName.sql" />
+    <Build Include="dbo\Functions\sfCourseGetNoOfParticipants.sql" />
+    <Build Include="dbo\Functions\sfForumGetUserDisplayName.sql" />
+    <Build Include="dbo\Functions\sfMemberGetCategoryName.sql" />
+    <Build Include="dbo\Functions\sfNewsIsRead.sql" />
+    <Build Include="dbo\Functions\sfBaseTruncateString.sql" />
+    <Build Include="dbo\Functions\sfNewsGetCategory.sql" />
+    <Build Include="dbo\Functions\sfNewsGetNewsFiles.sql" />
+    <Build Include="dbo\Functions\sfNewsGetNewsPages.sql" />
+    <Build Include="dbo\Functions\sfQuickMailGetFiles.sql" />
+    <Build Include="dbo\Functions\sfQuickMailGetPages.sql" />
+    <Build Include="dbo\Functions\fnGetAllCampaignCategories.sql" />
+    <Build Include="dbo\Functions\fnGetAllCampaigns.sql" />
+    <Build Include="dbo\Functions\fnGetAllGalleries.sql" />
+    <Build Include="dbo\Functions\fnGetCampaignCategories.sql" />
+    <Build Include="dbo\Functions\sfCommerceGetProductCategoryFiles.sql" />
+    <Build Include="dbo\Functions\sfCommerceGetProductFiles.sql" />
+    <Build Include="dbo\Functions\sfCommerceGetProductPages.sql" />
+    <Build Include="dbo\Functions\sfContGetAllPageLinks.sql" />
+    <Build Include="dbo\Functions\sfContGetPageLinks.sql" />
+    <Build Include="dbo\Functions\sfContGetPagePageLinks.sql" />
+    <Build Include="dbo\Functions\sfContGetTreeBaseGroupsRec.sql" />
+    <Build Include="dbo\Functions\sfContGetTreeLeaves.sql" />
+    <Build Include="dbo\Functions\sfContGetTreUp.sql" />
+    <Build Include="dbo\Functions\sfContGetTreUpAll.sql" />
+    <Build Include="dbo\Functions\sfCourseGetAllCategory.sql" />
+    <Build Include="dbo\Functions\sfCourseGetCategory.sql" />
+    <Build Include="dbo\Functions\sfCourseGetCourseFiles.sql" />
+    <Build Include="dbo\Functions\sfCourseGetCoursePages.sql" />
+    <Build Include="dbo\Functions\sfDocumentAllowedDocuments.sql" />
+    <Build Include="dbo\Functions\sfDocumentAllowedNodes.sql" />
+    <Build Include="dbo\Functions\sfDocumentGetDocumentFiles.sql" />
+    <Build Include="dbo\Functions\sfGalleryAllowedGalleries.sql" />
+    <Build Include="dbo\Functions\sfGalleryGetAllGalleries.sql" />
+    <Build Include="dbo\Functions\sfGalleryGetAllGalleryCategories.sql" />
+    <Build Include="dbo\Functions\sfGalleryGetGalleryCategories.sql" />
+    <Build Include="dbo\Functions\sfMemberGetAllMembers.sql" />
+    <Build Include="dbo\Functions\sfMemberGetAllMembersCategories.sql" />
+    <Build Include="dbo\Functions\sfMemberGetMembersCategories.sql" />
+    <Build Include="dbo\Functions\sfNewsAllowedNews.sql" />
+    <Build Include="dbo\Functions\sfNewsGetAllCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsConnectToLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddUser.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDisconnectFromLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddUserGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch_IgnoreWords.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDisconnectFromLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch_IgnoreWords_CreateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteProductCategoryFile.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDisconnectFromCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeExternalComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch_Index.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteLanguageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContCrePageFile.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddDeleteComponentConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch_PostReindex.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteProductFile.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemPageFile.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddDeleteFileConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumService_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\AspNet_SqlCacheUpdateChangeIdStoredProcedure.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteLocationConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddDeleteLanguageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumServices_Get.sql" />
+    <Build Include="dbo\Stored Procedures\AspNet_SqlCachePollingStoredProcedure.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceDeleteProductCategoryRecursive.sql" />
+    <Build Include="dbo\Stored Procedures\spContCrePageComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseSearchFiles.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddDeleteLocationConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeUser.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSetForumSubscriptionType.sql" />
+    <Build Include="dbo\Stored Procedures\AspNet_SqlCacheQueryRegisteredTablesStoredProcedure.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceDeleteProductRecursive.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemPageComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddDeletePageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSiteSettings_Get.sql" />
+    <Build Include="dbo\Stored Procedures\AspNet_SqlCacheRegisterTableStoredProcedure.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddUpdateDeleteMail.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseConnectLocationAndComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSiteSettings_Save.sql" />
+    <Build Include="dbo\Stored Procedures\AspNet_SqlCacheUnRegisterTableStoredProcedure.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProduct.sql" />
+    <Build Include="dbo\Stored Procedures\spContCrePagePage.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddUpdateDeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailAddUpdateDeleteMailType.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseConnectLocationAndLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSite_Statistics.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductProductCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemPagePage.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickmailSearchComponentConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseCreateComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSmiley_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductProductCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseCreateExternalComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSmilies_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductFile.sql" />
+    <Build Include="dbo\Stored Procedures\spContCrePgeLocLng.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchFileConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseDisconnectLocationAndComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumStatistics_GetMostActiveUsers_Filtered.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteMailAddress.sql" />
+    <Build Include="dbo\Stored Procedures\spContChgPgeLocLng.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddUpdateDeleteGallery.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchLanguageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseDisconnectLocationAndLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumStyle_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetTreUpAll.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchMailAddress.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemPgeLocLng.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGalleries.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchLocationConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumStyles_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductCategoryAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchMail.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseGetComponents.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThread_PrevNext.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseAddDeleteApplication.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCreateLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchMailType.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThread_Rate.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseAddUpdateDeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCreateLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailSearchPageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThread_Rate_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseAddUpdateDeleteCity.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteDeliveryType.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCreateNode.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickMailUpdateConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThreads_GetThreadSet.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseAddUpdateDeleteCourse.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchDeliveryType.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreeApprovePage.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberConnectFile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThreads_ThreadSet.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseAddUpdateDeleteCourseMain.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductCategoryFile.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreeChgPagePublish.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGalleriesDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberDisconnectFile.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrdersForStatusCheck.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThreads_ThreadSet_Active.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseConnectDisconnectLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeletePaymentType.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreeChgPageShow.sql" />
+    <Build Include="dbo\Stored Procedures\spContSearchAndReplace.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseGetLanguages.sql" />
+    <Build Include="dbo\Stored Procedures\spForumThreads_ThreadSet_Unanswered.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseConnectDisconnectLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchPaymentType.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreLockPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumTrackAnonymousUsers.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseCreCourseFile.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchLocationConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreMoveNode.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUpdateEmailTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseCreCoursePage.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCopyNodeRec.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUpdateForumGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetApplications.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteOrderStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCopyNode.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUpdateForumGroupSortOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreCopyNodeRecTemp.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchOrderStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spContTrePublished.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetGiros.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUpdateForumLastCrawlDate.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetConcerns.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetCities.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchLanguageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreChgNodePge.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUpdateSearchBarrel.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetCountries.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetConnectedCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProduct.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreChgNode.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseLogout.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateOrderStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUserHasPostsAwaitingModeration.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenOpqRestoreOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteProductFileConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreRemNode.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_Anonymous_Count.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateOrderInvoiceDateTime.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetLanguages.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteCustomerData.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreRemCPNode.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveExternalComponent.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_Anonymous_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseGetLocations.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchCustomerData.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreRemLeafs.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_Avatar.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseMainConnectDisconnectCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddDeleteProductPageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseMainGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseGetTree.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveUser.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseMainGetDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetTreUp.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddUpdateDeleteFileCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveUserGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_GetByEmail.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseRemCourseFile.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignGetFileCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_PasswordAnswer_Change.sql" />
+    <Build Include="dbo\Stored Procedures\spCourseRemCoursePage.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreeFindTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_Password_Change.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreeGetTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_ToggleSettings.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUsersInRole_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductCategoryAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUsers_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryFile.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteDisplayType.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentAddUpdateDeleteDocument.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUsers_Online.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryFileType.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchDisplayType.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentAddUpdateDeleteNode.sql" />
+    <Build Include="dbo\Stored Procedures\spForumVote.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddDeleteGalleryGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteCurrency.sql" />
+    <Build Include="dbo\Stored Procedures\spContCreCrossPublish.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsecurity_ValidateUser.sql" />
+    <Build Include="dbo\Stored Procedures\spForumAddForumToRole.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchCurrency.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemCrossPublish.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenConnectCompanyToValidationRule.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentDeleteNodeChildren.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsecurity_ValidateUserPasswordAnswer.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteArticle.sql" />
+    <Build Include="dbo\Stored Procedures\spForumAddModeratedForumForUser.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductPrice.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenDisconnectCompanyFromValidationRule.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetDocuments.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_ACE_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteCompany.sql" />
+    <Build Include="dbo\Stored Procedures\spForumBlockedIpAddress_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductPrice.sql" />
+    <Build Include="dbo\Stored Procedures\spContCreTreeBaseGroups.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetCompanyValidationRules.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetLanguages.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_CleanForumsRead.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteContract.sql" />
+    <Build Include="dbo\Stored Procedures\spForumBlockedIpAddress_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceUpdateConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\spContCreTreeBaseGroupsRec.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetInvoicingMethods.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetLocations.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_DeletePostAndChildren.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteContractArticleConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumBlockedIpAddresses_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemTreeBaseGroups.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetNodes.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_DuplicatePost.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteRST.sql" />
+    <Build Include="dbo\Stored Procedures\spForumCensorship_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductFileConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemTreeBaseGroupsRec.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetSortTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_Forum.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetArticles.sql" />
+    <Build Include="dbo\Stored Procedures\spForumCensorships_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductPageConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetTreeBaseGroups.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentMove.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_ForumGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetCompanyRSTs.sql" />
+    <Build Include="dbo\Stored Procedures\spForumDisallowedName_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentSetOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_LinkUser.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetContractArticleConnections.sql" />
+    <Build Include="dbo\Stored Procedures\spForumDisallowedNames_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetTreeBaseGroupsRec.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddSettlement.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_Post.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetContractCompanies.sql" />
+    <Build Include="dbo\Stored Procedures\spForumEmails_Dequeue.sql" />
+    <Build Include="dbo\Stored Procedures\spContCreCrossPublishType.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetSettlementOrderItemsDetailed.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_Preperation.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetContracts.sql" />
+    <Build Include="dbo\Stored Procedures\spForumEmails_Enqueue.sql" />
+    <Build Include="dbo\Stored Procedures\spContChgCrossPublishType.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddFile.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetSettlementOrderItemsSimple.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_Import_User.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetContractsByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumEmails_TrackingForum.sql" />
+    <Build Include="dbo\Stored Procedures\spContRemCrossPublishType.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddGroupLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetSettlements.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_ModerationAction_AuditEntry.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetContractsDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spForumEmails_TrackingThread.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetCrossPublishType.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddGroupLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenMarkOrdersInSettlementAsPayedPerShop.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_ResetForumStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateShopContractConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumExceptions_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddGroupObject.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_ResetThreadStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spForumExceptions_Log.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateForum.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForumGroup_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddObject.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetSettlementDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateMostActiveUsers.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForumGroups_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateSite.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeObject.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateThread.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_GetByPostID.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateUserPostCount.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_GetForumIDByPostID.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseCleanLog.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UpdateUserPostRank.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_MarkRead.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseClearLog.sql" />
+    <Build Include="dbo\Stored Procedures\spForumsystem_UserIsOnline.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_Permission_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsAddUpdateDeleteNews.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_Permissions_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseCreateLog.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_RssPingback_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseDeleteLog.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spForumForum_UpdateSortOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\spForum_ForumsGet.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveFile.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrderItems.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetEmail.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveGroupLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrders.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetConnectedCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumMessages.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveGroupLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrdersByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumModerators.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryAddUpdateDeleteGalleryFile.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveGroupObject.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrdersDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumSubscriptionType.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGalleriesDynamic2.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddUpdateDeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrderStatuses.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumTrackingEmailsForThread.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGalleryFiles.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignGetCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveObject.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumsModeratedByUser.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGalleryFileTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetForumsNotModeratedByUser.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryGetGallerySortTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetMessage.sql" />
+    <Build Include="dbo\Stored Procedures\spGalleryMoveGalleryFile.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseUpdateFile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetModeratedForums.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreMoveNodeTo.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddUpdateDeleteCampaign.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetModeratorsForEmailNotification.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsAddNewsRead.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreMoveNodeUpDown.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignGetCampaigns.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetPostRead.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsAttachAFile.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreReorder.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddDeleteCampaignLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSQLSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\___spCommerceDeleteProductCategoryRecursive.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsConnectCategoryToGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddDeleteCampaignLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsConnectToGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignAddDeleteCampaignCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSearchResultsByTextPhrase_FTQ.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDetachAFile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSearchResultsByText_FTQ.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDisconnectCategoryFromGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSearchResultsByUser.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsDisconnectFromGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spCampaignGetCampaignsDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetSubscriptionType.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetAllowedByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetThread.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetAttachments.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetThreadByParentID.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetNewsView.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetTop25NewPosts.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductFile.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetReadByList.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsAddUpdateDeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetTotalNumberOfForums.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsIntranetGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetTotalPostCount.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsIntranetGetNewsDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetTotalPostsForThread.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsRemoveNewsRead.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeRemPageLocLng.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetUnmoderatedPostStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickFormAddUpdateDeleteInbox.sql" />
+    <Build Include="dbo\Stored Procedures\spContSearchPages.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetUserIDByAppToken.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickFormAddUpdateDeleteQuickForm.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsCreNewsFile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetUserNameFromPostID.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickFormGetQuickForm.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsCreNewsPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetUsersByName.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetSitePaths.sql" />
+    <Build Include="dbo\Stored Procedures\spQuickFormMarkAllAsRead.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsRemNewsFile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumUser_CreateProfile.sql" />
+    <Build Include="dbo\Stored Procedures\spForumGetVoteResults.sql" />
+    <Build Include="dbo\Stored Procedures\spContGetConnectedNodes.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsRemNewsPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumImage_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteFileCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumIsUserTrackingForum.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteShop.sql" />
+    <Build Include="dbo\Stored Procedures\spForumIsUserTrackingPost.sql" />
+    <Build Include="dbo\Stored Procedures\spForumMarkPostAsRead.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteOrderStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spForumMessage_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteShopCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_ApprovePost.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetFileCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseChangeLocationAndLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddUpdateDeleteShopEquipment.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_CheckUser.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetMemberDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseGetLocationAndLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetMembers.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_DeletePost.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetMembersByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreRemLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShopCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_Forum_Roles.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShops.sql" />
+    <Build Include="dbo\Stored Procedures\spContTreRemLocationLeafs.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShopCategoryMemberCategoryConnections.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_Forums.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShopsByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShopEquipment.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_PostSet.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceAddUpdateDeleteProductFileCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetShopsDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateShopCategoryMemberCategoryConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_Post_Move.sql" />
+    <Build Include="dbo\Stored Procedures\spCommerceSearchProductFileCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateShopEquipmentConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_Thread_Merge.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentConnectDisconnectNodeOrDocument.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetMembers.sql" />
+    <Build Include="dbo\Stored Procedures\spForumModerate_Thread_Split.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetFilesForDocument.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenUpdateShopMemberConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPost.sql" />
+    <Build Include="dbo\Stored Procedures\spDocumentGetFilesForNode.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPostAttachment.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetNewsAlternative.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPostAttachment_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetConnectedLocations.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPost_CreateUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetConnectedCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPost_ToggleSettings.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetLocations.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPost_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPosts_PostSet.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddUpdateDeleteMember.sql" />
+    <Build Include="dbo\Stored Procedures\spForumPrivateMessages_CreateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberRemoveLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRank_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRanks_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeCreatePage.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberRemoveCategoryConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRemoveForumFromRole.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeChgPageContent.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddCategoryConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRemoveModeratedForumForUser.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeChgPage.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddBaseUserConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRemoveUserFromRole.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddUpdateDeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddLog.sql" />
+    <Build Include="dbo\Stored Procedures\spForumReport_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeRemTransPage.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddUpdateDeleteFileCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumReports_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spContPgeRemPage.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetFileCategories.sql" />
+    <Build Include="dbo\Stored Procedures\spForumReverseTrackingOption.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetClassifiedAds.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRole_AddForum.sql" />
+    <Build Include="dbo\Stored Procedures\spContChangeAllForTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddUpdateDeleteClassifiedAd.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddUpdateDeleteUser.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenAddOrderHistory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRole_AddUser.sql" />
+    <Build Include="dbo\Stored Procedures\spContChangeAllForTemplateRecursive.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetNews.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetNews.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddUserToGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetOrderHistory.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRole_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberAddNewsConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetByPage.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseMatchUserAndPassword.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRoles_AddUser.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberRemoveNewsConnection.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsGetNewsDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseRemoveUserFromGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spSynologenGetForInvoicing.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRoles_CreateUpdateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsConnectToLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseSearchUser.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spForumRoles_Get.sql" />
+    <Build Include="dbo\Stored Procedures\spMemberGetMemberDynamic.sql" />
+    <Build Include="dbo\Stored Procedures\spNewsConnectToCategory.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseUpdateLoginHistory.sql" />
+    <Build Include="dbo\Stored Procedures\spBaseAddLocation.sql" />
+    <Build Include="dbo\Stored Procedures\spForumSearch.sql" />
+    <Build Include="Security\aspnet_ChangeNotification_ReceiveNotificationsOnlyAccess_1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Schema Compare\Db - Project.scmp" />
+  </ItemGroup>
+</Project>

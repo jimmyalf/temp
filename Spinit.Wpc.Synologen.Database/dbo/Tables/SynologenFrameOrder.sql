@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[SynologenFrameOrder] (
+    [Id]                     INT            IDENTITY (1, 1) NOT NULL,
+    [FrameId]                INT            NOT NULL,
+    [GlassTypeId]            INT            NOT NULL,
+    [OrderingShopId]         INT            NOT NULL,
+    [Reference]              NVARCHAR (255) NULL,
+    [AdditionLeft]           DECIMAL (5, 2) NULL,
+    [AdditionRight]          DECIMAL (5, 2) NULL,
+    [AxisLeft]               INT            NULL,
+    [AxisRight]              INT            NULL,
+    [CylinderLeft]           DECIMAL (5, 2) NULL,
+    [CylinderRight]          DECIMAL (5, 2) NULL,
+    [HeightLeft]             DECIMAL (5, 2) NULL,
+    [HeightRight]            DECIMAL (5, 2) NULL,
+    [PupillaryDistanceLeft]  DECIMAL (5, 2) NOT NULL,
+    [PupillaryDistanceRight] DECIMAL (5, 2) NOT NULL,
+    [SphereLeft]             DECIMAL (5, 2) NOT NULL,
+    [SphereRight]            DECIMAL (5, 2) NOT NULL,
+    [Created]                DATETIME       NOT NULL,
+    [Sent]                   DATETIME       NULL,
+    CONSTRAINT [PK_SynologenFrameOrder] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_SynologenFrameOrder_SynologenFrame] FOREIGN KEY ([FrameId]) REFERENCES [dbo].[SynologenFrame] ([Id]),
+    CONSTRAINT [FK_SynologenFrameOrder_SynologenFrameGlassType] FOREIGN KEY ([GlassTypeId]) REFERENCES [dbo].[SynologenFrameGlassType] ([Id]),
+    CONSTRAINT [FK_SynologenFrameOrder_tblSynologenShop] FOREIGN KEY ([OrderingShopId]) REFERENCES [dbo].[tblSynologenShop] ([cId])
+);
+

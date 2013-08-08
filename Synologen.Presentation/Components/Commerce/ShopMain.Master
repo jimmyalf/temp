@@ -1,0 +1,16 @@
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" CodeBehind="ShopMain.master.cs" Inherits="Spinit.Wpc.Commerce.Presentation.ShopMain" %>
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+<div id="dCompNavigation">
+	<asp:PlaceHolder ID="phCommerceMenu" runat="server" />
+</div>
+<div id="dCompSecondNavigation">
+	<asp:PlaceHolder ID="phCommerceSecondMenu" runat="server" />
+</div>
+<div id="dCompSubNavigation">
+	<asp:PlaceHolder ID="phCommerceSubMenu" runat="server" />
+</div>
+<div class="Components-Commerce">
+<spinit:MessageManager ID="CommerceUserMessageManager" runat="server" UniqueClientID="Commerce-Shop-MessageManager" CaptionElement="h4" NegativeCaptionText="An error has occured!" />
+<asp:contentplaceholder id="phCommerce" runat="server"></asp:contentplaceholder>
+</div>
+</asp:Content>

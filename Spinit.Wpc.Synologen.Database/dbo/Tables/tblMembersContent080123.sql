@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[tblMembersContent080123] (
+    [cId]           INT            NOT NULL,
+    [cMemberId]     INT            NOT NULL,
+    [cDescription]  NVARCHAR (255) NULL,
+    [cAddress]      NVARCHAR (255) NULL,
+    [cZipcode]      NVARCHAR (50)  NULL,
+    [cCity]         NVARCHAR (50)  NULL,
+    [cPhone]        NVARCHAR (50)  NULL,
+    [cFax]          NVARCHAR (50)  NULL,
+    [cMobile]       NVARCHAR (50)  NULL,
+    [cEmail]        NVARCHAR (50)  NULL,
+    [cWww]          NVARCHAR (255) NULL,
+    [cBody]         NTEXT          NULL,
+    [cOther1]       NVARCHAR (100) NULL,
+    [cOther2]       NVARCHAR (100) NULL,
+    [cOther3]       NVARCHAR (255) NULL,
+    [cContactFirst] NVARCHAR (255) NULL,
+    [cContactLast]  NVARCHAR (255) NULL,
+    [cCreatedBy]    NVARCHAR (100) NULL,
+    [cCreatedDate]  DATETIME       NULL,
+    [cEditedBy]     NVARCHAR (100) NULL,
+    [cEditedDate]   DATETIME       NULL,
+    [cApprovedBy]   NVARCHAR (100) NULL,
+    [cApprovedDate] DATETIME       NULL,
+    [cLockedBy]     NVARCHAR (100) NULL,
+    [cLockedDate]   DATETIME       NULL
+);
+

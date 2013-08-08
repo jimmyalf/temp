@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
     	private void btnNextStep_Click(object sender, EventArgs e)
     	{
-    		var value = rblAccounts.SelectedValue.ToInt();
+    	    var value = Request.Form["Subscription"].ToInt();
     		var args = GetSubmitEventArgs(value);
     		TryFireSubmit(sender, args);
     	}

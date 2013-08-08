@@ -222,6 +222,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.NumerOfPerformedWithdrawals.ShouldBe(_subscriptionItem.PerformedWithdrawals);
 			View.Model.SubscriptionBankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.CustomerName.ShouldBe(_subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+            View.Model.Title.ShouldBe(_subscriptionItem.Title);
 		}
 
 		private void UppdaterasDelabonnemanget()
@@ -239,6 +240,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 			updatedSubscriptionItem.Value.TaxFree.ShouldBe(_form.FeeAmount);
 			updatedSubscriptionItem.Value.Taxed.ShouldBe(_form.ProductAmount);
+            updatedSubscriptionItem.Title.ShouldBe(_form.Title);
 		}
 
 		private void TillbakaLänkVisas()

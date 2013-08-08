@@ -74,14 +74,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void VisasEnListaMedSamtligaLinsabonnemang()
 		{
-			var expectedSubscriptions = GetAll<Subscription>().Where(x => x.Customer.Shop.Id == _shop1.Id).OrderByDescending(x => x.Id);
+			var expectedSubscriptions = GetAll<Subscription>().Where(x => x.Customer.Shop.Id == _shop1.Id)
+                .OrderBy(x => x.Customer.LastName)
+                .ThenBy(x => x.Customer.FirstName);
 			View.Model.List.Count().ShouldBe(expectedSubscriptions.Count());
 			View.Model.List.And(expectedSubscriptions).Do((viewModel, subscription) =>
 			{
 			    var transactions = _transactions.Where(x => x.Subscription.Id == subscription.Id).ToList();
 			    viewModel.CurrentBalance.ShouldBe(GetExpectedCurrentBalance(transactions).ToString("N2"));
 			    viewModel.CustomerDetailsUrl.ShouldBe(_renderUrl(_customerDetailsPageUrl, "customer", subscription.Customer.Id));
-			    viewModel.CustomerName.ShouldBe(subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+			    viewModel.CustomerName.ShouldBe(subscription.Customer.ParseName(x => x.LastName, x => x.FirstName));
 				viewModel.BankAccountNumber.ShouldBe(subscription.BankAccountNumber);
 			    viewModel.MonthlyAmount.ShouldBe(subscription.SubscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).Sum(x => x.MonthlyWithdrawal.Total).ToString("N2"));
 			    viewModel.Status.ShouldBe(GetStatusMessage(subscription));

@@ -22,8 +22,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public bool IsOngoing { get; protected set; }
         public bool IsActive { get; protected set; }
         public bool IsStopped { get; protected set; }
+	    public string Title { get; set; }
 
-		public void Initialize(SubscriptionItem subscriptionItem, Subscription subscription, string returnUrl)
+	    public void Initialize(SubscriptionItem subscriptionItem, Subscription subscription, string returnUrl)
 		{
 		    Status = subscriptionItem.Status.GetEnumDisplayName();
 			ProductPrice = subscriptionItem.Value.Taxed;
@@ -40,6 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Taxed;
 		    IsActive = subscriptionItem.Status == SubscriptionItemStatus.Active;
 		    IsStopped = subscriptionItem.Status == SubscriptionItemStatus.Stopped;
+	        Title = subscriptionItem.Title;
 		}
 	}
 }

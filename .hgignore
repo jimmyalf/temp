@@ -59,3 +59,7 @@ Synologen OPQ/*/Properties/Settings.*
 Synologen.Maintenance/packages
 Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/CommonResources/*
 Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/Wpc/Base/*
+UpgradeLog.*
+_UpgradeReport_Files/
+*.Release.config
+*.Debug.config

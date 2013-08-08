@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Invoicing\InvoiceCredit.rdlc" />
     <EmbeddedResource Include="Invoicing\InvoiceCopy.rdlc" />
   </ItemGroup>
   <ItemGroup>

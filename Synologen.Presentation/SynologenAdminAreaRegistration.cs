@@ -66,7 +66,8 @@ namespace Spinit.Wpc.Synologen.Presentation
             context.MapRoute(AreaName + "ContractSalesDefault", urlPrefix + "contract-sales/{action}", new { controller = "ContractSales" });
 
 			context.MapRoute(AreaName + "Reports", urlPrefix + "reports", new { controller = "Report", action = "Index" } );
-			context.MapRoute(AreaName + "ReportsInvoiceCopy", urlPrefix + "reports/invoice-copy/{id}", new { controller = "Report", action = "InvoiceCopy" } );
+            context.MapRoute(AreaName + "ReportsInvoiceCopy", urlPrefix + "reports/invoice-copy/{id}", new { controller = "Report", action = "InvoiceCopy" });
+            context.MapRoute(AreaName + "InvoiceCredit", urlPrefix + "reports/InvoiceCredit/{id}", new { controller = "Report", action = "InvoiceCredit" });
 
 			context.MapRoute(AreaName + "OrderSubscriptions", urlPrefix + "orders/subscriptions/", new { controller = "Order", action = "Subscriptions" } );
 			context.MapRoute(AreaName + "OrderSubscription", urlPrefix + "orders/subscriptions/{id}", new { controller = "Order", action = "SubscriptionView" } );

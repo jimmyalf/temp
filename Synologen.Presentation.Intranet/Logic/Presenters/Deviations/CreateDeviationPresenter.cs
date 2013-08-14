@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+
 using NHibernate;
+
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Commands.Deviations;
 using Spinit.Wpc.Synologen.Data.Queries.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviations;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers;
-//using Spinit.Extensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 {
@@ -25,12 +26,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
         private readonly DeviationSupplierListItem _defaultSupplier = new DeviationSupplierListItem { Id = 0, Name = "-- Välj leverantör --" };
         private readonly ISynologenMemberService _synologenMemberService;
         private readonly IEmailService _emailService;
+        private readonly ISynologenSettingsService _settingService;
 
-        public CreateDeviationPresenter(ICreateDeviationView view, ISession session, ISynologenMemberService sessionProviderService, IEmailService emailService)
+        public CreateDeviationPresenter(ICreateDeviationView view, ISession session, ISynologenMemberService sessionProviderService, IEmailService emailService, ISynologenSettingsService settingService)
             : base(view, session)
         {
             _synologenMemberService = sessionProviderService;
             _emailService = emailService;
+            _settingService = settingService;
 
             InitiateEventHandlers();
         }
@@ -105,33 +108,51 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             }
 
             Execute(new CreateDeviationCommand(deviation));
-            //_emailService.SendEmail("roger.edvardsson@spinit.se", "roger.edvardsson@spinit.se", "Extern avvikelse", ReportEmailBody(deviation));
+
+            if (e.SendEmailSupplier)
+            {
+                try
+                {
+                    _emailService.SendEmail(_settingService.EmailOrderFrom, supplier.Email, "Synologen extern avvikelse", CreateSupplierEmailBody(deviation));
+                    View.Model.Status = string.Format("Avvikelsen är skickad till leverantörens e-post adress '{0}'.", supplier.Email);
+                }
+                catch (Exception)
+                {
+                    View.Model.Status = string.Format("Något fel inträffade när avvikelsen skulle skickas till leverantörens e-post adress '{0}'.", supplier.Email);
+                }
+            }
+
             View.Model.Success = true;
         }
 
-        //private string ReportEmailBody(Deviation deviation)
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.AppendLine("Hej,");
-        //    sb.AppendLine();
-        //    sb.AppendLine();
-        //    sb.AppendLine("Här kommer extern avvikelserapport.");
-        //    sb.AppendLine();
-        //    sb.AppendLine();
-        //    sb.AppendFormat("Category: {0}", deviation.Category.Name);
-        //    sb.AppendLine();
-        //    sb.AppendLine("Fel:");
-        //    sb.AppendLine();
-        //    foreach (var d in deviation.Defects)
-        //    {
-        //        sb.AppendLine(d.Name);
-        //    }
-        //    sb.AppendLine();
-        //    sb.AppendLine();
-        //    sb.AppendLine("Synologen");
+        private string CreateSupplierEmailBody(Deviation deviation)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("Hej,");
+            sb.AppendLine();
+            sb.AppendLine("Här kommer ny extern avvikelse.");
+            sb.AppendLine();
+            sb.AppendFormat("Kategori: {0}", deviation.Category.Name);
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Fel:");
 
-        //    return sb.ToString();
-        //}
+            foreach (var d in deviation.Defects)
+            {
+                sb.AppendLine(d.Name);
+            }
+            
+            sb.AppendLine();
+            sb.AppendFormat("Beskrivning: {0}", deviation.DefectDescription);
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Med vänlig hälsning");
+            sb.AppendLine();
+            sb.AppendLine("Synologen");
+
+            return sb.ToString();
+        }
 
         public void InitializeModel()
         {

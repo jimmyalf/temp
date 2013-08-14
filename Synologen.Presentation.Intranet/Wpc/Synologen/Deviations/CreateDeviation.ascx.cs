@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
+
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
-using Spinit.Wpc.Synologen.Data.Queries.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
+
 using WebFormsMvp;
 using WebFormsMvp.Web;
-using Spinit.Extensions;
-using System.Text;
-using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
 {
@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         private void btnSubmit_OnClick(object sender, EventArgs e)
         {
             var eventArgs = (CreateDeviationEventArgs)Page.Session["CreateDeviationEventArgs"];
+            eventArgs.SendEmailSupplier = Convert.ToBoolean(chkSendEmailSupplier.Checked);
             Submit(this, eventArgs);
         }
 

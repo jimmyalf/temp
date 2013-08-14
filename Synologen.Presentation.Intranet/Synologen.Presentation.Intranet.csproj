@@ -953,6 +953,7 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Testpages\Supplier\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionsList.aspx" />

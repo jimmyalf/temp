@@ -1,0 +1,75 @@
+.Components-Synologen-ContractCompanies-aspx .rstControl table{
+	margin-top:5px;
+}
+
+.Components-Synologen-EditOrder-aspx ul#order-history{
+	padding-left:0px;
+}
+
+
+/* Synologen-OpqIndex-aspx */
+
+.Synologen-OpqIndex-aspx .wysiwyg-item { width: 28em; min-height: 40px; margin-bottom: .5em;}
+.document-status 
+{
+	background:#FFFFFF none repeat scroll 0 0;
+	border:2px solid #AAAAAA;
+	float:right;
+	font-weight:bold;
+	height:15px;
+	padding:10px;
+}
+
+.documentcontent
+{
+	background:#FFFFFF none repeat scroll 0 0;
+	border:1px solid #AAAAAA;
+	padding:10px;
+	min-height:50px;
+	margin-bottom:5px;
+}	
+
+.Synologen-OpqIndex-aspx #routine-documents 
+{ 
+	float:left;
+	padding-top:10px;
+	width:100%;
+}
+ 
+ /* Synologen-OpqIndex-aspx */
+ .Synologen-OpqShopRoutines-aspx .wrap 
+ {
+	background-color:#EEEEEE;
+	border:1px solid #AAAAAA;
+	color:inherit;
+	margin-left:10px;
+	margin-right:10px;
+	margin-top:-10px;
+	padding:10px;
+	float:none;
+}
+
+.Synologen-OpqShopRoutines-aspx .edit-shop-link
+ {
+ 	float:right;
+ }
+ 
+.Synologen-OpqShopRoutines-aspx .routine
+  {
+	background:#FFFFFF none repeat scroll 0 0;
+	border:1px solid #AAAAAA;
+	padding:10px;
+	min-height:50px;
+	margin-bottom:5px;  	
+  }
+  
+   /* Synologen-OpqImprovments-aspx */
+#improvment .suggestion
+{
+	background:#FFFFFF none repeat scroll 0 0;
+	border:1px solid #AAAAAA;
+	padding:10px;
+	min-height:50px;
+	margin-bottom:10px;
+	margin-top:10px;  		
+}

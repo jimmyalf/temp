@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <message id="1">
+    <title>Åtkomst nekad: Ej administratör</title>
+    <body>Du är inte en administratör.</body>
+  </message>
+
+  <message id="2">
+    <title>Åtkomst nekad: Rättigheter att ändra nekades</title>
+    <body>Antingen finns inte detta forum, eller så har du inte rättigheter att ändra här.</body>
+  </message>
+
+  <message id="3">
+    <title>Åtkomst nekad: Ej moderator</title>
+    <body>Du är inte en moderator.</body>
+  </message>
+
+  <message id="4">
+    <title>Duplicerat meddelande</title>
+    <body>Administratören har konfigurerat forumen att inte tillåta duplicerade meddelanden.</body>
+  </message>
+
+  <message id="5">
+    <title>404: Filen hittades ej</title>
+    <body>Filen du begärde hittades inte.</body>
+  </message>
+
+  <message id="6">
+    <title>Hittades ej: Forumet hittades inte</title>
+    <body>Forumet du begärde finns inte.</body>
+  </message>
+
+  <message id="7">
+    <title>Användarkonto skapat</title>
+    <body>Ditt användarkonto har skapats. Du kommer inom kort få e-post som innehåller ett lösenord du kan använda för att logga in.</body>
+  </message>
+
+  <message id="8">
+    <title>Meddelandet väntar på moderering</title>
+    <body>Du har postad meddelande till ett modererat forum&lt;br /&gt;&lt;br /&gt;Ditt meddelande kommer inte att visas i forumet förrän en moderator har godkänt ditt meddelande.</body>
+  </message>
+
+  <message id="9">
+    <title>Meddelandet hittades ej</title>
+    <body>Meddelandet du begärde hittades ej, eller existerar inte längre. Administratören eller moderatorn kanske raderat meddelandet.</body>
+  </message>
+
+  <message id="10">
+    <title>Inget meddelande att välja</title>
+    <body>Inget meddelande hittades på den begärda URL:en.</body>
+  </message>
+
+  <message id="11">
+    <title>Problem att posta</title>
+    <body>Det uppstod ett problem när ditt meddelande skulle postas. Om du får detta felmeddelande igen, kontakta en administratör eller moderator.</body>
+  </message>
+
+  <message id="13">
+    <title>Användarprofil uppdaterad</title>
+    <body>Din profil har uppdaterats.</body>
+  </message>
+
+  <message id="14">
+    <title>Hittade inte medlem</title>
+    <body>Medlemmen du begärde kan inte hittas.</body>
+  </message>
+
+  <message id="15">
+    <title>Lösenordet ändrat</title>
+    <body>Ditt lösenord har ändrats och skickats med e-post till dig. Det kan ta upp till 15 minuter innan det får effekt</body>
+  </message>
+
+  <message id="16">
+    <title>Ändring av lösenord misslyckades</title>
+    <body>Ett fel uppstod vid försök att ändra ditt lösenord. Gör ett nytt försök.</body>
+  </message>
+
+  <message id="17">
+    <title>Felaktiga användarreferenser</title>
+    <body>Användarnamnet och/eller lösenordet kunde inte valideras.</body>
+  </message>
+
+  <message id="18">
+    <title>Inga obesvarade meddelanden</title>
+    <body>Inga obesvarade meddelanden kunde hittas.</body>
+  </message>
+
+  <message id="19">
+    <title>Användaren accepterar inte privata meddelanden</title>
+    <body>Användaren som du försöker skicka ett privat meddelande till, har slagit av funktionen privata meddelanden.</body>
+  </message>
+
+  <message id="20">
+    <title>Sökning efter medlem returnerade inget resultat</title>
+    <body>Ändra sökkriteria, då inga sökresultat returnerades för denna sökning.</body>
+  </message>
+
+  <message id="21">
+    <title>Inga aktiva meddelanden</title>
+    <body>Inga aktiva meddelanden hittades.</body>
+  </message>
+
+  <message id="22">
+    <title>Privata meddelanden till sig själv är inte tillåtet</title>
+    <body>Du kan inte skicka privata meddelanden till dig själv.</body>
+  </message>
+
+  <message id="23">
+    <title>Användarkontot väntar på godkännande</title>
+    <body>Ditt konto väntar på godkännande från administratören. Du kommer att få ett e-post meddelande när ditt konto godkänts.</body>
+  </message>
+
+  <message id="24">
+    <title>Användarkonto skapat</title>
+    <body>Ditt användarkonto har skapats, och du kan logga in på forumen.</body>
+  </message>
+
+  <message id="25">
+    <title>Användarkonto ej godkänt</title>
+    <body>Ditt användarkonto blev ej godkänt av administratören. Om du anser detta är felaktigt, kontakta en administratör eller moderator.</body>
+  </message>
+
+  <message id="26">
+    <title>Användarkonto bannlyst</title>
+    <body>Du har inte längre tillåtelse att komma åt forumen. Om du anser detta vara felaktigt, kontrollera detta med administratören eller moderatorn</body>
+  </message>
+
+  <message id="27">
+    <title>Okänt inloggningsfel</title>
+    <body>Ett okänt fel uppstod vid försök att verifiera dina inloggningsuppgifter. Försök att logga in igen.</body>
+  </message>
+
+  <message id="28">
+    <title>Kan inte skicka e-post</title>
+    <body>Ett fel uppstod vid försök att skicka e-post.</body>
+  </message>
+
+  <message id="29">
+    <title>Registrering av nya användare ej aktiverat</title>
+    <body>Administratören har avaktiverat skapande av nya konton. Kom tillbaks senare - eller skicka e-post till administratören - för att se om det finns möjlighet att registrera sig.</body>
+  </message>
+
+  <message id="30">
+    <title>Inloggning avaktiverad</title>
+    <body>Administratören har globalt avaktiverat inloggning till forumen. Kom tillbaks senare - eller skicka e-post till administratören - för att se om det finns möjlighet att logga in.</body>
+  </message>
+
+  <message id="31">
+    <title>Åtkomst nekad</title>
+    <body>Åtkomst nekad.</body>
+  </message>
+
+  <message id="32">
+    <title>Åtkomst nekad: Rättigheter att posta meddelande nekades</title>
+    <body>Antingen existerar inte detta forum, eller så har du inte rättigheter att posta här.</body>
+  </message>
+
+  <message id="33">
+    <title>Forumgruppen hittades ej</title>
+    <body>Den begärda forumgruppen kunde inte hittas.</body>
+  </message>
+
+  <message id="34">
+    <title>Forumgruppen hittades ej</title>
+    <body>Den begärda forumgruppen kunde inte hittas.</body>
+  </message>
+
+  <message id="35">
+    <title>Okänt sökningsfel</title>
+    <body>Ett okänt fel uppstod vid sökningen. Prova att göra om sökningen.</body>
+  </message>
+
+  <message id="36">
+    <title>Åtkomst nekad: Rättigheter att svara nekades</title>
+    <body>Antingen existerar inte forumet, eller så har du inte rättigheter att svara på meddelanden i detta forum.</body>
+  </message>
+
+  <message id="37">
+    <title>Åtkomst nekad: Rättigheter att posta tillkännagivande nekades</title>
+    <body>Antingen existerar inte forumet, eller så har du inte rättigheter att skapa tillkännagivanden i detta forum.</body>
+  </message>
+
+  <message id="38">
+    <title>Rättigheter Utgångna: Rättigheter att ändra meddelandet har förfallit.</title>
+    <body>Administratören har konfigurerad detta forum att ha en tidsgräns för att ändra meddelanden. Om du fortfarande behöver ändra ett meddelande, kontakta forumets moderator.</body>
+  </message>
+
+  <message id="39">
+    <title>Meddelande låst</title>
+    <body>Meddelandet är låst och tillåter inga svar.</body>
+  </message>
+
+  <message id="40">
+    <title>Rättigheter utgångna: Rättigheter att radera meddelande har förfallit</title>
+    <body>Administratören har konfigurerad detta forum att ha en tidsgräns för att radera meddelanden. Om du fortfarande behöver radera ett meddelande, kontakta forum moderatorn.</body>
+  </message>
+
+  <message id="41">
+    <title>Åtkomst nekad: Rättigheter att radera nekades</title>
+    <body>Antingen existerar inte forumet, eller så har du inte rättigheter att radera meddelanden i detta forum.</body>
+  </message>
+
+  <message id="45">
+    <title>Inga sökresultat</title>
+    <body>Sökningen gav inga sökresultat.</body>
+  </message>
+
+ <message id="46">
+	<title>Ej tillåtet att bifoga fil</title>
+	<body>Ditt meddelande har sparats, men inte den bifogade filen. &lt;P&gt;Administratören har förbjudit vissa filtyper. Och filen får bara ha ETT fil-tillägg (filnamn.ext).</body>
+  </message>
+
+  <message id="47">
+	<title>Åtkomst nekad</title>
+	<body>Du har inte rättigheter att visa/ladda ned denna.</body>
+  </message>
+
+  <message id="48">
+	<title>E-post har skickats till användare</title>
+	<body>E-postmeddelandet skickades till användaren.</body>
+  </message>
+
+<message id="49">
+	<title>Attachment Too Large</title>
+	<body>Your post has been saved, but the attachment was not.&lt;P&gt;Your attachment exceeded the forums maximum size limit.</body>
+  </message>
+
+  <message id="50">
+	<title>Bifogade filer ej aktiverat</title>
+	<body>Ditt meddelande har sparats, men inte den bifogade filen.&lt;P&gt;Bifogade filer har avaktiverats av administratören.</body>
+  </message>
+
+  <message id="51">
+	<title>Hemligt svar ändrades</title>
+	<body>Ditt gamla 'hemliga svar' har ändrats. Använd det om du behöver återställa ditt lösenord.</body>
+  </message>
+
+  <message id="52">
+	<title>Ändring av hemligt svar misslyckades</title>
+	<body>Ett fel uppstod när ditt 'hemliga svar' skulle ändras. Försök igen.</body>
+  </message>
+
+  <message id="53">
+    <title>Rollen hittades inte</title>
+    <body>Rollen som du begärde hittades inte.</body>
+  </message>
+
+  <message id="54">
+    <title>Rollen uppdaterad</title>
+    <body>Rollen har uppdaterats.</body>
+  </message>
+
+  <message id="55">
+    <title>Rollen raderad</title>
+    <body>Rollen har raderats.</body>
+  </message>
+
+  <message id="56">
+    <title>Åtgärd på rollen är inte tillåten</title>
+    <body>Du kan inte utföra åtgärden du försökte på den valda rollen.</body>
+  </message>
+
+  <message id="57">
+    <title>Resursen hittades inte</title>
+    <body>Resursen du begärde finns inte.</body>
+  </message>
+
+  <message id="999">
+    <title>Okänt fel</title>
+    <body>Ett okänt fel har uppstått i forumen &lt;P&gt; Felet har loggats.</body>
+  </message>
+
+
+
+</root>

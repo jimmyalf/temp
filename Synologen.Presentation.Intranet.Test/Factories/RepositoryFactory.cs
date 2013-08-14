@@ -42,8 +42,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 				{
 					AllowOrders = true,
 					ArticleNumber = "123456",
-					Brand = new FrameBrand { Id = 1, Name = "Björn Borg" },
-					Color = new FrameColor { Id = 1, Name = "Blå" },
+					Brand = new FrameBrand { Id = id, Name = "Björn Borg" },
+					Color = new FrameColor { Id = id, Name = "Blå" },
+                    Supplier = new FrameSupplier { Id = id, Email = "info@supplier.com", Name = "Frame supplier inc" },
 					Id = id,
 					Name = "Bra båge",
 				}
@@ -55,12 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
         {
             public override FrameSupplier Get(int id)
             {
-                return new FrameSupplier
-                           {
-                               Name = "Hoya",
-                               Email = "kundservice@hoya.se",
-                               Id = id,
-                           };
+                return new FrameSupplier { Name = "Hoya", Email = "kundservice@hoya.se", Id = id, };
 
             }
         }
@@ -70,10 +66,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 			{
 				return new FrameGlassType
 				{
-					Id = id,
-					IncludeAdditionParametersInOrder = (id%2==0),
-					IncludeHeightParametersInOrder = (id%4==0),
-					Name = "Närprogressiva",
+				    Id = id,
+				    IncludeAdditionParametersInOrder = id % 2 == 0,
+				    IncludeHeightParametersInOrder = id % 4 == 0,
+				    Name = "Närprogressiva",
+                    Supplier = new FrameSupplier { Id = id, Email = "info@supplier.com", Name = "Frame supplier inc" },
 				}
 				.SetInterval(x => x.Sphere, -6, 6, 0.25M)
 				.SetInterval(x => x.Cylinder, -2, 0, 0.25M);
@@ -95,7 +92,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 						Color = new FrameColor { Name = "Gul" },
 						Name = "Testbåge 123",
 						PupillaryDistance = { Min = 20, Max = 40, Increment = 1 },
-                        Supplier = new FrameSupplier { Name = "Hoya", Email = "kundservice@hoya.se" }
+                        Supplier = new FrameSupplier { Id = id, Email = "info@supplier.com", Name = "Frame supplier inc" },
 					},
 					GlassType = new FrameGlassType { 
 						Name = "Progressiv",
@@ -185,16 +182,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 
 		private static IEnumerable<TModel> GenerateItems<TModel>(Func<int,TModel> generateFromIdFunction)
 		{
-			var returnList = new List<TModel>();
-			for(var id=1; id <= 10; id++)
-			{
-				returnList.Add(generateFromIdFunction(id));
+		    var returnList = new List<TModel>();
+		    for (var id = 1; id <= 10; id++)
+		    {
+		        returnList.Add(generateFromIdFunction(id));
 			}
+
 			return returnList;
 		}
-
-	    
 	}
-
-	
 }

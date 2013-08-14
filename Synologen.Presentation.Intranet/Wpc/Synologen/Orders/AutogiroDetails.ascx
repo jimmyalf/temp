@@ -14,6 +14,10 @@
 	 			<div id="progressbar"></div>
    			</div>
     		<p>
+    			<label>Rubrik/Namn</label>
+    			<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
+    		</p>
+    		<p>
     			<label>Bankontonummer</label>
     			<asp:TextBox ID="txtBankAccountNumber" runat="server" Enabled="<%#Model.IsNewSubscription %>" Text='<%#Model.BankAccountNumber%>' />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtBankAccountNumber" Enabled="<%#Model.IsNewSubscription %>" ErrorMessage="Bankontonummer måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>

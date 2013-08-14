@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 
 	[TestFixture, Category("View_Subscription")]
-	public class View_Subscription : GeneralOrderSpecTestbase<SubscriptionPresenter,ISubscriptionView>
+	public class View_Subscription : GeneralOrderSpecTestbase<SubscriptionPresenter, ISubscriptionView>
 	{
 		private Shop _shop;
 		private Subscription _subscription;
@@ -78,8 +78,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(DelAbonnemangVisas)
 					.Och(TransaktionerVisas)
 					.Och(FelListaVisas)
-					.Och(FelVisas)
-			);
+					.Och(FelVisas));
 		}
 
 		[Test]
@@ -198,10 +197,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void DelAbonnemangFinns()
 		{
-			_subscriptionItems = new []{ CreateSubscriptionItem(_subscription)};
+		    _subscriptionItems = CreateSubscriptionItems(_subscription);
 		}
 
-		private void TransaktionerFinns()
+	    private void TransaktionerFinns()
 		{
 			_transactions = StoreItems(() => OrderFactory.GetTransactions(_subscription));
 		}
@@ -256,13 +255,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#region Assert
 		private void AbonnemangsInformationVisas()
 		{
+		    var balance = Subscription.GetCurrentAccountBalance(_transactions.ToList());
 			View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
 			View.Model.CustomerName.ShouldBe(_subscription.Customer.FirstName + " " + _subscription.Customer.LastName);
 			View.Model.Status.ShouldBe(_subscription.Active ? "Aktivt" : "Vilande autogiro");
 			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
-			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).Total.ToString("C2"));
+			View.Model.TaxedBalance.ShouldBe(balance.Taxed.ToString("C2"));
+            View.Model.TaxFreeBalance.ShouldBe(balance.TaxFree.ToString("C2"));
+            View.Model.TaxFreeBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).TaxFree.ToString("C2"));
 			View.Model.ShowResetDisplayUrl.ShouldBe(false);
 		}
 
@@ -285,11 +287,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			View.Model.SubscriptionItems.And(_subscriptionItems).Do((viewModel, item) =>
 			{
-				viewModel.Active.ShouldBe(item.IsActive ? "Ja" : "Nej");
+			    AssertSubscriptionItemStatus(viewModel.Status, item);
 				viewModel.MontlyAmount.ShouldBe(item.MonthlyWithdrawal.Total.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));
-				viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);
+                if (item.IsOngoing)
+                {
+                    viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals.ToString());
+                }
+                else
+                {
+				    viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);
+                }
+			    viewModel.Title.ShouldBe(item.Title);
 			});
 		}
 

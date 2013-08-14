@@ -70,18 +70,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 			return new FrameEditView
 			{
 				AllowOrders = true,
-				//IndexMinValue = 1.5m,
-				//IndexMaxValue = 1.6m,
-				//IndexIncrementation = 0.1m,
-				//SphereMinValue = -6,
-				//SphereMaxValue = 6,
-				//SphereIncrementation = 0.25m,
 				PupillaryDistanceMinValue = 20,
 				PupillaryDistanceMaxValue = 40,
 				PupillaryDistanceIncrementation = 0.5m,
-				//CylinderMinValue = -2,
-				//CylinderMaxValue = 0,
-				//CylinderIncrementation = 0.25m,
 				ColorId = 0,
 				BrandId = 0,
                 SupplierId = 0,

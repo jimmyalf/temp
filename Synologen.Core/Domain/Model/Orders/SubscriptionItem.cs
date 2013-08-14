@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		{
 			CreatedDate = SystemTime.Now;
 			Version = SubscriptionVersion.VersionTwo;
+		    Active = true;
 		}
 
 		public virtual DateTime CreatedDate { get; private set; }
@@ -17,27 +18,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual int? WithdrawalsLimit { get; protected set; }
 		public virtual int PerformedWithdrawals { get; set; }
 		public virtual SubscriptionAmount Value { get; protected set; }
-		protected virtual SubscriptionAmount CustomMonthlyAmount { get; set; }
 		public virtual SubscriptionVersion Version { get; protected set; }
-
-		public virtual SubscriptionItem Setup(int withdrawalLimit, decimal totalPrice, decimal totalFee)
-		{
-			WithdrawalsLimit = withdrawalLimit;
-			Value = new SubscriptionAmount(totalPrice, totalFee);
-			CustomMonthlyAmount = null;
-			return this;
-		}
-
-		public virtual SubscriptionItem Setup(decimal monthlyPrice, decimal monthlyFee, decimal totalPrice, decimal totalFee)
-		{
-			WithdrawalsLimit = null;
-			Value = new SubscriptionAmount(totalPrice, totalFee);
-			CustomMonthlyAmount = new SubscriptionAmount(monthlyPrice, monthlyFee);
-			return this;
-		}
-
 		public virtual bool IsOngoing { get { return !WithdrawalsLimit.HasValue; } }
-
 		public virtual SubscriptionAmount MonthlyWithdrawal
 		{
 			get
@@ -47,10 +29,55 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 				return new SubscriptionAmount(taxedAmount, taxFreeAmount);
 			}
 		}
+	    public virtual SubscriptionItemStatus Status
+	    {
+	        get
+	        {
+	            if (!Active)
+	            {
+	                return SubscriptionItemStatus.Stopped;
+	            }
 
-		public virtual bool IsActive
-		{ 
-			get { return IsOngoing || PerformedWithdrawals < WithdrawalsLimit; } 
-		}
+                if (IsOngoing)
+                {
+                    return SubscriptionItemStatus.Active;
+                }
+
+                return PerformedWithdrawals < WithdrawalsLimit 
+                    ? SubscriptionItemStatus.Active 
+                    : SubscriptionItemStatus.Expired;
+	        }
+	    }
+        public virtual string Title { get; set; }
+        protected virtual SubscriptionAmount CustomMonthlyAmount { get; set; }
+        protected virtual bool Active { get; set; }
+
+	    public virtual SubscriptionItem Start()
+        {
+            Active = true;
+            return this;
+        }
+
+        public virtual SubscriptionItem Stop()
+        {
+            Active = false;
+            return this;
+        }
+
+        public virtual SubscriptionItem Setup(int withdrawalLimit, decimal totalPrice, decimal totalFee)
+        {
+            WithdrawalsLimit = withdrawalLimit;
+            Value = new SubscriptionAmount(totalPrice, totalFee);
+            CustomMonthlyAmount = null;
+            return this;
+        }
+
+        public virtual SubscriptionItem Setup(decimal monthlyPrice, decimal monthlyFee, decimal totalPrice, decimal totalFee)
+        {
+            WithdrawalsLimit = null;
+            Value = new SubscriptionAmount(totalPrice, totalFee);
+            CustomMonthlyAmount = new SubscriptionAmount(monthlyPrice, monthlyFee);
+            return this;
+        }
 	}
 }

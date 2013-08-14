@@ -13,6 +13,5 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			Map(x => x.NumberOfFramesWithThisBrand)
 				.Formula("(Select Count('') from SynologenFrame Where SynologenFrame.BrandId = Id)");
 		}
-		
 	}
 }

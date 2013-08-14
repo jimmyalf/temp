@@ -155,7 +155,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 
 		public static SubscriptionPendingPayment CreatePendingPayment(IEnumerable<SubscriptionItem> subscriptionItems)
 		{
-			var activeSubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList();
+			var activeSubscriptionItems = subscriptionItems.Where(x => x.Status == SubscriptionItemStatus.Active).ToList();
 			return new SubscriptionPendingPayment {HasBeenPayed = false}.AddSubscriptionItems(activeSubscriptionItems);
 		}
 

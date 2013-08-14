@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_frameglasstype_without_connections()
 		{
 			//Arrange
-			var frameGlassType = FrameGlassTypeFactory.GetGlassType();
+			var frameGlassType = FrameGlassTypeFactory.GetGlassType(SavedFrameSuppliers.First());
 			FrameGlassTypeRepository.Save(frameGlassType);
 
 			//Act

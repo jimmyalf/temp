@@ -147,6 +147,7 @@
     <Compile Include="App\IoC\TestRegistry.cs" />
     <Compile Include="ContractArticleConnection_Edit.cs" />
     <Compile Include="Article_Edit.cs" />
+    <Compile Include="ContractSales\Statistics.cs" />
     <Compile Include="Helpers\ContractArticleFactory.cs" />
     <Compile Include="Helpers\ArticleFactory.cs" />
     <Compile Include="CancelInvoice.cs" />

@@ -13,9 +13,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 		public override ICriteria Convert(AllSubscriptionsForShopCriteria source)
 		{
 			return Criteria
-				.Sort(x => x.Id, source.SortAscending)
-				.CreateAlias(x => x.Customer)
-				.CreateAlias(x => x.Customer.Shop)
+                .CreateAlias(x => x.Customer)
+                .CreateAlias(x => x.Customer.Shop)
+				.Sort(x => x.Customer.LastName, true)
+                .Sort(x => x.Customer.FirstName, true)
 				.FilterEqual(x => x.Customer.Shop.Id, source.ShopId)
 				.SetFetchMode(Property(x => x.Transactions), FetchMode.Join)
 				.SetFetchMode(Property(x => x.SubscriptionItems), FetchMode.Select)

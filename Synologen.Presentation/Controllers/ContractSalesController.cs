@@ -1,14 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using NHibernate;
 using NHibernate.Criterion;
+using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Commands.Finance;
 using Spinit.Wpc.Synologen.Data.Queries;
+using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 using Spinit.Wpc.Synologen.Data.Queries.Finance;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.Presentation.Application.Web;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
@@ -87,5 +92,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			Execute(new SettleNewAutogiroTransactions(settlementId));
 			return RedirectToAction("ViewSettlement", new { id = settlementId });
 		}
+
+        [HttpGet]
+        public ActionResult Statistics()
+        {
+            var model = _viewService.GetStatisticsView();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Statistics(StatisticsView model)
+        {
+            var summary = Query(new StatisticsQuery(model.GetQueryArgument()));
+            if (!summary.Any())
+            {
+                this.AddErrorMessage("Ingen försäljning för angivet filter.");
+                _viewService.UpdateStatisticsView(model);
+                return View(model);
+            }
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Försäljningsstatistik");
+                worksheet.Cells["A1"].LoadFromCollection(summary, true, TableStyles.Light1);
+                return new ExcelFileResult(package, model.CreateFileName());
+            }
+        }
 	}
 }

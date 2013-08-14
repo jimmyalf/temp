@@ -32,9 +32,9 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +59,7 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\Statistics.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddCategory.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\_DefectsForm.ascx" />
@@ -198,6 +199,8 @@
     <Content Include="Common\StyleSheetLoader.ascx" />
     <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
+    <Content Include="Components\Synologen\Scripts\ContractSales\statistics.js" />
+    <Content Include="Components\Synologen\Scripts\modernizr.custom.97088.js" />
     <Content Include="Components\Synologen\SynologenSubMenu.ascx" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
     <Content Include="Components\Synologen\CreateShopOwners.aspx" />
@@ -311,6 +314,7 @@
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\TestEventListener.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
+    <Compile Include="Application\Web\ExcelFileResult.cs" />
     <Compile Include="Application\Web\ReportController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
@@ -350,6 +354,7 @@
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
     <Compile Include="Models\ContractSales\SettlementView.cs" />
     <Compile Include="Models\ContractSales\ShopSettlementItem.cs" />
+    <Compile Include="Models\ContractSales\StatisticsView.cs" />
     <Compile Include="Models\Deviation\CategoryDefectListItemView.cs" />
     <Compile Include="Models\Deviation\CategoryFormView.cs" />
     <Compile Include="Models\Deviation\CategoryListItemView.cs" />
@@ -627,6 +632,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Reporting\Microsoft.ReportViewer.WebForms.dll</HintPath>
@@ -826,9 +834,6 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
     <Content Include="BaseMainMVC.master" />
@@ -847,6 +852,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Imagemanager.config" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

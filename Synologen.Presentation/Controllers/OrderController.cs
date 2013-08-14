@@ -24,7 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	public class OrderController : BaseController
 	{
 		private readonly IOrderRepository _orderRepository;
-		//private readonly IAdminSettingsService _adminSettingsService;
 		private readonly IArticleCategoryRepository _articleCategoryRepository;
 		private readonly IArticleSupplierRepository _articleSupplierRepository;
 		private readonly IArticleTypeRepository _articleTypeRepository;
@@ -42,7 +41,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			ISession session) : base(session, adminSettingsService)
 		{
 			_orderRepository = orderRepository;
-			//_adminSettingsService = adminSettingsService;
 			_articleCategoryRepository = articleCategoryRepository;
 			_articleSupplierRepository = articleSupplierRepository;
 			_articleTypeRepository = articleTypeRepository;

@@ -58,8 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(EttNyttKontoHarValtsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallKundNamnVisas)
-					.Och(KontoUppgifterSkallVaraIfyllbara)
-			);
+					.Och(KontoUppgifterSkallVaraIfyllbara));
 		}
 
 
@@ -69,8 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg)
 				.När(SidanVisas)
-				.Så(SkallAGDetaljerVisas)
-			);
+				.Så(SkallAGDetaljerVisas));
 		}
 
 		[Test]
@@ -79,8 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningMedTillsvidareAbonnemangHarSkapatsIFöregåendeSteg)
 				.När(SidanVisas)
-				.Så(SkallAGDetaljerVisas)
-			);
+				.Så(SkallAGDetaljerVisas));
 		}
 
 
@@ -93,8 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.När(SidanVisas)
 				.Så(SkallKundNamnVisas)
 					.Och(KontoUppgifterSkallEjVaraIfyllbara)
-					.Och(KontoUppgifterSkallVaraIfyllda)
-			);
+					.Och(KontoUppgifterSkallVaraIfyllda));
 		}
 
     	[Test]
@@ -107,8 +103,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttKontoMedEttNyttDelAbonnemang)
 					.Och(TotalUttagSparas)
-					.Och(AnvändarenFörflyttasTillNästaSteg)
-            );
+					.Och(AnvändarenFörflyttasTillNästaSteg));
         }
 
     	[Test]
@@ -121,8 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
 					.Och(TotalUttagSparas)
-					.Och(AnvändarenFörflyttasTillNästaSteg)
-            );
+					.Och(AnvändarenFörflyttasTillNästaSteg));
         }
 
 
@@ -145,8 +139,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Givet(EnBeställningHarSkapatsIFöregåendeSteg)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasBeställningenBort)
-                    .Och(AnvändarenFlyttasTillAvbrytSidan)
-			);
+                    .Och(AnvändarenFlyttasTillAvbrytSidan));
         }
 
         [Test]
@@ -157,8 +150,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasBeställningenBort)
                     .Och(AbonnebangTasBortOmDetSkapats)
-                    .Och(AnvändarenFlyttasTillAvbrytSidan)
-            );
+                    .Och(AnvändarenFlyttasTillAvbrytSidan));
         }
 
         [Test]
@@ -167,8 +159,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningHarSkapatsIFöregåendeSteg)
                 .När(AnvändarenFörsökerGåTillFöregåendeSteg)
-                .Så(AnvändarenFlyttasTillFöregåendeSteg)
-			);
+                .Så(AnvändarenFlyttasTillFöregåendeSteg));
         }
 
         [Test]
@@ -296,6 +287,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
     		AssertSubscriptionItemDetails(subscriptionItem);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
+            subscriptionItem.Title.ShouldBe(_form.Title);
 			//Assert Subscription
 			subscriptionItem.Subscription.ConsentedDate.ShouldBe(null);
 			subscriptionItem.Subscription.Active.ShouldBe(false);
@@ -379,6 +371,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				var expectedSubscriptionType = SubscriptionType.GetFromWithdrawalsLimit(_order.SubscriptionPayment.WithdrawalsLimit);
 				View.Model.SelectedSubscriptionOption.ShouldBe(expectedSubscriptionType);
 			}
+            View.Model.Title.ShouldBe(_order.SubscriptionPayment.Title);
     	}
 
     	private void KastasEttException()

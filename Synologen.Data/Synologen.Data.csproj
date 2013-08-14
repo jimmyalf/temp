@@ -122,6 +122,7 @@
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
     <Compile Include="Queries\AbstractListQuery.cs" />
+    <Compile Include="Queries\ContractSales\StatisticsQuery.cs" />
     <Compile Include="Queries\Deviations\SuppliersQuery.cs" />
     <Compile Include="Queries\Deviations\CategoriesQuery.cs" />
     <Compile Include="Queries\Deviations\DefectsQuery.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfCategoriesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfSuppliersMatchingCriteriaConvertner.cs" />
+    <Compile Include="Repositories\CriteriaConverters\PageOfGlassTypesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ActiveSubscriptionsForCustomerCritieriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />

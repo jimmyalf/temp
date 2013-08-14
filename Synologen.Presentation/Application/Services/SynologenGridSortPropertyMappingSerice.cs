@@ -25,6 +25,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<FrameController, FrameOrderListItemView, FrameOrder>(x => x.Shop, x => x.OrderingShop.Name);
             Map<FrameController, FrameOrderListItemView, FrameOrder>(x => x.Supplier, x => x.Supplier.Name);
 
+		    Map<FrameController, FrameGlassTypeListItemView, FrameGlassType>(x => x.Supplier, x => x.Supplier.Name);
+
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.SubscriptionId, x => x.Id);
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.CustomerName, x => x.Customer.LastName);
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.ShopName, x => x.Customer.Shop.Name);

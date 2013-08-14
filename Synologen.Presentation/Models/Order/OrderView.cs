@@ -36,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Diameter = new ParameterView(order.LensRecipe.Diameter);
 			Cylinder = new ParameterView(order.LensRecipe.Cylinder);
 			Quantity = new ParameterView(order.LensRecipe.Quantity);
+		    Title = order.SubscriptionPayment.Title;
 		}
 
 		public int OrderId { get; set; }
@@ -83,6 +84,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public ParameterView Quantity { get; set; }
 		[DisplayName("Uttag")]
 		public string Withdrawals { get; set; }
+        [DisplayName("Rubrik")]
+	    public string Title { get; set; }
 	}
 
 	public class ParameterView

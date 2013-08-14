@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -17,15 +18,15 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -213,7 +216,7 @@
     <Compile Include="Models\Deviations\ExternalDeviationListModel.cs" />
     <Compile Include="Models\Deviations\DeviationCategoryListItem.cs" />
     <Compile Include="Models\Deviations\InternalDeviationListModel.cs" />
-    <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
+    <Compile Include="Models\FrameOrders\EntityListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
@@ -227,8 +230,6 @@
     <Compile Include="Logic\Views\FrameOrders\IListFrameOrdersView.cs" />
     <Compile Include="Logic\Views\FrameOrders\IViewFrameOrderView.cs" />
     <Compile Include="Models\FrameOrders\EyeParameterIntervalListAndSelection.cs" />
-    <Compile Include="Models\FrameOrders\FrameGlassTypeListItem.cs" />
-    <Compile Include="Models\FrameOrders\FrameListItem.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderBaseModel.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderListItemModel.cs" />
     <Compile Include="Models\FrameOrders\IntervalListItem.cs" />
@@ -782,6 +783,9 @@
     <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
     <Content Include="Orders.Master" />
+    <Content Include="Wpc\Synologen\Orders\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Testpages\CityShopList.aspx" />
@@ -790,9 +794,9 @@
     <None Include="Testpages\LensSubscription\CreateCustomer.aspx" />
     <None Include="Testpages\LensSubscription\CreateSubscription.aspx" />
     <None Include="Testpages\LensSubscription\CustomersList.aspx" />
-    <None Include="Testpages\FrameOrderList.aspx" />
-    <None Include="Testpages\FrameOrderView.aspx" />
-    <None Include="Testpages\FrameOrder.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderList.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderView.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrder.aspx" />
     <None Include="Testpages\LensSubscription\EditCustomer.aspx" />
     <None Include="Testpages\LensSubscription\TransactionsList.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionErrorsList.aspx" />
@@ -943,9 +947,9 @@
     <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebFormsMvp, Version=0.9.7.4, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
+    <Reference Include="WebFormsMvp, Version=1.4.1.0, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\WebFormsMvp\WebFormsMvp.dll</HintPath>
+      <HintPath>..\packages\WebFormsMvp.1.4.1.0\lib\WebFormsMvp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

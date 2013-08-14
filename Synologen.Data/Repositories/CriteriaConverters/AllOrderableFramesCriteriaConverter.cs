@@ -11,8 +11,17 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 
 		public override ICriteria Convert(AllOrderableFramesCriteria source)
 		{
-			return Criteria
-				.FilterEqual(x => x.AllowOrders, true);
+			var criteria = Criteria
+                .FilterEqual(x => x.AllowOrders, true)
+                .CreateAlias(x => x.Supplier)
+                .Sort(source.SortExpression, true);
+
+            if (source.SupplierId.HasValue)
+            {
+                criteria = criteria.FilterEqual(x => x.Supplier.Id, source.SupplierId);
+            }
+
+            return criteria;
 		}
 	}
 }

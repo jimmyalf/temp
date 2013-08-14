@@ -6,12 +6,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
+        public string Supplier { get; set; }
 		public bool IncludeAddition { get; set; }
 		public bool IncludeHeight { get; set; }
 		public int NumberOfOrdersWithThisGlassType { get; set; }
 		public bool AllowDelete
 		{
-			get { return (NumberOfOrdersWithThisGlassType <= 0); }
+			get { return NumberOfOrdersWithThisGlassType <= 0; }
 		}
 	}
 }

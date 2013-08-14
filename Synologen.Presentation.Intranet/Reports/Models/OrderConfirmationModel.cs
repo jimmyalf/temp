@@ -20,12 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 			ExpectedFirstWithdrawalDate = getFirstExpectedWithdrawalDate(order).ToString("yyyy-MM-dd");
 		}
 
-		protected virtual string GetSubscriptionTime(SubscriptionItem subscriptionItem)
-		{
-			if (subscriptionItem.IsOngoing) return "Löpande";
-			return subscriptionItem.WithdrawalsLimit + " månader.";
-		}
-
 		public string ExpectedFirstWithdrawalDate { get; set; }
 		public CustomerModel Customer { get; set; }
         public string DeliveryOption { get; set; }
@@ -35,6 +29,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
         public string Monthly { get; set; }
         public string SubscriptionTime { get; set; }
 		public RecipieModel Recipie { get; set; }
+
+        protected virtual string GetSubscriptionTime(SubscriptionItem subscriptionItem)
+        {
+            if (subscriptionItem.IsOngoing)
+            {
+                return "Löpande";
+            }
+
+            return subscriptionItem.WithdrawalsLimit + " månader.";
+        }
 	}
 
 	public class CustomerModel
@@ -64,42 +68,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 	{
 		public RecipieModel(LensRecipe order)
 		{
-			Power = Parse(order.Power);
-			BaseCurve = Parse(order.BaseCurve);
-			Addition = Parse(order.Addition);
-			Diameter = Parse(order.Diameter);
-			Cylinder = Parse(order.Cylinder);
-			Axis = Parse(order.Axis);
 			Article = Parse(order.Article);
-			Quantity = Parse(order.Quantity);
 		}
-		public EyeParameter<string> Power { get; set; }
-		public EyeParameter<string> BaseCurve { get; set; }
-		public EyeParameter<string> Addition { get; set; }
-		public EyeParameter<string> Diameter { get; set; }
-		public EyeParameter<string> Cylinder { get; set; }
-		public EyeParameter<string> Axis { get; set; }
-		public EyeParameter<string> Article { get; set; }
-		public EyeParameter<string> Quantity { get; set; }
 
-		private EyeParameter<string> Parse(EyeParameter<string> parameter)
-		{
-			return parameter ?? new EyeParameter<string>();
-		}
-		private EyeParameter<string> Parse(EyeParameter<decimal?> parameter)
-		{
-			if(parameter == null) return new EyeParameter<string>();
-			return new EyeParameter<string>
-			{
-				Left = (parameter.Left.HasValue) ? parameter.Left.Value.ToString("0.00") : null,
-				Right = (parameter.Right.HasValue) ? parameter.Right.Value.ToString("0.00") : null
-			};
-		}
+		public EyeParameter<string> Article { get; set; }
+
 		private EyeParameter<string> Parse(EyeParameter<Article> parameter)
 		{
-			if(parameter == null) return new EyeParameter<string>();
-			return new EyeParameter<string>
-			{
+		    if (parameter == null)
+		    {
+		        return new EyeParameter<string>();
+		    }
+
+		    return new EyeParameter<string> 
+            {
 				Left = (parameter.Left != null) ? parameter.Left.Name : null,
 				Right = (parameter.Right != null) ? parameter.Right.Name : null
 			};

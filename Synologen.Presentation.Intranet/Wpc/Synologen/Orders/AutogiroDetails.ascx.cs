@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 ProductPrice = txtProductAmount.Text.ToNullableDecimal(),
                 FeePrice = txtFeeAmount.Text.ToNullableDecimal(),
 				Type = GetSubscriptionType(),
-                Title = txtName.Text
+                // Title = txtName.Text
             };
 			if(args.Type == SubscriptionType.Ongoing)
 			{

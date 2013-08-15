@@ -8,10 +8,7 @@
 			<dt>Clearingnr</dt>
 			<dd><%#Model.ClearingNumber %></dd>
 			<dt>Saldo</dt>
-			<dd>Momsbelagt: <%#Model.TaxedBalance %>
-	            <br/>
-	           Momsfritt: <%#Model.TaxFreeBalance %>
-			</dd>
+			<dd><%#Model.TaxedBalance %></dd>
 			<dt>Medgivande</dt>
 			<dd><%#Model.Consented %></dd>
 			<dt>Abonnemang-status</dt>

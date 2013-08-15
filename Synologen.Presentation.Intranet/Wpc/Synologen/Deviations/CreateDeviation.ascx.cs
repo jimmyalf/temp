@@ -62,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         private void btnSubmit_OnClick(object sender, EventArgs e)
         {
             var eventArgs = (CreateDeviationEventArgs)Page.Session["CreateDeviationEventArgs"];
-            //eventArgs.SendEmailSupplier = Convert.ToBoolean(chkSendEmailSupplier.Checked);
+            eventArgs.SendEmailSupplier = Convert.ToBoolean(chkSendEmailSupplier.Checked);
             Submit(this, eventArgs);
         }
 

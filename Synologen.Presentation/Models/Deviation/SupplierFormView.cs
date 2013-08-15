@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Deviation
         [DisplayName("Aktiv")]
         public bool Active { get; set; }
 
-        [DisplayName("E-post")]
+        [DisplayName("E-post"), Required]
         public string Email { get; set; }
 
         [DisplayName("Phone")]

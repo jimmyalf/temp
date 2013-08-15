@@ -2,7 +2,7 @@
 	
 <div id="page" class="step2">
     <div>
-		<h1>Linsabonnemang demo</h1>
+		<h1>Linsabonnemang-beställning</h1>
 	</div>
 
 	<WpcSynologen:OrderMenu runat="server" />
@@ -74,7 +74,7 @@
 			<asp:RegularExpressionValidator ID="regexPostalCode" ValidationExpression="^\d{5}$" runat="server" ErrorMessage="Ogiltigt postnummer, måste anges som fem siffror utan mellanslag." Display="Dynamic" ControlToValidate="txtPostalCode" CssClass="error-message">*</asp:RegularExpressionValidator>
         </p>
     	<p>
-            <label for="<%=txtNotes.ClientID%>">Butikens interna notering</label>
+            <label class="long" for="<%=txtNotes.ClientID%>">Butikens interna notering</label>
 		    <asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" Text='<% #Model.Notes %>' />
         </p>
 

@@ -2,7 +2,7 @@
 
 <div id="page" class="step3">
 	<header>
-		<h1>Linsabonnemang demo</h1>
+		<h1>Linsabonnemang-beställning</h1>
 		<span class="customer-name"><b>Kund:</b> <%=Model.CustomerName %></span>
 	</header>
 	<WpcSynologen:OrderMenu runat="server" />

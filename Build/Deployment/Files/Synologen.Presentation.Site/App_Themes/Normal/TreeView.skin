@@ -1,0 +1,27 @@
+<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+
+<asp:TreeView runat="server" 
+              ImageSet="XPFileExplorer" 
+              NodeIndent="15" 
+              ExpandDepth="1" 
+              SkinID="TreeView">
+    <ParentNodeStyle Font-Bold="False" />
+    <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+    <SelectedNodeStyle cssClass="TreeviewSelect" />
+    <NodeStyle Font-Names="verdana" Font-Size="10px" ForeColor="Black" HorizontalPadding="2px" NodeSpacing="0px" VerticalPadding="2px" />
+    <RootNodeStyle BackColor="#bb00bb" ForeColor="#199198" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px"/>
+</asp:TreeView>

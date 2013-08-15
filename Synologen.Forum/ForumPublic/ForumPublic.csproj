@@ -1,0 +1,500 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2FD7DB0-6676-42AF-913C-54E5ECABE1BF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Forum.Presentation.Site</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Forum.Presentation.Site</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FreeTextBox, Version=3.1.6.34851, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\FreeTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation.Site, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Spinit.Wpc.Base.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Data, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Spinit.Wpc.Utility.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheClearer.ascx.cs">
+      <DependentUpon>CacheClearer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CacheClearer.ascx.designer.cs">
+      <DependentUpon>CacheClearer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wpc\Forum\Themes\MasterPage.master.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Forum\Themes\MasterPage.master.designer.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Forum\TopPosts.ascx.cs">
+      <DependentUpon>TopPosts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Forum\TopPosts.ascx.designer.cs">
+      <DependentUpon>TopPosts.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Wpc\Forum\FreeTextBox\images\Thumbs.db" />
+    <None Include="Wpc\Forum\Languages\en-US\docs\UserGuide.doc" />
+    <Content Include="CacheClearer.ascx" />
+    <Content Include="Index.aspx" />
+    <Content Include="Logout.aspx" />
+    <Content Include="Wpc\Forum\Moderate\Web.config" />
+    <Content Include="Wpc\Forum\SiteUrls.config" />
+    <Content Include="Wpc\Forum\Themes\MasterPage.master" />
+    <Content Include="Wpc\Forum\Themes\MasterPageTemplate.master" />
+    <Content Include="Web.config" />
+    <Content Include="Wpc\Forum\ActiveTopics.aspx" />
+    <Content Include="Wpc\Forum\AddPost.aspx" />
+    <Content Include="Wpc\Forum\Avatars\bluestar.gif" />
+    <Content Include="Wpc\Forum\Avatars\flaming-server.gif" />
+    <Content Include="Wpc\Forum\Default.aspx" />
+    <Content Include="Wpc\Forum\DeletePost.aspx" />
+    <Content Include="Wpc\Forum\EditPost.aspx" />
+    <Content Include="Wpc\Forum\Emoticons\emoticons.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-1.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-10.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-11.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-12.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-13.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-14.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-15.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-16.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-17.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-18.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-19.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-2.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-20.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-21.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-22.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-23.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-24.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-25.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-26.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-27.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-28.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-29.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-3.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-30.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-31.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-32.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-33.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-34.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-35.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-36.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-37.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-38.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-39.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-4.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-40.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-41.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-42.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-43.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-44.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-45.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-46.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-47.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-48.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-49.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-5.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-50.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-51.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-52.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-53.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-54.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-55.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-56.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-57.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-58.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-59.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-6.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-60.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-7.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-8.gif" />
+    <Content Include="Wpc\Forum\Emoticons\emotion-9.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\FreeTextBox-MainScript.js" />
+    <Content Include="Wpc\Forum\FreeTextBox\FreeTextBox-ToolbarItemsScript.js" />
+    <Content Include="Wpc\Forum\FreeTextBox\ftb.colorpicker.aspx" />
+    <Content Include="Wpc\Forum\FreeTextBox\ftb.imagegallery.aspx" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\bold.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\bulletedlist.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\Button_CS.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\Button_VB.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\copy.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\createlink.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\csharp.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\cut.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\delete.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\deletetablecolumn.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\deletetablerow.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\fontbackcolorpicker.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\fontforecolorpicker.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\indent.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\insertdate.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\insertimage.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\insertimagefromgallery.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\insertrule.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttable.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablecolumn.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablecolumnafter.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablecolumnbefore.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablerow.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablerowafter.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttablerowbefore.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\inserttime.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\italic.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\justifycenter.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\justifyfull.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\justifyleft.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\justifyright.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\mergecells.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\mergecolumns.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\mode.design.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\mode.html.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\normal.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\numberedlist.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\outdent.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\paste.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\print.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\redo.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\removeformat.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\s.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\save.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\separator.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\separator.horizontal.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\separator.vertical.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\spellcheck.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\strikethrough.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\subscript.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\superscript.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbar.horizontal.background.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbar.horizontal.end.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbar.horizontal.start.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbarbutton.background.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbarbutton.down.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\toolbarbutton.over.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\underline.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\undo.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\unlink.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\wordclean.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\images\wordcount.gif" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\ca-ca.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\da-DK.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\de-de.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\el-gr.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\en-US.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\es-ES.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\fr-FR.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\he-IL.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\it-IT.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\ja-JP.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\ko-kr.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\Languages.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\nb-NO.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\nl-NL.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\pt-pt.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\ru.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\sv.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\zh-cn.xml" />
+    <Content Include="Wpc\Forum\FreeTextBox\Languages\zh-TW.xml" />
+    <Content Include="Wpc\Forum\Languages\en-US\docs\faq.ascx" />
+    <Content Include="Wpc\Forum\Languages\en-US\docs\faq.aspx" />
+    <Content Include="Wpc\Forum\Languages\en-US\emails\emails.xml" />
+    <Content Include="Wpc\Forum\Languages\en-US\errors\BlockedIpAddress.htm" />
+    <Content Include="Wpc\Forum\Languages\en-US\errors\DataProvider.htm" />
+    <Content Include="Wpc\Forum\Languages\en-US\errors\DataStoreUnavailable.htm" />
+    <Content Include="Wpc\Forum\Languages\en-US\errors\ForumsDisabled.htm" />
+    <Content Include="Wpc\Forum\Languages\en-US\Messages.xml" />
+    <Content Include="Wpc\Forum\Languages\en-US\Resources.xml" />
+    <Content Include="Wpc\Forum\Languages\en-US\resources_new.xml" />
+    <Content Include="Wpc\Forum\Languages\languages.xml" />
+    <Content Include="Wpc\Forum\Languages\sv\docs\faq.ascx" />
+    <Content Include="Wpc\Forum\Languages\sv\docs\faq.aspx" />
+    <Content Include="Wpc\Forum\Languages\sv\emails\emails.xml" />
+    <Content Include="Wpc\Forum\Languages\sv\errors\BlockedIpAddress.htm" />
+    <Content Include="Wpc\Forum\Languages\sv\errors\DataProvider.htm" />
+    <Content Include="Wpc\Forum\Languages\sv\errors\DataStoreUnavailable.htm" />
+    <Content Include="Wpc\Forum\Languages\sv\errors\ForumsDisabled.htm" />
+    <Content Include="Wpc\Forum\Languages\sv\Messages.xml" />
+    <Content Include="Wpc\Forum\Languages\sv\Resources.xml" />
+    <Content Include="Wpc\Forum\Moderate\default-Frames.aspx" />
+    <Content Include="Wpc\Forum\Moderate\default.aspx" />
+    <Content Include="Wpc\Forum\Moderate\DeletePost.aspx" />
+    <Content Include="Wpc\Forum\Moderate\EditPost.aspx" />
+    <Content Include="Wpc\Forum\Moderate\ModerateForum.aspx" />
+    <Content Include="Wpc\Forum\Moderate\ModerateForumSplitView.aspx" />
+    <Content Include="Wpc\Forum\Moderate\ModerationHistory.aspx" />
+    <Content Include="Wpc\Forum\Moderate\MovePost.aspx" />
+    <Content Include="Wpc\Forum\Moderate\Profile.aspx" />
+    <Content Include="Wpc\Forum\Moderate\ShowPost.aspx" />
+    <Content Include="Wpc\Forum\Moderate\Thread-Join.aspx" />
+    <Content Include="Wpc\Forum\Moderate\Thread-Move.aspx" />
+    <Content Include="Wpc\Forum\Moderate\Thread-Split.aspx" />
+    <Content Include="Wpc\Forum\Msgs\default.aspx" />
+    <Content Include="Wpc\Forum\PrintPost.aspx" />
+    <Content Include="Wpc\Forum\Search\AdvancedSearch.aspx" />
+    <Content Include="Wpc\Forum\Search\default.aspx" />
+    <Content Include="Wpc\Forum\Search\SearchResults.aspx" />
+    <Content Include="Wpc\Forum\ShowForum.aspx" />
+    <Content Include="Wpc\Forum\ShowPost.aspx" />
+    <Content Include="Wpc\Forum\Themes\default\images\dn.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\editpost.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\expand-closed.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\expand-open.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\fhBg.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forumColumnBackground.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forumHeader-Curve-Left.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forumHeader-Curve-Right.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forumHeaderBackground.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forumHeaderBackgroundAlternate.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forum_private.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forum_private_newposts.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forum_status.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\forum_status_new.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\headerlogo-left.jpg" />
+    <Content Include="Wpc\Forum\Themes\default\images\headerlogo-right.jpg" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon-delete.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon-edit.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon-quote.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon-save.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_email.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_favorites.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_admin.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_faq.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_home.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_login.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_memberlist.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_moderate.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_myforums.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_profile.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_register.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_search.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_mini_topic.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_post_show.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_print.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_stats.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_subscribe.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\icon_unsubscribe.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\LargeProgress.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\left.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\newpost.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\newtopic.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\node.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\paperclip.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_aim.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_buddy.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_delete.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_edit.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_email.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_icq.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_locked.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_msnm.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_pm.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_profile.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_search.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_stats.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_weblog.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_www.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\post_button_yahoo.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\quote.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rank0.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop10.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop100.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop150.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop200.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop25.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop50.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop500.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\rankTop75.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop10.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop100.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop150.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop200.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop25.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop50.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop500.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RankIcons\_english version\rankTop75.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\right.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\RoleIcons\10.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\sort_down.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\sort_up.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\spacer.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star0.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star1.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star1half.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star2.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star2half.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star3.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star3half.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star4.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star4half.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\Star5.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\StarHalf.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\status_Open.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\title.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\top.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-announce.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-announce_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-locked.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-locked_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned&amp;locked.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned&amp;locked_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned&amp;popular.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned&amp;popular_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-pinned_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-popular.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic-popular_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\topic_notread.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\up.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\users_icon.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\users_moderator.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\users_top100.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\users_top25.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\users_top50.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\user_IsOffline.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\user_IsOnline.gif" />
+    <Content Include="Wpc\Forum\Themes\default\images\xml.gif" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-ModeratedForums.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-ModeratePost.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-ModerationMenu.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-Navigation.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-Statistics.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\Skin-WhoIsOnline.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-ForumGroup.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-ModerateForum.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-PostFlatView.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-Posts.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-ThreadJoin.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-ThreadMove.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-ThreadSplit.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Moderation\View-UserProfile.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\PostType-TextPost.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-DisplayLegendThread.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-LoginSmall.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-Logout.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-Message.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-SearchForum.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\Skin-SearchRedirect.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-CreateEditPost.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-DeletePost.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-ForumGroupView.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-PostFlatView.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-PostFlatViewPrint.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-Search.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-SearchAdvanced.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-SearchResults.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-Threads.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\Skins\View-UserProfile.ascx" />
+    <Content Include="Wpc\Forum\Themes\default\style\default.css" />
+    <Content Include="Wpc\Forum\TopPosts.ascx" />
+    <Content Include="Wpc\Forum\UnansweredTopics.aspx" />
+    <Content Include="Wpc\Forum\User\Profile.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{8EE413C7-D04F-41B8-B6F4-374711009725}</Project>
+      <Name>Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Controls\Controls.csproj">
+      <Project>{18D0E3C1-8912-43E9-91C7-D12B5A316819}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlDataProvider\SqlDataProvider.csproj">
+      <Project>{16FE8650-3C38-4AD9-A3E7-B9EBA853F04C}</Project>
+      <Name>SqlDataProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1537</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

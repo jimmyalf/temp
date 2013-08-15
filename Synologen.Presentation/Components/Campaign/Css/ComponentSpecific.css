@@ -1,0 +1,14 @@
+/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+================================================*/
+h1 { display:none }
+
+/* =SpotImage-ascx */
+.SpotImage-ascx .spotBtn {padding: .1em .3em; font-size: 1em; float: right; }
+.SpotImage-ascx .selectSpotContainer {position: absolute; top: 200px; left: 100px; width: 550px; margin-top: 5px; margin-bottom: 5px; background-color: #DDD; border: solid 1px #AAA;}
+.SpotImage-ascx .selectSpotWrap {float: left; padding: 0 10px;}
+.SpotImage-ascx .selectSpotList {float: left; width: 280px; height: 300px; overflow: auto; padding: 8px 0;}
+.SpotImage-ascx .selectSpotPreview {position: absolute; left: 300px;  width: 200px; padding: 8px 0;}
+.SpotImage-ascx .selectSpotButtons { position: absolute; bottom: 8px; right: 8px;  width: 100px; padding: 0 0 0 0;}
+.SpotImage-ascx .selectSpotCaption { float: left; width: 550px; background: #CCC url('/common/img/TableHeaderBG.png') repeat-x top left;}

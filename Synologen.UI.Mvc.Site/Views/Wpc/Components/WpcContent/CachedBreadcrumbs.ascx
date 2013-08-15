@@ -1,0 +1,2 @@
+<%@ Control %><%@ OutputCache Duration="1800" VaryByParam="*" VaryByCustom="UrlKey" SqlDependency="Wpc:tblContTree" %>
+<%= Html.Action("Breadcrumbs", "WpcContent", new { area = "WpcContent", settings = new { Class = "breadcrumbs", RootLevelName = "Hem" }}) %>

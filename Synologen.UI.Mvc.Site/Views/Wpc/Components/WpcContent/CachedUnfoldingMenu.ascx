@@ -1,0 +1,2 @@
+<%@ Control %><%@ OutputCache Duration="1800" VaryByParam="*" VaryByCustom="UrlKey" SqlDependency="Wpc:tblContTree" %>
+<%= Html.Action("UnfoldingMenu", "WpcContent", new { area = "WpcContent", settings = new { Id = "Unfolding-Navigation", Class = "navigation", ShowRootLevel = true, ShowDefaultPage = false	} }) %>

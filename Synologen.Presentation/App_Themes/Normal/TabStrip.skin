@@ -1,0 +1,8 @@
+
+
+<asp:Menu runat="server" cssclass="tab" orientation="Horizontal" 
+maximumdynamicdisplaylevels="0" skiplinktext="" staticdisplaylevels="2" SkinId="tabStrip">
+    <StaticMenuItemStyle cssclass="StaticMenuItemStyle"/>
+    <StaticSelectedStyle cssclass="StaticSelectedStyle"/>
+    <StaticHoverStyle CssClass="StaticHoverStyle" />
+</asp:Menu>

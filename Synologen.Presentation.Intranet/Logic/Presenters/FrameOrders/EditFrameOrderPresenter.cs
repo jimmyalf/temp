@@ -77,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 	        View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
 	        View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
 	        View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
-	        View.Model.Sphere.Set(e.SelectedSphere, glassType.Cylinder.GetList(), "Sfär");
+	        View.Model.Sphere.Set(e.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
 	        View.Model.Cylinder.Set(e.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
 
 	        if (glassType.IncludeAdditionParametersInOrder)

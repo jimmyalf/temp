@@ -31,12 +31,12 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
             Func<IDbConnection> connectionProvider = ((NHibernate.Impl.SessionFactoryImpl)Session.SessionFactory).ConnectionProvider.GetConnection;
             var persistence = new PersistenceHandler(connectionProvider);
             var queryBuilder = QueryBuilder.Build(@"SELECT 
-	            tblSynologenShop.cCity AS Ort
-	            ,tblSynologenShop.cShopName AS Butik
-	            ,tblSynologenCompany.cName AS Beställare
-	            ,tblSynologenArticle.cName AS Artikel
-	            ,SUM(tblSynologenOrderItems.cNumberOfItems) AS Kvantitet
-	            ,(SELECT(SUM(tblSynologenOrderItems.cSinglePrice * tblSynologenOrderItems.cNumberOfItems))) AS Värde
+             tblSynologenShop.cCity AS Ort
+             ,tblSynologenShop.cShopName AS Butik
+             ,tblSynologenCompany.cName AS Beställare
+             ,tblSynologenArticle.cName AS Artikel
+             ,SUM(tblSynologenOrderItems.cNumberOfItems) AS Kvantitet
+             ,(SELECT(SUM(tblSynologenOrderItems.cSinglePrice * tblSynologenOrderItems.cNumberOfItems))) AS Värde
 
               FROM tblSynologenOrderItems
               INNER JOIN tblSynologenOrder ON tblSynologenOrder.cId = tblSynologenOrderItems.cOrderId
@@ -44,7 +44,20 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
               INNER JOIN tblSynologenCompany ON tblSynologenCompany.cId = tblSynologenOrder.cCompanyId
               INNER JOIN tblSynologenContract ON tblSynologenContract.cId = tblSynologenCompany.cContractCustomerId
               INNER JOIN tblSynologenArticle ON tblSynologenArticle.cId = tblSynologenOrderItems.cArticleId")
+
+                    // Statuses are:
+                    // cId cName
+                    // 1 Order registrerad
+                    // 2 Importerad i SPCS
+                    // 3 Avbruten
+                    // 4 Vilande
+                    // 5 Fakturerad
+                    // 6 Utbetalad till Synologen
+                    // 7 Makulerad
+                    // 8 Utbetalning till butik skapad
+                    // 9 Ej fakturerbar
                     .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,7")
+
                     .Where("tblSynologenContract.cId = @ContractId").If(ContractId.HasValue)
                     .Where("tblSynologenCompany.cId = @CompanyId").If(CompanyId.HasValue)
                     .Where("tblSynologenOrder.cCreatedDate >= @From").If(From.HasValue)

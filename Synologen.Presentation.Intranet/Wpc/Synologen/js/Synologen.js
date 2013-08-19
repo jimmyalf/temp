@@ -64,7 +64,7 @@
 			$('.yammer-content').jTruncate({
 				length: 100,
 				minTrail: 0,
-				moreText: "L&auml;s mer",
+				moreText: "Läs mer",
 				lessText: "Minimiera"
 			});
 		},

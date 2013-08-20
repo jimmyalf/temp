@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         {
             var settings = TestInvoiceParsingAndValidation.GetSettings();
             _invoiceBuilder = new SvefakturaBuilder(new SvefakturaFormatter(), settings, new SvefakturaBuilderValidator());
-            _provider = new SqlProvider(@"Initial Catalog=dbWpcSynologen;Data Source=BLACK\SQL2008;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;");
+            _provider = new SqlProvider(@"Initial Catalog=dbWpcSynologen;Data Source=BLACK.hotel.se\SQL2008;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;");
             _desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             _encoding = Encoding.GetEncoding("ISO-8859-1");
         }

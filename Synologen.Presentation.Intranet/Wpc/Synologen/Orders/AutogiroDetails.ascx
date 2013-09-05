@@ -13,10 +13,10 @@
    				<label>Steg 5 av 6</label>
 	 			<div id="progressbar"></div>
    			</div>
-    		<p>
+<%--    		<p>
     			<label>Rubrik/Namn</label>
     			<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
-    		</p>
+    		</p>--%>
     		<p>
     			<label>Bankontonummer</label>
     			<asp:TextBox ID="txtBankAccountNumber" runat="server" Enabled="<%#Model.IsNewSubscription %>" Text='<%#Model.BankAccountNumber%>' />

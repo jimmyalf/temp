@@ -47,13 +47,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             ShowStopButton = subscription.Active;
             TaxFreeBalance = subscription.GetCurrentAccountBalance().TaxFree.ToString("C2");
             TaxedBalance = subscription.GetCurrentAccountBalance().Taxed.ToString("C2");
-
-            // Temp döljning till Live-deldeploy av Per.
-            TaxedBalance = (subscription.GetCurrentAccountBalance().TaxFree +
-                subscription.GetCurrentAccountBalance().Taxed)
-                .ToString("C2");
-            
-
             ResetSubscriptionUrl = resetUrl;
             ShowResetDisplayUrl = subscription.ConsentStatus == SubscriptionConsentStatus.Denied;
         }

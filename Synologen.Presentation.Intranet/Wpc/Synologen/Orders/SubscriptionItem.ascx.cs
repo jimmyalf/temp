@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				WithdrawalsLimit = txtNumberOfWithdrawals.Text.ToNullableInt(),
 				CustomMonthlyFeeAmount = txtCustomMonthlyFee.Text.ToNullableDecimal(),
 				CustomMonthlyProductAmount = txtCustomMonthlyPrice.Text.ToNullableDecimal(),
-                // Title = string.IsNullOrEmpty(txtName.Text) ? null : txtName.Text
+                Title = string.IsNullOrEmpty(txtName.Text) ? null : txtName.Text
 			};
 
 			Submit(this, eventArgs);

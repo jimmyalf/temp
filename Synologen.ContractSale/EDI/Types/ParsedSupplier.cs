@@ -6,7 +6,7 @@ namespace Spinit.Wpc.Synologen.EDI.Types {
 	public class ParsedSupplier : IParsedComponent {
 		private readonly Supplier supplier;
 
-		private const string SupplierIdentityFormat = "NAD+SU+{0}:14'";
+		private const string SupplierIdentityFormat = "NAD+SU+{0}'";
 		private const string BankGiroNumberFormat = "FII+RB+{0}+BK'";
 		private const string PostGiroNumberFormat = "FII+RB+{0}+PG'";
 		private readonly ContactFormat ContactFormat;
@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.EDI.Types {
 		}
 
 		protected string ParsedSupplierIdentity {
-			get { return EDIUtility.ParseRow(SupplierIdentityFormat, supplier.SupplierIdentity); }
+			get { return string.Format(SupplierIdentityFormat, supplier.SupplierIdentity); }
 		}
 
 		protected string ParsedBankGiroNumber {

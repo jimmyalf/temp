@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected virtual List<SFTIPartyIdentificationType> GetPartyIdentification(ICompany company)
         {
-            return GetPartyIdentification(company, x => x.EDIRecipientId);
+            return GetPartyIdentification(company, x => x.EDIRecipient);
         }
 
         protected List<SFTIPartyTaxSchemeType> GetTaxScheme(ICompany company)

@@ -8,7 +8,6 @@ using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Business.Extensions;
 using Spinit.Wpc.Synologen.Data;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
@@ -162,8 +161,10 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary
 			try
             {
 				var orderList = provider.GetOrders(orderIds);
-				var ediOrders = orderList.Where(x => (InvoicingMethod)x.ContractCompany.InvoicingMethodId == InvoicingMethod.EDI);
-				if(ediOrders != null && ediOrders.Any())
+				var ediOrders = orderList
+                    .Where(x => (InvoicingMethod)x.ContractCompany.InvoicingMethodId == InvoicingMethod.EDI)
+                    .ToList();
+				if(ediOrders.Any())
                 {
 					foreach (var order in ediOrders)
                     {
@@ -178,8 +179,10 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary
 					}
 				}
 
-				var letterOrders = orderList.Where(x => (InvoicingMethod)x.ContractCompany.InvoicingMethodId == InvoicingMethod.LetterInvoice);
-				if(!letterOrders.IsNullOrEmpty())
+				var letterOrders = orderList
+                    .Where(x => (InvoicingMethod)x.ContractCompany.InvoicingMethodId == InvoicingMethod.LetterInvoice)
+                    .ToList();
+				if(letterOrders.Any())
                 {
 					var ftpStatusMessage = SendLetterInvoices(letterOrders);
 					sentOrderIds.AddRange(letterOrders.Select(x=>x.Id));

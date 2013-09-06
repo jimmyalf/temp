@@ -77,6 +77,7 @@
 						<asp:TextBox id="txtEDIRecipientId" runat="server" />
                         <asp:CustomValidator runat="server" OnServerValidate="Validate_EDI_Recipient" ErrorMessage="eFaktura-adress är obligatoriskt för vald faktureringsmetod" Display="Dynamic" ValidationGroup="Error">*></asp:CustomValidator>
 					</div>
+
 					<div class="formItem clearLeft">
 						<label class="labelLong">Faktureringsmetod *</label>
 						<asp:DropDownList id="drpInvoicingMethods" runat="server" />

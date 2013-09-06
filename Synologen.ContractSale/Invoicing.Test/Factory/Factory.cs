@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Test.Factory
 {
@@ -139,7 +141,7 @@ namespace Spinit.Wpc.Synologen.Test.Factory
 				},
 				InvoiceFreeTextFormat = GetFreeInvoiceFreeText(),
 				PaymentDuePeriod = 30,
-                EDIRecipientId = "00075020177753TEST",
+                EDIRecipient = new EdiAddress("00075020177753TEST", "30"),
 				BankCode = "8999",
                 Name = "Företag ABC"
 			};

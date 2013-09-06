@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
@@ -83,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtInvoiceCompanyName.Text = company.InvoiceCompanyName;
 			txtTaxAccountingCode.Text = company.TaxAccountingCode;
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
-			txtEDIRecipientId.Text = company.EDIRecipientId;
+			txtEDIRecipientId.Text = company.EDIRecipient.Address;
 			drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
 			txtInvoiceFreeTextTemplate.Text = company.InvoiceFreeTextFormat;
 			foreach (var validationRule in company.CompanyValidationRules){
@@ -140,7 +141,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.InvoiceCompanyName = txtInvoiceCompanyName.Text;
 			company.TaxAccountingCode = txtTaxAccountingCode.Text;
 			company.PaymentDuePeriod = Convert.ToInt32(txtPaymentDuePeriod.Text);
-			company.EDIRecipientId = txtEDIRecipientId.Text;
+			company.EDIRecipient = new EdiAddress(txtEDIRecipientId.Text);
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
 			if (drpCountry.SelectedValue != "0"){

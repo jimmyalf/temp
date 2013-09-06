@@ -9,6 +9,8 @@ using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
+using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.SBDH;
 
 namespace Spinit.Wpc.Synologen.Integration.Services.Test
 {
@@ -19,12 +21,13 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         private readonly SqlProvider _provider;
         private readonly string _desktopPath;
         private readonly Encoding _encoding;
+        private readonly SvefakturaConversionSettings _settings;
 
         public Debugging()
         {
-            var settings = TestInvoiceParsingAndValidation.GetSettings();
-            _invoiceBuilder = new SvefakturaBuilder(new SvefakturaFormatter(), settings, new SvefakturaBuilderValidator());
-            _provider = new SqlProvider(@"Initial Catalog=dbWpcSynologen;Data Source=BLACK.hotel.se\SQL2008;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;");
+            _settings = TestInvoiceParsingAndValidation.GetSettings();
+            _invoiceBuilder = new SvefakturaBuilder(new SvefakturaFormatter(), _settings, new SvefakturaBuilderValidator());
+            _provider = new SqlProvider(@"Initial Catalog=dbWpcSynologen;Data Source=demo01.hotel.se\SQL2008;uid=syn-demo;pwd=vt87VUGsEF;Pooling=true;Connect Timeout=15;");
             _desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             _encoding = Encoding.GetEncoding("ISO-8859-1");
         }
@@ -53,8 +56,8 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         protected void CreateInvoice(IOrder order, string fileName)
         {
             var invoice = _invoiceBuilder.Build(order);
-            var text = SvefakturaSerializer.Serialize(invoice, _encoding, Environment.NewLine, Formatting.Indented, null);
-
+            var document = new Document(_settings.EDIAddress, order.ContractCompany.EDIRecipient);
+            var text = SvefakturaSerializer.Serialize(document, invoice, _encoding, Environment.NewLine, Formatting.Indented);
             var file = GetFile(fileName);
             if (file.Exists)
             {

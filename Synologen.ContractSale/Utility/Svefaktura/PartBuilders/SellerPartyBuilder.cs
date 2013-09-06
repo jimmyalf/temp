@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                 Address = settings.Adress,
                 Contact = GetAccountContactFormatted(settings.Contact),
                 PartyTaxScheme = GetTaxScheme(Settings),
-                PartyIdentification = GetPartyIdentification(settings, x => x.SellingOrganizationNumber)
+                PartyIdentification = GetPartyIdentification(settings, x => x.EDIAddress.Address)
             };
         }
 

@@ -6,14 +6,20 @@ using System.Data.SqlTypes;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Utility.Business;
-namespace Spinit.Wpc.Synologen.Data {
-	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteCompany(Enumerations.Action action, ref Company company) {
-			try {
+namespace Spinit.Wpc.Synologen.Data 
+{
+	public partial class SqlProvider 
+    {
+		public bool AddUpdateDeleteCompany(Enumerations.Action action, ref Company company) 
+        {
+			try 
+            {
 				int numAffected;
-				SqlParameter[] parameters = {
+				SqlParameter[] parameters = 
+                {
 		            new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@contractId", SqlDbType.Int, 4),
 		            new SqlParameter("@name", SqlDbType.NVarChar, 50),
@@ -29,6 +35,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@taxAccountingCode", SqlDbType.NVarChar, 50),
 					new SqlParameter("@paymentDuePeriod", SqlDbType.Int, 4),
 					new SqlParameter("@ediRecipientId", SqlDbType.NVarChar, 50),
+                    new SqlParameter("@ediRecipientQuantifier", SqlDbType.NVarChar, 50),
 					new SqlParameter("@invoicingMethodId", SqlDbType.Int, 4 ),
 					new SqlParameter("@invoiceFreeText", SqlDbType.NVarChar, 2000),
 					new SqlParameter("@countryId", SqlDbType.Int, 4),
@@ -38,7 +45,8 @@ namespace Spinit.Wpc.Synologen.Data {
 
 				var counter = 0;
 				parameters[counter++].Value = (int)action;
-				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
+				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) 
+                {
 					parameters[counter++].Value = company.ContractId;
 					parameters[counter++].Value = GetNullableSqlType(company.Name);
 					parameters[counter++].Value = GetNullableSqlType(company.PostBox);
@@ -52,27 +60,33 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceCompanyName);
 					parameters[counter++].Value = GetNullableSqlType(company.TaxAccountingCode);
 					parameters[counter++].Value = company.PaymentDuePeriod;
-					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipientId);
+					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipient.Address);
+                    parameters[counter++].Value = GetNullableSqlType(company.EDIRecipient.Quantifier);
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 					parameters[counter].Value = GetNullableSqlType(company.Country.Id);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
-				if (action == Enumerations.Action.Create) {
+				if (action == Enumerations.Action.Create) 
+                {
 					parameters[parameters.Length - 1].Direction = ParameterDirection.Output;
 				}
-				else {
+				else 
+                {
 					parameters[parameters.Length - 1].Value = company.Id;
 				}
+
 				RunProcedure("spSynologenAddUpdateDeleteCompany", parameters, out numAffected);
 
-				if (((int)parameters[parameters.Length - 2].Value) == 0) {
+				if (((int)parameters[parameters.Length - 2].Value) == 0)
+                {
 					company.Id = (int)parameters[parameters.Length - 1].Value;
 					return true;
 				}
 				throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: " + (int)parameters[parameters.Length - 2].Value, (int)parameters[parameters.Length - 2].Value);
 			}
-			catch (SqlException e) {
+			catch (SqlException e) 
+            {
 				throw new GeneralData.DatabaseInterface.DataException("SqlException while adding/updating/deleting Company.", e);
 			}
 		}
@@ -83,8 +97,13 @@ namespace Spinit.Wpc.Synologen.Data {
 			return ParseCompanyRow(contractCompanyDataRow);
 		}
 
-		private Company ParseCompanyRow(DataRow dataRow) {
-			try {
+		private Company ParseCompanyRow(DataRow dataRow) 
+        {
+			try
+			{
+			    var address = Util.CheckNullString(dataRow, "cEDIRecipientId");
+			    var quantifier = Util.CheckNullString(dataRow, "cEDIRecipientQuantifier");
+
 				var companyRow = new Company {
 					PostBox = Util.CheckNullString(dataRow, "cAddress1"), 
 					StreetName = Util.CheckNullString(dataRow, "cAddress2"), 
@@ -100,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					InvoiceCompanyName = Util.CheckNullString(dataRow, "cInvoiceCompanyName"), 
 					TaxAccountingCode = Util.CheckNullString(dataRow, "cTaxAccountingCode"), 
 					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
-					EDIRecipientId = Util.CheckNullString(dataRow, "cEDIRecipientId"), 
+                    EDIRecipient = new EdiAddress(address, quantifier),
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
@@ -108,7 +127,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				};
 				return companyRow;
 			}
-			catch (Exception ex) {
+			catch (Exception ex) 
+            {
 				throw new Exception("Exception found while parsing a Company object: " + ex.Message);
 			}
 		}

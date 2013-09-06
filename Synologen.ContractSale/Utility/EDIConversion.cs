@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
 
@@ -10,35 +11,37 @@ namespace Spinit.Wpc.Synologen.Invoicing
 {
 	public partial class Convert 
 	{
-		private static Supplier GetSupplierInformation(string supplierId, string bankGiro, string postGiro, IShop shop) 
+		private static Supplier GetSupplierInformation(EdiAddress supplier, string bankGiro, string postGiro, IShop shop) 
 		{
-			var supplier = new Supplier {
+			return new Supplier 
+            {
+                SupplierIdentity = supplier.ToString(),
 				BankGiroNumber = bankGiro,
 				PostGiroNumber = postGiro,
-				Contact = new Contact {
+				Contact = new Contact 
+                {
 					ContactInfo = shop.Name,
 					Email = shop.Email,
 					Fax = shop.Fax,
 					Telephone = shop.Phone
-				},
-				SupplierIdentity = supplierId
+				}
 			};
-			return supplier;
 		}
 
-		private static Buyer GetBuyerInformation(string buyerId, ICompany company) 
+		private static Buyer GetBuyerInformation(EdiAddress buyer, ICompany company) 
 		{
-			var buyer = new Buyer {
-				BuyerIdentity = buyerId,
+			return new Buyer 
+            {
+				BuyerIdentity = buyer.ToString(),
 				InvoiceIdentity = company.BankCode,
-				DeliveryAddress = new Address {
+				DeliveryAddress = new Address 
+                {
 					Address1 = company.PostBox,
 					Address2 = company.StreetName,
 					City = company.City,
 					Zip = company.Zip
 				}
 			};
-			return buyer;
 		}
 
 		public static InvoiceRow ToEDIArticle(IOrderItem orderItem)

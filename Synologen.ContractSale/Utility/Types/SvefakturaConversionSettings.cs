@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
@@ -24,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types
         string InvoicePaymentTermsTextFormat { get; set; }
         SFTIAddressType Adress { get; set; }
         SFTIAddressType RegistrationAdress { get; set; }
+        EdiAddress EDIAddress { get; set; }
     }
 
     public class SvefakturaConversionSettings : ISvefakturaConversionSettings
@@ -46,5 +48,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types
 		public string InvoicePaymentTermsTextFormat { get; set; }
 		public SFTIAddressType Adress { get; set; }
 		public SFTIAddressType RegistrationAdress { get; set; }
-	}
+        public EdiAddress EDIAddress { get; set; }
+    }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
@@ -107,7 +108,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
                 SellingOrganizationNumber = "5562626100",
                 ExemptionReason = "Innehar F-skattebevis",
                 TaxAccountingCode = "SE556262610001",
-                InvoiceIssueDate = DateTime.Now.Date,//new DateTime(2009, 10, 30),
+                InvoiceIssueDate = DateTime.Now.Date, //new DateTime(2009, 10, 30),
                 InvoiceTypeCode = "380",
                 InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
                 VATAmount = 0.25m,
@@ -115,7 +116,8 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
                 BankgiroBankIdentificationCode = "BGABSESS",
                 InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
                 InvoiceExpieryPenaltySurchargePercent = 8m,
-                VATFreeReasonMessage = "Momsfri"
+                VATFreeReasonMessage = "Momsfri",
+                EDIAddress = new EdiAddress("5562626100", "14")
             };
         }
 

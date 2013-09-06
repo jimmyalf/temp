@@ -95,8 +95,8 @@ namespace Spinit.Wpc.Synologen.EDI.Common {
 			if(parseItem.IsEmpty) return String.Empty;
 			var dateTimeValue = parseItem.DateOfPreparation.ToString(dateTimeFormat);
 			return string.Format(format, 
-				Escape(parseItem.SenderId), 
-				Escape(parseItem.RecipientId), 
+				parseItem.SenderId, 
+				parseItem.RecipientId, 
 				dateTimeValue, 
 				Escape(parseItem.ControlReference)
 			);

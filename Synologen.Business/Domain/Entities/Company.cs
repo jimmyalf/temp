@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 	[DataContract] 
@@ -25,11 +27,12 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			InvoiceCompanyName = company.InvoiceCompanyName;
 			TaxAccountingCode = company.TaxAccountingCode;
 			PaymentDuePeriod = company.PaymentDuePeriod;
-			EDIRecipientId = company.EDIRecipientId;
+			EDIRecipient = company.EDIRecipient;
 			InvoicingMethodId = company.InvoicingMethodId;
 			CompanyValidationRules = company.CompanyValidationRules;
 			InvoiceFreeTextFormat = company.InvoiceFreeTextFormat;
 			Country = company.Country;
+		    EDIFtpCredential = company.EDIFtpCredential;
 		}
 
 		[DataMember] public int Id { get; set; }
@@ -46,7 +49,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public string InvoiceCompanyName { get; set; }
 		[DataMember] public string TaxAccountingCode { get; set; }
 		[DataMember] public int PaymentDuePeriod { get; set; }
-		[DataMember] public string EDIRecipientId { get; set; }
+		public EdiAddress EDIRecipient { get; set; }
+        public NetworkCredential EDIFtpCredential { get; set; } 
 		[DataMember] public int InvoicingMethodId { get; set; }
 		#pragma warning disable 618,612
 		[DataMember] public string PostBox { get { return Address1; } set { Address1 = value; } }

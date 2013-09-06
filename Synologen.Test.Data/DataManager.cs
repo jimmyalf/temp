@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
                 City = "Askim",
                 ContractId = contract.Id,
                 Country = new Country { Id = 1 },
-                EDIRecipientId = null,
+                EDIRecipient = null,
                 InvoiceCompanyName = "Test Företag AktieBolag",
                 InvoiceFreeTextFormat = null,
                 InvoicingMethodId = 2,

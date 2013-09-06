@@ -5,11 +5,13 @@ using System.Text;
 using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
-namespace Spinit.Wpc.Synologen.Test.EDI {
+namespace Spinit.Wpc.Synologen.Test.EDI 
+{
 	[TestFixture]
 	public class TestParsing 
 	{
@@ -26,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		{
 			_ediSettings = new EDIConversionSettings 
 			{
-				SenderId = "5562626100",
+				SenderEdiAddress = new EdiAddress("5562626100","14"),
 				BankGiro = "56936677",
 				VATAmount = 0.25F,
 				InvoiceCurrencyCode = "SEK",

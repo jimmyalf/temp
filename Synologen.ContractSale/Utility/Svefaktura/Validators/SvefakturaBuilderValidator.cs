@@ -23,9 +23,9 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators
                 throw new ArgumentNullException("order", "Order ContractComany missing");
             }
 
-            if (string.IsNullOrEmpty(order.ContractCompany.EDIRecipientId))
+            if (string.IsNullOrEmpty(order.ContractCompany.EDIRecipient.Address))
             {
-                throw new ArgumentNullException("order", "Order ContractCompany EDIRecipient Id missing");
+                throw new ArgumentNullException("order", "Order ContractCompany EDIRecipient Address missing");
             }
 
             if (order.SellingShop == null)

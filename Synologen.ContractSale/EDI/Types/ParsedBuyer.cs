@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.EDI.Types {
 		private readonly Buyer buyer;
 		public ParsedBuyer(Buyer buyerToParse) { buyer = buyerToParse; }
 
-		private const string BuyerIdentityFormat = "NAD+BY+{0}:30'";
+		private const string BuyerIdentityFormat = "NAD+BY+{0}'";
 		private const string ContactNameFormat = "CTA+PD+:{0}'";
 		private const string InvoiceIdentityFormat = "NAD+IV+{0}:30'";
 		private const string ReferenceNumberFormat = "RFF+IT+{0}'";
@@ -15,14 +15,13 @@ namespace Spinit.Wpc.Synologen.EDI.Types {
 		//public string Leverantörskontra = "CTA+GR:<text>'";
 
 		protected string ParsedBuyerIdentity {
-			get { return EDIUtility.ParseRow(BuyerIdentityFormat, buyer.BuyerIdentity); }
+			get { return string.Format(BuyerIdentityFormat, buyer.BuyerIdentity); }
 		}
 		protected string ParsedContactName {
 			get { return EDIUtility.ParseRow(ContactNameFormat, buyer.ContactName); }
 		}
 		protected string ParsedInvoiceIdentity {
 			get { return EDIUtility.ParseRow(InvoiceIdentityFormat, buyer.InvoiceIdentity); }
-			//get { return EDIUtility.ParseRow(InvoiceIdentityFormat, buyer.BuyerIdentity); }
 		}
 		protected string ParsedReferenceNumber {
 			get { return EDIUtility.ParseRow(ReferenceNumberFormat, buyer.ReferenceNumber); }

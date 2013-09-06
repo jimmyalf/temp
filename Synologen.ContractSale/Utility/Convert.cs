@@ -1,11 +1,7 @@
-﻿using System;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+﻿using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
@@ -17,12 +13,16 @@ namespace Spinit.Wpc.Synologen.Invoicing
         {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
 			var invoiceValueExcludingVAT = System.Convert.ToSingle(order.InvoiceSumExcludingVAT);
-			var interchangeHeader = new InterchangeHeader {RecipientId = order.ContractCompany.EDIRecipientId, SenderId = ediSettings.SenderId};
+			var interchangeHeader = new InterchangeHeader
+			{
+			    RecipientId = order.ContractCompany.EDIRecipient.ToString(), 
+                SenderId = ediSettings.SenderEdiAddress.ToString()
+			};
 			var invoiceExpieryDate = interchangeHeader.DateOfPreparation.AddDays(order.ContractCompany.PaymentDuePeriod);
 			var invoice = new Invoice(ediSettings.VATAmount, ediSettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT)
 			{
 				Articles = ToEDIArticles(order.OrderItems, order),
-				Buyer = GetBuyerInformation(order.ContractCompany.EDIRecipientId, order.ContractCompany),
+				Buyer = GetBuyerInformation(order.ContractCompany.EDIRecipient, order.ContractCompany),
 				BuyerOrderNumber = string.Empty,
 				BuyerRSTNumber = order.RstText,
 				DocumentNumber = order.InvoiceNumber.ToString(),
@@ -30,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 				InvoiceCreatedDate = order.CreatedDate,
 				InvoiceSetting = new InvoiceSetting {InvoiceCurrency = ediSettings.InvoiceCurrencyCode, InvoiceExpiryDate = invoiceExpieryDate},
 				VendorOrderNumber = order.Id.ToString(),
-				Supplier = GetSupplierInformation(ediSettings.SenderId, ediSettings.BankGiro, ediSettings.Postgiro, order.SellingShop)
+				Supplier = GetSupplierInformation(ediSettings.SenderEdiAddress, ediSettings.BankGiro, ediSettings.Postgiro, order.SellingShop)
 			};
 			return invoice;
 		}

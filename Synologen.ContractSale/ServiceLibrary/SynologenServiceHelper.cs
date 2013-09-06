@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Business.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
@@ -168,7 +169,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary
 			{
 				BankGiro = ConfigurationSettings.WebService.BankGiro,
 				Postgiro = ConfigurationSettings.WebService.Postgiro,
-				SenderId = ConfigurationSettings.WebService.EDISenderId,
+				SenderEdiAddress = ConfigurationSettings.WebService.EDISenderId,
 				VATAmount = ConfigurationSettings.WebService.VATAmount,
 				InvoiceCurrencyCode = ConfigurationSettings.WebService.InvoiceCurrencyCode,
 				NumberOfDecimalsUsedAtRounding = NumberOfDecimalsUsedForRounding,

@@ -4,10 +4,12 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 {
@@ -22,7 +24,11 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		};
 		private readonly Shop _emptyShop = new Shop();
 		private readonly List<OrderItem> _emptyOrderItems = new List<OrderItem>();
-	    private readonly Company _emptyCompany = new Company { InvoiceFreeTextFormat = string.Empty };
+	    private readonly Company _emptyCompany = new Company
+	    {
+	        InvoiceFreeTextFormat = string.Empty,
+            EDIRecipient = new EdiAddress("112345687","30")
+	    };
 
 		[SetUp]
 		public void Setup() { }
@@ -35,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		        SellingShop = _emptyShop,
 		        OrderItems = _emptyOrderItems,
 		        ContractCompany = _emptyCompany,
-		        Phone = "+46 (0) 123 - 456789"
+		        Phone = "+46 (0) 123 - 456789",
 		    };
 		    var invoice = BuildInvoice<BuyerPartyBuilder>(customOrder);
 			invoice.BuyerParty.Party.Contact.Telephone.Value.ShouldBe("+46123456789");
@@ -122,7 +128,8 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		        ContractCompany = new Company
 		        {
 		            TaxAccountingCode = "SE 555-654.123 - 645", 
-                    InvoiceFreeTextFormat = string.Empty
+                    InvoiceFreeTextFormat = string.Empty,
+                    EDIRecipient = new EdiAddress("123456")
 		        }
 		    };
 		    var invoice = BuildInvoice<BuyerPartyBuilder>(customOrder);
@@ -155,12 +162,13 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		        {
 		            TaxAccountingCode = "ABC",
 		            OrganizationNumber = "SE 555-654.123 - 645",
-		            InvoiceFreeTextFormat = string.Empty
+		            InvoiceFreeTextFormat = string.Empty,
+                    EDIRecipient = new EdiAddress("123456","30")
 		        }
 		    };
 		    var invoice = BuildInvoice<BuyerPartyBuilder>(customOrder);
+            invoice.BuyerParty.Party.PartyIdentification[0].ID.Value.ShouldBe("123456");
 			invoice.BuyerParty.Party.PartyTaxScheme[1].CompanyID.Value.ShouldBe("SE555654123645");
-		    invoice.BuyerParty.Party.PartyIdentification[0].ID.Value.ShouldBe("SE555654123645");
 		}
 	}
 }

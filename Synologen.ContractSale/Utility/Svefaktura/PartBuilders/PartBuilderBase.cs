@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers;
 using Spinit.Wpc.Synologen.Invoicing.Types;
@@ -34,6 +35,18 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             return new List<NameType>
             {
                 new NameType { Value = entity.Return(nameProperty, null) }
+            };
+        }
+
+        protected List<SFTIPartyIdentificationType> GetPartyIdentification<TEntity>(TEntity entity, Func<TEntity, EdiAddress> identificationProperty) where TEntity : class
+        {
+            var id = identificationProperty(entity);
+            return new List<SFTIPartyIdentificationType>
+            {
+                new SFTIPartyIdentificationType
+                {
+                    ID = new IdentifierType { Value = Formatter.FormatOrganizationNumber(id.Address) }
+                }
             };
         }
 

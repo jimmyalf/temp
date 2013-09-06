@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Text;
 using Spinit.Wpc.Synologen.Business.Utility.Configuration;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings 
 {
@@ -67,9 +68,16 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings
 		public static string Postgiro {
 			get { return GetSafeValue("Postgiro", String.Empty); }
 		}
-		public static string EDISenderId {
-			get { return GetSafeValue("EDISenderId", String.Empty); }
-		}
+
+        public static EdiAddress EDISenderId
+        {
+            get
+            {
+                var address = GetSafeValue("EDISenderId", String.Empty);
+                var quantifier = GetSafeValue("EDISenderQuantifier", String.Empty);
+                return new EdiAddress(address, quantifier);
+            }
+        }
 		public static float VATAmount {
 			get { return GetSafeValue("VATAmount", 0.25F); }
 		}

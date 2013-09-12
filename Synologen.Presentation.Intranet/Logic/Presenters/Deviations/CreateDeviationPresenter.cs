@@ -114,11 +114,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
                 try
                 {
                     _emailService.SendEmail(_settingService.EmailOrderFrom, supplier.Email, "Synologen extern avvikelse", CreateSupplierEmailBody(deviation));
-                    View.Model.Status = string.Format("Avvikelsen är skickad till leverantörens e-post adress '{0}'.", supplier.Email);
+                    View.Model.Status = string.Format("Avvikelsen är skickad till leverantörens e-postadress '{0}'.", supplier.Email);
                 }
                 catch (Exception)
                 {
-                    View.Model.Status = string.Format("Något fel inträffade när avvikelsen skulle skickas till leverantörens e-post adress '{0}'.", supplier.Email);
+                    View.Model.Status = string.Format("Något fel inträffade när avvikelsen skulle skickas till leverantörens e-postadress '{0}'.", supplier.Email);
                 }
             }
 

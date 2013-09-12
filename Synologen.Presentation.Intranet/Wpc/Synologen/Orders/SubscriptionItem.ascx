@@ -2,10 +2,10 @@
 <div id="synologen-order-subscription-" class="synologen-control">
 	<fieldset class="synologen-form">
 		<legend>Delabonnemang för konto <%=Model.SubscriptionBankAccountNumber %> för <%=Model.CustomerName %></legend>
-<%--    	<p>
+    	<p>
     		<label>Rubrik/Namn</label>
     		<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
-    	</p>--%>
+    	</p>
     	<p>
     		<label>Produkt</label>
 			<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" />
@@ -62,7 +62,7 @@
 		<p class="control-actions">
    			<asp:Button runat="server" OnClick="Submit_SubscriptionItem" Text="Spara"/>
             <% if (Model.IsActive) { %>
-            <%--<asp:Button runat="server" OnClick="Stop_SubscriptionItem" Text="Stoppa"/>--%>
+            <asp:Button runat="server" OnClick="Stop_SubscriptionItem" Text="Stoppa"/>
             <% } %>
             <% if (Model.IsStopped) { %>
             <asp:Button runat="server" OnClick="Start_SubscriptionItem" Text="Starta"/>

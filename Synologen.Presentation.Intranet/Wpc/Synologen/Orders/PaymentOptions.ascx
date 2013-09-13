@@ -19,9 +19,9 @@
                     <HeaderTemplate>
                         <table>
                             <thead>
-                                <%--<tr>
+                                <tr>
                                     <th>Konto</th><th>Namn</th><th>Skapad</th><th>Dragningar</th>
-                                </tr>--%>
+                                </tr>
                             </thead>
                             <tbody>
                     </HeaderTemplate>
@@ -33,14 +33,14 @@
                                         <%#Item.Title %>
                                     </td>
                                     </asp:PlaceHolder>
-                                    <%--<asp:PlaceHolder runat="server" Visible="<%#Item.IsDefault %>">
+                                    <asp:PlaceHolder runat="server" Visible="<%#Item.IsDefault %>">
                                     <td colspan="3"></td>
                                     </asp:PlaceHolder>
                                     <asp:PlaceHolder runat="server" Visible="<%#!Item.IsDefault %>">
                                     <td><%#Item.Name %></td>
                                     <td><%#Item.Created %></td>
                                     <td><%#Item.Withdrawals %></td>
-                                    </asp:PlaceHolder>--%>
+                                    </asp:PlaceHolder>
                                 </tr>
                     </ItemTemplate>
                     <FooterTemplate>

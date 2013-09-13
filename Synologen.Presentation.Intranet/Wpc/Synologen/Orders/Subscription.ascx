@@ -8,7 +8,10 @@
 			<dt>Clearingnr</dt>
 			<dd><%#Model.ClearingNumber %></dd>
 			<dt>Saldo</dt>
-			<dd><%#Model.TaxedBalance %></dd>
+			<dd>Momsbelagt: <%#Model.TaxedBalance %>
+	            <br/>
+	           Momsfritt: <%#Model.TaxFreeBalance %>
+			</dd>
 			<dt>Medgivande</dt>
 			<dd><%#Model.Consented %></dd>
 			<dt>Abonnemang-status</dt>
@@ -59,12 +62,12 @@
 			<HeaderTemplate>
 			<table>
 				<caption>Delabonnemang</caption>
-				<thead><tr class="synologen-table-headerrow"><%--<th>Namn</th>--%><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th><th>Detaljer</th></tr></thead>
+				<thead><tr class="synologen-table-headerrow"><th>Namn</th><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th><th>Detaljer</th></tr></thead>
 				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
-				    <%--<td><%#Eval("Title")%></td>--%>
+				    <td><%#Eval("Title")%></td>
 					<td><%#Eval("MontlyAmount")%></td>
 					<td><%#Eval("PerformedWithdrawals")%></td>
 					<td><%#Eval("CreatedDate")%></td>

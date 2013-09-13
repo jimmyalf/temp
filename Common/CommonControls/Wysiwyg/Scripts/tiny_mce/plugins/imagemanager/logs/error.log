@@ -1,0 +1,32 @@
+[2011-10-20 13:45:00] [ERROR] Moxiecode.Manager.ManagerException: {#error.file_not_exists}
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48
+[2011-10-20 13:45:00] [ERROR] System.Exception: Root path: D:/Inetpub/Wpc/Current/Common/CommonControls/Wysiwyg/Scripts/tiny_mce/plugins/Current/Common/Files, does not exists.
+   vid Moxiecode.Manager.RootFile.ListFilesFiltered(IFileFilter filter)
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48
+[2011-10-20 13:45:00] [ERROR] Moxiecode.Manager.ManagerException: {#error.file_not_exists}
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48
+[2011-10-20 13:46:56] [ERROR] Moxiecode.Manager.ManagerException: {#error.file_not_exists}
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48
+[2011-10-20 13:46:56] [ERROR] System.Exception: Root path: D:/Inetpub/Wpc/Current/Common/CommonControls/Current/Common/Files, does not exists.
+   vid Moxiecode.Manager.RootFile.ListFilesFiltered(IFileFilter filter)
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48
+[2011-10-20 13:46:56] [ERROR] Moxiecode.Manager.ManagerException: {#error.file_not_exists}
+   vid Moxiecode.Manager.CorePlugin.ListFiles(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.CorePlugin.OnRPC(ManagerEngine man, String cmd, Hashtable input)
+   vid Moxiecode.Manager.ManagerEngine.ExecuteEvent(EventType type, Object[] args)
+   vid ASP.commonresources_commoncontrols_wysiwyg_scripts_tiny_mce_plugins_imagemanager_rpc_default_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) i d:\Inetpub\Wpc\Current\Common\CommonControls\Wysiwyg\Scripts\tiny_mce\plugins\imagemanager\rpc\default.aspx:rad 48

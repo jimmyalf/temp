@@ -1,0 +1,278 @@
+
+    <!-- START Skin-ForumAdmin.ascx -->
+        <resource name="Forum_Title">NEED DESCRIPTION for Forum Title</resource>
+        <resource name="Forum_Subtitle">NEED DESCRIPTION for Forum SubTitle</resource>
+        <resource name="Forum_AboutTitle">NEED DESCRIPTION for Forum About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumAdmin_ForumID">NEED DESCRIPTION for ForumID</resource>
+        <resource name="ForumAdmin_IsActive">NEED DESCRIPTION for IsActive</resource>
+        <resource name="ForumAdmin_ParentID">NEED DESCRIPTION for ParentID</resource>
+        <resource name="ForumAdmin_ForumGroupID">NEED DESCRIPTION for ForumGroupID</resource>
+        <resource name="ForumAdmin_Name">NEED DESCRIPTION for Name</resource>
+        <resource name="ForumAdmin_Description">NEED DESCRIPTION for Description</resource>
+        <resource name="ForumAdmin_DateCreated">NEED DESCRIPTION for DateCreated</resource>
+        <resource name="ForumAdmin_IsModerated">NEED DESCRIPTION for IsModerated</resource>
+        <resource name="ForumAdmin_DaysToView">NEED DESCRIPTION for DaysToView</resource>
+        <resource name="ForumAdmin_SortOrder">NEED DESCRIPTION for SortOrder</resource>
+        <resource name="ForumAdmin_TotalPosts">NEED DESCRIPTION for TotalPosts</resource>
+        <resource name="ForumAdmin_TotalThreads">NEED DESCRIPTION for TotalThreads</resource>
+        <resource name="ForumAdmin_DisplayMask">NEED DESCRIPTION for DisplayMask</resource>
+        <resource name="ForumAdmin_EnablePostStatistics">NEED DESCRIPTION for EnablePostStatistics</resource>
+        <resource name="ForumAdmin_EnableAutoDelete">NEED DESCRIPTION for EnableAutoDelete</resource>
+        <resource name="ForumAdmin_EnableAnonymousPosting">NEED DESCRIPTION for EnableAnonymousPosting</resource>
+        <resource name="ForumAdmin_AutoDeleteThreshold">NEED DESCRIPTION for AutoDeleteThreshold</resource>
+        <resource name="ForumAdmin_MostRecentPostID">NEED DESCRIPTION for MostRecentPostID</resource>
+        <resource name="ForumAdmin_MostRecentThreadID">NEED DESCRIPTION for MostRecentThreadID</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthor">NEED DESCRIPTION for MostRecentPostAuthor</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthorID">NEED DESCRIPTION for MostRecentPostAuthorID</resource>
+        <resource name="ForumAdmin_MostRecentPostDate">NEED DESCRIPTION for MostRecentPostDate</resource>
+        <resource name="ForumAdmin_PostsToModerate">NEED DESCRIPTION for PostsToModerate</resource>
+        <resource name="ForumAdmin_ForumType">NEED DESCRIPTION for ForumType</resource>
+        <resource name="ForumAdmin_IsSearchable">NEED DESCRIPTION for IsSearchable</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPruningAdmin.ascx -->
+        <resource name="ForumPruning_Title">NEED DESCRIPTION for ForumPruning Title</resource>
+        <resource name="ForumPruning_Subtitle">NEED DESCRIPTION for ForumPruning SubTitle</resource>
+        <resource name="ForumPruning_AboutTitle">NEED DESCRIPTION for ForumPruning About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPruningAdmin_ForumId">NEED DESCRIPTION for ForumId</resource>
+        <resource name="ForumPruningAdmin_IsActive">NEED DESCRIPTION for IsActive</resource>
+        <resource name="ForumPruningAdmin_PruneMessagesDaysOld">NEED DESCRIPTION for PruneMessagesDaysOld</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPruningAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPermissionAdmin.ascx -->
+        <resource name="ForumPermission_Title">NEED DESCRIPTION for ForumPermission Title</resource>
+        <resource name="ForumPermission_Subtitle">NEED DESCRIPTION for ForumPermission SubTitle</resource>
+        <resource name="ForumPermission_AboutTitle">NEED DESCRIPTION for ForumPermission About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPermissionAdmin_ForumID">NEED DESCRIPTION for ForumID</resource>
+        <resource name="ForumPermissionAdmin_RoleID">NEED DESCRIPTION for RoleID</resource>
+        <resource name="ForumPermissionAdmin_View">NEED DESCRIPTION for View</resource>
+        <resource name="ForumPermissionAdmin_Read">NEED DESCRIPTION for Read</resource>
+        <resource name="ForumPermissionAdmin_Post">NEED DESCRIPTION for Post</resource>
+        <resource name="ForumPermissionAdmin_Reply">NEED DESCRIPTION for Reply</resource>
+        <resource name="ForumPermissionAdmin_Edit">NEED DESCRIPTION for Edit</resource>
+        <resource name="ForumPermissionAdmin_Delete">NEED DESCRIPTION for Delete</resource>
+        <resource name="ForumPermissionAdmin_Sticky">NEED DESCRIPTION for Sticky</resource>
+        <resource name="ForumPermissionAdmin_Announce">NEED DESCRIPTION for Announce</resource>
+        <resource name="ForumPermissionAdmin_CreatePoll">NEED DESCRIPTION for CreatePoll</resource>
+        <resource name="ForumPermissionAdmin_Vote">NEED DESCRIPTION for Vote</resource>
+        <resource name="ForumPermissionAdmin_Moderate">NEED DESCRIPTION for Moderate</resource>
+        <resource name="ForumPermissionAdmin_Attachment">NEED DESCRIPTION for Attachment</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPermissionAdmin.ascx -->
+
+
+    <!-- START Skin-MassEmailingAdmin.ascx -->
+        <resource name="MassEmailing_Title">NEED DESCRIPTION for MassEmailing Title</resource>
+        <resource name="MassEmailing_Subtitle">NEED DESCRIPTION for MassEmailing SubTitle</resource>
+        <resource name="MassEmailing_AboutTitle">NEED DESCRIPTION for MassEmailing About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="MassEmailingAdmin_EmailTo">NEED DESCRIPTION for EmailTo</resource>
+        <resource name="MassEmailingAdmin_EmailBcc">NEED DESCRIPTION for EmailBcc</resource>
+        <resource name="MassEmailingAdmin_EmailFrom">NEED DESCRIPTION for EmailFrom</resource>
+        <resource name="MassEmailingAdmin_EmailSubject">NEED DESCRIPTION for EmailSubject</resource>
+        <resource name="MassEmailingAdmin_EmailBody">NEED DESCRIPTION for EmailBody</resource>
+        <resource name="MassEmailingAdmin_CreatedTimestamp">NEED DESCRIPTION for CreatedTimestamp</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-MassEmailingAdmin.ascx -->
+
+
+    <!-- START Skin-SmileyAdmin.ascx -->
+        <resource name="Smiley_Title">NEED DESCRIPTION for Smiley Title</resource>
+        <resource name="Smiley_Subtitle">NEED DESCRIPTION for Smiley SubTitle</resource>
+        <resource name="Smiley_AboutTitle">NEED DESCRIPTION for Smiley About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="SmileyAdmin_SmileyId">NEED DESCRIPTION for SmileyId</resource>
+        <resource name="SmileyAdmin_SmileyCode">NEED DESCRIPTION for SmileyCode</resource>
+        <resource name="SmileyAdmin_SmileyUrl">NEED DESCRIPTION for SmileyUrl</resource>
+        <resource name="SmileyAdmin_SmileyText">NEED DESCRIPTION for SmileyText</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-SmileyAdmin.ascx -->
+
+
+    <!-- START Skin-CensorshipAdmin.ascx -->
+        <resource name="Censorship_Title">NEED DESCRIPTION for Censorship Title</resource>
+        <resource name="Censorship_Subtitle">NEED DESCRIPTION for Censorship SubTitle</resource>
+        <resource name="Censorship_AboutTitle">NEED DESCRIPTION for Censorship About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="CensorshipAdmin_Word">NEED DESCRIPTION for Word</resource>
+        <resource name="CensorshipAdmin_Replacement">NEED DESCRIPTION for Replacement</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-CensorshipAdmin.ascx -->
+
+
+    <!-- START Skin-NameAdmin.ascx -->
+        <resource name="Name_Title">NEED DESCRIPTION for Name Title</resource>
+        <resource name="Name_Subtitle">NEED DESCRIPTION for Name SubTitle</resource>
+        <resource name="Name_AboutTitle">NEED DESCRIPTION for Name About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="NameAdmin_DisallowedName">NEED DESCRIPTION for DisallowedName</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-NameAdmin.ascx -->
+
+
+    <!-- START Skin-ReportAdmin.ascx -->
+        <resource name="Report_Title">NEED DESCRIPTION for Report Title</resource>
+        <resource name="Report_Subtitle">NEED DESCRIPTION for Report SubTitle</resource>
+        <resource name="Report_AboutTitle">NEED DESCRIPTION for Report About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ReportAdmin_ReportId">NEED DESCRIPTION for ReportId</resource>
+        <resource name="ReportAdmin_ReportName">NEED DESCRIPTION for ReportName</resource>
+        <resource name="ReportAdmin_Active">NEED DESCRIPTION for Active</resource>
+        <resource name="ReportAdmin_ReportCommand">NEED DESCRIPTION for ReportCommand</resource>
+        <resource name="ReportAdmin_ReportScript">NEED DESCRIPTION for ReportScript</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ReportAdmin.ascx -->
+
+
+    <!-- START Skin-RoleAdmin.ascx -->
+        <resource name="Role_Title">NEED DESCRIPTION for Role Title</resource>
+        <resource name="Role_Subtitle">NEED DESCRIPTION for Role SubTitle</resource>
+        <resource name="Role_AboutTitle">NEED DESCRIPTION for Role About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="RoleAdmin_RoleID">NEED DESCRIPTION for RoleID</resource>
+        <resource name="RoleAdmin_Name">NEED DESCRIPTION for Name</resource>
+        <resource name="RoleAdmin_Description">NEED DESCRIPTION for Description</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-RoleAdmin.ascx -->
+
+
+    <!-- START Skin-StyleAdmin.ascx -->
+        <resource name="Style_Title">NEED DESCRIPTION for Style Title</resource>
+        <resource name="Style_Subtitle">NEED DESCRIPTION for Style SubTitle</resource>
+        <resource name="Style_AboutTitle">NEED DESCRIPTION for Style About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="StyleAdmin_StyleId">NEED DESCRIPTION for StyleId</resource>
+        <resource name="StyleAdmin_StyleName">NEED DESCRIPTION for StyleName</resource>
+        <resource name="StyleAdmin_StyleSheetTemplate">NEED DESCRIPTION for StyleSheetTemplate</resource>
+        <resource name="StyleAdmin_BodyBackgroundColor">NEED DESCRIPTION for BodyBackgroundColor</resource>
+        <resource name="StyleAdmin_BodyTextColor">NEED DESCRIPTION for BodyTextColor</resource>
+        <resource name="StyleAdmin_LinkVisited">NEED DESCRIPTION for LinkVisited</resource>
+        <resource name="StyleAdmin_LinkHover">NEED DESCRIPTION for LinkHover</resource>
+        <resource name="StyleAdmin_LinkActive">NEED DESCRIPTION for LinkActive</resource>
+        <resource name="StyleAdmin_RowColorPrimary">NEED DESCRIPTION for RowColorPrimary</resource>
+        <resource name="StyleAdmin_RowColorSecondary">NEED DESCRIPTION for RowColorSecondary</resource>
+        <resource name="StyleAdmin_RowColorTertiary">NEED DESCRIPTION for RowColorTertiary</resource>
+        <resource name="StyleAdmin_RowClassPrimary">NEED DESCRIPTION for RowClassPrimary</resource>
+        <resource name="StyleAdmin_RowClassSecondary">NEED DESCRIPTION for RowClassSecondary</resource>
+        <resource name="StyleAdmin_RowClassTertiary">NEED DESCRIPTION for RowClassTertiary</resource>
+        <resource name="StyleAdmin_HeaderColorPrimary">NEED DESCRIPTION for HeaderColorPrimary</resource>
+        <resource name="StyleAdmin_HeaderColorSecondary">NEED DESCRIPTION for HeaderColorSecondary</resource>
+        <resource name="StyleAdmin_HeaderColorTertiary">NEED DESCRIPTION for HeaderColorTertiary</resource>
+        <resource name="StyleAdmin_HeaderStylePrimary">NEED DESCRIPTION for HeaderStylePrimary</resource>
+        <resource name="StyleAdmin_HeaderStyleSecondary">NEED DESCRIPTION for HeaderStyleSecondary</resource>
+        <resource name="StyleAdmin_HeaderStyleTertiary">NEED DESCRIPTION for HeaderStyleTertiary</resource>
+        <resource name="StyleAdmin_CellColorPrimary">NEED DESCRIPTION for CellColorPrimary</resource>
+        <resource name="StyleAdmin_CellColorSecondary">NEED DESCRIPTION for CellColorSecondary</resource>
+        <resource name="StyleAdmin_CellColorTertiary">NEED DESCRIPTION for CellColorTertiary</resource>
+        <resource name="StyleAdmin_CellClassPrimary">NEED DESCRIPTION for CellClassPrimary</resource>
+        <resource name="StyleAdmin_CellClassSecondary">NEED DESCRIPTION for CellClassSecondary</resource>
+        <resource name="StyleAdmin_CellClassTertiary">NEED DESCRIPTION for CellClassTertiary</resource>
+        <resource name="StyleAdmin_FontFacePrimary">NEED DESCRIPTION for FontFacePrimary</resource>
+        <resource name="StyleAdmin_FontFaceSecondary">NEED DESCRIPTION for FontFaceSecondary</resource>
+        <resource name="StyleAdmin_FontFaceTertiary">NEED DESCRIPTION for FontFaceTertiary</resource>
+        <resource name="StyleAdmin_FontSizePrimary">NEED DESCRIPTION for FontSizePrimary</resource>
+        <resource name="StyleAdmin_FontSizeSecondary">NEED DESCRIPTION for FontSizeSecondary</resource>
+        <resource name="StyleAdmin_FontSizeTertiary">NEED DESCRIPTION for FontSizeTertiary</resource>
+        <resource name="StyleAdmin_FontColorPrimary">NEED DESCRIPTION for FontColorPrimary</resource>
+        <resource name="StyleAdmin_FontColorSecondary">NEED DESCRIPTION for FontColorSecondary</resource>
+        <resource name="StyleAdmin_FontColorTertiary">NEED DESCRIPTION for FontColorTertiary</resource>
+        <resource name="StyleAdmin_SpanClassPrimary">NEED DESCRIPTION for SpanClassPrimary</resource>
+        <resource name="StyleAdmin_SpanClassSecondary">NEED DESCRIPTION for SpanClassSecondary</resource>
+        <resource name="StyleAdmin_SpanClassTertiary">NEED DESCRIPTION for SpanClassTertiary</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-StyleAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceAdmin.ascx -->
+        <resource name="Service_Title">NEED DESCRIPTION for Service Title</resource>
+        <resource name="Service_Subtitle">NEED DESCRIPTION for Service SubTitle</resource>
+        <resource name="Service_AboutTitle">NEED DESCRIPTION for Service About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceAdmin_ServiceName">NEED DESCRIPTION for ServiceName</resource>
+        <resource name="ServiceAdmin_ServiceTypeCode">NEED DESCRIPTION for ServiceTypeCode</resource>
+        <resource name="ServiceAdmin_ServiceAssemblyPath">NEED DESCRIPTION for ServiceAssemblyPath</resource>
+        <resource name="ServiceAdmin_ServiceFullClassName">NEED DESCRIPTION for ServiceFullClassName</resource>
+        <resource name="ServiceAdmin_ServiceWorkingDirectory">NEED DESCRIPTION for ServiceWorkingDirectory</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceScheduleAdmin.ascx -->
+        <resource name="ServiceSchedule_Title">NEED DESCRIPTION for ServiceSchedule Title</resource>
+        <resource name="ServiceSchedule_Subtitle">NEED DESCRIPTION for ServiceSchedule SubTitle</resource>
+        <resource name="ServiceSchedule_AboutTitle">NEED DESCRIPTION for ServiceSchedule About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceScheduleAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleName">NEED DESCRIPTION for ScheduleName</resource>
+        <resource name="ServiceScheduleAdmin_MachineName">NEED DESCRIPTION for MachineName</resource>
+        <resource name="ServiceScheduleAdmin_StartDate">NEED DESCRIPTION for StartDate</resource>
+        <resource name="ServiceScheduleAdmin_EndDate">NEED DESCRIPTION for EndDate</resource>
+        <resource name="ServiceScheduleAdmin_ServiceParameters">NEED DESCRIPTION for ServiceParameters</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleTypeCode">NEED DESCRIPTION for ScheduleTypeCode</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeHour">NEED DESCRIPTION for RunTimeHour</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeMinute">NEED DESCRIPTION for RunTimeMinute</resource>
+        <resource name="ServiceScheduleAdmin_DelayHour">NEED DESCRIPTION for DelayHour</resource>
+        <resource name="ServiceScheduleAdmin_DelayMinute">NEED DESCRIPTION for DelayMinute</resource>
+        <resource name="ServiceScheduleAdmin_RunDaily">NEED DESCRIPTION for RunDaily</resource>
+        <resource name="ServiceScheduleAdmin_RunWeekly">NEED DESCRIPTION for RunWeekly</resource>
+        <resource name="ServiceScheduleAdmin_RunMonthly">NEED DESCRIPTION for RunMonthly</resource>
+        <resource name="ServiceScheduleAdmin_RunYearly">NEED DESCRIPTION for RunYearly</resource>
+        <resource name="ServiceScheduleAdmin_RunOnce">NEED DESCRIPTION for RunOnce</resource>
+        <resource name="ServiceScheduleAdmin_LastRunTime">NEED DESCRIPTION for LastRunTime</resource>
+        <resource name="ServiceScheduleAdmin_NextRunTime">NEED DESCRIPTION for NextRunTime</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceScheduleAdmin.ascx -->
+
+
+    <!-- START Skin-UserAdmin.ascx -->
+        <resource name="User_Title">NEED DESCRIPTION for User Title</resource>
+        <resource name="User_Subtitle">NEED DESCRIPTION for User SubTitle</resource>
+        <resource name="User_AboutTitle">NEED DESCRIPTION for User About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="UserAdmin_UserID">NEED DESCRIPTION for UserID</resource>
+        <resource name="UserAdmin_UserName">NEED DESCRIPTION for UserName</resource>
+        <resource name="UserAdmin_Password">NEED DESCRIPTION for Password</resource>
+        <resource name="UserAdmin_PasswordFormat">NEED DESCRIPTION for PasswordFormat</resource>
+        <resource name="UserAdmin_Email">NEED DESCRIPTION for Email</resource>
+        <resource name="UserAdmin_DateCreated">NEED DESCRIPTION for DateCreated</resource>
+        <resource name="UserAdmin_LastLogin">NEED DESCRIPTION for LastLogin</resource>
+        <resource name="UserAdmin_LastActivity">NEED DESCRIPTION for LastActivity</resource>
+        <resource name="UserAdmin_LastAction">NEED DESCRIPTION for LastAction</resource>
+        <resource name="UserAdmin_IsApproved">NEED DESCRIPTION for IsApproved</resource>
+        <resource name="UserAdmin_IsAnonymous">NEED DESCRIPTION for IsAnonymous</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-UserAdmin.ascx -->
+
+
+    <!-- START Skin-UserRoleAdmin.ascx -->
+        <resource name="UserRole_Title">NEED DESCRIPTION for UserRole Title</resource>
+        <resource name="UserRole_Subtitle">NEED DESCRIPTION for UserRole SubTitle</resource>
+        <resource name="UserRole_AboutTitle">NEED DESCRIPTION for UserRole About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="UserRoleAdmin_UserID">NEED DESCRIPTION for UserID</resource>
+        <resource name="UserRoleAdmin_RoleID">NEED DESCRIPTION for RoleID</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-UserRoleAdmin.ascx -->
+
+
+    <!-- START Skin-RankAdmin.ascx -->
+        <resource name="Rank_Title">NEED DESCRIPTION for Rank Title</resource>
+        <resource name="Rank_Subtitle">NEED DESCRIPTION for Rank SubTitle</resource>
+        <resource name="Rank_AboutTitle">NEED DESCRIPTION for Rank About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="RankAdmin_RankId">NEED DESCRIPTION for RankId</resource>
+        <resource name="RankAdmin_RankName">NEED DESCRIPTION for RankName</resource>
+        <resource name="RankAdmin_PostingCountMin">NEED DESCRIPTION for PostingCountMin</resource>
+        <resource name="RankAdmin_PostingCountMax">NEED DESCRIPTION for PostingCountMax</resource>
+        <resource name="RankAdmin_RankIconUrl">NEED DESCRIPTION for RankIconUrl</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-RankAdmin.ascx -->
+

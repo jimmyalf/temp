@@ -3,7 +3,7 @@
 	<fieldset class="synologen-form">
 		<legend>Delabonnemang för konto <%=Model.SubscriptionBankAccountNumber %> för <%=Model.CustomerName %></legend>
     	<p>
-    		<label>Rubrik/Namn</label>
+    		<label>Rubrik</label>
     		<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
     	</p>
     	<p>

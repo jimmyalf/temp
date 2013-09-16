@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface ICompany 
@@ -18,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		string InvoiceCompanyName { get; set; }
 		string TaxAccountingCode { get; set; }
 		int PaymentDuePeriod { get; set; }
-		string EDIRecipientId { get; set; }
+        EdiAddress EDIRecipient { get; set; }
 		int InvoicingMethodId { get; set; }
 		IList<ICompanyValidationRule> CompanyValidationRules { get; set; }
 		string InvoiceFreeTextFormat { get; set; }

@@ -102,18 +102,6 @@ namespace Synologen.Service.Client.Invoicing.App {
 			Channel.UpdateOrderStatuses(invoiceNumber, invoiceIsCanceled, invoiceIsPayed);
 		}
 
-		//public void UpdateOrderStatuses(PaymentInfo invoiceStatus) {
-		//    Channel.UpdateOrderStatuses(invoiceStatus);
-		//}
-
-		/// <summary>
-		/// Sends given order as invoice
-		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
-		/// </summary>
-		public void SendInvoice(int orderId) {
-			Channel.SendInvoice(orderId);
-		}
-
 		/// <summary>
 		/// Sends given orders as invoices
 		/// </summary>

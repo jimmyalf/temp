@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -34,9 +37,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateInvoicingMethods() {
-			drpInvoicingMethods.DataValueField = "cId";
-			drpInvoicingMethods.DataTextField = "cName";
-			drpInvoicingMethods.DataSource = Provider.GetInvoicingMethods(null, null);
+            var items = EnumExtensions
+                .Enumerate<InvoicingMethod>()
+                .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
+			drpInvoicingMethods.DataValueField = "Value";
+			drpInvoicingMethods.DataTextField = "Text";
+		    drpInvoicingMethods.DataSource = items;
 			drpInvoicingMethods.DataBind();
 			drpInvoicingMethods.Items.Insert(0, new ListItem("-- Välj faktureringsmetod --", "0"));
 		}
@@ -63,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 
-		private void SetupForEdit() {
+		protected void SetupForEdit() {
 			var company = Provider.GetCompanyRow(_companyId);
 			txtName.Text = company.Name;
 			txtAddress.Text = company.PostBox;
@@ -78,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtInvoiceCompanyName.Text = company.InvoiceCompanyName;
 			txtTaxAccountingCode.Text = company.TaxAccountingCode;
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
-			txtEDIRecipientId.Text = company.EDIRecipientId;
+			txtEDIRecipientId.Text = company.EDIRecipient.Address;
 			drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
 			txtInvoiceFreeTextTemplate.Text = company.InvoiceFreeTextFormat;
 			foreach (var validationRule in company.CompanyValidationRules){
@@ -92,6 +98,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			//Replace by Databind method
 		}
+
+        protected void Validate_EDI_Recipient(object source, ServerValidateEventArgs args)
+        {
+            var selectedInvoicingMethodValue = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
+            args.IsValid = true;
+            if (selectedInvoicingMethodValue <= 0)
+            {
+                return;
+            }
+
+            var selectedInvoicingMethod = (InvoicingMethod)selectedInvoicingMethodValue;
+            if (selectedInvoicingMethod == InvoicingMethod.EDI || selectedInvoicingMethod == InvoicingMethod.Svefaktura)
+            {
+                args.IsValid = !string.IsNullOrEmpty(txtEDIRecipientId.Text);
+            }
+        }
 
 
 		protected void btnSave_Click(object sender, EventArgs e) {
@@ -119,7 +141,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.InvoiceCompanyName = txtInvoiceCompanyName.Text;
 			company.TaxAccountingCode = txtTaxAccountingCode.Text;
 			company.PaymentDuePeriod = Convert.ToInt32(txtPaymentDuePeriod.Text);
-			company.EDIRecipientId = txtEDIRecipientId.Text;
+			company.EDIRecipient = new EdiAddress(txtEDIRecipientId.Text);
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
 			if (drpCountry.SelectedValue != "0"){
@@ -143,7 +165,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				}
 			}
 		}
-
 	}
 
 }

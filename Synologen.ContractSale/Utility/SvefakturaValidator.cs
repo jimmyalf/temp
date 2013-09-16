@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
@@ -9,39 +10,63 @@ using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
-namespace Spinit.Wpc.Synologen.Invoicing{
-	public class SvefakturaValidator {
-		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
-			var returnString = String.Empty;
-			foreach (var ruleViolation in ruleViolations){
-				returnString += ruleViolation.ErrorMessage + "\r\n";
-			}
-			return (String.IsNullOrEmpty(returnString)) ? null : returnString.TrimEnd(new []{'\r','\n'});
-			
+namespace Spinit.Wpc.Synologen.Invoicing
+{
+	public class SvefakturaValidator 
+    {
+		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations)
+		{
+		    var returnString = ruleViolations.Aggregate(string.Empty, (current, ruleViolation) => current + (ruleViolation.ErrorMessage + "\r\n"));
+		    return string.IsNullOrEmpty(returnString) ? null : returnString.TrimEnd(new[] { '\r', '\n' });
 		}
 
-		public static IEnumerable<RuleViolation> ValidateObject(object value) {
-			if(value == null || value.GetType().IsSealed) yield break;
-			foreach (var ruleViolation in GetCustomRuleViolations(value)){ yield return ruleViolation; }
-			foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
+	    public static IEnumerable<RuleViolation> ValidateObject(object value)
+	    {
+	        if (value == null || value.GetType().IsSealed)
+	        {
+	            yield break;
+	        }
+
+	        foreach (var ruleViolation in GetCustomRuleViolations(value))
+	        {
+	            yield return ruleViolation;
+	        }
+
+	        foreach (var propertyInfo in value.GetType().GetProperties()) 
+            { 
+                // Iterate each property in value object
 				var propertyValue = propertyInfo.GetValue(value, null);
-				foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
+				foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) 
+                { 
+                    // Get violations for property value
 					yield return ruleViolation;
-				}
-				if(propertyValue == null) continue;
-				if(propertyValue is IEnumerable) { //If property is Enumerable recursively call method for each item
-					foreach (var item in propertyValue as IEnumerable){
-						foreach (var ruleViolation in ValidateObject(item)) { yield return ruleViolation; }
+                }
+
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
+                if (propertyValue is IEnumerable)
+                {
+                    // If property is Enumerable recursively call method for each item
+                    foreach (var item in propertyValue as IEnumerable)
+                    {
+						foreach (var ruleViolation in ValidateObject(item))
+						{
+						    yield return ruleViolation;
+						}
 					}
 				}
-				else{ 
-					foreach(var ruleViolation in ValidateObject(propertyValue)) {
-						yield return ruleViolation;
+				else
+                {
+                    foreach (var ruleViolation in ValidateObject(propertyValue))
+                    {
+                        yield return ruleViolation;
 					}
 				}
 			}
-			yield break;
-		}
+	    }
 
 		#region Control Calculations
 		private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
@@ -268,7 +293,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);
 			foreach (PropertyValidationRule validationType in properties) { 
 				if(IsNull(propertyValue) && validationType.ValidationType == ValidationType.RequiredNotNull) {
-					yield return new RuleViolation(validationType, String.Concat(parentObjectname,'.',propertyInfo.Name));
+					yield return new RuleViolation(validationType, string.Concat(parentObjectname,'.',propertyInfo.Name));
 				}
 				foreach(var ruleViolation in GetRuleViolationsForIEnumerables(parentObjectname, propertyInfo, propertyValue, validationType)){
 					yield return ruleViolation;
@@ -282,18 +307,18 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			switch (validationType.ValidationType){
 				case ValidationType.CollectionHasMinimumCountRequirement:
 					if(Count(propertyValue as IEnumerable) < validationType.MinNumberOfItemsInEnumerable.GetValueOrDefault(0)){
-						yield return new RuleViolation(validationType, String.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
 					}
 					break;
 				case ValidationType.CollectionHasMaximumCountRequirement:
 					if(Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue)){
-						yield return new RuleViolation(validationType, String.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
 					}
 					break;
 				case ValidationType.CollectionHasMinumumAndMaximumCountRequirement:
 					if(Count(propertyValue as IEnumerable) < validationType.MinNumberOfItemsInEnumerable.GetValueOrDefault(0) 
 					   || Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue) ){
-						yield return new RuleViolation(validationType, String.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
 					}
 					break;
 				default:
@@ -312,8 +337,8 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			double parsedNumericValue = 0;
 			if (value == null) return true;
 			if (value is DateTime) return ((DateTime)value).Equals(DateTime.MinValue);
-			if (value is string) return String.IsNullOrEmpty(value as string);
-			return (Double.TryParse(value.ToString(), out parsedNumericValue) && parsedNumericValue.Equals(0));
+			if (value is string) return string.IsNullOrEmpty(value as string);
+			return (double.TryParse(value.ToString(), out parsedNumericValue) && parsedNumericValue.Equals(0));
 		}
 		#endregion
 	}

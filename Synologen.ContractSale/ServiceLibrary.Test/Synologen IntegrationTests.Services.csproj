@@ -113,6 +113,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Debugging_send.cs" />
+    <Compile Include="Debugging_create.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestInvoiceParsingAndValidation.cs" />
     <Compile Include="TestWebService.cs" />
@@ -130,9 +132,9 @@
       <Project>{10CF2156-8B7D-4CBA-8015-54DCFB72E1E6}</Project>
       <Name>Client.Invoicing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
-      <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
-      <Name>Synologen ServiceLibrary</Name>
+    <ProjectReference Include="..\..\Synologen.Service\Web.Invoicing\Web.Invoicing.csproj">
+      <Project>{18f0ef8f-0080-4df7-8480-d9c38a246cd0}</Project>
+      <Name>Web.Invoicing</Name>
     </ProjectReference>
     <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
@@ -178,5 +180,4 @@
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  
 </Project>

@@ -12,7 +12,6 @@ using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
-using Synologen.Service.Web.Invoicing.ConfigurationSettings;
 using Synologen.Service.Web.Invoicing.Services;
 
 namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
@@ -72,7 +71,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
 
-            return UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
+            return UploadTextFileToFTP(invoiceFileName, invoiceStringContent, OrderProcessConfiguration.LetterInvoiceFtpCredentials);
         }
 
         protected string GenerateInvoiceFileName(SFTIInvoiceList invoices)

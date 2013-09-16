@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 
 namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
@@ -14,5 +15,6 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         string PostnetSender { get; }
         string PostnetRecipient { get; }
         string PostnetMessageType { get; }
+        NetworkCredential LetterInvoiceFtpCredentials { get; }
     }
 }

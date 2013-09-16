@@ -32,7 +32,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			CompanyValidationRules = company.CompanyValidationRules;
 			InvoiceFreeTextFormat = company.InvoiceFreeTextFormat;
 			Country = company.Country;
-		    EDIFtpCredential = company.EDIFtpCredential;
 		}
 
 		[DataMember] public int Id { get; set; }
@@ -50,7 +49,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public string TaxAccountingCode { get; set; }
 		[DataMember] public int PaymentDuePeriod { get; set; }
 		public EdiAddress EDIRecipient { get; set; }
-        public NetworkCredential EDIFtpCredential { get; set; } 
 		[DataMember] public int InvoicingMethodId { get; set; }
 		#pragma warning disable 618,612
 		[DataMember] public string PostBox { get { return Address1; } set { Address1 = value; } }

@@ -50,6 +50,7 @@ namespace Synologen.Service.Web.Invoicing
                 SellingOrganizationNumber = config.SellingOrganizationNumber,
                 TaxAccountingCode = config.TaxAccountingCode,
                 VATFreeReasonMessage = config.VATFreeReasonMessage,
+                EDIAddress = config.EDISenderId
             };
         }
 

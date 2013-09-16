@@ -17,7 +17,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         protected const string EDIFileNameFormat = "Synologen-{0}-{1}-{2}.txt";
 
         public EdiOrderProcessor(ISqlProvider provider, EDIConversionSettings ediSettings, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration) 
-            : base(provider,ftpService, mailService, fileService,orderProcessConfiguration)
+            : base(provider, ftpService, mailService, fileService,orderProcessConfiguration)
         {
             _ediSettings = ediSettings;
         }
@@ -65,7 +65,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 }
 
                 var invoiceString = invoice.Parse().ToString();
-                return UploadTextFileToFTP(invoiceFileName, invoiceString, order.ContractCompany.EDIFtpCredential);
+                return UploadTextFileToFTP(invoiceFileName, invoiceString);
             }
             catch (Exception ex)
             {

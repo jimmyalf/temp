@@ -8,6 +8,8 @@ using System.Xml.XPath;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Invoicing.PostOffice;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
@@ -19,6 +21,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
 {
@@ -82,16 +85,19 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
 		[Test]
 		public void Test_Xml_Output_Of_Invoice_Contains_PostOfficeHeader() 
 		{
-			const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+//			const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+
+            var postOfficeHeader = new PostOfficeHeader("POSTNET", "MEDDELANDETYP", new EdiAddress("AVSADRESS"), new EdiAddress("MOTADRESS"));
 			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, string.Empty, Formatting.None, PostOfficeheader);
-			Expect(output.Contains(PostOfficeheader));
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, string.Empty, Formatting.None, postOfficeHeader);
+			Expect(output.Contains(postOfficeHeader.Render()));
 		}
 
 		[Test]
 		public void Test_Xml_Output_Of_InvoiceList_Contains_PostOfficeHeader() 
 		{
-			const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+			//const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+            var postOfficeHeader = new PostOfficeHeader("POSTNET", "MEDDELANDETYP", new EdiAddress("AVSADRESS"), new EdiAddress("MOTADRESS"));
 			var invoices = new SFTIInvoiceList
 			{
 			    Invoices = new List<SFTIInvoiceType>
@@ -100,8 +106,8 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
                     GetMockInvoice()
 			    }
 			};
-			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, string.Empty, Formatting.None, PostOfficeheader);
-			Expect(output.Contains(PostOfficeheader));
+            var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, string.Empty, Formatting.None, postOfficeHeader);
+            Expect(output.Contains(postOfficeHeader.Render()));
 		}
 
 

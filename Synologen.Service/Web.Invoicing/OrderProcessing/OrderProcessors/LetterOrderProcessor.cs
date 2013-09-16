@@ -5,7 +5,9 @@ using System.Xml;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.PostOffice;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
@@ -63,7 +65,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             }
 
             var encoding = OrderProcessConfiguration.FTPCustomEncodingCodePage;
-            var postOfficeheader = GetPostOfficeheader();
+            var postOfficeheader = GetPostOfficeHeader();
             var invoiceStringContent = SvefakturaSerializer.Serialize(invoices, encoding, "\r\n", Formatting.Indented, postOfficeheader);
             var invoiceFileName = GenerateInvoiceFileName(invoices);
             if (OrderProcessConfiguration.SaveSvefakturaFileCopy)
@@ -71,7 +73,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
 
-            return UploadTextFileToFTP(invoiceFileName, invoiceStringContent, OrderProcessConfiguration.LetterInvoiceFtpCredentials);
+            return UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
         }
 
         protected string GenerateInvoiceFileName(SFTIInvoiceList invoices)
@@ -81,13 +83,18 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return string.Format(SvefakturaListFileNameFormat, minId, maxId, DateTime.Now.ToString(DateFormat));
         }
         
-        protected string GetPostOfficeheader()
+        protected PostOfficeHeader GetPostOfficeHeader()
         {
-            const string HeaderFormat = "<?POSTNET SND=\"{0}\" REC=\"{1}\" MSGTYPE=\"{2}\"?>";
-            var sender = OrderProcessConfiguration.PostnetSender;
-            var recipient = OrderProcessConfiguration.PostnetRecipient;
+            var sender = new EdiAddress(OrderProcessConfiguration.PostnetSender);
+            var recipient = new EdiAddress(OrderProcessConfiguration.PostnetRecipient);
             var messageType = OrderProcessConfiguration.PostnetMessageType;
-            return string.Format(HeaderFormat, sender, recipient, messageType);
+            return new PostOfficeHeader("POSTNET", messageType, sender, recipient);
+
+            //var sender = OrderProcessConfiguration.PostnetSender;
+            //var recipient = OrderProcessConfiguration.PostnetRecipient;
+            //var messageType = OrderProcessConfiguration.PostnetMessageType;
+            //const string HeaderFormat = "<?POSTNET SND=\"{0}\" REC=\"{1}\" MSGTYPE=\"{2}\"?>";
+            //return string.Format(HeaderFormat, sender, recipient, messageType);
         }
     }
 }

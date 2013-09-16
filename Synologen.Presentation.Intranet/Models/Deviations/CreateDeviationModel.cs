@@ -28,6 +28,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations
         public string DefectDescription { get; set; }
 
         public bool Success { get; set; }
+        public string Status { get; set; }
 	}
 
 

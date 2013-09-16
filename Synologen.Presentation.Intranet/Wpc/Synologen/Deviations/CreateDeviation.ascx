@@ -86,7 +86,7 @@
                 <asp:Label ID="lblInternalDefectDescription" runat="server"></asp:Label>
             </p>
             <p>
-                <asp:Button runat="server" ID="btnSubmitInternal" Text="Skicka" />
+                <asp:Button runat="server" ID="btnSubmitInternal" Text="Klar" />
                 <asp:Button runat="server" ID="btnChangeInternal" Text="Ändra" OnClientClick="window.history.back(1); return false;" />
 
             </p>
@@ -115,7 +115,10 @@
                 <asp:Label ID="lblSupplier" runat="server"></asp:Label>
             </p>
             <p>
-                <asp:Button runat="server" ID="btnSubmitExternal" Text="Skicka" />
+                <asp:CheckBox ID="chkSendEmailSupplier" runat="server" Text="Skicka avvikelsen till leverantören"/>
+            </p>
+            <p>
+                <asp:Button runat="server" ID="btnSubmitExternal" Text="Klar" />
                 <asp:Button runat="server" ID="btnChangeExternal" Text="Ändra" OnClientClick="window.history.back(1); return false;" />
             </p>
         </fieldset>
@@ -145,5 +148,6 @@
       {
     %>
     <h3>Tack för din avvikelserapport!</h3>
+    <p><%=Model.Status%></p>
     <%} %>
 </div>

@@ -14,7 +14,7 @@
 	 			<div id="progressbar"></div>
    			</div>
     		<p>
-    			<label>Rubrik/Namn</label>
+    			<label>Rubrik</label>
     			<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
     		</p>
     		<p>

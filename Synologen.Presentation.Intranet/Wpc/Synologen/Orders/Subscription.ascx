@@ -62,7 +62,7 @@
 			<HeaderTemplate>
 			<table>
 				<caption>Delabonnemang</caption>
-				<thead><tr class="synologen-table-headerrow"><th>Namn</th><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th><th>Detaljer</th></tr></thead>
+				<thead><tr class="synologen-table-headerrow"><th>Rubrik</th><th>Månadsbelopp</th><th>Dragningar</th><th>Skapat</th><th>Status</th><th>Detaljer</th></tr></thead>
 				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>

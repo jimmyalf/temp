@@ -7,10 +7,8 @@ using System.Text;
 using System.Xml;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Invoicing;
-using Spinit.Wpc.Synologen.Invoicing.PostOffice;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -29,14 +27,8 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         [SetUp]
         public void Setup()
         {
-            // const string connectionString = @"Initial Catalog=dbWpcSynologen;Data Source=TEAL.hotel.se;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
-            //    <add name="WpcServer" connectionString="Data Source=.\sqlexpress;Initial Catalog=dbWpcSynologen;Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
-            // const string connectionString = @"Data Source=.\sqlexpress;Initial Catalog=dbWpcSynologen;Integrated Security=SSPI;";
-            // const string connectionString = @"Initial Catalog=dbWpcSynologen;Data Source=TEAL.hotel.se;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
-            //                 connectionString="Initial Catalog=dbWpcSynologen;Data Source=BLACK\SQL2008;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;" providerName="System.Data.SqlClient" />
-            const string connectionString = @"Data Source=BLACK.hotel.se\SQL2008;Initial Catalog=dbWpcSynologen;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
-            
-
+            // const string connectionString = @"Initial Catalog=dbWpcSynologen;Data Source=TEAL;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
+            const string connectionString = @"Data Source=.\sqlexpress;Initial Catalog=dbWpcSynologen;Integrated Security=SSPI;";
             _provider = new SqlProvider(connectionString);
             _settings = GetSettings();
         }
@@ -46,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         {
             var invoiceList = new List<SFTIInvoiceType>();
             var orderList = new List<Order>();
-            for (var i = 3886; i <= 3886; i++)
+            for (var i = 4039; i <= 4045; i++)
             {
                 var order = _provider.GetOrder(i);
                 orderList.Add(order);
@@ -54,20 +46,20 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
                 var invoice = General.CreateInvoiceSvefaktura(order, _settings);
                 invoiceList.Add(invoice);
             }
-            //foreach (var invoice in invoiceList)
-            //{
-            //    //if(invoice.ID.Value != "4599") continue;
-            //    var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
-            //    if (ruleViolations.Any())
-            //    {
-            //        throw new AssertionException("Ruleviolations were found for invoice " + invoice.ID.Value);
-            //    }
-            //}
+            foreach (var invoice in invoiceList)
+            {
+                //if(invoice.ID.Value != "4599") continue;
+                var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+                if (ruleViolations.Any())
+                {
+                    throw new AssertionException("Ruleviolations were found for invoice " + invoice.ID.Value);
+                }
+            }
             var encoding = Encoding.GetEncoding("ISO-8859-1");
-            var postOfficeHeader = new PostOfficeHeader("POSTNET", "SYNOLOG", new EdiAddress("STREAMS000345"), new EdiAddress("SE00087815000"));
+            var postOfficeHeader = "<?POSTNET SND=\"STREAMS000345\" REC=\"SE00087815000\" MSGTYPE=\"SYNOLOG\"?>";
             var output = SvefakturaSerializer.Serialize(new SFTIInvoiceList { Invoices = invoiceList }, encoding, "\r\n", Formatting.Indented, postOfficeHeader);
             Debug.Write(output);
-            var filePath = @"C:\Temp\Exempelfaktura_" + DateTime.Now.ToString("yyyy-MM-dd_HH.mm") + ".xml";
+            var filePath = @"C:\Exempelfaktura_" + DateTime.Now.ToString("yyyy-MM-dd_HH.mm") + ".xml";
             File.WriteAllText(filePath, output, encoding);
         }
 
@@ -85,12 +77,13 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         {
             return new SvefakturaConversionSettings
             {
-                SellingOrganizationName = "Synologen Service AB",
+                SellingOrganizationName = "Synhälsan Svenska AB",
                 Adress = new SFTIAddressType
                 {
                     StreetName = new StreetNameType { Value = "Strandbergsgatan 61" },
                     CityName = new CityNameType { Value = "Stockholm" },
                     Country = GetSwedishSFTICountryType(),
+                    //Postbox = new PostboxType{ Value = "Box 123" },
                     PostalZone = new ZoneType { Value = "112 51" }
 
                 },
@@ -109,16 +102,17 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
                 SellingOrganizationNumber = "5562626100",
                 ExemptionReason = "Innehar F-skattebevis",
                 TaxAccountingCode = "SE556262610001",
-                InvoiceIssueDate = DateTime.Now.Date, //new DateTime(2009, 10, 30),
+                InvoiceIssueDate = new DateTime(2009, 10, 30),
                 InvoiceTypeCode = "380",
                 InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
                 VATAmount = 0.25m,
                 BankGiro = "56936677",
                 BankgiroBankIdentificationCode = "BGABSESS",
+                //Postgiro = "123456",
+                //PostgiroBankIdentificationCode = "PGSISESS",
                 InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
                 InvoiceExpieryPenaltySurchargePercent = 8m,
-                VATFreeReasonMessage = "Momsfri",
-                EDIAddress = new EdiAddress("5562626100", "14")
+                VATFreeReasonMessage = "Momsfri"
             };
         }
 

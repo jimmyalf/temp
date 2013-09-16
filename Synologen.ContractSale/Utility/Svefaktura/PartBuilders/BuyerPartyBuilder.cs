@@ -81,9 +81,14 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                 .Fill(x => x.StreetName).Using(x => x.StreetName)
                 .Fill(x => x.PostalZone).Using(x => x.Zip)
                 .Fill(x => x.CityName).Using(x => x.City)
-                .FillEntity(x => x.Department).Using(new DepartmentType { Value = order.CompanyUnit })
+                .FillEntity(x => x.Department).Using(GetDepartment(order.CompanyUnit))
                 .FillEntity(x => x.Country).Using(GetCountry(company.Country))
                 .GetEntity();
+        }
+
+        protected DepartmentType GetDepartment(string name)
+        {
+            return string.IsNullOrEmpty(name) ? null : new DepartmentType { Value = name };
         }
     }
 }

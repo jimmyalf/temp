@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
@@ -165,19 +166,29 @@ namespace Synologen.Service.Web.Invoicing
 		/// <param name="reportEmailAddress">Email address to where a status report will be send when invoicing has been processed</param>
 		public void SendInvoices(List<int> orderIds, string reportEmailAddress)
         {
-		    var ediProcessResult = new OrderProcessResult();
-            var letterProcessResult = new OrderProcessResult();
+		    var results = new List<OrderProcessResult>();
 			try
             {
-				var ordersToProcess = _provider.GetOrders(orderIds);
 
-                var ediProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.EDI);
-                var ediOrders = ediProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
-                ediProcessResult = ediProcessor.Process(ediOrders);
+                var ordersToProcess = _provider.GetOrders(orderIds);
 
-                var letterProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.LetterInvoice);
-                var letterOrders = letterProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
-                letterProcessResult = letterProcessor.Process(letterOrders);
+                foreach (var invoicingMethod in Spinit.Wpc.Synologen.Core.Extensions.EnumExtensions.Enumerate<InvoicingMethod>())
+                {
+                    var processor = _orderProcessorFactory.GetOrderProcessorFor(invoicingMethod);
+                    var orders = processor.FilterOrdersMatchingInvoiceType(ordersToProcess);
+                    var result = processor.Process(orders);                    
+                    results.Add(result);
+                }
+
+				
+
+                //var ediProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.EDI);
+                //var ediOrders = ediProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
+                //ediProcessResult = ediProcessor.Process(ediOrders);
+
+                //var letterProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.LetterInvoice);
+                //var letterOrders = letterProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
+                //letterProcessResult = letterProcessor.Process(letterOrders);
 			}
 			catch (Exception ex) 
             {
@@ -185,7 +196,8 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			finally
 			{
-			    var sentOrderIds = (ediProcessResult + letterProcessResult).SentOrdersIds;
+			    var sentOrderIds = results.Aggregate((a, b) => a + b).SentOrdersIds;
+			    //var sentOrderIds = (ediProcessResult + letterProcessResult).SentOrdersIds;
 				SendStatusReportAfterBatchInvoice(orderIds, sentOrderIds, reportEmailAddress);
 				var invoiceDateTime = GetDateTime();
 			    foreach (var orderId in sentOrderIds)

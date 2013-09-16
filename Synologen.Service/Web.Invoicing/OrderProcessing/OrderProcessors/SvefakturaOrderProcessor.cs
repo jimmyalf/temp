@@ -5,12 +5,13 @@ using System.Xml;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.PostOffice;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
-using Spinit.Wpc.Synologen.Svefaktura.SBDH;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Synologen.Service.Web.Invoicing.Services;
 
@@ -66,7 +67,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
 
-            var ftpStatusMessage =  UploadTextFileToFTP(invoiceFileName, invoiceStringContent, order.ContractCompany.EDIFtpCredential);
+            var ftpStatusMessage =  UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
 
             UpdateOrderStatus(order.Id);
             AddOrderHistory(order.Id, order.InvoiceNumber, ftpStatusMessage);
@@ -82,8 +83,13 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         protected string SerializeInvoice(SFTIInvoiceType invoice, IOrder order)
         {
             var encoding = OrderProcessConfiguration.FTPCustomEncodingCodePage;
-            var document = new Document(_settings.EDIAddress, order.ContractCompany.EDIRecipient);
-            return SvefakturaSerializer.Serialize(document, invoice, encoding, "\r\n", Formatting.Indented);            
+            var header = BuildPostOfficeHeader(_settings.EDIAddress, order.ContractCompany.EDIRecipient);
+            return SvefakturaSerializer.Serialize(invoice, encoding, "\r\n", Formatting.Indented, header);            
+        }
+
+        protected PostOfficeHeader BuildPostOfficeHeader(EdiAddress sender, EdiAddress recipient)
+        {
+            return new PostOfficeHeader("POSTEN", "SVEFAKTURA", sender, recipient);
         }
 
         public override bool IHandle(InvoicingMethod method)
@@ -91,4 +97,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return method == InvoicingMethod.Svefaktura;
         }
     }
+
+
+
 }

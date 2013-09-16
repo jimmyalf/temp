@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
@@ -21,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		string TaxAccountingCode { get; set; }
 		int PaymentDuePeriod { get; set; }
         EdiAddress EDIRecipient { get; set; }
-        NetworkCredential EDIFtpCredential { get; set; }
 		int InvoicingMethodId { get; set; }
 		IList<ICompanyValidationRule> CompanyValidationRules { get; set; }
 		string InvoiceFreeTextFormat { get; set; }

@@ -7,7 +7,7 @@ namespace Synologen.Service.Web.Invoicing.Services
 {
     public interface IFtpService
     {
-        string UploadTextFileToFTP(string fileName, string fileContent, NetworkCredential credential);
+        string UploadTextFileToFTP(string fileName, string fileContent);
     }
 
     public class FtpService : IFtpService
@@ -21,9 +21,9 @@ namespace Synologen.Service.Web.Invoicing.Services
             _configuration = configuration;
         }
 
-        public string UploadTextFileToFTP(string fileName, string fileContent, NetworkCredential credential)
+        public string UploadTextFileToFTP(string fileName, string fileContent)
         {
-            var ftp = GetFtpClientObject(credential);
+            var ftp = GetFtpClientObject();
             var usePassiveFtp = _configuration.UsePassiveFTP;
             var encoding = _configuration.FTPCustomEncodingCodePage;
             var useBinaryTransfer = _configuration.FTPUseBinaryTransfer;
@@ -52,10 +52,10 @@ namespace Synologen.Service.Web.Invoicing.Services
             }
         }
 
-        protected virtual Ftp GetFtpClientObject(NetworkCredential credential)
+        protected virtual Ftp GetFtpClientObject()
         {
             var ftpUrl = _configuration.FTPServerUrl;
-            return new Ftp(ftpUrl, credential);
+            return new Ftp(ftpUrl, _configuration.FtpCredentials);
         }
     }
 
@@ -65,5 +65,6 @@ namespace Synologen.Service.Web.Invoicing.Services
         Encoding FTPCustomEncodingCodePage { get; }
         bool FTPUseBinaryTransfer { get; }
         string FTPServerUrl { get; }
+        NetworkCredential FtpCredentials { get; }
     }
 }

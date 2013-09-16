@@ -64,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected TEntity GetTextEntity<TEntity>(string value) where TEntity : Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes.TextType, new()
         {
-            return value == null ? null : new TEntity { Value = value };
+            return string.IsNullOrEmpty(value) ? null : new TEntity { Value = value };
         }
 
         protected virtual SFTICountryType GetSwedishCountry()

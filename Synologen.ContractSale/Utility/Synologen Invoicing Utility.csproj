@@ -82,6 +82,9 @@
     <Compile Include="EDIConversion.cs" />
     <Compile Include="Ftp.cs" />
     <Compile Include="General.cs" />
+    <Compile Include="PostOffice\PostOfficeHeaderAttribute.cs" />
+    <Compile Include="PostOffice\PostOfficeHeader.cs" />
+    <Compile Include="PostOffice\PostOfficeHeaderAttributeList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SvefakturaConversion.cs" />
     <Compile Include="SvefakturaSerializer.cs" />

@@ -162,7 +162,6 @@
     <Compile Include="SynologenService.cs" />
     <Compile Include="Visma\TestVisma.cs" />
     <Compile Include="Visma\TestVismaFormatting.cs" />
-    <Compile Include="Webservice\TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EDI\TestEDI.cs" />
   </ItemGroup>

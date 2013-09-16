@@ -147,7 +147,7 @@ namespace Synologen.Service.Web.Invoicing.ConfigurationSettings
 			get { return GetSafeValue("LogInformation", true); }
 		}
 
-        public NetworkCredential LetterInvoiceFtpCredentials
+        public NetworkCredential FtpCredentials
         {
             get
             {

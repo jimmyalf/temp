@@ -7,8 +7,10 @@ using System.Text;
 using System.Xml;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.PostOffice;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -33,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
             _settings = GetSettings();
         }
 
-        [Test]
+        [Test, Explicit]
         public void Debugging()
         {
             var invoiceList = new List<SFTIInvoiceType>();
@@ -56,7 +58,8 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
                 }
             }
             var encoding = Encoding.GetEncoding("ISO-8859-1");
-            var postOfficeHeader = "<?POSTNET SND=\"STREAMS000345\" REC=\"SE00087815000\" MSGTYPE=\"SYNOLOG\"?>";
+            //"<?POSTNET SND=\"STREAMS000345\" REC=\"SE00087815000\" MSGTYPE=\"SYNOLOG\"?>";
+            var postOfficeHeader = new PostOfficeHeader("POSTNET", "SYNOLOG", new EdiAddress("STREAMS000345"), new EdiAddress("SE00087815000"));
             var output = SvefakturaSerializer.Serialize(new SFTIInvoiceList { Invoices = invoiceList }, encoding, "\r\n", Formatting.Indented, postOfficeHeader);
             Debug.Write(output);
             var filePath = @"C:\Exempelfaktura_" + DateTime.Now.ToString("yyyy-MM-dd_HH.mm") + ".xml";

@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             var roundOff = legalTotal.TaxInclusiveTotalAmount.Value - (taxTotal + legalTotal.TaxExclusiveTotalAmount.Value);
             if (roundOff != 0)
             {
-                legalTotal.RoundOffAmount = new AmountType { Value = roundOff };
+                legalTotal.RoundOffAmount = GetAmountInSEK<AmountType>(roundOff);
             }
 
             return legalTotal;

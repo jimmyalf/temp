@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
         public void Build(IOrder order, SFTIInvoiceType invoice)
         {
             invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
-            if (!string.IsNullOrEmpty(Settings.BankGiro) || !string.IsNullOrEmpty(Settings.BankgiroBankIdentificationCode))
+            if (!string.IsNullOrEmpty(Settings.BankGiro) && !string.IsNullOrEmpty(Settings.BankgiroBankIdentificationCode))
             {
                 invoice.PaymentMeans.Add(new SFTIPaymentMeansType
                 {
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                 });
             }
 
-            if (!string.IsNullOrEmpty(Settings.Postgiro) || !string.IsNullOrEmpty(Settings.PostgiroBankIdentificationCode))
+            if (!string.IsNullOrEmpty(Settings.Postgiro) && !string.IsNullOrEmpty(Settings.PostgiroBankIdentificationCode))
             {
                 invoice.PaymentMeans.Add(new SFTIPaymentMeansType
                 {

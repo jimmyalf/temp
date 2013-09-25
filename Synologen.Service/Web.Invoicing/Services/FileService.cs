@@ -3,12 +3,6 @@ using System.Text;
 
 namespace Synologen.Service.Web.Invoicing.Services
 {
-    public interface IFileService
-    {
-        void TrySaveContentToDisk(string fileName, string fileContent);
-        void TrySaveContentToDisk(string fileName, string fileContent, Encoding encoding);
-    }
-
     public class FileService : IFileService
     {
         private readonly IFileServiceConfiguration _configuration;
@@ -35,11 +29,5 @@ namespace Synologen.Service.Web.Invoicing.Services
             var filePath = Path.Combine(path, fileName);
             File.AppendAllText(filePath, fileContent, encoding);
         }         
-    }
-
-    public interface IFileServiceConfiguration
-    {
-        string EDIFilesFolderPath { get; }
-        Encoding FTPCustomEncodingCodePage { get; }
     }
 }

@@ -51,6 +51,26 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
         }
     }
 
+    public class OrderProcessResultList
+    {
+        protected readonly IList<OrderProcessResult> Results;
+
+        public OrderProcessResultList()
+        {
+            Results = new List<OrderProcessResult>();
+        }
+
+        public void Add(OrderProcessResult result)
+        {
+            Results.Add(result);
+        }
+
+        public IList<int> GetSentOrderIds()
+        {
+            return Results.Aggregate((a, b) => a + b).SentOrdersIds;
+        }
+    }
+
     public class FailedOrderSendout
     {
         public int OrderId { get; set; }

@@ -165,8 +165,8 @@ namespace Synologen.Service.Web.Invoicing
 		/// <param name="orderIds">List of order id's to perform invoicing on</param>
 		/// <param name="reportEmailAddress">Email address to where a status report will be send when invoicing has been processed</param>
 		public void SendInvoices(List<int> orderIds, string reportEmailAddress)
-        {
-		    var results = new List<OrderProcessResult>();
+		{
+		    var results = new OrderProcessResultList();
 			try
             {
 
@@ -179,16 +179,6 @@ namespace Synologen.Service.Web.Invoicing
                     var result = processor.Process(orders);                    
                     results.Add(result);
                 }
-
-				
-
-                //var ediProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.EDI);
-                //var ediOrders = ediProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
-                //ediProcessResult = ediProcessor.Process(ediOrders);
-
-                //var letterProcessor = _orderProcessorFactory.GetOrderProcessorFor(InvoicingMethod.LetterInvoice);
-                //var letterOrders = letterProcessor.FilterOrdersMatchingInvoiceType(ordersToProcess);
-                //letterProcessResult = letterProcessor.Process(letterOrders);
 			}
 			catch (Exception ex) 
             {
@@ -196,8 +186,7 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			finally
 			{
-			    var sentOrderIds = results.Aggregate((a, b) => a + b).SentOrdersIds;
-			    //var sentOrderIds = (ediProcessResult + letterProcessResult).SentOrdersIds;
+			    var sentOrderIds = results.GetSentOrderIds();
 				SendStatusReportAfterBatchInvoice(orderIds, sentOrderIds, reportEmailAddress);
 				var invoiceDateTime = GetDateTime();
 			    foreach (var orderId in sentOrderIds)

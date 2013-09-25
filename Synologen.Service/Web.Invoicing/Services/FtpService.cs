@@ -1,15 +1,8 @@
-﻿using System.Net;
-using System.Text;
-using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
+﻿using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Invoicing;
 
 namespace Synologen.Service.Web.Invoicing.Services
 {
-    public interface IFtpService
-    {
-        string UploadTextFileToFTP(string fileName, string fileContent);
-    }
-
     public class FtpService : IFtpService
     {
         protected const string FtpFileUploadNotAccepted = "ej accepterad";
@@ -57,14 +50,5 @@ namespace Synologen.Service.Web.Invoicing.Services
             var ftpUrl = _configuration.FTPServerUrl;
             return new Ftp(ftpUrl, _configuration.FtpCredentials);
         }
-    }
-
-    public interface IFtpServiceConfiguration
-    {
-        bool UsePassiveFTP { get; }
-        Encoding FTPCustomEncodingCodePage { get; }
-        bool FTPUseBinaryTransfer { get; }
-        string FTPServerUrl { get; }
-        NetworkCredential FtpCredentials { get; }
     }
 }

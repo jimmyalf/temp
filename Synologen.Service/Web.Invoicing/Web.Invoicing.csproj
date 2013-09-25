@@ -97,6 +97,12 @@
     </Compile>
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FtpService.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="ConfigurationSettings\IFileServiceConfiguration.cs" />
+    <Compile Include="ConfigurationSettings\IFtpServiceConfiguration.cs" />
+    <Compile Include="ConfigurationSettings\IMailServiceConfiguration.cs" />
+    <Compile Include="Services\IFtpService.cs" />
+    <Compile Include="Services\IMailService.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SynologenService.cs" />

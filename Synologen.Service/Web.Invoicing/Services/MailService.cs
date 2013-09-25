@@ -2,11 +2,6 @@
 
 namespace Synologen.Service.Web.Invoicing.Services
 {
-    public interface IMailService
-    {
-        void SendMessage(string message);
-    }
-
     public class MailService : IMailService
     {
         private readonly IMailServiceConfiguration _configuration;
@@ -26,12 +21,5 @@ namespace Synologen.Service.Web.Invoicing.Services
             mailMessage.Body = message;
             smtpClient.Send(mailMessage);
         }
-    }
-
-    public interface IMailServiceConfiguration
-    {
-        string SMTPServer { get; }
-        string AdminEmail { get; }
-        string ErrorEmailSenderAddress { get; }
     }
 }

@@ -36,6 +36,18 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         public void Send_Praktikertjänst_Invoice()
         {
             _service.SendInvoices(new List<int> { 3884 }, _reportEmail);
-        }     
+        }
+
+        [Test, Explicit]
+        public void Send_EDI_Invoice()
+        {
+            _service.SendInvoices(new List<int> { 3830 }, _reportEmail);
+        }
+
+        [Test, Explicit]
+        public void Send_Letter_Invoice()
+        {
+            _service.SendInvoices(new List<int> { 3850 }, _reportEmail);
+        }
     }
 }

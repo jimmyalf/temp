@@ -77,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
                 View.Model.SelectedCategoryId = e.SelectedCategory;
 
                 View.Model.Defects = Query(new DefectsQuery { SelectedCategory = e.SelectedCategory }).ToDeviationDefectList();
-                View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
+                View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory, Active = true }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
 
                 SetDisplayView(e.SelectedType);
             }

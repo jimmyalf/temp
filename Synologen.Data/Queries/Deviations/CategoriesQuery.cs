@@ -25,6 +25,10 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
                 filter.Like(x => x.Name);
             }, SearchTerms);
 
+            if (Active.HasValue)
+            {
+                result = result.FilterEqual(x => x.Active, Active);
+            }
 
             if (PagedSortedCriteria != null)
             {

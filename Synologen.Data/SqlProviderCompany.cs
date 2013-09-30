@@ -104,7 +104,8 @@ namespace Spinit.Wpc.Synologen.Data
 			    var address = Util.CheckNullString(dataRow, "cEDIRecipientId");
 			    var quantifier = Util.CheckNullString(dataRow, "cEDIRecipientQuantifier");
 
-				var companyRow = new Company {
+				var companyRow = new Company 
+                {
 					PostBox = Util.CheckNullString(dataRow, "cAddress1"), 
 					StreetName = Util.CheckNullString(dataRow, "cAddress2"), 
 					City = Util.CheckNullString(dataRow, "cCity"), 
@@ -118,8 +119,10 @@ namespace Spinit.Wpc.Synologen.Data
 					OrganizationNumber = Util.CheckNullString(dataRow, "cOrganizationNumber"), 
 					InvoiceCompanyName = Util.CheckNullString(dataRow, "cInvoiceCompanyName"), 
 					TaxAccountingCode = Util.CheckNullString(dataRow, "cTaxAccountingCode"), 
-					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
-                    EDIRecipient = new EdiAddress(address, quantifier),
+					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"),
+                    EDIRecipient = string.IsNullOrEmpty(quantifier) 
+                        ? new EdiAddress(address) 
+                        : new EdiAddress(address, quantifier),
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),

@@ -85,6 +85,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtTaxAccountingCode.Text = company.TaxAccountingCode;
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
 			txtEDIRecipientId.Text = company.EDIRecipient.Address;
+		    txtEDIRecipientQualifier.Text = company.EDIRecipient.Quantifier;
 			drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
 			txtInvoiceFreeTextTemplate.Text = company.InvoiceFreeTextFormat;
 			foreach (var validationRule in company.CompanyValidationRules){
@@ -141,7 +142,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.InvoiceCompanyName = txtInvoiceCompanyName.Text;
 			company.TaxAccountingCode = txtTaxAccountingCode.Text;
 			company.PaymentDuePeriod = Convert.ToInt32(txtPaymentDuePeriod.Text);
-			company.EDIRecipient = new EdiAddress(txtEDIRecipientId.Text);
+		    company.EDIRecipient = GetEdiAddress();
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
 			if (drpCountry.SelectedValue != "0"){
@@ -152,6 +153,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			ConnectDisconnectValidationRules(company);
 			Response.Redirect(ComponentPages.ContractCompanies + "?id="+ company.ContractId);
 		}
+
+        protected EdiAddress GetEdiAddress()
+        {
+            var address = txtEDIRecipientId.Text;
+            var quantifier = txtEDIRecipientQualifier.Text;
+            return string.IsNullOrEmpty(quantifier) 
+                ? new EdiAddress(address) 
+                : new EdiAddress(address, quantifier);
+        }
 
 		private void ConnectDisconnectValidationRules(Company company) {
 			foreach (ListItem listItem in chkValidationRules.Items){

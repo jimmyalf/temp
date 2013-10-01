@@ -41,6 +41,11 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
         protected List<SFTIPartyIdentificationType> GetPartyIdentification<TEntity>(TEntity entity, Func<TEntity, EdiAddress> identificationProperty) where TEntity : class
         {
             var id = identificationProperty(entity);
+            if (string.IsNullOrEmpty(id.Address))
+            {
+                return null;
+            }
+
             return new List<SFTIPartyIdentificationType>
             {
                 new SFTIPartyIdentificationType
@@ -53,6 +58,11 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
         protected List<SFTIPartyIdentificationType> GetPartyIdentification<TEntity>(TEntity entity, Func<TEntity, string> identificationProperty) where TEntity : class
         {
             var id = identificationProperty(entity);
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
             return new List<SFTIPartyIdentificationType>
             {
                 new SFTIPartyIdentificationType
@@ -108,18 +118,25 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected virtual IdentifierType GetIdentifier(string value)
         {
-            return new IdentifierType { Value = Formatter.FormatTaxAccountingCode(value) };
+            return GetIdentifier(value, Formatter.FormatTaxAccountingCode);
         }
+
 
         protected virtual IdentifierType GetIdentifier(string value, Func<string, string> formatterFunction)
         {
-            return GetIdentifier(formatterFunction(value));
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
+            var id = formatterFunction(value);
+            return new IdentifierType { Value = id };
         }
 
         protected virtual IdentifierType GetIdentifier(Func<ISvefakturaConversionSettings, string> settingsValue, Func<string, string> formatterFunction)
         {
             var value = settingsValue(Settings);
-            return GetIdentifier(formatterFunction(value));
+            return GetIdentifier(value, formatterFunction);
         }
 
         protected virtual SFTIContactType GetAccountContactFormatted(SFTIContactType contact)

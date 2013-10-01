@@ -25,8 +25,8 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers
         public IEntityCreator<TSource, TDestination> Using(Func<TSource, string> property, Func<string, string> formatter)
         {
             var value = property(_source);
-            //if (value != null)
-            if(!string.IsNullOrEmpty(value))
+
+            if (!string.IsNullOrEmpty(value))
             {
                 var formattedValue = formatter(value);
                 var textValue = new TType { Value = formattedValue };

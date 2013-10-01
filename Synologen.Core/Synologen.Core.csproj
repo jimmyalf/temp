@@ -413,6 +413,7 @@
     <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
     <Compile Include="Utility\ActionSwitch.cs" />
     <Compile Include="Utility\Ensure.cs" />
+    <Compile Include="Utility\Evaluate.cs" />
     <Compile Include="Utility\ReturnSwitch.cs" />
     <Compile Include="Utility\Switch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

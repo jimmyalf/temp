@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Test.Factory;
 
@@ -14,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.EDI {
 
 			_ediSettings = new EDIConversionSettings
 			{
-				SenderId = "556262-6100", 
+				SenderEdiAddress = new EdiAddress("556262-6100"), 
 				BankGiro = "5693-6677", 
 				VATAmount = 0.25F
 			};

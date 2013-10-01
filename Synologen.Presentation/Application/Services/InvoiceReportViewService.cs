@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				LineExtensionsTotalAmount = order.InvoiceSumExcludingVAT.ToString("N2"), 
 				TotalTaxAmount = (order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT).ToString("N2"), 
 				TaxInclusinveTotalAmount = order.InvoiceSumIncludingVAT.ToString("N2"),  
-				ShopContactText = GetShopContaxtText(order.SellingShop),
+				ShopContactText = GetShopInvoiceContaxtText(order.SellingShop),
 				PaymentTermsNote = paymentTermsText.ReplaceWith(new {InvoiceNumberOfDueDays = order.ContractCompany.PaymentDuePeriod}),
 				InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
 				InvoiceNumber = order.InvoiceNumber.ToString("N0"),
@@ -58,31 +58,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				: "N/A";
 		}
 
-
-		private static string GetShopContaxtText(IShop shop)
-		{
-			const string shopContactText = "{ShopName} ({OrganizationNumber}){NewLine}{AddressLine}{NewLine}{ZipAndCity}";
-			return shopContactText.ReplaceWith(new
-			{
-				NewLine, 
-				ShopName = shop.Name, 
-				shop.OrganizationNumber, 
-				AddressLine = GetShopAddressLine(shop), 
-				ZipAndCity = GetShopZipAndCity(shop), 
-			});
-		}
-
-		private static string GetShopAddressLine(IShop shop)
-		{
-			if(String.IsNullOrEmpty(shop.Address2)) return shop.Address ?? string.Empty;
-			return shop.Address2;
-		}
-		private static string GetShopZipAndCity(IShop shop)
-		{
-			return "{Zip} {City}".ReplaceWith(new { shop.Zip, shop.City });
-		}
-
-
+        private static string GetShopInvoiceContaxtText(IShop shop)
+        {
+            return shop.Format("{Name} ({OrganizationNumber}){NewLine}{AddressLine}{NewLine}{ZipAndCity}");
+        }
 
 		private static IEnumerable<InvoiceRow> GetInvoiceRows(IEnumerable<OrderItem> orderItems)
 		{

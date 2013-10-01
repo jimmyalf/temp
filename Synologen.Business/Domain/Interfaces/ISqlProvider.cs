@@ -100,7 +100,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		bool CategoryHasConnectedMembers(int categoryId);
 		bool MemberHasConnectedOrders(int memberId);
 		void UpdateMemberUserDetails(int memberId, string newPassword, string email, bool active, string updatingUser);
-		DataSet GetInvoicingMethods(int? invoicingMethodId, string orderBy);
+		//DataSet GetInvoicingMethods(int? invoicingMethodId, string orderBy);
 		DataSet getMembersForLocation(int type, int locationId, int languageId);
 		DataSet getPublicMembersForLocation(int type, int locationId, int languageId);
 		DataSet GetLatestPublicMembersForLocation(int locationId, int languageId, int max);

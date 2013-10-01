@@ -145,7 +145,10 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public Shop ParseShopRow(DataRow shopDataRow) {
+		public Shop ParseShopRow(DataRow shopDataRow)
+		{
+		    var accessValue = Util.CheckNullInt(shopDataRow, "cShopAccess");
+		    var access = accessValue.ToEnum<ShopAccess>();
 			var shopRow = new Shop
 			{
 				ShopId = Util.CheckNullInt(shopDataRow, "cId"),
@@ -172,7 +175,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber"),
 				GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier"),
 				Equipment = GetAllEquipmentRowsPerShop(Util.CheckNullInt(shopDataRow, "cId")),
-				Access = Util.CheckNullInt(shopDataRow, "cShopAccess").ToEnum<ShopAccess>(),
+				Access = access,
                 OrganizationNumber = Util.CheckNullString(shopDataRow, "cOrganizationNumber"),
 				ExternalAccessUsername = Util.CheckNullString(shopDataRow, "cExternalAccessUsername"),
 				ExternalAccessHashedPassword = Util.CheckNullString(shopDataRow, "cExternalAccessHashedPassword")

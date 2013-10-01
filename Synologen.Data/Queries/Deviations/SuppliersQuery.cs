@@ -32,6 +32,10 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
                 result = (ICriteria<DeviationSupplier>)result.CreateAlias("Categories", "Category").In("Category.Id", SelectedCategory);
             }
 
+            if (Active.HasValue)
+            {
+                result = result.FilterEqual(x => x.Active, Active);
+            }
 
             if (PagedSortedCriteria != null)
             {

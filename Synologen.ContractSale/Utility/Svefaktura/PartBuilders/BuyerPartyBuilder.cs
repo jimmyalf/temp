@@ -2,6 +2,7 @@
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -72,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected SFTIContactType GetContact(IOrder order)
         {
-            if (order.Email.And(order.CustomerCombinedName).And(order.Phone).AreNullOrEmpty())
+            if (Evaluate.AreNullOrEmpty(order.Email, order.CustomerCombinedName, order.Phone))
             {
                 return null;
             }

@@ -104,6 +104,10 @@
       <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
       <Name>Synologen.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Data\Synologen.Data.csproj">
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
@@ -161,7 +165,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

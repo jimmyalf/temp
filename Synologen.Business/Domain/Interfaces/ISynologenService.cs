@@ -45,12 +45,12 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		//void UpdateOrderStatuses(PaymentInfo invoiceStatus);
 		
 
-		/// <summary>
-		/// Sends given order as invoice
-		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
-		/// </summary>
-		[OperationContract]
-		void SendInvoice(int orderId);
+        ///// <summary>
+        ///// Sends given order as invoice
+        ///// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
+        ///// </summary>
+        //[OperationContract]
+        //void SendInvoice(int orderId);
 
 		/// <summary>
 		/// Sends given orders as invoices

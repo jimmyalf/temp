@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -24,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                     PartyName = GetPartyName(company, x => x.InvoiceCompanyName),
                     Address = GetAddress(order),
                     Contact = GetContact(order),
-                    PartyTaxScheme = GetTaxScheme(company),
+                    PartyTaxScheme = GetTaxScheme(company).ToList(),
                     PartyIdentification = GetPartyIdentification(company)
                 }
             };
@@ -35,14 +37,14 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             return GetPartyIdentification(company, x => x.EDIRecipient);
         }
 
-        protected List<SFTIPartyTaxSchemeType> GetTaxScheme(ICompany company)
+        protected IEnumerable<SFTIPartyTaxSchemeType> GetTaxScheme(ICompany company)
         {
-            return new List<SFTIPartyTaxSchemeType>
+            if (!string.IsNullOrEmpty(company.TaxAccountingCode))
             {
-                new SFTIPartyTaxSchemeType
+                yield return new SFTIPartyTaxSchemeType
                 {
-                    CompanyID = new IdentifierType { Value = Formatter.FormatTaxAccountingCode(company.TaxAccountingCode) },
-                    RegistrationName = new RegistrationNameType { Value = company.OrganizationNumber },
+                    CompanyID = GetIdentifier(company.TaxAccountingCode),
+                    RegistrationName = new RegistrationNameType { Value = company.InvoiceCompanyName },
                     RegistrationAddress = Build<SFTIAddressType>().With(company)
                         .Fill(x => x.CityName).Using(x => x.City)
                         .Fill(x => x.Postbox).Using(x => x.PostBox)
@@ -51,21 +53,30 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                         .FillEntity(x => x.Country).Using(GetCountry(company.Country))
                         .GetEntity(),
                     TaxScheme = new SFTITaxSchemeType { ID = new IdentifierType { Value = "VAT" } },
-                },
-                new SFTIPartyTaxSchemeType
+                };
+            }
+
+            if (!string.IsNullOrEmpty(company.OrganizationNumber))
+            {
+                yield return new SFTIPartyTaxSchemeType
                 {
-                    CompanyID = new IdentifierType { Value = Formatter.FormatOrganizationNumber(company.OrganizationNumber), },
+                    CompanyID = GetIdentifier(company.OrganizationNumber),
                     RegistrationAddress = Build<SFTIAddressType>().With(company)
                         .Fill(x => x.CityName).Using(x => x.City)
                         .FillEntity(x => x.Country).Using(GetCountry(company.Country))
                         .GetEntity(),
                     TaxScheme = new SFTITaxSchemeType { ID = new IdentifierType { Value = "SWT" } }
-                }
-            };
+                };
+            }
         }
 
         protected SFTIContactType GetContact(IOrder order)
         {
+            if (order.Email.And(order.CustomerCombinedName).And(order.Phone).AreNullOrEmpty())
+            {
+                return null;
+            }
+
             return Build<SFTIContactType>().With(order)
                 .Fill(x => x.ElectronicMail).Using(x => x.Email)
                 .Fill(x => x.Name).Using(x => x.CustomerCombinedName)

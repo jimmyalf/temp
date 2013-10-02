@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -60,8 +61,8 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceCompanyName);
 					parameters[counter++].Value = GetNullableSqlType(company.TaxAccountingCode);
 					parameters[counter++].Value = company.PaymentDuePeriod;
-					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipient.Address);
-                    parameters[counter++].Value = GetNullableSqlType(company.EDIRecipient.Quantifier);
+					parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Address, null));
+                    parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Quantifier, null));
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 					parameters[counter].Value = GetNullableSqlType(company.Country.Id);

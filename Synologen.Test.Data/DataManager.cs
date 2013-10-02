@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
                 City = "Askim",
                 ContractId = contract.Id,
                 Country = new Country { Id = 1 },
-                EDIRecipient = null,
+                //EDIRecipient = new EdiAddress("123456789"),
                 InvoiceCompanyName = "Test Företag AktieBolag",
                 InvoiceFreeTextFormat = null,
                 InvoicingMethodId = 2,
@@ -210,6 +210,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 		{
 			DeleteForTable(connection, "tblSynologenSettlementOrderConnection");
 			DeleteForTable(connection, "tblSynologenContractArticleConnection");
+            DeleteForTable(connection, "tblSynologenShopContractConnection");
 			DeleteAndResetIndexForTable(connection, "tblSynologenSettlement");
 			DeleteAndResetIndexForTable(connection, "tblSynologenOrderItems");
 			DeleteAndResetIndexForTable(connection, "tblSynologenOrderHistory");

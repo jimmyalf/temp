@@ -57,7 +57,9 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         public void Send_by_wcf_service()
         {
             var client = GetClient();
-            var listOfIds = new List<int> { 9089, 9090, 9091, 9092, 9093, 9094, 9095, 9096, 9097, 9098, 9099, 9100, 9101, 9102, 9103, 9108, 9109, 9110, 9111, 9112, 9113, 9114, 9115, 9117 };
+            //var listOfIds = new List<int> { 9089, 9090, 9091, 9092, 9093, 9094, 9095, 9096, 9097, 9098, 9099, 9100, 9101, 9102, 9103, 9108, 9109, 9110, 9111, 9112, 9113, 9114, 9115, 9117 };
+            var listOfIds = new List<int> { 9108 };
+
             client.SendInvoices(listOfIds, "carl@carl-berg.se");
         }
 

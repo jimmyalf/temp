@@ -22,13 +22,13 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         public void Build(IOrder order, SFTIInvoiceType invoice)
         {
-            invoice.InvoiceLine = order.OrderItems.Select(Convert).ToList();
+            invoice.InvoiceLine = order.OrderItems.Select((orderItem, index) => Convert(order, orderItem, index)).ToList();
             invoice.LineItemCountNumeric = new LineItemCountNumericType { Value = invoice.InvoiceLine.Count };
             invoice.TaxTotal = GetTaxTotal(invoice);
             invoice.LegalTotal = GetLegalTotal(invoice.TaxTotal, order);
         }
 
-        public SFTIInvoiceLineType Convert(IOrderItem orderItem, int index)
+        public SFTIInvoiceLineType Convert(IOrder order, IOrderItem orderItem, int index)
         {
             return new SFTIInvoiceLineType
             {
@@ -36,8 +36,25 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                 InvoicedQuantity = new QuantityType { Value = orderItem.NumberOfItems, quantityUnitCode = "styck" },
                 LineExtensionAmount = new ExtensionAmountType { Value = (decimal)orderItem.DisplayTotalPrice, amountCurrencyID = "SEK" },
                 ID = GetItemId(index + 1),
-                Note = GetTextEntity<NoteType>(orderItem.Notes)
-            };            
+                Note = GetTextEntity<NoteType>(orderItem.Notes),
+                OrderLineReference = GetOrderLineReference(order)
+            };
+        }
+
+        protected virtual SFTIOrderLineReferenceType GetOrderLineReference(IOrder order)
+        {
+            if (string.IsNullOrEmpty(order.CustomerOrderNumber))
+            {
+                return null;
+            }
+
+            return new SFTIOrderLineReferenceType
+            {
+                OrderReference = new SFTIOrderReferenceType
+                {
+                    BuyersID = GetIdentifier(order.CustomerOrderNumber)
+                }
+            };
         }
 
         protected virtual SFTILegalTotalType GetLegalTotal(List<SFTITaxTotalType> taxTotals, IOrder order)

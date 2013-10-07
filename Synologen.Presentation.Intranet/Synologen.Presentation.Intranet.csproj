@@ -609,6 +609,13 @@
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
       <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx.cs">
+      <DependentUpon>AdminMemberNews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx.designer.cs">
+      <DependentUpon>AdminMemberNews.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx.cs">
       <DependentUpon>AdminMemberPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -817,6 +824,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx" />
     <Content Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx" />
     <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Testpages\AddActionMessage.aspx" />
@@ -913,6 +921,9 @@
     <Reference Include="Spinit.Wpc.Member.Presentation.Site, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.News.Data">
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.News.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

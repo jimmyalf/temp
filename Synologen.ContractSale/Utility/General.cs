@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
         //TODO: Remove this static method (contains no real logic)
 		public static SFTIInvoiceType CreateInvoiceSvefaktura(Order order, SvefakturaConversionSettings settings) 
 		{
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
+            var builder = new EBrev_SvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);
 		}
 	}

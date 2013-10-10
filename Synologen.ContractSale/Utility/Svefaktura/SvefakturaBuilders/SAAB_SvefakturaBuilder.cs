@@ -7,13 +7,13 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders
 {
-    public class EBrevSvefakturaBuilder : ISvefakturaBuilder
+    public class SAAB_SvefakturaBuilder : ISvefakturaBuilder
     {
         private readonly ISvefakturaFormatter _formatter;
         private readonly ISvefakturaConversionSettings _settings;
         private readonly ISvefakturaBuilderValidator _builderValidator;
 
-        public EBrevSvefakturaBuilder(ISvefakturaFormatter formatter, ISvefakturaConversionSettings settings, ISvefakturaBuilderValidator builderValidator)
+        public SAAB_SvefakturaBuilder(ISvefakturaFormatter formatter, ISvefakturaConversionSettings settings, ISvefakturaBuilderValidator builderValidator)
         {
             _formatter = formatter;
             _settings = settings;
@@ -26,11 +26,11 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders
             _builderValidator.Validate(_settings);
 
             var invoice = new SFTIInvoiceType();
-            new EBrev_SellerPartyBuilder(_settings, _formatter).Build(order, invoice);
-            new EBrev_BuyerPartyBuilder(_settings, _formatter).Build(order, invoice);
+            new SellerPartyBuilder(_settings, _formatter).Build(order, invoice);
+            new BuyerPartyBuilder(_settings, _formatter).Build(order, invoice);
             new PaymentMeansBuilder(_settings, _formatter).Build(order, invoice);
             new InvoiceLinesBuilder(_settings, _formatter).Build(order, invoice);
-            new EBrev_InvoiceInformationBuilder(_settings, _formatter).Build(order, invoice);
+            new SAAB_InvoiceInformationBuilder(_settings, _formatter).Build(order, invoice);
             new PaymentTermsBuilder(_settings, _formatter).Build(order, invoice);
             return invoice;
         }

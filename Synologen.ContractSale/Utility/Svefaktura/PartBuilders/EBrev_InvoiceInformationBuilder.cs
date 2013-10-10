@@ -18,6 +18,19 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             return order.ParseFreeText();
         }
 
+        protected override List<SFTIDocumentReferenceType> GetRequisitionDocumentReference(IOrder order)
+        {
+            if (string.IsNullOrEmpty(order.CustomerOrderNumber))
+            {
+                return null;
+            }
+
+            return new List<SFTIDocumentReferenceType>
+            {
+                new SFTIDocumentReferenceType { ID = new IdentifierType { Value = order.CustomerOrderNumber } }
+            };
+        }
+
         protected override List<SFTIDocumentReferenceType> GetAdditionalDocumentReference(IOrder order)
         {
             return new List<SFTIDocumentReferenceType>

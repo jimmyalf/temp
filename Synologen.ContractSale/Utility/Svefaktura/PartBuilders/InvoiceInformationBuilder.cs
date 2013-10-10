@@ -42,14 +42,14 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected virtual List<SFTIDocumentReferenceType> GetRequisitionDocumentReference(IOrder order)
         {
-            if (string.IsNullOrEmpty(order.CustomerOrderNumber))
+            if (string.IsNullOrEmpty(order.RstText))
             {
                 return null;
             }
 
             return new List<SFTIDocumentReferenceType>
             {
-                new SFTIDocumentReferenceType { ID = new IdentifierType { Value = order.CustomerOrderNumber } }
+                new SFTIDocumentReferenceType { ID = new IdentifierType { Value = order.RstText } }
             };
         }
 

@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 
         protected virtual SFTIInvoiceType BuildCompleteInvoice(IOrder order)
         {
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), Settings, new EBrev_SvefakturaBuilderValidator());
+            var builder = new EBrev_SvefakturaBuilder(new SvefakturaFormatter(), Settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);
         }
 

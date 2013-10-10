@@ -255,7 +255,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label46,
             this.label47,
             this.label48});
-            this.detail.Height = 8.687583F;
+            this.detail.Height = 8.54175F;
             this.detail.Name = "detail";
             // 
             // lblName
@@ -754,18 +754,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label47.Name = "label47";
             this.label47.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label47.Text = "Butikens signatur *";
-            this.label47.Top = 8.070867F;
+            this.label47.Top = 7.874016F;
             this.label47.Width = 2.952756F;
             // 
             // label48
             // 
-            this.label48.Height = 0.6889765F;
+            this.label48.Height = 0.5905512F;
             this.label48.HyperLink = null;
             this.label48.Left = 3.248032F;
             this.label48.Name = "label48";
             this.label48.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label48.Text = "Butikens stämpel *";
-            this.label48.Top = 8.070867F;
+            this.label48.Top = 7.874016F;
             this.label48.Width = 2.952756F;
             // 
             // groupHeader1

@@ -105,8 +105,10 @@
     <Compile Include="Svefaktura\PartBuilders\ISvefakturaPartBuilder.cs" />
     <Compile Include="Svefaktura\PartBuilders\EBrev_SellerPartyBuilder.cs" />
     <Compile Include="Svefaktura\PartBuilders\SellerPartyBuilder.cs" />
-    <Compile Include="Svefaktura\SvefakturaBuilders\EBrevSvefakturaBuilder.cs" />
+    <Compile Include="Svefaktura\PartBuilders\SAAB_InvoiceInformationBuilder.cs" />
+    <Compile Include="Svefaktura\SvefakturaBuilders\EBrev_SvefakturaBuilder.cs" />
     <Compile Include="Svefaktura\SvefakturaBuilders\ISvefakturaBuilder.cs" />
+    <Compile Include="Svefaktura\SvefakturaBuilders\SAAB_SvefakturaBuilder.cs" />
     <Compile Include="Svefaktura\Validators\ISvefakturaBuilderValidator.cs" />
     <Compile Include="Svefaktura\Validators\EBrev_SvefakturaBuilderValidator.cs" />
     <Compile Include="Svefaktura\SvefakturaBuilders\SvefakturaBuilder.cs" />

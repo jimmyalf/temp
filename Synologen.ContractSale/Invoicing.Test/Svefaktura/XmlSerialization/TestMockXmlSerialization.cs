@@ -120,7 +120,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
 			order.ContractCompany = GetMockCompany();
 			order.SellingShop = GetMockShop();
 			order.OrderItems = GetMockOrderItems();
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
+            var builder = new EBrev_SvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);   
 		}
 

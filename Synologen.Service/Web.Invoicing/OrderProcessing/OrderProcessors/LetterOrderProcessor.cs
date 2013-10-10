@@ -21,11 +21,11 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
     public class LetterOrderProcessor : OrderProcessorBase
     {
         protected const string SvefakturaListFileNameFormat = "Synologen-{0}-{1} {2}.xml";
-        private readonly EBrevSvefakturaBuilder _eBrevSvefakturaBuilder;
+        private readonly EBrev_SvefakturaBuilder _eBrevSvefakturaBuilder;
 
         public LetterOrderProcessor(ISqlProvider provider, ISvefakturaConversionSettings settings, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration) : base(provider,ftpService, mailService, fileService,orderProcessConfiguration)
         {
-            _eBrevSvefakturaBuilder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());            
+            _eBrevSvefakturaBuilder = new EBrev_SvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());            
         }
 
         public override OrderProcessResult Process(IList<IOrder> ordersToProcess)

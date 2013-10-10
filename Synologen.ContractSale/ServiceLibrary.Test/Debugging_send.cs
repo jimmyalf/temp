@@ -11,56 +11,38 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
     [TestFixture, Explicit]
     public class Debugging_send
     {
-        private readonly SqlProvider _provider;
-        private readonly ISynologenService _service;
         private readonly string _reportEmail;
 
         public Debugging_send()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["WpcServer"].ConnectionString;
-            _provider = new SqlProvider(connectionString);
-            _service = new SynologenService(_provider);
-            _reportEmail = "carl@carl-berg.se";
+            _reportEmail = "carl.berg@spinit.se";
         }
 
         [Test, Explicit]
-        public void Send_SR_Invoice()
-        {
-            _service.SendInvoices(new List<int> { 3886 }, _reportEmail);
-        }
-
-        [Test, Explicit]
-        public void Send_SAAB_Invoice()
-        {
-            _service.SendInvoices(new List<int> { 3885 }, _reportEmail);
-        }
-
-        [Test, Explicit]
-        public void Send_Praktikertjänst_Invoice()
-        {
-            _service.SendInvoices(new List<int> { 3884 }, _reportEmail);
-        }
-
-        [Test, Explicit]
-        public void Send_EDI_Invoice()
-        {
-            _service.SendInvoices(new List<int> { 3830 }, _reportEmail);
-        }
-
-        [Test, Explicit]
-        public void Send_Letter_Invoice()
-        {
-            _service.SendInvoices(new List<int> { 3850 }, _reportEmail);
-        }
-
-        [Test, Explicit]
-        public void Send_by_wcf_service()
+        public void Send_SAAB_invoice_by_wcf_service()
         {
             var client = GetClient();
-            //var listOfIds = new List<int> { 9089, 9090, 9091, 9092, 9093, 9094, 9095, 9096, 9097, 9098, 9099, 9100, 9101, 9102, 9103, 9108, 9109, 9110, 9111, 9112, 9113, 9114, 9115, 9117 };
-            var listOfIds = new List<int> { 9108 };
+            var listOfIds = new List<int> { 8432 };
 
-            client.SendInvoices(listOfIds, "carl@carl-berg.se");
+            client.SendInvoices(listOfIds, _reportEmail);
+        }
+
+        [Test, Explicit]
+        public void Send_SRF_invoice_by_wcf_service()
+        {
+            var client = GetClient();
+            var listOfIds = new List<int> { 8728 };
+
+            client.SendInvoices(listOfIds, _reportEmail);
+        }
+
+        [Test, Explicit]
+        public void Send_both_invoices_by_wcf_service()
+        {
+            var client = GetClient();
+            var listOfIds = new List<int> { 8432, 8728 };
+
+            client.SendInvoices(listOfIds, _reportEmail);
         }
 
         protected ClientContract GetClient()

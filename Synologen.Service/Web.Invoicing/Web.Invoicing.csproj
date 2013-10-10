@@ -87,6 +87,7 @@
     <Compile Include="OrderProcessing\IOrderProcessorFactory.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\LetterOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\OrderProcessorBase.cs" />
+    <Compile Include="OrderProcessing\OrderProcessors\SAAB_SvefakturaOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\SvefakturaOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,15 +11,12 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
     public class OrderProcessorFactory : IOrderProcessorFactory
     {
         private readonly ISqlProvider _provider;
-
         private readonly EDIConversionSettings _ediSettings;
         private readonly IFtpService _ftpService;
         private readonly IFileService _fileService;
         private readonly IMailService _mailService;
         private readonly IOrderProcessConfiguration _configuration;
         private readonly ISvefakturaConversionSettings _svefakturaSettings;
-
-        public IList<IOrderProcessor> OrderProcessors { get; set; }
 
         public OrderProcessorFactory(ISqlProvider provider, EDIConversionSettings ediSettings, ISvefakturaConversionSettings svefakturaSettings, IFtpService ftpService, IFileService fileService, IMailService mailService, IOrderProcessConfiguration configuration)
         {
@@ -33,6 +30,8 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
             OrderProcessors = InstantiateOrderProcessors();
         }
 
+        public IList<IOrderProcessor> OrderProcessors { get; set; }
+
         public IOrderProcessor GetOrderProcessorFor(InvoicingMethod method)
         {
             return OrderProcessors.Single(x => x.IHandle(method));
@@ -44,7 +43,8 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
             {
                 new EdiOrderProcessor(_provider, _ediSettings, _ftpService, _mailService, _fileService, _configuration),
                 new LetterOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
-                new SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration)
+                new SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
+                new SAAB_SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration)
             };
         }
     }

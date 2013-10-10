@@ -19,20 +19,25 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
 {
     public class SvefakturaOrderProcessor : OrderProcessorBase
     {
-        private readonly ISvefakturaBuilder _svefakturaBuilder;
-        private readonly ISvefakturaConversionSettings _settings;
         protected const string SvefakturaFileNameFormat = "Synologen-{0} {1}.xml";
 
-        public SvefakturaOrderProcessor(ISqlProvider provider, ISvefakturaConversionSettings settings, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration) : base(provider,ftpService, mailService, fileService,orderProcessConfiguration)
+        public SvefakturaOrderProcessor(ISqlProvider provider, ISvefakturaConversionSettings settings, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration) 
+            : base(provider, ftpService, mailService, fileService, orderProcessConfiguration)
         {
-            _settings = settings;
-            _svefakturaBuilder = new SvefakturaBuilder(new SvefakturaFormatter(), _settings, new SvefakturaBuilderValidator());
+            Settings = settings;
+            SvefakturaBuilder = new SvefakturaBuilder(new SvefakturaFormatter(), Settings, new SvefakturaBuilderValidator());
         }
+
+        protected ISvefakturaBuilder SvefakturaBuilder { get; set; }
+        protected ISvefakturaConversionSettings Settings { get; set; }
 
         public override OrderProcessResult Process(IList<IOrder> ordersToProcess)
         {
             var result = new OrderProcessResult();
-            if (!ordersToProcess.Any()) return result;
+            if (!ordersToProcess.Any())
+            {
+                return result;
+            }
 
             foreach (var order in ordersToProcess)
             {
@@ -46,12 +51,18 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                     result.AddFailedOrderId(order.Id, ex);
                 }
             }
+
             return result;
+        }
+
+        public override bool IHandle(InvoicingMethod method)
+        {
+            return method == InvoicingMethod.Svefaktura;
         }
 
         protected void ProcessOrder(IOrder order)
         {
-            var invoice = _svefakturaBuilder.Build(order);
+            var invoice = SvefakturaBuilder.Build(order);
 
             var ruleViolations = SvefakturaValidator.ValidateObject(invoice).ToList();
             if (ruleViolations.Any())
@@ -67,23 +78,16 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
 
-            var ftpStatusMessage =  UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
+            var ftpStatusMessage = UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
 
             UpdateOrderStatus(order.Id);
             AddOrderHistory(order.Id, order.InvoiceNumber, ftpStatusMessage);
         }
 
-        private string GetInvoiceFileName(SFTIInvoiceType invoice)
-        {
-            var date = DateTime.Now.ToString(DateFormat);
-            var orderId = invoice.ID.Value;
-            return string.Format(SvefakturaFileNameFormat, orderId, date);
-        }
-
         protected string SerializeInvoice(SFTIInvoiceType invoice, IOrder order)
         {
             var encoding = OrderProcessConfiguration.FTPCustomEncodingCodePage;
-            var header = BuildPostOfficeHeader(_settings.EDIAddress, order.ContractCompany.EDIRecipient);
+            var header = BuildPostOfficeHeader(Settings.EDIAddress, order.ContractCompany.EDIRecipient);
             return SvefakturaSerializer.Serialize(invoice, encoding, "\r\n", Formatting.Indented, header);            
         }
 
@@ -92,12 +96,11 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return new PostOfficeHeader("POSTEN", "SVEFAKTURA", sender, recipient);
         }
 
-        public override bool IHandle(InvoicingMethod method)
+        private string GetInvoiceFileName(SFTIInvoiceType invoice)
         {
-            return method == InvoicingMethod.Svefaktura;
+            var date = DateTime.Now.ToString(DateFormat);
+            var orderId = invoice.ID.Value;
+            return string.Format(SvefakturaFileNameFormat, orderId, date);
         }
     }
-
-
-
 }

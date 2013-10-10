@@ -111,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 
 	    private SFTIInvoiceType CreateInvoice(ISvefakturaConversionSettings settings, IOrder order)
 	    {
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
+            var builder = new EBrev_SvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);   
 	    }
 

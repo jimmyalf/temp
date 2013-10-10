@@ -6,6 +6,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -110,7 +111,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
             }
 
             var selectedInvoicingMethod = (InvoicingMethod)selectedInvoicingMethodValue;
-            if (selectedInvoicingMethod == InvoicingMethod.EDI || selectedInvoicingMethod == InvoicingMethod.Svefaktura)
+            if (selectedInvoicingMethod == InvoicingMethod.EDI || 
+                selectedInvoicingMethod == InvoicingMethod.Svefaktura ||
+                selectedInvoicingMethod == InvoicingMethod.SAAB_Svefaktura)
             {
                 args.IsValid = !string.IsNullOrEmpty(txtEDIRecipientId.Text);
             }

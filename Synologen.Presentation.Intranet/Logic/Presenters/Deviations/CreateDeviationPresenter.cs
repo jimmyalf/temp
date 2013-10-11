@@ -7,6 +7,7 @@ using System.Text;
 using NHibernate;
 
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Synologen;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Commands.Deviations;
@@ -76,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
                 View.Model.SelectedCategoryId = e.SelectedCategory;
 
                 View.Model.Defects = Query(new DefectsQuery { SelectedCategory = e.SelectedCategory }).ToDeviationDefectList();
-                View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
+                View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory, Active = true }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
 
                 SetDisplayView(e.SelectedType);
             }
@@ -87,6 +88,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             var category = Session.Get<DeviationCategory>(e.SelectedCategory);
             var supplier = Session.Get<DeviationSupplier>(e.SelectedSupplier);
             var shopId = _synologenMemberService.GetCurrentShopId();
+
 
             var deviation = new Deviation
             {
@@ -116,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
                     _emailService.SendEmail(_settingService.EmailOrderFrom, supplier.Email, "Synologen extern avvikelse", CreateSupplierEmailBody(deviation));
                     View.Model.Status = string.Format("Avvikelsen är skickad till leverantörens e-postadress '{0}'.", supplier.Email);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     View.Model.Status = string.Format("Något fel inträffade när avvikelsen skulle skickas till leverantörens e-postadress '{0}'.", supplier.Email);
                 }
@@ -127,6 +129,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 
         private string CreateSupplierEmailBody(Deviation deviation)
         {
+            var shop = Session.Get<Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails.Shop>(deviation.ShopId);
+
             var sb = new StringBuilder();
             sb.AppendLine("Hej,");
             sb.AppendLine();
@@ -149,7 +153,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             sb.AppendLine();
             sb.AppendLine("Med vänlig hälsning");
             sb.AppendLine();
-            sb.AppendLine("Synologen");
+            sb.AppendFormat("{0}, {1}", shop.Name, shop.Address.City);
+            sb.AppendLine();
+            sb.AppendLine(shop.Email);
 
             return sb.ToString();
         }

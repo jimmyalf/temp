@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public static class Utility {
@@ -78,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 				Id = 4,
 				Name = "Swedbank",
 				Zip = "105 34",
-				EDIRecipientId = "00075020177753TEST",
+				EDIRecipient = new EdiAddress("00075020177753TEST"),
 				PaymentDuePeriod = 30,
 				InvoiceFreeTextFormat = String.Concat(
 					"Beställare Namn, {CustomerName}", "\r\n",

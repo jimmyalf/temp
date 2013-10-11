@@ -4,6 +4,7 @@ using System.IO;
 using System.Web;
 using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Member.Data;
+using Spinit.Wpc.Utility.Core;
 using File = Spinit.Wpc.Base.Data.File;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
@@ -104,6 +105,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
 			var category = UrlFriendlyRenamingService.Rename(fileCategory);
 			return new DirectoryInfo(Base.Business.Globals.CommonFilePath + lrow.Name + "\\Member\\" + orgName + "\\" + category);
 		}
+
+        protected virtual string GetMemberBaseDirectory(IBaseLocationRow lrow, MemberRow memberRow)
+        {
+            var di = GetMemberDirectory(LocationRow, memberRow);
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+
+            var orgName = UrlFriendlyRenamingService.Rename(memberRow.OrgName);
+            return string.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, orgName);
+        }
 		
 		protected virtual string GetFileUrl(LocationRow lrow, MemberRow memberRow, FileCategoryRow fileCategory, string fileName)
 		{

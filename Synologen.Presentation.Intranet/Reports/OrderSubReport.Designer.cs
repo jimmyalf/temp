@@ -4,86 +4,86 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 	/// Summary description for NewActiveReport1.
 	/// </summary>
 	partial class OrderSubReport
-	{
-		private DataDynamics.ActiveReports.Detail detail;
+    {
 
-		/// <summary>
+
+        /// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-			}
-			base.Dispose(disposing);
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+            }
+            base.Dispose(disposing);
+        }
 
 		#region ActiveReport Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent()
-		{
-            DataDynamics.ActiveReports.Label label4;
-            label4 = new DataDynamics.ActiveReports.Label();
-            DataDynamics.ActiveReports.Label label5;
-            label5 = new DataDynamics.ActiveReports.Label();
-            DataDynamics.ActiveReports.Label label6;
-            label6 = new DataDynamics.ActiveReports.Label();
-            DataDynamics.ActiveReports.Label label7;
-            label7 = new DataDynamics.ActiveReports.Label();
-            DataDynamics.ActiveReports.Label label27;
-            label27 = new DataDynamics.ActiveReports.Label();
+        private void InitializeComponent()
+        {
+            GrapeCity.ActiveReports.SectionReportModel.Label label4;
+            label4 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            GrapeCity.ActiveReports.SectionReportModel.Label label5;
+            label5 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            GrapeCity.ActiveReports.SectionReportModel.Label label6;
+            label6 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            GrapeCity.ActiveReports.SectionReportModel.Label label7;
+            label7 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            GrapeCity.ActiveReports.SectionReportModel.Label label27;
+            label27 = new GrapeCity.ActiveReports.SectionReportModel.Label();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderSubReport));
-            this.lblHeader = new DataDynamics.ActiveReports.Label();
-            this.detail = new DataDynamics.ActiveReports.Detail();
-            this.lblName = new DataDynamics.ActiveReports.Label();
-            this.lblPersonalNumber = new DataDynamics.ActiveReports.Label();
-            this.lblEmail = new DataDynamics.ActiveReports.Label();
-            this.lblMobilePhone = new DataDynamics.ActiveReports.Label();
-            this.lblTelephone = new DataDynamics.ActiveReports.Label();
-            this.lblAddressRowOne = new DataDynamics.ActiveReports.Label();
-            this.lblAddressRowTwo = new DataDynamics.ActiveReports.Label();
-            this.label9 = new DataDynamics.ActiveReports.Label();
-            this.label10 = new DataDynamics.ActiveReports.Label();
-            this.label11 = new DataDynamics.ActiveReports.Label();
-            this.label12 = new DataDynamics.ActiveReports.Label();
-            this.label35 = new DataDynamics.ActiveReports.Label();
-            this.label53 = new DataDynamics.ActiveReports.Label();
-            this.label54 = new DataDynamics.ActiveReports.Label();
-            this.label55 = new DataDynamics.ActiveReports.Label();
-            this.label56 = new DataDynamics.ActiveReports.Label();
-            this.label1 = new DataDynamics.ActiveReports.Label();
-            this.label57 = new DataDynamics.ActiveReports.Label();
-            this.label8 = new DataDynamics.ActiveReports.Label();
-            this.label58 = new DataDynamics.ActiveReports.Label();
-            this.label2 = new DataDynamics.ActiveReports.Label();
-            this.label3 = new DataDynamics.ActiveReports.Label();
-            this.label59 = new DataDynamics.ActiveReports.Label();
-            this.label60 = new DataDynamics.ActiveReports.Label();
-            this.label61 = new DataDynamics.ActiveReports.Label();
-            this.label62 = new DataDynamics.ActiveReports.Label();
-            this.label63 = new DataDynamics.ActiveReports.Label();
-            this.label64 = new DataDynamics.ActiveReports.Label();
-            this.label66 = new DataDynamics.ActiveReports.Label();
-            this.label65 = new DataDynamics.ActiveReports.Label();
-            this.label67 = new DataDynamics.ActiveReports.Label();
-            this.label68 = new DataDynamics.ActiveReports.Label();
-            this.label69 = new DataDynamics.ActiveReports.Label();
-            this.label70 = new DataDynamics.ActiveReports.Label();
-            this.label71 = new DataDynamics.ActiveReports.Label();
-            this.label72 = new DataDynamics.ActiveReports.Label();
-            this.label73 = new DataDynamics.ActiveReports.Label();
-            this.label43 = new DataDynamics.ActiveReports.Label();
-            this.label44 = new DataDynamics.ActiveReports.Label();
-            this.label45 = new DataDynamics.ActiveReports.Label();
-            this.label46 = new DataDynamics.ActiveReports.Label();
-            this.label47 = new DataDynamics.ActiveReports.Label();
-            this.label48 = new DataDynamics.ActiveReports.Label();
-            this.groupHeader1 = new DataDynamics.ActiveReports.GroupHeader();
-            this.picture1 = new DataDynamics.ActiveReports.Picture();
-            this.groupFooter1 = new DataDynamics.ActiveReports.GroupFooter();
+            this.lblHeader = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.detail = new GrapeCity.ActiveReports.SectionReportModel.Detail();
+            this.lblName = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblPersonalNumber = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblEmail = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblMobilePhone = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblTelephone = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblAddressRowOne = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.lblAddressRowTwo = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label9 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label10 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label11 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label12 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label35 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label53 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label54 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label55 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label56 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label1 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label57 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label8 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label58 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label2 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label3 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label59 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label60 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label61 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label62 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label63 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label64 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label66 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label65 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label67 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label68 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label69 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label70 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label71 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label72 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label73 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label43 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label44 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label45 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label46 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label47 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.label48 = new GrapeCity.ActiveReports.SectionReportModel.Label();
+            this.groupHeader1 = new GrapeCity.ActiveReports.SectionReportModel.GroupHeader();
+            this.picture1 = new GrapeCity.ActiveReports.SectionReportModel.Picture();
+            this.groupFooter1 = new GrapeCity.ActiveReports.SectionReportModel.GroupFooter();
             ((System.ComponentModel.ISupportInitialize)(label4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(label5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(label6)).BeginInit();
@@ -206,7 +206,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // detail
             // 
             this.detail.ColumnSpacing = 0F;
-            this.detail.Controls.AddRange(new DataDynamics.ActiveReports.ARControl[] {
+            this.detail.Controls.AddRange(new GrapeCity.ActiveReports.SectionReportModel.ARControl[] {
             label4,
             label5,
             label6,
@@ -255,7 +255,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label46,
             this.label47,
             this.label48});
-            this.detail.Height = 8.54175F;
+            this.detail.Height = 8.687583F;
             this.detail.Name = "detail";
             // 
             // lblName
@@ -344,7 +344,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label9
             // 
-            this.label9.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label9.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label9.Height = 0.1968504F;
             this.label9.HyperLink = null;
             this.label9.Left = 0.09842544F;
@@ -356,7 +356,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label10
             // 
-            this.label10.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label10.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label10.Height = 0.1968504F;
             this.label10.HyperLink = null;
             this.label10.Left = 3.248032F;
@@ -448,7 +448,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label1
             // 
-            this.label1.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label1.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label1.Height = 0.1968504F;
             this.label1.HyperLink = null;
             this.label1.Left = 0.0984252F;
@@ -460,7 +460,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label57
             // 
-            this.label57.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label57.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label57.Height = 0.1968504F;
             this.label57.HyperLink = null;
             this.label57.Left = 3.248032F;
@@ -472,7 +472,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label8
             // 
-            this.label8.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label8.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label8.Height = 0.1968504F;
             this.label8.HyperLink = null;
             this.label8.Left = 0.0984252F;
@@ -584,10 +584,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label66
             // 
-            this.label66.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label66.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label66.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label66.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label66.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label66.Border.LeftStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label66.Border.RightStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label66.Border.TopStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label66.Height = 0.5905516F;
             this.label66.HyperLink = null;
             this.label66.Left = 0.09842515F;
@@ -599,10 +599,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label65
             // 
-            this.label65.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label65.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label65.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label65.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label65.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label65.Border.LeftStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label65.Border.RightStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label65.Border.TopStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label65.Height = 0.5905516F;
             this.label65.HyperLink = null;
             this.label65.Left = 3.051181F;
@@ -660,10 +660,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label71
             // 
-            this.label71.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label71.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label71.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label71.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label71.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label71.Border.LeftStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label71.Border.RightStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label71.Border.TopStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label71.Height = 0.5905513F;
             this.label71.HyperLink = null;
             this.label71.Left = 3.248032F;
@@ -744,33 +744,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             // 
             // label47
             // 
-            this.label47.Border.BottomStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label47.Border.LeftStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label47.Border.RightStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
-            this.label47.Border.TopStyle = DataDynamics.ActiveReports.BorderLineStyle.Solid;
+            this.label47.Border.BottomStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label47.Border.LeftStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label47.Border.RightStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
+            this.label47.Border.TopStyle = GrapeCity.ActiveReports.BorderLineStyle.Solid;
             this.label47.Height = 0.5905516F;
             this.label47.HyperLink = null;
             this.label47.Left = 0.0984252F;
             this.label47.Name = "label47";
             this.label47.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label47.Text = "Butikens signatur *";
-            this.label47.Top = 7.874016F;
+            this.label47.Top = 8.070867F;
             this.label47.Width = 2.952756F;
             // 
             // label48
             // 
-            this.label48.Height = 0.5905512F;
+            this.label48.Height = 0.6889765F;
             this.label48.HyperLink = null;
             this.label48.Left = 3.248032F;
             this.label48.Name = "label48";
             this.label48.Style = "font-size: 5pt; ddo-char-set: 1";
             this.label48.Text = "Butikens stämpel *";
-            this.label48.Top = 7.874016F;
+            this.label48.Top = 8.070867F;
             this.label48.Width = 2.952756F;
             // 
             // groupHeader1
             // 
-            this.groupHeader1.Controls.AddRange(new DataDynamics.ActiveReports.ARControl[] {
+            this.groupHeader1.Controls.AddRange(new GrapeCity.ActiveReports.SectionReportModel.ARControl[] {
             this.lblHeader,
             this.picture1});
             this.groupHeader1.Height = 0.5984251F;
@@ -782,7 +782,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.picture1.ImageData = ((System.IO.Stream)(resources.GetObject("picture1.ImageData")));
             this.picture1.Left = 0.09842521F;
             this.picture1.Name = "picture1";
-            this.picture1.PictureAlignment = DataDynamics.ActiveReports.PictureAlignment.TopLeft;
+            this.picture1.PictureAlignment = GrapeCity.ActiveReports.SectionReportModel.PictureAlignment.TopLeft;
             this.picture1.Top = 0F;
             this.picture1.Width = 2.854331F;
             // 
@@ -864,55 +864,103 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             ((System.ComponentModel.ISupportInitialize)(this.picture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-		}
+        }
 		#endregion
 
-		private DataDynamics.ActiveReports.Label lblHeader;
-		private DataDynamics.ActiveReports.Label lblName;
-		private DataDynamics.ActiveReports.Label lblPersonalNumber;
-		private DataDynamics.ActiveReports.Label lblEmail;
-		private DataDynamics.ActiveReports.Label lblMobilePhone;
-		private DataDynamics.ActiveReports.Label lblTelephone;
-		private DataDynamics.ActiveReports.Label lblAddressRowOne;
-		private DataDynamics.ActiveReports.Label lblAddressRowTwo;
-		private DataDynamics.ActiveReports.Label label9;
-		private DataDynamics.ActiveReports.Label label10;
-		private DataDynamics.ActiveReports.Label label11;
-        private DataDynamics.ActiveReports.Label label12;
-        private DataDynamics.ActiveReports.Label label35;
-		private DataDynamics.ActiveReports.Label label53;
-		private DataDynamics.ActiveReports.Label label55;
-		private DataDynamics.ActiveReports.Label label56;
-		private DataDynamics.ActiveReports.GroupHeader groupHeader1;
-		private DataDynamics.ActiveReports.GroupFooter groupFooter1;
-		private DataDynamics.ActiveReports.Label label1;
-		private DataDynamics.ActiveReports.Label label57;
-		private DataDynamics.ActiveReports.Label label8;
-		private DataDynamics.ActiveReports.Label label58;
-		private DataDynamics.ActiveReports.Label label2;
-		private DataDynamics.ActiveReports.Label label3;
-		private DataDynamics.ActiveReports.Label label59;
-		private DataDynamics.ActiveReports.Label label60;
-		private DataDynamics.ActiveReports.Label label61;
-		private DataDynamics.ActiveReports.Label label62;
-		private DataDynamics.ActiveReports.Label label63;
-		private DataDynamics.ActiveReports.Label label64;
-		private DataDynamics.ActiveReports.Label label66;
-		private DataDynamics.ActiveReports.Label label65;
-		private DataDynamics.ActiveReports.Label label67;
-		private DataDynamics.ActiveReports.Label label68;
-		private DataDynamics.ActiveReports.Label label69;
-		private DataDynamics.ActiveReports.Label label70;
-		private DataDynamics.ActiveReports.Label label71;
-		private DataDynamics.ActiveReports.Label label72;
-		private DataDynamics.ActiveReports.Label label73;
-		private DataDynamics.ActiveReports.Label label54;
-		private DataDynamics.ActiveReports.Label label43;
-		private DataDynamics.ActiveReports.Label label44;
-		private DataDynamics.ActiveReports.Picture picture1;
-		private DataDynamics.ActiveReports.Label label45;
-		private DataDynamics.ActiveReports.Label label46;
-		private DataDynamics.ActiveReports.Label label47;
-		private DataDynamics.ActiveReports.Label label48;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private GrapeCity.ActiveReports.SectionReportModel.Detail detail;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblHeader;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblName;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblPersonalNumber;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblEmail;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblMobilePhone;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblTelephone;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblAddressRowOne;
+        private GrapeCity.ActiveReports.SectionReportModel.Label lblAddressRowTwo;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label9;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label10;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label11;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label12;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label35;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label53;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label55;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label56;
+        private GrapeCity.ActiveReports.SectionReportModel.GroupHeader groupHeader1;
+        private GrapeCity.ActiveReports.SectionReportModel.GroupFooter groupFooter1;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label1;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label57;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label8;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label58;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label2;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label3;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label59;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label60;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label61;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label62;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label63;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label64;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label66;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label65;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label67;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label68;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label69;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label70;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label71;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label72;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label73;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label54;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label43;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label44;
+        private GrapeCity.ActiveReports.SectionReportModel.Picture picture1;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label45;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label46;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label47;
+        private GrapeCity.ActiveReports.SectionReportModel.Label label48;
 	}
 }

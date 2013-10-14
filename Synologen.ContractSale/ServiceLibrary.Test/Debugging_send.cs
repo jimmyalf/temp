@@ -45,6 +45,15 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
             client.SendInvoices(listOfIds, _reportEmail);
         }
 
+        //[Test, Explicit]
+        //public void Send_LIVE_invoices_by_wcf_service()
+        //{
+        //    var client = GetLiveClient();
+        //    var listOfIds = new List<int> { 9210, 9215, 9217, 9231 };
+
+        //    client.SendInvoices(listOfIds, _reportEmail);
+        //}
+
         protected ClientContract GetClient()
         {
             var endpoint = ConfigurationManager.AppSettings["SelectedServiceEndPointName"];
@@ -52,5 +61,13 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
             var password = ConfigurationManager.AppSettings["ClientCredentialPassword"];
             return new ClientContract(endpoint, userName, password);
         }
+
+        //protected ClientContract GetLiveClient()
+        //{
+        //    var endpoint = "liveEncrypted";
+        //    var userName = ConfigurationManager.AppSettings["ClientCredentialUserName"];
+        //    var password = ConfigurationManager.AppSettings["ClientCredentialPassword"];
+        //    return new ClientContract(endpoint, userName, password);
+        //}
     }
 }

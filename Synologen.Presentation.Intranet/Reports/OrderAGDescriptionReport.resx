@@ -117,29 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label64.Text" xml:space="preserve">
-    <value>Autogiro är en betaltjänst som innebär att betalningar utförs från betalarens konto på initiativ av betalningsmottagaren. För att betalaren ska kunna betala via Autogiro, ska betalaren lämna sitt medgivande till betalningsmottagaren om att denne får initiera betalningar från betalarens konto. Dessutom ska betalarens betaltjänstleverantör (t ex bank eller betalningsinstitut) godkänna att kontot kan användas för Autogiro och betalningsmottagaren ska godkänna betalaren som användare av Autogiro. 
-
-Betalarens betaltjänstleverantör är inte skyldig att 
-pröva behörigheten av eller meddela betalaren i förväg om begärda uttag. Uttag belastas betalarens konto enligt de regler som gäller hos betalarens betaltjänstleverantör. Meddelande om uttag får betalaren från sin betaltjänstleverantör. Medgivandet kan på betalarens begäran överflyttas till annat konto hos betaltjänstleverantören eller till konto hos annan betaltjänstleverantör.</value>
+  <data name="label64.Text" xml:space="preserve">&#xD;
+    <value>Autogiro är en betaltjänst som innebär att betalningar utförs från betalarens konto på initiativ av betalningsmottagaren. För att betalaren ska kunna betala via Autogiro, ska betalaren lämna sitt medgivande till betalningsmottagaren om att denne får initiera betalningar från betalarens konto. Dessutom ska betalarens betaltjänstleverantör (t ex bank eller betalningsinstitut) godkänna att kontot kan användas för Autogiro och betalningsmottagaren ska godkänna betalaren som användare av Autogiro. &#xD;
+&#xD;
+Betalarens betaltjänstleverantör är inte skyldig att &#xD;
+pröva behörigheten av eller meddela betalaren i förväg om begärda uttag. Uttag belastas betalarens konto enligt de regler som gäller hos betalarens betaltjänstleverantör. Meddelande om uttag får betalaren från sin betaltjänstleverantör. Medgivandet kan på betalarens begäran överflyttas till annat konto hos betaltjänstleverantören eller till konto hos annan betaltjänstleverantör.</value>&#xD;
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Betalaren får stoppa en betalning genom att kontakta antingen betalningsmottagaren senast två bankdagar före förfallodagen eller sin betaltjänstleverantör senast bank-dagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.
-
-Om betalaren stoppar en betalning enligt ovan innebär det att den aktuella betalningen stoppas vid ett enskilt tillfälle. Om betalaren vill att samtliga framtida betalningar som initieras av betalningsmottagaren ska stoppas måste betalaren återkalla medgivandet.</value>
+  <data name="label2.Text" xml:space="preserve">&#xD;
+    <value>Betalaren får stoppa en betalning genom att kontakta antingen betalningsmottagaren senast två bankdagar före förfallodagen eller sin betaltjänstleverantör senast bank-dagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.&#xD;
+&#xD;
+Om betalaren stoppar en betalning enligt ovan innebär det att den aktuella betalningen stoppas vid ett enskilt tillfälle. Om betalaren vill att samtliga framtida betalningar som initieras av betalningsmottagaren ska stoppas måste betalaren återkalla medgivandet.</value>&#xD;
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Betalaren kommer av betalningsmottagaren att meddelas belopp, förfallodag och betalningssätt senast åtta bankdagar före förfallodagen. Detta kan meddelas inför varje enskild förfallodag eller vid ett tillfälle avseende flera framtida förfallodagar. Om meddelandet avser flera framtida förfallodagar ska meddelandet lämnas senast åtta bankdagar före den första förfallodagen. Detta gäller dock inte fall då betalaren godkänt uttaget i samband med köp eller beställning av vara eller tjänst. I sådant fall får betalaren meddelande av betalningsmottagaren om belopp, förfallodag och betalningssätt i samband med köpet och/eller beställningen. Genom undertecknandet av detta medgivande lämnar betalaren sitt samtycke till att betalningar som omfattas av betalningsmottagarens meddelande enligt denna punkt genomförs.</value>
+  <data name="label6.Text" xml:space="preserve">&#xD;
+    <value>Betalaren kommer av betalningsmottagaren att meddelas belopp, förfallodag och betalningssätt senast åtta bankdagar före förfallodagen. Detta kan meddelas inför varje enskild förfallodag eller vid ett tillfälle avseende flera framtida förfallodagar. Om meddelandet avser flera framtida förfallodagar ska meddelandet lämnas senast åtta bankdagar före den första förfallodagen. Detta gäller dock inte fall då betalaren godkänt uttaget i samband med köp eller beställning av vara eller tjänst. I sådant fall får betalaren meddelande av betalningsmottagaren om belopp, förfallodag och betalningssätt i samband med köpet och/eller beställningen. Genom undertecknandet av detta medgivande lämnar betalaren sitt samtycke till att betalningar som omfattas av betalningsmottagarens meddelande enligt denna punkt genomförs.</value>&#xD;
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Betalaren ska se till att täckning finns på kontot senast kl 00.01 på förfallodagen. Har betalaren inte täckning på kontot på förfallodagen kan det innebära att betalningar inte blir  utförda. Om täckning saknas för betalning på förfallodagen får betalningsmottagaren göra ytterligare uttagsförsök under de kommande bankdagarna. Betalaren kan på begäran få information från betalningsmottagaren om antalet uttagsförsök.</value>
+  <data name="label8.Text" xml:space="preserve">&#xD;
+    <value>Betalaren ska se till att täckning finns på kontot senast kl 00.01 på förfallodagen. Har betalaren inte täckning på kontot på förfallodagen kan det innebära att betalningar inte blir  utförda. Om täckning saknas för betalning på förfallodagen får betalningsmottagaren göra ytterligare uttagsförsök under de kommande bankdagarna. Betalaren kan på begäran få information från betalningsmottagaren om antalet uttagsförsök.</value>&#xD;
   </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Medgivandet gäller tills vidare. Betalaren har rätt att när som helst återkalla medgivandet genom att kontakta betalningsmottagaren eller sin betaltjänstleverantör. Meddelandet om återkallelse av medgivandet ska för att stoppa ännu inte genomförda betalningar vara betalningsmottagaren tillhanda senast fem bankdagar före förfallodagen alternativt vara betalarens betaltjänstleverantör tillhanda senast bankdagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.</value>
+  <data name="label10.Text" xml:space="preserve">&#xD;
+    <value>Medgivandet gäller tills vidare. Betalaren har rätt att när som helst återkalla medgivandet genom att kontakta betalningsmottagaren eller sin betaltjänstleverantör. Meddelandet om återkallelse av medgivandet ska för att stoppa ännu inte genomförda betalningar vara betalningsmottagaren tillhanda senast fem bankdagar före förfallodagen alternativt vara betalarens betaltjänstleverantör tillhanda senast bankdagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.</value>&#xD;
   </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Betalningsmottagaren har rätt att avsluta betalarens anslutning till Autogiro trettio dagar efter det att betalningsmottagaren underrättat betalaren härom. 
-Betalningsmottagaren har dock rätt att omedelbart avsluta betalarens anslutning till Autogiro om betalaren vid upprepade tillfällen inte har haft tillräcklig kontobehållning på förfallodagen eller om det konto som medgivandet avser avslutas eller om betalningsmottagaren bedömer att betalaren av annan anledning inte bör delta i Autogiro. Betalarens betaltjänstleverantör har rätt att avsluta betalarens anslutning till Autogiro i enlighet med de villkor som gäller mellan betalarens betaltjänstleverantör och betalaren.</value>
+  <data name="label12.Text" xml:space="preserve">&#xD;
+    <value>Betalningsmottagaren har rätt att avsluta betalarens anslutning till Autogiro trettio dagar efter det att betalningsmottagaren underrättat betalaren härom. &#xD;
+Betalningsmottagaren har dock rätt att omedelbart avsluta betalarens anslutning till Autogiro om betalaren vid upprepade tillfällen inte har haft tillräcklig kontobehållning på förfallodagen eller om det konto som medgivandet avser avslutas eller om betalningsmottagaren bedömer att betalaren av annan anledning inte bör delta i Autogiro. Betalarens betaltjänstleverantör har rätt att avsluta betalarens anslutning till Autogiro i enlighet med de villkor som gäller mellan betalarens betaltjänstleverantör och betalaren.</value>&#xD;
   </data>
   <metadata name="$this.ScriptEditorPositionForUndo" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>

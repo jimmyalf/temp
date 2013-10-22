@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PaymentOptions.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.PaymentOptions" %>
 <div id="page" class="step4">
 	<header>
-		<h1>Linsabonnemang demo</h1>
+		<h1>Linsabonnemang</h1>
 		<span class="customer-name"><b>Kund:</b> <%#Model.CustomerName %></span>
 	</header>
 	<WpcSynologen:OrderMenu runat="server" />

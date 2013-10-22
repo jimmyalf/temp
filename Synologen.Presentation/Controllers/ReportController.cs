@@ -21,29 +21,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
         public ActionResult InvoiceCopy(int id)
         {
-            Order invoice = _sqlProvider.GetOrder(id);
-            ReportDataSource[] dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
+            var invoice = _sqlProvider.GetOrder(id);
+            var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
             const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.InvoiceCopy.rdlc";
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }
 
-        public ActionResult InvoiceCredit(int id)
+        public ActionResult InvoiceCredit(int id, string creditInvoiceNumber)
         {
-            Order invoice = _sqlProvider.GetOrder(id);
-
-            // Invertera kostnader för att kunna kreditera fakturan
-            foreach (var orderItem in invoice.OrderItems)
-            {
-                orderItem.DisplayTotalPrice *= -1;
-                orderItem.SinglePrice *= -1;
-            }
-
-            invoice.InvoiceSumExcludingVAT *= -1;
-            invoice.InvoiceSumIncludingVAT *= -1;
-
-            ReportDataSource[] dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
+            var invoice = _sqlProvider.GetOrder(id);
+            var dataSources = _invoiceReportViewService.GetCreditInvoiceReportDataSources(invoice, creditInvoiceNumber);
             const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.InvoiceCredit.rdlc";
-            return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
+            return PDFReportInAssemblyOf<InvoiceCreditReport>(EmbeddedReportFullName, dataSources);
         }
 
     }

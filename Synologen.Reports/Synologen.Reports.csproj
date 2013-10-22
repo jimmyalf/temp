@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\InvoiceCopyReport.cs" />
+    <Compile Include="Models\InvoiceCreditReport.cs" />
+    <Compile Include="Models\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

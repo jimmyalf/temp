@@ -18,23 +18,39 @@
 					<%= Html.LabelFor(x => x.VISMAInvoiceNumber)%>
 					<span><%=Html.DisplayFor(x => x.VISMAInvoiceNumber) %></span>
 				</div>
-
-				<div class="formCommands hide-on-print">
+                <%if(Model.DisplayCancelButton){ %>
+                <div class="formCommands">
 					<% using (Html.BeginForm("CancelOrder","ContractSales")) {%>
 						<%=Html.AntiForgeryToken() %>
 						<%=Html.HiddenFor(x => x.Id) %>
-						<a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
-						<span>&nbsp;|&nbsp;</span>
-						<%if(Model.DisplayInvoiceCopyLink){ %>
-							<%=Html.ActionLink("Visa faktura","InvoiceCopy","Report", new { id= Model.Id}, null) %>
-							<%=Html.ActionLink("Visa Kreditfaktura","InvoiceCredit","Report", new { id= Model.Id}, null) %>	
-						<%} %>
-						<span>&nbsp;</span>
-						<%if(Model.DisplayCancelButton){ %>
-							<input class="btnBig confirm-action" type="submit" value="Makulera" title="Makulera fakturan" />
-						<% } %>
-					<% } %>
-				</div>										
+						<input class="btnBig confirm-action" type="submit" value="Makulera" title="Makulera fakturan" />
+					<% } %>                    
+                </div>
+                <% } %>
+
+                <%if(Model.DisplayInvoiceCopyLink){ %>
+                <fieldset class="formCommands">
+                    <legend>Skapa kreditfaktura</legend>
+                    <% using(Html.BeginForm("InvoiceCredit","Report", FormMethod.Get, new{ id = Model.Id })){ %>
+                        <label for="CreditInvoiceNumber">Kreditfakturanummer</label>
+                        <%=Html.Editor("CreditInvoiceNumber") %>
+                        <input type="submit" value="Skapa"/>
+                    <%} %>                 
+                </fieldset>
+                <%} %>
+                
+                <%if(Model.DisplayInvoiceCopyLink){ %>
+                <fieldset class="formCommands">
+                    <legend>Skapa fakturakopia</legend>
+                    <% using(Html.BeginForm("InvoiceCopy","Report", FormMethod.Get, new{ id = Model.Id })){ %>
+                        <input type="submit" value="Skapa"/>
+                    <%} %>                    
+                </fieldset>                
+                <%} %>
+                
+                <div class="formCommands">
+                    <a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
+                </div>								
 			</fieldset>											
 		</div>
 	</div>

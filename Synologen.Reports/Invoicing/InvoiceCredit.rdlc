@@ -6,7 +6,7 @@
         <Source>Embedded</Source>
         <Value>fakturafält</Value>
         <MIMEType>image/png</MIMEType>
-        <Top>0.57937cm</Top>
+        <Top>0.6054cm</Top>
         <Left>7.96164cm</Left>
         <Height>4.2328cm</Height>
         <Width>9.65608cm</Width>
@@ -77,7 +77,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Fakturanummer</Value>
+                              <Value>Krediterar Faktura</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -199,7 +199,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="InvoiceNumber">
+                    <Textbox Name="InvoiceCreditNumber">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -207,7 +207,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=First(Fields!InvoiceNumber.Value, "InvoiceReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>0;(0)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -215,14 +217,17 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>InvoiceNumber</rd:DefaultName>
                       <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
                         <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
                     <ColSpan>4</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -1478,7 +1483,7 @@ Påminnelseavgift 45 kronor.</Value>
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>InvoiceRow</DataSetName>
-        <Top>5cm</Top>
+        <Top>5.02603cm</Top>
         <Height>8.8143cm</Height>
         <Width>17.6cm</Width>
         <ZIndex>1</ZIndex>
@@ -1491,7 +1496,7 @@ Påminnelseavgift 45 kronor.</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kreditfaktura</Value>
+                <Value>=First(Fields!InvoiceHeading.Value, "InvoiceReport")</Value>
                 <Style>
                   <FontSize>14pt</FontSize>
                 </Style>
@@ -1503,9 +1508,12 @@ Påminnelseavgift 45 kronor.</Value>
         <rd:DefaultName>textbox3</rd:DefaultName>
         <Left>8.89418cm</Left>
         <Height>0.63492cm</Height>
-        <Width>4cm</Width>
+        <Width>6cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -1528,7 +1536,7 @@ Påminnelseavgift 45 kronor.</Value>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.75cm</Top>
+        <Top>0.77603cm</Top>
         <Left>8.89418cm</Left>
         <Height>0.25cm</Height>
         <Width>6cm</Width>
@@ -1557,7 +1565,7 @@ Sverige</Value>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>2.385cm</Top>
+        <Top>2.41103cm</Top>
         <Height>2cm</Height>
         <Width>4.25cm</Width>
         <ZIndex>4</ZIndex>
@@ -1573,6 +1581,7 @@ Sverige</Value>
         <Value>logo200</Value>
         <MIMEType>image/png</MIMEType>
         <Sizing>Clip</Sizing>
+        <Top>0.02603cm</Top>
         <Height>2.32cm</Height>
         <Width>6cm</Width>
         <ZIndex>5</ZIndex>
@@ -1597,7 +1606,7 @@ Sverige</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>textbox27</rd:DefaultName>
-        <Top>1.09127cm</Top>
+        <Top>1.13186cm</Top>
         <Left>8.92328cm</Left>
         <Height>2cm</Height>
         <Width>6.86508cm</Width>
@@ -1609,7 +1618,7 @@ Sverige</Value>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>13.81433cm</Height>
+    <Height>13.84036cm</Height>
     <Style />
   </Body>
   <Width>17.61772cm</Width>
@@ -1635,7 +1644,6 @@ Sverige</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>textbox11</rd:DefaultName>
-          <Top>0cm</Top>
           <Height>0.3cm</Height>
           <Width>4cm</Width>
           <Style>
@@ -1686,7 +1694,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>4.44709cm</Left>
           <Height>0.25cm</Height>
           <Width>4cm</Width>
@@ -1842,7 +1849,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>8.77646cm</Left>
           <Height>0.25cm</Height>
           <Width>4cm</Width>
@@ -1946,7 +1952,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>13.25cm</Left>
           <Height>0.25cm</Height>
           <Width>3.75cm</Width>
@@ -1964,7 +1969,7 @@ Strandbergsgatan 61
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>info@synologen.se</Value>
+                  <Value>admin@synologen.se</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -2177,10 +2182,18 @@ Strandbergsgatan 61
           <DataField>InvoiceDueDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="InvoiceHeading">
+          <DataField>InvoiceHeading</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceCreditNumber">
+          <DataField>InvoiceCreditNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceCopyReport, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceCreditReport, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

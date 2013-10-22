@@ -1479,8 +1479,8 @@ Påminnelseavgift 45 kronor.</Value>
         </TablixRowHierarchy>
         <DataSetName>InvoiceRow</DataSetName>
         <Top>5cm</Top>
-        <Height>8.81433cm</Height>
-        <Width>17.59996cm</Width>
+        <Height>8.8143cm</Height>
+        <Width>17.6cm</Width>
         <ZIndex>1</ZIndex>
         <Style />
       </Tablix>
@@ -1635,7 +1635,6 @@ Sverige</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>textbox11</rd:DefaultName>
-          <Top>0cm</Top>
           <Height>0.3cm</Height>
           <Width>4cm</Width>
           <Style>
@@ -1686,7 +1685,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>4.44709cm</Left>
           <Height>0.25cm</Height>
           <Width>4cm</Width>
@@ -1842,7 +1840,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>8.77646cm</Left>
           <Height>0.25cm</Height>
           <Width>4cm</Width>
@@ -1946,7 +1943,6 @@ Strandbergsgatan 61
               <Style />
             </Paragraph>
           </Paragraphs>
-          <Top>0cm</Top>
           <Left>13.25cm</Left>
           <Height>0.25cm</Height>
           <Width>3.75cm</Width>
@@ -1964,7 +1960,7 @@ Strandbergsgatan 61
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>info@synologen.se</Value>
+                  <Value>admin@synologen.se</Value>
                   <Style />
                 </TextRun>
               </TextRuns>

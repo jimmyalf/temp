@@ -17,14 +17,19 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
         public string SearchTerms { get; set; }
         public string OrderBy { get; set; }
         public PagedSortedCriteria PagedSortedCriteria { get; set; }
+        public int? SelectedShop { get; set; }
 
         public override IExtendedEnumerable<Deviation> Execute()
         {
             var result = Session
                 .CreateCriteriaOf<Deviation>();
-
             if (SelectedDeviation.HasValue)
                 return new ExtendedEnumerable<Deviation>(result.FilterEqual(x => x.Id, SelectedDeviation).List<Deviation>());
+
+            if (SelectedShop.HasValue)
+            {
+                result = result.FilterEqual(x => x.ShopId, SelectedShop);
+            }
 
             if (SelectedType.HasValue)
             {

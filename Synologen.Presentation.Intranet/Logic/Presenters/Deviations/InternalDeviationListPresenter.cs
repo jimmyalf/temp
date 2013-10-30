@@ -11,11 +11,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 	public class InternalDeviationListPresenter : DeviationPresenter<IInternalDeviationListView>
 	{
         private readonly IRoutingService _routingService;
+        private readonly ISynologenMemberService _synologenMemberService;
 
-		public InternalDeviationListPresenter(IInternalDeviationListView view, ISession session, IRoutingService routingService) : base(view, session)
+		public InternalDeviationListPresenter(IInternalDeviationListView view, ISession session, IRoutingService routingService, ISynologenMemberService synologenMemberService) : base(view, session)
 		{
 		    _routingService = routingService;
-			View.Load += View_Load;
+		    _synologenMemberService = synologenMemberService;
+		    View.Load += View_Load;
 		}
 
 		public void View_Load(object sender, EventArgs e)
@@ -24,7 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             {
                 View.Model.ViewDeviationUrl = _routingService.GetPageUrl(View.ViewPageId.Value);
             }
-            View.Model.Deviations = Query(new DeviationsQuery { SelectedType = DeviationType.Internal, OrderBy = "CreatedDate"});
+            var shopId = _synologenMemberService.GetCurrentShopId();
+            View.Model.Deviations = Query(new DeviationsQuery { SelectedShop = shopId, SelectedType = DeviationType.Internal, OrderBy = "CreatedDate" });
 		}
 
 		public override void ReleaseView()

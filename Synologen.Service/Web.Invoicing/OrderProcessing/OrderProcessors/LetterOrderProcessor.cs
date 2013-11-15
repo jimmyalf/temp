@@ -31,9 +31,12 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         public override OrderProcessResult Process(IList<IOrder> ordersToProcess)
         {
             var result = new OrderProcessResult();
-            if (!ordersToProcess.Any()) return result;
-            var ftpStatusMessage = SendLetterInvoices(ordersToProcess);
-            result.AddSentOrderRange(ordersToProcess);
+            if (!ordersToProcess.Any())
+            {
+                return result;
+            }
+
+            var ftpStatusMessage = SendLetterInvoices(ordersToProcess, out result);
             foreach (var order in ordersToProcess)
             {
                 UpdateOrderStatus(order.Id);
@@ -48,20 +51,26 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return method == InvoicingMethod.LetterInvoice;
         }
 
-        protected string SendLetterInvoices(IEnumerable<IOrder> orders)
+        protected string SendLetterInvoices(IEnumerable<IOrder> orders, out OrderProcessResult result)
         {
+            result = new OrderProcessResult();
             var invoices = new SFTIInvoiceList { Invoices = new List<SFTIInvoiceType>() };
             foreach (var order in orders)
             {
                 var invoice = _eBrevSvefakturaBuilder.Build(order);
 
-                var ruleViolations = SvefakturaValidator.ValidateObject(invoice).ToList();
+                var ruleViolations = SvefakturaValidator.ValidateInvoice(invoice).ToList();
                 if (ruleViolations.Any())
                 {
-                    throw new WebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
+                    var exceptionMessage = string.Format("Invoice[{0}]/Order[{1}] failed validation: {2}", order.InvoiceNumber, order.Id, SvefakturaValidator.FormatRuleViolations(ruleViolations));
+                    var exception = new WebserviceException(exceptionMessage);
+                    result.AddFailedOrderId(order.Id, exception);
                 }
-                 
-                invoices.Invoices.Add(invoice);
+                else
+                {
+                    invoices.Invoices.Add(invoice);
+                    result.AddSentOrderId(order.Id);
+                }
             }
 
             var encoding = OrderProcessConfiguration.FTPCustomEncodingCodePage;

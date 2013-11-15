@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             {
                 OrderReference = new SFTIOrderReferenceType
                 {
-                    BuyersID = GetIdentifier(order.CustomerOrderNumber)
+                    BuyersID = GetIdentifier(order.CustomerOrderNumber, NoOpFormatter)
                 }
             };
         }

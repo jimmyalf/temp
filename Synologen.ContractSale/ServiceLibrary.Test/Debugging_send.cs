@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Data;
 using Synologen.Service.Client.Invoicing.App;
-using Synologen.Service.Web.Invoicing;
 
 namespace Spinit.Wpc.Synologen.Integration.Services.Test
 {
@@ -50,6 +47,15 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         //{
         //    var client = GetLiveClient();
         //    var listOfIds = new List<int> { 9210, 9215, 9217, 9231 };
+
+        //    client.SendInvoices(listOfIds, _reportEmail);
+        //}
+
+        //[Test, Explicit]
+        //public void Send_Problematic_invoices_by_wcf_service()
+        //{
+        //    var client = GetClient();
+        //    var listOfIds = new List<int> { 9567, 9571, 9572, 9574, 9575, 9576, 9577, 9579, 9580, 9581, 9582, 9583, 9584, 9585, 9586, 9587, 9588, 9589, 9590, 9591, 9592, 9593, 9594, 9596, 9597, 9598, 9599, 9600, 9601, 9602, 9605, 9606, 9607 };
 
         //    client.SendInvoices(listOfIds, _reportEmail);
         //}

@@ -116,10 +116,10 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             return new T { Value = value, amountCurrencyID = "SEK" };
         }
 
-        protected virtual IdentifierType GetIdentifier(string value)
-        {
-            return GetIdentifier(value, Formatter.FormatTaxAccountingCode);
-        }
+        //protected virtual IdentifierType GetIdentifier(string value)
+        //{
+        //    return GetIdentifier(value, Formatter.FormatTaxAccountingCode);
+        //}
 
 
         protected virtual IdentifierType GetIdentifier(string value, Func<string, string> formatterFunction)
@@ -147,6 +147,11 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                 .Fill(x => x.Telefax).Using(x => x.With(a => a.Telefax).Return(a => a.Value, null), Formatter.FormatPhoneNumber)
                 .Fill(x => x.Telephone).Using(x => x.With(a => a.Telephone).Return(a => a.Value, null), Formatter.FormatPhoneNumber)
                 .GetEntity();
+        }
+
+        protected string NoOpFormatter(string input)
+        {
+            return input;
         }
     }
 }

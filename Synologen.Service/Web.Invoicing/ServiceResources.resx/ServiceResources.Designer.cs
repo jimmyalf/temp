@@ -62,7 +62,7 @@ namespace Synologen.Service.Web.Invoicing.ServiceResources.resx {
         
         /// <summary>
         ///   Looks up a localized string similar to Fakturor som skickades {Sent-Invoices}
-        ///Fakturor som inte kunde skickadas {Not-Sent-Invoices}.
+        ///Fakturor som inte kunde skickas {Not-Sent-Invoices}.
         /// </summary>
         internal static string BatchInvoiceFailureEmailBody {
             get {

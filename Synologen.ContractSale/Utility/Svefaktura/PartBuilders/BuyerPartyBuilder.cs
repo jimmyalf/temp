@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Types;
@@ -44,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             {
                 yield return new SFTIPartyTaxSchemeType
                 {
-                    CompanyID = GetIdentifier(company.TaxAccountingCode),
+                    CompanyID = GetIdentifier(company.TaxAccountingCode, Formatter.FormatTaxAccountingCode),
                     RegistrationName = new RegistrationNameType { Value = company.InvoiceCompanyName },
                     RegistrationAddress = Build<SFTIAddressType>().With(company)
                         .Fill(x => x.CityName).Using(x => x.City)
@@ -61,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             {
                 yield return new SFTIPartyTaxSchemeType
                 {
-                    CompanyID = GetIdentifier(company.OrganizationNumber),
+                    CompanyID = GetIdentifier(company.OrganizationNumber, Formatter.FormatOrganizationNumber),
                     RegistrationAddress = Build<SFTIAddressType>().With(company)
                         .Fill(x => x.CityName).Using(x => x.City)
                         .FillEntity(x => x.Country).Using(GetCountry(company.Country))

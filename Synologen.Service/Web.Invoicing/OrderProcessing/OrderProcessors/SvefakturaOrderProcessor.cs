@@ -64,7 +64,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         {
             var invoice = SvefakturaBuilder.Build(order);
 
-            var ruleViolations = SvefakturaValidator.ValidateObject(invoice).ToList();
+            var ruleViolations = SvefakturaValidator.ValidateInvoice(invoice).ToList();
             if (ruleViolations.Any())
             {
                 throw new WebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));

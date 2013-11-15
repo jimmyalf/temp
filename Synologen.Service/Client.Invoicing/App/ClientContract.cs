@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 namespace Synologen.Service.Client.Invoicing.App {
 	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService
 	{
-		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 10, 0);
+		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 20, 0);
 
 		/// <summary>
 		/// Default Constructor attempts to use config-definded service endpoint.

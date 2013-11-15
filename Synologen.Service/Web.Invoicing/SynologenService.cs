@@ -186,10 +186,9 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			finally
 			{
-			    var sentOrderIds = results.GetSentOrderIds();
-				SendStatusReportAfterBatchInvoice(orderIds, sentOrderIds, reportEmailAddress);
+                SendStatusReportAfterBatchInvoice(results.Merge(), reportEmailAddress);
 				var invoiceDateTime = GetDateTime();
-			    foreach (var orderId in sentOrderIds)
+			    foreach (var orderId in results.GetSentOrderIds())
 			    {
                     _provider.SetOrderInvoiceDate(orderId, invoiceDateTime);
 			    }

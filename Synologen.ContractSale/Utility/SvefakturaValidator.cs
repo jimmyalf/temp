@@ -20,7 +20,12 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		    return string.IsNullOrEmpty(returnString) ? null : returnString.TrimEnd(new[] { '\r', '\n' });
 		}
 
-	    public static IEnumerable<RuleViolation> ValidateObject(object value)
+        public static IEnumerable<RuleViolation> ValidateInvoice(SFTIInvoiceType invoice)
+        {
+            return ValidateObject(invoice, "Invoice");
+        }
+
+	    public static IEnumerable<RuleViolation> ValidateObject(object value, string path = "Unknown")
 	    {
 	        if (value == null || value.GetType().IsSealed)
 	        {
@@ -36,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
             { 
                 // Iterate each property in value object
 				var propertyValue = propertyInfo.GetValue(value, null);
-				foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) 
+				foreach(var ruleViolation in GetRuleViolations(path, propertyValue, propertyInfo)) 
                 { 
                     // Get violations for property value
 					yield return ruleViolation;
@@ -50,23 +55,26 @@ namespace Spinit.Wpc.Synologen.Invoicing
                 if (propertyValue is IEnumerable)
                 {
                     // If property is Enumerable recursively call method for each item
+                    var count = 0;
                     foreach (var item in propertyValue as IEnumerable)
                     {
-						foreach (var ruleViolation in ValidateObject(item))
+						foreach (var ruleViolation in ValidateObject(item, path + "." + propertyInfo.Name + "[" + count + "]"))
 						{
 						    yield return ruleViolation;
 						}
-					}
+                        count++;
+                    }
 				}
 				else
                 {
-                    foreach (var ruleViolation in ValidateObject(propertyValue))
+                    foreach (var ruleViolation in ValidateObject(propertyValue, path + "." + propertyInfo.Name))
                     {
                         yield return ruleViolation;
 					}
 				}
 			}
 	    }
+
 
 		#region Control Calculations
 		private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
@@ -289,36 +297,36 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		#endregion
 
 		#region Helper Methods
-		private static IEnumerable<RuleViolation> GetRuleViolations(string parentObjectname, object propertyValue, MemberInfo propertyInfo) {
+		private static IEnumerable<RuleViolation> GetRuleViolations(string path, object propertyValue, MemberInfo propertyInfo) {
 			var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);
 			foreach (PropertyValidationRule validationType in properties) { 
 				if(IsNull(propertyValue) && validationType.ValidationType == ValidationType.RequiredNotNull) {
-					yield return new RuleViolation(validationType, string.Concat(parentObjectname,'.',propertyInfo.Name));
+					yield return new RuleViolation(validationType, string.Concat(path,'.',propertyInfo.Name));
 				}
-				foreach(var ruleViolation in GetRuleViolationsForIEnumerables(parentObjectname, propertyInfo, propertyValue, validationType)){
+				foreach(var ruleViolation in GetRuleViolationsForIEnumerables(path, propertyInfo, propertyValue, validationType)){
 					yield return ruleViolation;
 				}
 			}
 			yield break;
 		}
 
-		private static IEnumerable<RuleViolation> GetRuleViolationsForIEnumerables(string parentObjectName, MemberInfo propertyInfo, object propertyValue, PropertyValidationRule validationType) {
+		private static IEnumerable<RuleViolation> GetRuleViolationsForIEnumerables(string path, MemberInfo propertyInfo, object propertyValue, PropertyValidationRule validationType) {
 			if(validationType == null || propertyValue == null || !(propertyValue is IEnumerable)) yield break;
 			switch (validationType.ValidationType){
 				case ValidationType.CollectionHasMinimumCountRequirement:
 					if(Count(propertyValue as IEnumerable) < validationType.MinNumberOfItemsInEnumerable.GetValueOrDefault(0)){
-						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(path,'.',propertyInfo.Name));
 					}
 					break;
 				case ValidationType.CollectionHasMaximumCountRequirement:
 					if(Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue)){
-						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(path,'.',propertyInfo.Name));
 					}
 					break;
 				case ValidationType.CollectionHasMinumumAndMaximumCountRequirement:
 					if(Count(propertyValue as IEnumerable) < validationType.MinNumberOfItemsInEnumerable.GetValueOrDefault(0) 
 					   || Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue) ){
-						yield return new RuleViolation(validationType, string.Concat(parentObjectName,'.',propertyInfo.Name));
+						yield return new RuleViolation(validationType, string.Concat(path,'.',propertyInfo.Name));
 					}
 					break;
 				default:

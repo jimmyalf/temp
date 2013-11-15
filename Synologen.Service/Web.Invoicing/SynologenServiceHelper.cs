@@ -5,6 +5,7 @@ using System.Net.Mail;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Extensions;
+using Synologen.Service.Web.Invoicing.OrderProcessing;
 
 namespace Synologen.Service.Web.Invoicing
 {
@@ -82,34 +83,33 @@ namespace Synologen.Service.Web.Invoicing
         //    return UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
         //}
 
-		private void SendStatusReportAfterBatchInvoice(IEnumerable<int> orderIds, IEnumerable<int> sentOrderIds, string reportToEmail)
+		private void SendStatusReportAfterBatchInvoice(OrderProcessResult result, string reportToEmail)
         {
 			try
             {
-				var orderIdsNotSent = orderIds.Except(sentOrderIds);
-				if(orderIdsNotSent != null && orderIdsNotSent.Count()>0)
+                if (result.FailedOrders.Any())
                 {
-					var subject = ServiceResources.resx.ServiceResources.BatchInvoiceFailureEmailSubject.Replace("{Date-Time}",DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
+					var subject = ServiceResources.resx.ServiceResources.BatchInvoiceFailureEmailSubject.Replace("{Date-Time}", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
 					var body = ServiceResources.resx.ServiceResources.BatchInvoiceFailureEmailBody
-						.Replace("{Sent-Invoices}", sentOrderIds.ToFormattedString(", "))
-						.Replace("{Not-Sent-Invoices}", orderIdsNotSent.ToFormattedString(", "));
+						.Replace("{Sent-Invoices}", result.SentOrdersIds.ToFormattedString(", "))
+						.Replace("{Not-Sent-Invoices}", result.FailedOrders.Select(x => x.OrderId).ToFormattedString(", "));
+                    TrySendErrorEmail(result.GetErrorDetails("\r\n\r\n"));
 					SendEmail(_config.ErrorEmailSenderAddress, _config.AdminEmail, subject, body);
-					SendEmail(_config.ErrorEmailSenderAddress, reportToEmail, subject, body);
-				}
+                    SendEmail(_config.ErrorEmailSenderAddress, reportToEmail, subject, body);
+                }
 				else
                 {
 					var subject = ServiceResources.resx.ServiceResources.BatchInvoiceSuccessEmailSubject.Replace("{Date-Time}",DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
 					var body = ServiceResources.resx.ServiceResources.BatchInvoiceSuccessEmailBody
-						.Replace("{Sent-Invoices}", sentOrderIds.ToFormattedString(", "));
+						.Replace("{Sent-Invoices}", result.SentOrdersIds.ToFormattedString(", "));
 					SendEmail(_config.StatusEmailSenderAddress, _config.AdminEmail, subject, body);
 					SendEmail(_config.StatusEmailSenderAddress, reportToEmail, subject, body);
 				}
 			}
 			catch
-            {
-				var errorMessage = string.Format(
-					"Encountered error while sending batch invoice status report\r\nOrders not sent: {0}",
-                    orderIds.Except(sentOrderIds));
+			{
+			    var notSentOrders = result.FailedOrders.Select(x => x.OrderId);
+				var errorMessage = string.Format("Encountered error while sending batch invoice status report\r\nOrders not sent: {0}", notSentOrders);
 				TryLogErrorAndSendEmail(errorMessage);
 			}
 		}

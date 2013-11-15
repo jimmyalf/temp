@@ -49,6 +49,25 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
                 SentOrdersIds = sentOrderIds
             };
         }
+
+        public void Merge(OrderProcessResult result)
+        {
+            foreach (var failedOrder in result.FailedOrders)
+            {
+                FailedOrders.Add(failedOrder);
+            }
+
+            foreach (var sentOrdersId in result.SentOrdersIds)
+            {
+                SentOrdersIds.Add(sentOrdersId);
+            }
+        }
+
+        public string GetErrorDetails(string separator)
+        {
+            var errors = FailedOrders.Select(x => x.Exception.ToString());
+            return string.Join(separator, errors);
+        }
     }
 
     public class OrderProcessResultList
@@ -68,6 +87,17 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
         public IList<int> GetSentOrderIds()
         {
             return Results.Aggregate((a, b) => a + b).SentOrdersIds;
+        }
+
+        public OrderProcessResult Merge()
+        {
+            var output = new OrderProcessResult();
+            foreach (var result in Results)
+            {
+                output.Merge(result);
+            }
+
+            return output;
         }
     }
 

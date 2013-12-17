@@ -4,9 +4,11 @@
 <div class="opq-nodes">
     <asp:RadioButtonList runat="server" ID="rblNodes" />
 </div>
-<div class="opq-users">
-    <asp:DropDownList ID="drpUsers" runat="server"/>
-</div>
-<div class="netcompetence-btn">
-    <asp:Button ID="btnNavigateToNetCompetence" OnClick="BtnNavigateToNetCompetenceClick" runat="server" OnLoad="BtnLoad" />
+<div class="opq-row">
+	<div class="opq-users">
+	    <asp:DropDownList ID="drpUsers" runat="server"/>
+	</div>
+	<div class="netcompetence-btn">
+	    <asp:Button ID="btnNavigateToNetCompetence" OnClick="BtnNavigateToNetCompetenceClick" runat="server" OnLoad="BtnLoad" />
+	</div>
 </div>

@@ -119,7 +119,11 @@
     <Content Include="Wpc\Synologen\OpqSubPage.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Config\NodeComponent.cs" />
+    <Compile Include="Code\Config\NodeComponents.cs" />
+    <Compile Include="Code\Config\OPQConfigurationElementCollection.cs" />
     <Compile Include="Code\Enumerations.cs" />
+    <Compile Include="Code\Config\OPQConfigurationSection.cs" />
     <Compile Include="Code\OpqControlPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

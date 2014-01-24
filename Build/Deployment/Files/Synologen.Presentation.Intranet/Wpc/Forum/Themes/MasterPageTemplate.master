@@ -1,0 +1,5 @@
+<%@ Master Language="C#" MasterPageFile="~/commontemplates/Content/Forum Template_245.master" Inherits="Spinit.Wpc.Content.Presentation.Site.Code.PageControl" AutoEventWireup="true" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+</asp:contentplaceholder>
+</asp:Content>

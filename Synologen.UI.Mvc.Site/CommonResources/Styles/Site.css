@@ -1,0 +1,160 @@
+﻿/*---------------------------
+    WYSIWYG settings
+----------------------------*/
+body.RadEContent, body.RadEContentBordered {font-size:62.5% !important; background:#fff !important}
+body.RadEContentBordered #content-main, body.RadEContentBordered #content-secondary, body.RadEContentBordered #content-ternary { position:static !important; width:90%; padding:5%; border:1px dotted black; }
+body.RadEContentBordered #content-main { margin:0 !important; }
+
+/*---------------------------
+    Reset styles
+----------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+/* remember to define focus styles! */
+:focus {outline: 0;}
+/* remember to highlight inserts somehow! */
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+/* tables still need 'cellspacing="0"' in the markup */
+table {border-collapse: collapse; border-spacing: 0;}
+    
+/*---------------------------
+    General settings
+----------------------------*/
+body { color:#000; background:#fff url(/commonresources/templates/images/content-bg.gif); font:62.5%/1.5 arial, georgia, verdana, sans-serif;  }
+    
+/* Headings */
+h1, h2, h3, h4, h5, h6 {margin:1em 0 .5em 0; line-height:1.2; color:#333; font-family: arial, sans-serif; }
+h1 {font-size:1.8em; margin-top:0}
+h2 {font-size:1.5em; }
+h3 {font-size:1.3em; }
+h4 {font-size:1.1em; margin:0; }
+#secondary-content h2 {font-size:1.5em; border-bottom: .4em solid #a3b224; margin:1em -1.25em; padding:0 1.25em .5em 1.25em; margin-top:0;}
+#secondary-content h3 {font-size:1.1em; border-bottom: .2em solid #a3b224}
+
+/* Links */
+#content a:link {color:#69731C; text-decoration: none; }
+#content a:visited {color:#69731C; text-decoration: none; }
+#content a:hover {color:#000; }
+#content a:active {color:#69731C; text-decoration: none; }
+#content a:focus {color:#69731C; text-decoration: none; }
+
+/* Paragraphs */
+p {margin-bottom:1em;}
+pre, code {font-family: Consolas, "Courier New", Courier, Monospace;}
+code {display: block; overflow: auto; font-size: 1.1em; font-weight: bold; clear: both; margin: 1em 20px; padding: 10px 20px; background: #f6f6f6; border: 1px dashed #ccc; word-wrap: break-word;}
+
+/* Lists */
+ul ul {padding-left: 2em;}
+
+/* Tables */
+table {border:1px solid #848C44; width:100%; border-collapse:collapse; margin-bottom:1em; }
+td,
+th {padding:.7em; border:1px solid #848C44; vertical-align:top;}
+th {background:#A3B224; color:#fff; text-transform:uppercase; border-color:#828c44; text-align:left; font-weight:bold;}
+tr {background-color:#fff;}
+tr.odd {background-color:#EBEFC6;}
+
+/* Form */
+label {display: block;}
+
+/* general purpose classes */    
+.structural {position:absolute; left:-999em;}
+.date {color:#000000; font-size:10px; margin-bottom:0.5em; padding:0pt;}
+
+/* ------------------
+    Page structure
+--------------------*/
+#wrap {min-height:100%;margin:0pt; padding:0pt; width:100%;}
+#wrap:after {clear:both;content:".";display:block;visibility:hidden;}
+
+/* Header section */
+#head {background:#fff url(/commonresources/templates/images/head-gradient-bg.gif) repeat-x; height:1%; margin: 0 auto; overflow: hidden;}
+
+#skip {list-style:none; margin:0; position:absolute; top:0px; left:0; width:100%; text-indent:-999em}
+#skip a:link {position:absolute; top:-999em;}
+#skip a:focus,
+#skip-links a:active {text-indent:0; position:absolute; top:0; left:0; display:block; height:auto; width:auto; border:1px solid #aec3af; background: #fff; color: #000; padding:.5em;}
+
+#branding {float:left; width:475px; background:url(/commonresources/templates/images/dyra-prylar-billigt.gif) no-repeat right top; padding:2em 0 2em 2em }
+#branding blockquote {position:absolute; left:-999em;}
+#site-functions {position:absolute; right:2em; top:2em; width:35em}
+
+#site-functions ul {margin:0; list-style:none; text-align:right;}
+#site-functions ul li {display:inline;}
+#site-functions ul a {color:#000; text-decoration:none; font-size:1.2em; border-right:1px solid #cccc99; padding:0 .7em;}
+#site-functions ul li:last-child a {border-right:0;}
+
+#search {clear:left; margin-top:1em; text-align:right;}
+#search .search-label{display:none;}
+#search .ac_input,
+#search input[type="text"] {background:#fff url(/commonresources/templates/images/search-terms-bg.gif) no-repeat left top; border:none; padding-left:30px; padding:6px 15px 5px 30px; width:155px }
+#search input[type="submit"] {width:40px; height:26px; font-size:1.2em; font-weight:bold; margin-left:5px; background:#666 url(/commonresources/templates/images/search-btn.gif) top left no-repeat fixed; border:none; color:#fff; text-transform:uppercase; }
+#search label {position: absolute; left: -9999px; top: -9999px;}
+#search .form-item,
+#search .form-actions {display: inline;}
+
+/* Site navigation */
+#navigation ul {overflow: hidden;}
+#main-navigation,
+#sub-navigation {width:100%; list-style:none outside; margin:0; background:#a3b224; padding: 0; clear:both}
+#main-navigation ul,
+#sub-navigation ul  {margin: 0}
+#main-navigation li,
+#sub-navigation li {float:left;}
+#main-navigation li:first-child,
+#sub-navigation li:first-child {margin-left:1em;}
+#main-navigation a,
+#sub-navigation a {float:left; padding:.7em; text-decoration:none; display:block; font:bold 1.3em "century gothic", arial, sans-serif; color:#fff; text-transform:uppercase; border-top:1px solid #a3b224; border-left:1px solid #a3b224; border-right:1px solid #a3b224; }
+#main-navigation li.selected a,
+#main-navigation a:hover,
+#main-navigation a:active,
+#main-navigation a:focus {border-top:1px solid #7fa036; border-left:1px solid #7fa036; border-right:1px solid #7fa036; color:#000; background:#DEE3B0}
+#sub-navigation {background:#dee3b0;}
+#sub-navigation a {color:#7fa036; font-size:1.1em; border: none; }
+#sub-navigation li.selected a,
+#sub-navigation a:hover,
+#sub-navigation a:active,
+#sub a:focus {color:#000;}
+
+/* Content sections */
+#content {position:relative; background: #fff; width:900px; border: #c6c298 2px solid; padding: 20px; margin: 0 auto; height: 1%; margin-top: 20px; overflow: hidden;}
+#main-content {float: left; width: 670px; font-size:1.2em; color:#333;}
+#secondary-content {float: right; width: 150px; font-size:1.2em; color:#333; margin: 0 20px;}
+#secondary-content a {display:block; margin-bottom:20px; text-align:right;}
+
+/* Footer */
+#footer {text-align:center;}
+#footer a {color: #000;}
+
+/* ------------------
+    Component specific
+--------------------*/
+#sitemap ul {list-style: square outside; padding-left: 2em;}
+#sitemap ul ul {list-style: disc outside;}
+#sitemap ul ul ul {list-style: circle outside;}
+
+.newsContainer {margin-bottom: 1em;}
+.newsContainer li span {display: block;}
+.newsContainer li,
+.news-list li {margin-bottom: 2em;}
+#secondary-content .newsContainer {float:none !important;margin-bottom: 2em; padding: .5em; border:1px dashed #CCCCCC;}
+#secondary-content .news-list a {margin-bottom: 0; text-align: left;}
+
+/* ------------------
+    Hacks
+--------------------*/
+* {margin:0; padding:0;}
+#site-features {height:1%}
+* html #search #search-terms {margin-top:-1px}
+tr.odd td {background-color:#EBEFC6;}

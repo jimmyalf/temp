@@ -66,19 +66,24 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 
         private void FillUsers()
         {
-            if ((MemberShopId != null) && (MemberShopId > 0))
+            if (MemberShopId == null)
             {
-                DataSet ds = Provider.GetSynologenMembers(0, (int)MemberShopId, 0, null);
+                return;
+            }
 
-                if ((ds != null) && (ds.Tables.Count > 0) && (ds.Tables[0].Rows != null) && (ds.Tables[0].Rows.Count > 0))
+            if (!(MemberShopId > 0))
+            {
+                return;
+            }
+
+            var ds = Provider.GetSynologenMembers(0, (int)MemberShopId, 0, null);
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dataRow in ds.Tables[0].Rows)
                 {
-                    foreach (DataRow dataRow in ds.Tables[0].Rows)
-                    {
-                        drpUsers.Items.Add(
-                            new ListItem(
-                                string.Format("{0} {1}", Util.CheckNullString(dataRow, "cContactFirst"), Util.CheckNullString(dataRow, "cContactLast")),
-                                Util.CheckNullString(dataRow, "cEmail")));
-                    }
+                    var user = Provider.GetUserRow(Util.CheckNullInt(dataRow, "cId"));
+                    var text = string.Format("{0} {1}", Util.CheckNullString(dataRow, "cContactFirst"), Util.CheckNullString(dataRow, "cContactLast"));
+                    drpUsers.Items.Add(new ListItem(text, user.UserName));
                 }
             }
         }
@@ -92,17 +97,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
         {
             try
             {
-                string userName = null;
+                string id = null;
                 if (Configuration.NetCompetenceDebug)
                 {
-                    userName = "andreas.jilvero@spinit.se";
+                    id = "andreas.jilvero@spinit.se";
                 }
                 else if (drpUsers.SelectedItem != null)
                 {
-                    userName = drpUsers.SelectedItem.Value;
+                    id = drpUsers.SelectedItem.Value;
                 }
 
-                if (string.IsNullOrEmpty(userName))
+                if (string.IsNullOrEmpty(id))
                 {
                     ShowNegativeFeedBack(userMessageManager, Configuration.NetCompetenceDebug ? "ErrorNoUserName" : "ErrorConnect");
                     return;
@@ -120,19 +125,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
                     return;
                 }
 
-                string plainData = string.Format("{0}|{1}", userName, DateTime.UtcNow);
-
-                if (!string.IsNullOrEmpty(Configuration.NetCompetenceReturnPage))
-                {
-                    //plainData += string.Format ("|{0}", Configuration.NetCompetenceReturnPage);
-                }
-
                 var cryptoUtil = new CryptoUtil();
                 var selectedNode = !string.IsNullOrEmpty(rblNodes.SelectedValue) ? string.Format("&nodeID={0}", rblNodes.SelectedValue) : string.Empty;
-                var encryptedData = cryptoUtil.EncryptData(Configuration.NetCompetenceEncryptionKey, plainData);
-                encryptedData = Server.UrlEncode(encryptedData);
-
-                string url = string.Format("{0}?login=true&AuthenticationType=SingleSignOn&EncryptedData={1}{2}", Configuration.NetCompetenceNtsLoginUrl, encryptedData, selectedNode);
+                var plainData = string.Format("{0}|{1}|{2}", id, DateTime.UtcNow, "ActivityOverview");
+                var encryptedData = Server.UrlEncode(cryptoUtil.EncryptData(Configuration.NetCompetenceEncryptionKey, plainData));
+                var url = string.Format("{0}?login=true&AuthenticationType=SingleSignOn&EncryptedData={1}{2}", Configuration.NetCompetenceNtsLoginUrl, encryptedData, selectedNode);
 
                 /*if (Configuration.NetCompetenceDebug) {
                     ShowPositiveFeedBack (userMessageManager, "ShowLink", string.Format("{0}, User: {1}", url, userName));

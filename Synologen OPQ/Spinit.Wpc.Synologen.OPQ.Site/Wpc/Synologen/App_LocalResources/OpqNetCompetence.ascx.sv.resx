@@ -136,7 +136,7 @@
     <value>Exception i sänd "{0}".</value>
   </data>
   <data name="GoToNetCompetence" xml:space="preserve">
-    <value>Gå till kunskapstestet</value>
+    <value>Gå till valt test</value>
   </data>
   <data name="Header" xml:space="preserve">
     <value>Anslut till Optikbranschens kunskapstest</value>

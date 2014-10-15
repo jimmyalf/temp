@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationSettings\WebServiceConfiguration.cs" />
     <Compile Include="OrderProcessing\OrderProcessorFactory.cs" />
+    <Compile Include="OrderProcessing\OrderProcessors\NoOpProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\EdiOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\IOrderProcessConfiguration.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\IOrderProcessor.cs" />

@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 
         public Debugging_send()
         {
-            _reportEmail = "carl.berg@spinit.se";
+            _reportEmail = "sebastian.applerolsson@spinit.se";
         }
 
         [Test, Explicit]

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{212CD321-45AD-4E8F-A79D-79E9FEFCCD0A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Synologen.Maintenance.MigrateSubscriptionAmounts</RootNamespace>
+    <AssemblyName>Synologen.Maintenance.MigrateSubscriptionAmounts</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectConfigFileName>App.config</ProjectConfigFileName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.1.0.6.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.Data.1.0.4.0\lib\net35\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\Factory.cs" />
+    <Compile Include="Domain\Migrator.cs" />
+    <Compile Include="Domain\Model\IMigratedResult.cs" />
+    <Compile Include="Domain\Model\Order.cs" />
+    <Compile Include="Domain\Model\OrderMigratedSuccessfullyResult.cs" />
+    <Compile Include="Domain\Model\OrderMigrationFailedResult.cs" />
+    <Compile Include="Domain\Model\SubscriptionAmount.cs" />
+    <Compile Include="Domain\Model\SubscriptionItem.cs" />
+    <Compile Include="Domain\Model\Transaction.cs" />
+    <Compile Include="Domain\Model\PendingPayment.cs" />
+    <Compile Include="Domain\Model\Enums\TransactionReason.cs" />
+    <Compile Include="Domain\Model\Enums\TransactionType.cs" />
+    <Compile Include="Persistence\Queries\FetchSubscriptionItemMatchingOrderQuery.cs" />
+    <Compile Include="Persistence\Commands\MigrateOrderCommand.cs" />
+    <Compile Include="Persistence\Data.cs" />
+    <Compile Include="Persistence\PersistenceBase.cs" />
+    <Compile Include="Persistence\Queries\FetchActiveOrdersQuery.cs" />
+    <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
+    <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
+    <Compile Include="Persistence\Queries\FetchPendingPayments.cs" />
+    <Compile Include="Persistence\Queries\FetchSubscriptionItemsInPendingPayment.cs" />
+    <Compile Include="Persistence\Queries\FetchTransactionMatchingOrderQuery.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.cber.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.rbro.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <TransformXml Source="App.config" Transform="App.$(USERNAME).config" Destination="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" />
+  </Target>
+</Project>

@@ -7,7 +7,9 @@ using Spinit.Wpc.Utility.Business.SmartMenu;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
-	public partial class EditContract : SynologenPage {
+    using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+
+    public partial class EditContract : SynologenPage {
 		private int _contractCustomerId;
 
 
@@ -45,7 +47,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			Provider.AddUpdateDeleteContract(action, ref contract);
 			ConnectToAllMainShops(contract.Id);
-			Response.Redirect(ComponentPages.Contracts, true);
+		    
+            if (chkIsNoOp.Checked)
+		    {
+                Provider.SetInvoiceMethodForContractCompanies(contract.Id, InvoicingMethod.NoOp);
+		    }
+			
+            Response.Redirect(ComponentPages.Contracts, true);
 		}
 
 		private void ConnectToAllMainShops(int contractCustomerId) {

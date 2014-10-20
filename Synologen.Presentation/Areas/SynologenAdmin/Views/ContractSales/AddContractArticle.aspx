@@ -34,10 +34,20 @@
 						<%= Html.EditorFor(x => x.AllowCustomPricing) %>
 						<%= Html.ValidationMessageFor(x => x.AllowCustomPricing) %>
 					</p>
+                    <p class="formItem">
+						<%= Html.LabelFor(x => x.CustomerArticelId) %>
+						<%= Html.EditorFor(x => x.CustomerArticelId) %>
+						<%= Html.ValidationMessageFor(x => x.CustomerArticelId) %>
+					</p>
 					<p class="formItem clearLeft">
 						<%= Html.LabelFor(x => x.IsVATFreeArticle) %>
 						<%= Html.EditorFor(x => x.IsVATFreeArticle) %>
 						<%= Html.ValidationMessageFor(x => x.IsVATFreeArticle) %>
+					</p>
+                    <p class="formItem">
+						<%= Html.LabelFor(x => x.DiscountId) %>
+						<%= Html.EditorFor(x => x.DiscountId) %>
+						<%= Html.ValidationMessageFor(x => x.DiscountId) %>
 					</p>
 					<p class="formCommands">
 						<%= Html.AntiForgeryToken() %>

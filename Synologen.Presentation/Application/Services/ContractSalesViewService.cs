@@ -130,7 +130,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				ContractName = contract.Name,
 				Articles = articleSelectList,
                 IsActive = true,
-                ContractArticleListUrl = GetContractArticleRoute(contractId)
+                ContractArticleListUrl = GetContractArticleRoute(contractId),
 			};
 		}
 
@@ -148,7 +148,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				PriceWithoutVAT = contractArticle.Price.ToString(),
 				SPCSAccountNumber = contractArticle.SPCSAccountNumber,
                 ArticleName = contractArticle.ArticleName,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
+                CustomerArticelId = contractArticle.CustomerArticleId > 0 ? contractArticle.CustomerArticleId.ToString() : string.Empty,
+                DiscountId = contractArticle.DiscountId > 0 ? contractArticle.DiscountId.ToString() : string.Empty,
 			};
 		}
 
@@ -169,7 +171,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,
                 ArticleId = contractArticleView.ArticleId,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
 			};
 		}
 
@@ -187,7 +189,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,   
 				ArticleName = contractArticle.ArticleName,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
+                CustomerArticelId = contractArticleView.CustomerArticelId,
+                DiscountId = contractArticleView.DiscountId,
 			};
 		}
 
@@ -203,6 +207,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = addContractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(addContractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = addContractArticleView.SPCSAccountNumber,
+                CustomerArticleId = Convert.ToInt32(addContractArticleView.CustomerArticelId),
+				DiscountId = Convert.ToInt32(addContractArticleView.DiscountId),
 			};
 		}
 
@@ -219,6 +225,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = contractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(contractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
+                CustomerArticleId = Convert.ToInt32(contractArticleView.CustomerArticelId),
+                DiscountId = Convert.ToInt32(contractArticleView.DiscountId),
 			};
 		}
 

@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Svefaktura</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Svefaktura</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CustomEnumerations\ValidationType.cs" />
+    <Compile Include="CustomTypes\PropertyValidationRule.cs" />
+    <Compile Include="CustomTypes\SFTIInvoiceList.cs" />
+    <Compile Include="SBDH\StandardBusinessDocument.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressLineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\AllowanceChargeReasonCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\AllowanceChargeReasonCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AllowanceChargeType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\AmountType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\AmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\AmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\BackorderQuantityType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\BasePriceType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\BranchType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\BuildingNameType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\BuildingNumberType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\BuyerPartyType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\CalculationRateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\CardAccountType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\ChannelCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\ChannelCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ChargeIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\ChipCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\ChipCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\CityNameType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\CodeType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\CodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\CommodityClassificationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\CommunicationType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentParameters\ComponentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ConditionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ContactType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentParameters\ContextType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentParameters\ContextualizationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ContractType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\CopyIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\CountryIdentificationCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\CountryIdentificationCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\CountrySubentityType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\CountryType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\CreditAccountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\CurrencyBaseRateType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\CurrencyCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\CurrencyCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\DateTimeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateTimeType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\DateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DeliveryDateTimeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DeliveryTermsType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DeliveryType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DepartmentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DescriptionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DespatchLineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DimensionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DiscountPercentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DistrictType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DocumentReferenceType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\DocumentStatusCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\DocumentStatusCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DurationMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\EndDateTimeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ExchangeRateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ExpiryDateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ExtensionAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ExtensionTotalAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ExtensionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\FinancialAccountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\FinancialInstitutionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\FloorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\HazardousGoodsTransitType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\HazardousItemType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\HolderNameType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\IdentifierType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\IdentifierType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\IndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\IndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\InformationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\InstructionsType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\InvoiceLineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\IssueDateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ItemIdentificationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ItemType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LanguageType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LatitudeDegreesMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LatitudeDirectionCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LatitudeDirectionCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LatitudeMinutesMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LegalTotalType.cs" />
+    <Compile Include="Svefakt2\SFTI\Documents\BasicInvoice\LineItemCountNumericType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LineItemType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LineReferenceType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LineStatusCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LineStatusCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LocationCoordinateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LocationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LongitudeDegreesMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LongitudeDirectionCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\LongitudeDirectionCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LongitudeMinutesMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\LossRiskType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\LotIdentificationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MailType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MarkAttentionIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MarkCareIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MaterialIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\MeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\MeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MeasureType2.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\MultiplierFactorNumericType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\NameType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\NameType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\NoteType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\NumericType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\OrderedShipmentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\OrderLineReferenceType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\OrderLineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\OrderReferenceType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PackageType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PackQuantityType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PackSizeNumericType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PartyIdentificationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PartyNameType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PartyTaxSchemeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PartyType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PaymentDateType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\PaymentMeansCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\PaymentMeansCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PaymentMeansType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PaymentTermsType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PaymentType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\PercentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PercentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PeriodType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PhysicalAttributeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PlacardEndorsementType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PlacardNotationType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PostboxType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PriceAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\QuantityType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\QuantityType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\QuantityType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\RateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ReasonType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ReceiptLineType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\RefrigerationOnIndicatorType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\RegionType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\RegistrationNameType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\RoomType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\SalesConditionsType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\SecondaryHazardType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\SellerPartyType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\SequenceNumericType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIAddressLineType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIAddressType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIAllowanceChargeType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIBasePriceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIBranchType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIBuyerPartyType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIContactType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTICountryType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIDeliveryTermsType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIDeliveryType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIDocumentReferenceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIExchangeRateType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIFinancialAccountType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIFinancialInstitutionType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIInvoiceLineAllowanceCharge.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIInvoiceLineDeliveryType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIInvoiceLineType.cs" />
+    <Compile Include="Svefakt2\SFTI\Documents\BasicInvoice\SFTIInvoiceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIItemIdentificationType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIItemType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTILanguageType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTILegalTotalType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTILineReferenceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTILocationCoordinateType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIOrderLineReferenceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIOrderReferenceType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyIdentificationType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyNameType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyTaxSchemeType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPartyType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPaymentMeansType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPaymentTermsType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPaymentType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTIPeriodType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTISellerPartyType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTISimpleIdentifierType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTITaxCategoryType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTITaxSchemeType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTITaxSubTotalType.cs" />
+    <Compile Include="Svefakt2\SFTI\CommonAggregateComponents\SFTITaxTotalType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ShipmentStageType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ShipmentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\StartDateTimeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\StreetNameType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\SubstitutionStatusCodeContentType.cs" />
+    <Compile Include="Svefakt2\UBL\Codelist\SubstitutionStatusCodeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\SurchargePercentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TaxAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TaxCategoryType.cs" />
+    <Compile Include="Svefakt2\SFTI\Documents\BasicInvoice\TaxPointDateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TaxSchemeType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TaxSubTotalType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TaxTotalAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TaxTotalType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TelefaxType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TelephoneType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TemperatureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TermsType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentTypes\TextType.cs" />
+    <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\TextType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TimezoneOffsetType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\TotalAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TransportEquipmentSealType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TransportEquipmentType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonAggregateComponents\TransportHandlingUnitType.cs" />
+    <Compile Include="Svefakt2\UBL\CoreComponentParameters\InstanceType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Svefakt2\UBL\SpecializedDatatypes\UBLAmountType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\UnitBaseRateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ValidityStartDateType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ValueType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\VolumeMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\WeightMeasureType.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\ZoneType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="General-Svefaktura.cd" />
+    <None Include="Generate_XSD.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

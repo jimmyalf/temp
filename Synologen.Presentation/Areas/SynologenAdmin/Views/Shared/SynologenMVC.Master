@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/components/ComponentMainMVC.master"  Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+	<link rel="stylesheet" type="text/css" href="/Components/Synologen/Css/ComponentSpecific.css" media="screen,projection"/>
+	<link rel="stylesheet" type="text/css" href="/Components/Synologen/Css/PageSpecific.css" media="screen,projection"/>
+	<link rel="stylesheet" type="text/css" href="/Components/Synologen/Css/ComponentPrint.css" media="print"/>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js" type="text/javascript"></script>
+    <script src="/Components/Synologen/Scripts/modernizr.custom.97088.js" type="text/javascript"></script>
+	<script src="/Components/Synologen/Scripts/Synologen.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" runat="server">
+	<div id="dCompNavigation">
+		<ul id="synologen-main-menu">
+			<li><a title="Hantera Synologer" href="/components/synologen/index.aspx"><span>Synologer</span></a></li>
+			<li><a title="Hantera Avtalsförsäljning" href="/components/synologen/orders.aspx"><span>Avtalsförsäljning</span></a></li>
+			<li><a title="Lista/Skapa utbetalningar" href="/components/synologen/contract-sales/settlements"><span>Utbetalningar</span></a></li>
+			<li><a title="Administrera OP-Q" href="/components/synologen/opqindex.aspx"><span>OP-Q</span></a></li>
+			<li><a title="Administrera Bågbeställningar" href="/components/synologen/frames"><span>Bågbeställning</span></a></li>
+			<li><a title="Administrera Linsabonnemang" href="/components/synologen/lens-subscriptions"><span>Linsabonnemang</span></a></li>
+			<li><a title="Administrera beställningar" href="/components/synologen/orders"><span>Beställningar</span></a></li>
+            <li><a title="Administrera avvikelser" href="/components/synologen/deviations"><span>Avvikelser</span></a></li>
+		</ul>
+	</div>
+	<asp:ContentPlaceHolder id="SubMenu" runat="server"></asp:ContentPlaceHolder>	
+    <div id="synologen-content">
+    	<%=Html.Messages() %>
+        <asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>
+    </div>
+</asp:Content>

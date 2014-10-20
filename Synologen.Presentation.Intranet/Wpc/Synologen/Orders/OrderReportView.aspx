@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" CodeBehind="OrderReportView.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.OrderReportView" %>

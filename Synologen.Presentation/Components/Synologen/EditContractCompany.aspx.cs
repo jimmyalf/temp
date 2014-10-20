@@ -41,6 +41,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
             var items = EnumExtensions
                 .Enumerate<InvoicingMethod>()
                 .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
+
+		    var contract = Provider.GetContract(_selectedContractId);
+		    if (contract.IsNoOp)
+		    {
+                items = EnumExtensions
+                    .Enumerate<InvoicingMethod>().Where(y => y == InvoicingMethod.NoOp)
+                    .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
+		    }
+
 			drpInvoicingMethods.DataValueField = "Value";
 			drpInvoicingMethods.DataTextField = "Text";
 		    drpInvoicingMethods.DataSource = items;

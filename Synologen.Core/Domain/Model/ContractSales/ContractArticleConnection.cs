@@ -10,5 +10,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 		public bool Active { get; set; }
 		public string SPCSAccountNumber { get; set; }
 		public bool EnableManualPriceOverride { get; set; }
+	    public int CustomerArticleId { get; set; }
+	    public int DiscountId { get; set; }
 	}
 }

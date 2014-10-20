@@ -35,16 +35,17 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
-		public void SetInvoiceMethodForContractCompanies(int contractId, int invoiceMethod) {
+		public void SetInvoiceMethodForContractCompanies(int contractId, InvoicingMethod invoiceMethod) {
             SqlParameter[] parameters = {
-						new SqlParameter ("@invoiceMethod", SqlDbType.Int, 4),
-						new SqlParameter ("@contractId", SqlDbType.Int, 4)
+                        new SqlParameter ("@contractId", SqlDbType.Int, 4),
+						new SqlParameter ("@invoiceMethod", SqlDbType.Int, 4)
+						
 					};
-		    parameters[0].Value = invoiceMethod;
-		    parameters[1].Value = contractId;
+            parameters[0].Value = contractId;
+		    parameters[1].Value = (int) invoiceMethod;
+		    
             try
             {
-
                 RunProcedure("spSynologenSetInvoiceMethodForContractCompanies", parameters);
         	}
 			catch (SqlException e) {

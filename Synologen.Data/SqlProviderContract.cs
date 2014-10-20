@@ -35,6 +35,24 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
+		public void SetInvoiceMethodForContractCompanies(int contractId, InvoicingMethod invoiceMethod) {
+            SqlParameter[] parameters = {
+                        new SqlParameter ("@contractId", SqlDbType.Int, 4),
+						new SqlParameter ("@invoiceMethod", SqlDbType.Int, 4)
+						
+					};
+            parameters[0].Value = contractId;
+		    parameters[1].Value = (int) invoiceMethod;
+		    
+            try
+            {
+                RunProcedure("spSynologenSetInvoiceMethodForContractCompanies", parameters);
+        	}
+			catch (SqlException e) {
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while updating invoice methods for contract companies.", e);
+			}
+		}
+
 		public Contract GetContract(int contractCustomerId) {
 			try {
 				var contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);

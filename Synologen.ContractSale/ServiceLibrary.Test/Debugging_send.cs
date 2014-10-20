@@ -25,6 +25,15 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         }
 
         [Test, Explicit]
+        public void Send_NoOp_service()
+        {
+            var client = GetClient();
+            var listOfIds = new List<int> { 200 };
+
+            client.SendInvoices(listOfIds, _reportEmail);
+        }
+
+        [Test, Explicit]
         public void Send_SRF_invoice_by_wcf_service()
         {
             var client = GetClient();

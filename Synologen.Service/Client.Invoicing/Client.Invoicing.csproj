@@ -180,7 +180,9 @@
   <ItemGroup>
     <Content Include="Resources\install-logo.jpg" />
     <Content Include="Resources\Logo-transparant-larger.ico" />
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\label-yellow.png" />
     <None Include="Resources\label-red.png" />
     <None Include="Resources\label-green.png" />

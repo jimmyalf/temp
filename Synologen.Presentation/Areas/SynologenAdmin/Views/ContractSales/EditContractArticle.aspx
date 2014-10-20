@@ -28,10 +28,20 @@
 						<%= Html.EditorFor(x => x.AllowCustomPricing) %>
 						<%= Html.ValidationMessageFor(x => x.AllowCustomPricing) %>
 					</p>
+					<p class="formItem">
+						<%= Html.LabelFor(x => x.CustomerArticelNumber) %>
+						<%= Html.EditorFor(x => x.CustomerArticelNumber) %>
+						<%= Html.ValidationMessageFor(x => x.CustomerArticelNumber) %>
+					</p>
 					<p class="formItem clearLeft">
 						<%= Html.LabelFor(x => x.IsVATFreeArticle) %>
 						<%= Html.EditorFor(x => x.IsVATFreeArticle) %>
 						<%= Html.ValidationMessageFor(x => x.IsVATFreeArticle) %>
+					</p>
+                    <p class="formItem">
+						<%= Html.LabelFor(x => x.DiscountId) %>
+						<%= Html.EditorFor(x => x.DiscountId) %>
+						<%= Html.ValidationMessageFor(x => x.DiscountId) %>
 					</p>
 					<p class="formCommands">
 						<%= Html.AntiForgeryToken() %>

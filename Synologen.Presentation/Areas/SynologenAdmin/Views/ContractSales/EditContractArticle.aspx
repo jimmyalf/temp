@@ -29,9 +29,9 @@
 						<%= Html.ValidationMessageFor(x => x.AllowCustomPricing) %>
 					</p>
 					<p class="formItem">
-						<%= Html.LabelFor(x => x.CustomerArticelNumber) %>
-						<%= Html.EditorFor(x => x.CustomerArticelNumber) %>
-						<%= Html.ValidationMessageFor(x => x.CustomerArticelNumber) %>
+						<%= Html.LabelFor(x => x.CustomerArticelId) %>
+						<%= Html.EditorFor(x => x.CustomerArticelId) %>
+						<%= Html.ValidationMessageFor(x => x.CustomerArticelId) %>
 					</p>
 					<p class="formItem clearLeft">
 						<%= Html.LabelFor(x => x.IsVATFreeArticle) %>

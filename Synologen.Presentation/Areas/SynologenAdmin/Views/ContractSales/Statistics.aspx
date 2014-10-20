@@ -33,6 +33,10 @@
 					<%= Html.DropDownListFor(x => x.SelectedContractCompanyId, Model.GetCompaniesSelectList(), "-- Välj företag --", new Dictionary<string, object> { {"data-bind", "options: selectableCompanies, optionsText: 'Name', optionsValue: 'Id', value: selectedCompany, optionsCaption: '-- Välj företag --'"} }) %>
 				</div>
 				<div class="formItem clearLeft">
+					<%= Html.LabelFor(x => x.SelectedReportTypeId) %>
+					<%= Html.DropDownListFor(x => x.SelectedReportTypeId, Model.GetReportTypes(), "-- Välj rapport --", new Dictionary<string, object> { {"data-bind", "options: selectableReportTypes, optionsText: 'Name', optionsValue: 'Id', value: selectedReportType, optionsCaption: '-- Välj rapport --'"} }) %>
+				</div>
+				<div class="formItem clearLeft">
 					<%= Html.LabelFor(x => x.From) %>
 					<%= Html.TextBoxFor(x => x.From, new { type = "date", @class = "datepicker" }) %>
 				</div>

@@ -15,7 +15,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         {
             Contracts = new List<ContractListItem>();
             Companies = new List<CompanyListItem>();
-        }
+            ReportTypes = new List<ReportTypeListItem>();
+       }
 
         [DisplayName("Avtal"), Required]
         public int SelectedContractId { get; set; }
@@ -26,6 +27,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         public int? SelectedContractCompanyId { get; set; }
         public List<CompanyListItem> Companies { get; set; }
         public string SelectedContractCompanyName { get; set; }
+
+        [DisplayName("Rapport")]
+        public int? SelectedReportTypeId { get; set; }
+        public List<ReportTypeListItem> ReportTypes { get; set; }
+        public string SelectedReportTypeName { get; set; }
 
         [DisplayName("Från")]
         public DateTime? From { get; set; }
@@ -43,12 +49,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
             return new SelectList(Companies, "Id", "Name");
         }
 
+        public SelectList GetReportTypes()
+        {
+            return new SelectList(ReportTypes, "Id", "Name");
+        }
+
         public StatisticsQueryArgument GetQueryArgument()
         {
             return new StatisticsQueryArgument
             {
                 CompanyId = SelectedContractCompanyId,
                 ContractId = SelectedContractId,
+                ReportTypeId = SelectedReportTypeId,
                 From = From,
                 To = To.HasValue ? To.Value.AddDays(1) : (DateTime?)null
             };
@@ -113,6 +125,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
     {
         public int Id { get; set; }
         public int ContractId { get; set; }
+        public string Name { get; set; }
+    }
+    public class ReportTypeListItem
+    {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

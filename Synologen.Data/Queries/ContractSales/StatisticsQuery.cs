@@ -85,6 +85,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
     {
         public int? ContractId { get; set; }
         public int? CompanyId { get; set; }
+        public int? ReportTypeId { get; set; }
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }        
     }

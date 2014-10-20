@@ -15,7 +15,10 @@ using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.Contrac
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
-	public class ContractSalesViewService : IContractSalesViewService 
+    using Spinit.Wpc.Synologen.Core.Extensions;
+    using Spinit.Wpc.Utility.Business;
+
+    public class ContractSalesViewService : IContractSalesViewService 
 	{
 		private readonly ISettlementRepository _settlementRepository;
 		private readonly IContractSaleRepository _contractSaleRepository;
@@ -248,6 +251,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	        {
 	            Contracts = GetAllContracts(), 
                 Companies = GetAllCompanies(),
+                ReportTypes = GetAllReportTypes(),
 	        };
 	    }
 
@@ -278,6 +282,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                     Id = x.Field<int>("cId"),
                     ContractId = x.Field<int>("cContractCustomerId")
                 }).ToList();
+        }
+
+        protected List<ReportTypeListItem> GetAllReportTypes()
+        {
+            var reportTypes = 
+                EnumExtensions.Enumerate<StatisticsReportTypes>()
+                .Select(reportType => new ReportTypeListItem
+                                  {
+                                      Id = (int)reportType, 
+                                      Name = reportType.GetEnumDisplayName()
+                                  }).ToList();
+            return reportTypes;
         }
 	}
 }

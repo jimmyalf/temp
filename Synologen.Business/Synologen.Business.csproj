@@ -98,6 +98,7 @@
     <Compile Include="Domain\Enumerations\LogType.cs" />
     <Compile Include="Domain\Enumerations\RoundDecimals.cs" />
     <Compile Include="Domain\Enumerations\ShopMemberConnectionAction.cs" />
+    <Compile Include="Domain\Enumerations\StatisticsReportTypes.cs" />
     <Compile Include="Domain\Exceptions\FtpException.cs" />
     <Compile Include="Domain\Exceptions\WebserviceException.cs" />
     <Compile Include="Domain\Interfaces\IAdkHandler.cs" />

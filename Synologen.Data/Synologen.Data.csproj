@@ -122,6 +122,7 @@
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
     <Compile Include="Queries\AbstractListQuery.cs" />
+    <Compile Include="Queries\ContractSales\StatisticsFlexPayQuery.cs" />
     <Compile Include="Queries\ContractSales\StatisticsQuery.cs" />
     <Compile Include="Queries\Deviations\SuppliersQuery.cs" />
     <Compile Include="Queries\Deviations\CategoriesQuery.cs" />

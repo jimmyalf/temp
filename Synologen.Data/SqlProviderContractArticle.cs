@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = connection.SPCSAccountNumber;
 					parameters[counter++].Value = connection.EnableManualPriceOverride;
 					parameters[counter++].Value = connection.CustomerArticleId;
-					parameters[counter++].Value = connection.DiscountId;
+                    parameters[counter++].Value = connection.DiscountId;
 
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;

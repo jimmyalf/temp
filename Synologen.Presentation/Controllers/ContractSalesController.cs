@@ -20,7 +20,11 @@ using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public partial class ContractSalesController : BaseController
+    using Spinit.Extensions;
+    using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+    using Spinit.Wpc.Utility.Business;
+
+    public partial class ContractSalesController : BaseController
 	{
 		private readonly IContractSalesViewService _viewService;
 		private readonly IContractSalesCommandService _contractSalesCommandService;
@@ -103,20 +107,46 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         [HttpPost]
         public ActionResult Statistics(StatisticsView model)
         {
-            var summary = Query(new StatisticsQuery(model.GetQueryArgument()));
-            if (!summary.Any())
+            var reportParameters = model.GetQueryArgument();
+            if (reportParameters.ReportType == (int)StatisticsReportTypes.FlexPay)
             {
-                this.AddErrorMessage("Ingen försäljning för angivet filter.");
-                _viewService.UpdateStatisticsView(model);
-                return View(model);
+                //TODO Get LeveransId from config
+                return this.ExportExcelToView(model, new StatisticsFlexPayQuery(model.GetQueryArgument()));
             }
+            
+            return this.ExportExcelToView(model, new StatisticsQuery(model.GetQueryArgument()));
 
+        }
+
+        public ActionResult ExportExcel<T>(StatisticsView model, IEnumerable<T> excelColumns)
+        {
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Försäljningsstatistik");
-                worksheet.Cells["A1"].LoadFromCollection(summary, true, TableStyles.Light1);
-                return new ExcelFileResult(package, model.CreateFileName());
+                worksheet.Cells["A1"].LoadFromCollection(excelColumns, true, TableStyles.Light1);
+
+                var reportType = model.SelectedReportTypeId != null
+                                     ? (StatisticsReportTypes) Enum.ToObject(typeof(StatisticsReportTypes), model.SelectedReportTypeId)
+                                     : StatisticsReportTypes.Default;
+                
+               
+                return new ExcelFileResult(package, model.CreateFileName(reportType));
             }
+        }
+
+        public ActionResult ExportExcelToView<T>(StatisticsView model, Query<IList<T>> query)
+        {
+            var summary = Query(query);
+
+            if (summary.Any())
+            {
+                return this.ExportExcel(model, summary);
+            }
+
+            this.AddErrorMessage("Ingen försäljning för angivet filter.");
+            _viewService.UpdateStatisticsView(model);
+            return View(model);
+
         }
 	}
 }

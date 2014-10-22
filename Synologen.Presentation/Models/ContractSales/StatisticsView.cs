@@ -9,6 +9,8 @@ using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 {
+    using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+
     public class StatisticsView
     {
         public StatisticsView()
@@ -71,14 +73,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
             return new JavaScriptSerializer().Serialize(this);
         }
 
-        public string CreateFileName()
+        public string CreateFileName(StatisticsReportTypes reportType)
         {
-            return "Statistik{SelectedContractCompany}{Interval}.xlsx"
+            if (reportType == StatisticsReportTypes.FlexPay)
+            {
+                //Flexpay-Betalningsunderlag-Avtal-{A}-Underavtal-{B}-{Från}-{Till}.xlsx
+                return "Flexpay Betalningsunderlag -{GetContractCompanyFlexPayFormat}-{Interval}.xlsx"
                 .ReplaceWith(new
                 {
-                    SelectedContractCompany = GetContractCompanyFormat(), 
+                    GetContractCompanyFlexPayFormat = GetContractCompanyFlexPayFormat(),
                     Interval = GetCurrentIntervalFormat()
                 });
+            }
+
+            //Default
+            return "Statistik{SelectedContractCompany}{Interval}.xlsx"
+            .ReplaceWith(new
+            {
+                SelectedContractCompany = GetContractCompanyFormat(),
+                Interval = GetCurrentIntervalFormat()
+            });
+           
         }
 
         protected string GetContractCompanyFormat()
@@ -91,6 +106,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
             if (!string.IsNullOrEmpty(SelectedContractName))
             {
                 return string.Format(" {0}", SelectedContractName);
+            }
+            return null;
+        }
+        protected string GetContractCompanyFlexPayFormat()
+        {
+            if (!string.IsNullOrEmpty(SelectedContractCompanyName) && !string.IsNullOrEmpty(SelectedContractName))
+            {
+                return string.Format(" Avtal {0} - Underavtal {1}", SelectedContractName, SelectedContractCompanyName);
+            }
+
+            if (!string.IsNullOrEmpty(SelectedContractName))
+            {
+                return string.Format(" Avtal {0}", SelectedContractName);
             }
             return null;
         }

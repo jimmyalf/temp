@@ -86,6 +86,7 @@
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Model\ContractSales\EdiAddress.cs" />
     <Compile Include="Domain\Model\ContractSales\NewTransaction.cs" />
+    <Compile Include="Domain\Model\ContractSales\OrderStatisticsFlexPaySummaryRow.cs" />
     <Compile Include="Domain\Model\ContractSales\OrderStatisticsSummaryRow.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationStatus.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationComment.cs" />

@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                 ,tblSynologenContractArticleConnection.cDiscountId AS FörmånsId
                 ,tblSynologenOrder.cCreatedDate as Period
                 ,tblSynologenCompany.cName AS Arbetsgivare
-                ,tblSynologenCompany.cOrganizationNumber AS ArbgivEllerOrgnr
+                ,tblSynologenCompany.cOrganizationNumber AS ArbgivOrgnr
                 ,tblSynologenOrder.cPersonalIdNumber AS Personnr
                 ,tblSynologenContractArticleConnection.cCustomerArticleId AS TjänstEllerProdukt
                 ,(SELECT(SUM(tblSynologenOrderItems.cSinglePrice * tblSynologenOrderItems.cNumberOfItems))) AS PrisExklMoms
@@ -71,19 +71,26 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                     //.GroupBy(@"tblSynologenArticle.cId, tblSynologenArticle.cName, tblSynologenCompany.cName, tblSynologenShop.cShopName, tblSynologenShop.cCity")
                     //.OrderBy(@"tblSynologenShop.cCity, tblSynologenShop.cShopName")
                     .AddParameters(new { ContractId, CompanyId, From, To });
-            return persistence.Query(queryBuilder, Parser).ToList();
+            
+            var dbData = persistence.Query(queryBuilder, Parser).ToList();
+            var deleveryId = Spinit.Wpc.Synologen.Business.Globals.FlexPayReportDeliveryId;
+            foreach (var data in dbData)
+            {
+                data.LeverantörsId = deleveryId;
+            }
+
+            return dbData;
         }
 
         protected OrderStatisticsFlexPaySummaryRow Parser(IDataRecord record)
         {
             return new FluentDataParser<OrderStatisticsFlexPaySummaryRow>(record) { ColumnPrefix = null }
-                
                 //.Parse(x => x.LeverantörsId)
                 .Parse(x => x.FörmånsId)
                 .Parse(x => x.Fakturanr)
-                .Parse<string, DateTime>(x => x.Period, x => x.ToShortDateString())
+                .Parse<string, DateTime>(x => x.Period, x => x.ToString("yyyy-MM"))
                 .Parse(x => x.Arbetsgivare)
-                .Parse(x => x.ArbGivEllerOrgNr)
+                .Parse(x => x.ArbgivOrgnr)
                 .Parse(x => x.Personnr)
                 .Parse(x => x.TjänstEllerProdukt)
                 .Parse<decimal, double>(x => x.PrisExklMoms, Convert.ToDecimal)

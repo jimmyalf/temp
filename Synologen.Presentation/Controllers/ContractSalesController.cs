@@ -108,9 +108,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         public ActionResult Statistics(StatisticsView model)
         {
             var reportParameters = model.GetQueryArgument();
-            if (reportParameters.ReportType == (int)StatisticsReportTypes.FlexPay)
+            if (reportParameters.ReportTypeId == (int)StatisticsReportTypes.FlexPay)
             {
                 //TODO Get LeveransId from config
+                //var deleveryId = Spinit.Wpc.Synologen.Business.Globals.FlexPayReportDeliveryId;
                 return this.ExportExcelToView(model, new StatisticsFlexPayQuery(model.GetQueryArgument()));
             }
             
@@ -125,9 +126,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 var worksheet = package.Workbook.Worksheets.Add("Försäljningsstatistik");
                 worksheet.Cells["A1"].LoadFromCollection(excelColumns, true, TableStyles.Light1);
 
-                var reportType = model.SelectedReportTypeId != null
-                                     ? (StatisticsReportTypes) Enum.ToObject(typeof(StatisticsReportTypes), model.SelectedReportTypeId)
-                                     : StatisticsReportTypes.Default;
+                var reportType = this.GetReportType(model.SelectedReportTypeId);
+                //var reportType = model.SelectedReportTypeId != null
+                //                    ? (StatisticsReportTypes) Enum.ToObject(typeof(StatisticsReportTypes), model.SelectedReportTypeId)
+                //                    : StatisticsReportTypes.Default;
                 
                
                 return new ExcelFileResult(package, model.CreateFileName(reportType));
@@ -136,6 +138,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
         public ActionResult ExportExcelToView<T>(StatisticsView model, Query<IList<T>> query)
         {
+            
             var summary = Query(query);
 
             if (summary.Any())
@@ -147,6 +150,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             _viewService.UpdateStatisticsView(model);
             return View(model);
 
+        }
+
+        public StatisticsReportTypes GetReportType(int? reportTypeId)
+        {
+            if (reportTypeId > 0)
+            {
+                return (StatisticsReportTypes)Enum.ToObject(typeof(StatisticsReportTypes), reportTypeId);
+            }
+            
+           return StatisticsReportTypes.Default;
         }
 	}
 }

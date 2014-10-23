@@ -245,5 +245,11 @@ namespace Spinit.Wpc.Synologen.Business {
 			var floatValue = SafeConfigNumber(configSection, configKey, defaultValueAsFloat);
 			return Convert.ToDecimal(floatValue);
 		}
+
+        public static int FlexPayReportDeliveryId
+		{
+            get { return SafeConfigNumber(_setting, "FlexPayReportDeliveryId", 0); }
+		}
+        
 	}
 }

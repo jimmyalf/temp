@@ -1,0 +1,22 @@
+.m0l0i { 
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration : none;
+	padding: 3px;
+} 
+.m0l0o { 
+	text-decoration : none;
+	border: 1px solid #ffffff;
+} 
+  
+/* Styles for level with index 1 */ 
+.m0l1i { 
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-decoration : none;
+	padding: 2px;
+} 
+.m0l1o { 
+	text-decoration : none;
+	border: 1px solid #ffffff;
+} 

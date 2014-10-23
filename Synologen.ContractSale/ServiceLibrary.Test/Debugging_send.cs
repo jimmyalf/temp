@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         public void Send_NoOp_service()
         {
             var client = GetClient();
-            var listOfIds = new List<int> { 200 };
+            var listOfIds = new List<int> { 10033 };
 
             client.SendInvoices(listOfIds, _reportEmail);
         }

@@ -10,6 +10,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 		public bool Active { get; set; }
 		public string SPCSAccountNumber { get; set; }
 		public bool EnableManualPriceOverride { get; set; }
+
+        // TODO: Consider dropping the Id suffix. It sort of hints that it might be a reference to another entity which is confusing. I suggest Number or Code as a suffix
 	    public int CustomerArticleId { get; set; }
 	    public int DiscountId { get; set; }
 	}

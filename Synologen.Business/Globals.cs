@@ -246,6 +246,7 @@ namespace Spinit.Wpc.Synologen.Business {
 			return Convert.ToDecimal(floatValue);
 		}
 
+        // TODO: Consider dropping the Id suffix. It sort of hints that it might be a reference to another entity which is confusing. I suggest Number or Code as a suffix
         public static int FlexPayReportDeliveryId
 		{
             get { return SafeConfigNumber(_setting, "FlexPayReportDeliveryId", 0); }

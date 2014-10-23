@@ -35,6 +35,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
+        // TODO: The procedure called below does not exist in update-script, so i cannot verify functionality
 		public void SetInvoiceMethodForContractCompanies(int contractId, InvoicingMethod invoiceMethod) {
             SqlParameter[] parameters = {
                         new SqlParameter ("@contractId", SqlDbType.Int, 4),

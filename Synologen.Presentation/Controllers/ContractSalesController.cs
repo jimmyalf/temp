@@ -110,6 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             var reportParameters = model.GetQueryArgument();
             if (reportParameters.ReportTypeId == (int)StatisticsReportTypes.FlexPay)
             {
+                // TODO: Clear out comments
                 //TODO Get LeveransId from config
                 //var deleveryId = Spinit.Wpc.Synologen.Business.Globals.FlexPayReportDeliveryId;
                 return this.ExportExcelToView(model, new StatisticsFlexPayQuery(model.GetQueryArgument()));
@@ -127,6 +128,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 worksheet.Cells["A1"].LoadFromCollection(excelColumns, true, TableStyles.Light1);
 
                 var reportType = this.GetReportType(model.SelectedReportTypeId);
+                
+                // TODO: Clear out comments
                 //var reportType = model.SelectedReportTypeId != null
                 //                    ? (StatisticsReportTypes) Enum.ToObject(typeof(StatisticsReportTypes), model.SelectedReportTypeId)
                 //                    : StatisticsReportTypes.Default;

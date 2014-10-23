@@ -77,6 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
         {
             if (reportType == StatisticsReportTypes.FlexPay)
             {
+                // TODO: Clear out comments
                 //Flexpay-Betalningsunderlag-Avtal-{A}-Underavtal-{B}-{Från}-{Till}.xlsx
                 return "Flexpay Betalningsunderlag{SelectedContractCompany}{Interval}.xlsx"
                 .ReplaceWith(new

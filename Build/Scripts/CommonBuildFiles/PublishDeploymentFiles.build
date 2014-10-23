@@ -1,0 +1,12 @@
+<project name="Publish Deployment Files" default="PublishFiles">
+
+	<target name="PublishFiles" description="Publishes Deployment files">
+		<echo message="Copy deployment files from ${srcDeploymentFiles} to ${deployPath}" />
+		<copy todir="${deployPath}" includeemptydirs="true">
+			<fileset basedir="${srcDeploymentFiles}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+	
+</project>

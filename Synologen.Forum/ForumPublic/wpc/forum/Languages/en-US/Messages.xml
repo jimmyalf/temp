@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <message id="1">
+    <title>Access Denied: Not Admistrator</title>
+    <body>You are not an administrator.</body>
+  </message>
+
+  <message id="2">
+    <title>Access Denied: Edit Permission Denied</title>
+    <body>Either this forum does not exist or your are not allowed to edit.</body>
+  </message>
+
+  <message id="3">
+    <title>Access Denied: Not Moderator</title>
+    <body>You are not a moderator.</body>
+  </message>
+
+  <message id="4">
+    <title>Duplicate Post</title>
+    <body>The administrator has configured the forums to not allow duplicate posts.</body>
+  </message>
+
+  <message id="5">
+    <title>404: File Not Found</title>
+    <body>The file you have requested cannot be found.</body>
+  </message>
+
+  <message id="6">
+    <title>Not Found: Forum Not Found</title>
+    <body>The forum you requested does not exist.</body>
+  </message>
+
+  <message id="7">
+    <title>User Account Created</title>
+    <body>Your user account has been successfully created. You will shortly receive an email containing a password you can use to login.</body>
+  </message>
+
+  <message id="8">
+    <title>Post Pending Moderation</title>
+    <body>You have posted to a moderated forum.&lt;br /&gt;&lt;br /&gt;Your post will not be publicly visible until a forum moderator approves your post.</body>
+  </message>
+
+  <message id="9">
+    <title>Post Not Found</title>
+    <body>The post you requested cannot be found or no longer exists. The administrator or moderator may have deleted the post.</body>
+  </message>
+
+  <message id="10">
+    <title>No Post To Select</title>
+    <body>No post could be found for the URL requested.</body>
+  </message>
+
+  <message id="11">
+    <title>Problem Posting</title>
+    <body>We apologize, but there was a problem posting your message. If you continue to experience this, please alert the administrator(s) or moderator(s).</body>
+  </message>
+
+  <message id="13">
+    <title>User Profile Updated</title>
+    <body>Your profile has been updated.</body>
+  </message>
+
+  <message id="14">
+    <title>User Not Found</title>
+    <body>The user you requested cannot be found.</body>
+  </message>
+
+  <message id="15">
+    <title>User Password Changed</title>
+    <body>The account password has been changed and emailed for reference. Please allow up to 15 minutes for it to take effect.</body>
+  </message>
+
+  <message id="16">
+    <title>User Password Change Failed</title>
+    <body>An error occurred while attempting to change your password. Please try again.</body>
+  </message>
+
+  <message id="17">
+    <title>Invalid User Credentials</title>
+    <body>The username and/or password cannot be validated.</body>
+  </message>
+
+  <message id="18">
+    <title>No Unanswered Posts</title>
+    <body>No unanswered posts were found.</body>
+  </message>
+
+  <message id="19">
+    <title>User does not accept Private Messages</title>
+    <body>The user you are attempting to send a private message to has turned off private messages.</body>
+  </message>
+
+  <message id="20">
+    <title>User Search Returned No Results</title>
+    <body>Please change your user search criteria as no results were found.</body>
+  </message>
+
+  <message id="21">
+    <title>No Active Posts</title>
+    <body>No Active Posts were found.</body>
+  </message>
+
+  <message id="22">
+    <title>Private Messages To Self Not Allowed</title>
+    <body>You cannot send private messages to yourself.</body>
+  </message>
+
+  <message id="23">
+    <title>User Account Pending Approval</title>
+    <body>Your account is pending administrator approval. You will receive an email when your account has been approved.</body>
+  </message>
+
+  <message id="24">
+    <title>User Account Created</title>
+    <body>Your user account has been successfully created. You can now login to the forums.</body>
+  </message>
+
+  <message id="25">
+    <title>User Account Disapproved</title>
+    <body>Your user account has been disapproved by the administrator approval process. If you believe this is in error, please check with the administrator(s) or moderator(s).</body>
+  </message>
+
+  <message id="26">
+    <title>User Account Banned</title>
+    <body>You are no longer allowed to access the forums. If you believe this is in error, please check with the administrator(s) or moderator(s).</body>
+  </message>
+
+  <message id="27">
+    <title>Unknown Login Error</title>
+    <body>We apologize, but an unknown error occurred while attempting to verify your credentials. Please try again.</body>
+  </message>
+
+  <message id="28">
+    <title>Unable to Send Email</title>
+    <body>We apologize, but an error occurred while attempting to send email.</body>
+  </message>
+
+  <message id="29">
+    <title>New User Registration Disabled</title>
+    <body>The administrator has disabled new account creation. Please check back later - or email the administrator - to see if it is possible to register.</body>
+  </message>
+
+  <message id="30">
+    <title>Login Disabled</title>
+    <body>The administrator has globally disabled forums login. Please check back later - or email the administrator - to see if it is possible to login.</body>
+  </message>
+
+  <message id="31">
+    <title>Access Denied</title>
+    <body>Access Denied.</body>
+  </message>
+
+  <message id="32">
+    <title>Access Denied: Post Permission Denied</title>
+    <body>Either this forum does not exist or you are not allowed to post.</body>
+  </message>
+
+  <message id="33">
+    <title>Forum Group Not Found</title>
+    <body>The requested Forum Group cannot be found.</body>
+  </message>
+
+  <message id="34">
+    <title>Forum Group Not Found</title>
+    <body>The requested Forum Group cannot be found.</body>
+  </message>
+
+  <message id="35">
+    <title>Search Unknown Error</title>
+    <body>We apologize, but an unknown error has occured during search. Please try your search again.</body>
+  </message>
+
+  <message id="36">
+    <title>Access Denied: Reply Permission Denied</title>
+    <body>Either the forum does not exist or you do not have permissions to reply to posts within the forum.</body>
+  </message>
+
+  <message id="37">
+    <title>Access Denied: Announce Permission Denied</title>
+    <body>Either the forum does not exist or you do not have permissions to create announcements within the forum.</body>
+  </message>
+
+  <message id="38">
+    <title>Permission Expired: Post Edit Permission Expired</title>
+    <body>The administrator(s) have configured this forum to have a time limit for editing messages. If you still require a message to be edited, please check with a forum moderator.</body>
+  </message>
+
+  <message id="39">
+    <title>Post Locked</title>
+    <body>This post is locked and does not allow replies.</body>
+  </message>
+
+  <message id="40">
+    <title>Permission Expired: Post Delete Permission Expired</title>
+    <body>The administrator(s) have configured this forum to have a time limit for deleting messages. If you still require a message to be deleted, please check with a forum moderator.</body>
+  </message>
+
+  <message id="41">
+    <title>Access Denied: Delete Permission Denied</title>
+    <body>Either the forum does not exist or you do not have permission to delete posts within the forum.</body>
+  </message>
+
+  <message id="45">
+    <title>No Results Found</title>
+    <body>There were no search results found.</body>
+  </message>
+  
+  <message id="46">
+	<title>Attachment not Allowed</title>
+	<body>Your post has been saved, but the attachment was not.&lt;P&gt;The administrator has denied uploads of certain file types and the file must have only one extension (filename.ext).</body>
+  </message>
+
+  <message id="47">
+	<title>Access Denied</title>
+	<body>You do not have permission to view/download this item.</body>
+  </message>
+
+  <message id="48">
+	<title>Email sent to user</title>
+	<body>The email was sent to the user.</body>
+  </message>
+
+  <message id="49">
+	<title>Attachment Too Large</title>
+	<body>Your post has been saved, but the attachment was not.&lt;P&gt;Your attachment exceeded the forums maximum size limit.</body>
+  </message>
+
+  <message id="50">
+	<title>Attachments Disabled</title>
+	<body>Your post has been saved, but the attachment was not.&lt;P&gt;Attachments has been disabled by the forums administrator.</body>
+  </message>
+
+  <message id="51">
+	<title>Secret Answer Changed</title>
+	<body>Your old secret answer has been successfully changed. Use it whenever is required to recover your password.</body>
+  </message>
+
+  <message id="52">
+	<title>Secret Answer Change Failed</title>
+	<body>An error occurred while attempting to change your secret answer. Please try again.</body>
+  </message>
+
+  <message id="53">
+    <title>Role Not Found</title>
+    <body>The role you requested cannot be found.</body>
+  </message>
+
+  <message id="54">
+    <title>Role Updated</title>
+    <body>Role details has been updated.</body>
+  </message>
+
+  <message id="55">
+    <title>Role Deleted</title>
+    <body>Role has been deleted.</body>
+  </message>
+
+  <message id="56">
+    <title>Role Operation Not Permitted</title>
+    <body>You could not perform the action you've just tried on selected role.</body>
+  </message>
+
+  <message id="57">
+    <title>Resource not found</title>
+    <body>The resource you requested does not exist.</body>
+  </message>
+
+  <message id="999">
+    <title>Unknown Error</title>
+    <body>We apologize, but an unknown error has occured in the forums. &lt;P&gt;This error has been logged.</body>
+  </message>
+
+</root>

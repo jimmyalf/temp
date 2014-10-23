@@ -1,0 +1,8 @@
+<%@ Master Language="C#" MasterPageFile="~/commontemplates/Content/Forum Template_245.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Content.Presentation.Site.Code.PageControl" %>
+<%@ Register TagPrefix="Forums" Namespace="Spinit.Wpc.Forum.Controls" Assembly="Spinit.Wpc.Forum.Controls" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+        </asp:contentplaceholder>
+<asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
+</asp:Content>
+

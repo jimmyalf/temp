@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
                 return "Flexpay Betalningsunderlag{SelectedContractCompany}{Interval}.xlsx"
                 .ReplaceWith(new
                 {
-                    GetContractCompanyFlexPayFormat = GetContractCompanyFlexPayFormat(),
+                    SelectedContractCompany = GetContractCompanyFormat(),
                     Interval = GetCurrentIntervalFormat()
                 });
             }
@@ -105,19 +105,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
             if (!string.IsNullOrEmpty(SelectedContractName))
             {
                 return string.Format(" {0}", SelectedContractName);
-            }
-            return null;
-        }
-        protected string GetContractCompanyFlexPayFormat()
-        {
-            if (!string.IsNullOrEmpty(SelectedContractCompanyName) && !string.IsNullOrEmpty(SelectedContractName))
-            {
-                return string.Format(" Avtal {0} - Underavtal {1}", SelectedContractName, SelectedContractCompanyName);
-            }
-
-            if (!string.IsNullOrEmpty(SelectedContractName))
-            {
-                return string.Format(" Avtal {0}", SelectedContractName);
             }
             return null;
         }

@@ -152,7 +152,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				SPCSAccountNumber = contractArticle.SPCSAccountNumber,
                 ArticleName = contractArticle.ArticleName,
 				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
-                CustomerArticelId = contractArticle.CustomerArticleNumber > 0 ? contractArticle.CustomerArticleNumber.ToString() : string.Empty,
+                CustomerArticelNumber = contractArticle.CustomerArticleNumber > 0 ? contractArticle.CustomerArticleNumber.ToString() : string.Empty,
                 DiscountId = contractArticle.DiscountId > 0 ? contractArticle.DiscountId.ToString() : string.Empty,
 			};
 		}
@@ -193,7 +193,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,   
 				ArticleName = contractArticle.ArticleName,
 				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
-                CustomerArticelId = contractArticleView.CustomerArticelId,
+                CustomerArticelNumber = contractArticleView.CustomerArticelNumber,
                 DiscountId = contractArticleView.DiscountId,
 			};
 		}
@@ -228,7 +228,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = contractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(contractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
-                CustomerArticleNumber = Convert.ToInt32(contractArticleView.CustomerArticelId),
+                CustomerArticleNumber = Convert.ToInt32(contractArticleView.CustomerArticelNumber),
                 DiscountId = Convert.ToInt32(contractArticleView.DiscountId),
 			};
 		}

@@ -22,7 +22,7 @@
 						<asp:CheckBox id="chkShopConnection" runat="server" Checked="true" />				
 					</div>				
 					<div class="formItem clearLeft">
-						<label class="labelLong">Fakuterars ej</label>
+						<label class="labelLong">Faktureras ej</label>
 						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.DisableInvoice%>' />				
 					</div>													
                 </fieldset>			

@@ -1,0 +1,26 @@
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.SynologenMain" Codebehind="SynologenMain.master.cs" %>
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/Components/Synologen/Scripts/modernizr.custom.97088.js" type="text/javascript"></script>
+<script src="/Components/Synologen/Scripts/Synologen.js" type="text/javascript"></script>    
+
+ <div id="dCompNavigation">
+	<asp:PlaceHolder ID="phSynologenMenu" runat="server" />
+</div>
+
+<div id="dCompSubNavigation">
+	<asp:PlaceHolder ID="phSynologenSubMenu" runat="server" />
+	<asp:ContentPlaceHolder ID="SubMenuPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+</div>
+	<div id="validation-message">
+	<%--<asp:PlaceHolder ID="plValidationSummaries" runat="server">--%>
+       	<asp:ValidationSummary ID="validationSummary" runat="server" EnableViewState="False" HeaderText="Ett fel uppstod" SkinId="Error" ValidationGroup="Error" />
+		<asp:ValidationSummary ID="validationSummarySuccess" runat="server" EnableViewState="False" HeaderText="Lyckades" SkinId="Success" ValidationGroup="Success" />
+	<%--</asp:PlaceHolder>--%>
+	</div>
+    <div id="synologen-content">
+        <asp:contentplaceholder id="phSynologen" runat="server"></asp:contentplaceholder>
+    </div>
+</asp:Content>

@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>Spinit.Wpc.Synologen.OPQ.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>3.5</ProjectVersion>
+    <ProjectGuid>{6412319d-962b-4ec7-99ca-2ac5b1279b40}</ProjectGuid>
+    <DSP>Microsoft.Data.Schema.Sql.SqlDsp.Sql100DatabaseSchemaProvider</DSP>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ShowWizard>False</ShowWizard>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
+    <ModelCollation>1035,CI</ModelCollation>
+    <DefaultFileStructure>Undefined</DefaultFileStructure>
+    <DeployToDatabaseAddToServerExplorer>False</DeployToDatabaseAddToServerExplorer>
+    <DeployToScript>True</DeployToScript>
+    <CatalogPropertiesFile>Properties\Database.sqlsettings</CatalogPropertiesFile>
+    <RootNamespace>Synologen OPQ</RootNamespace>
+    <DefaultSchema>dbo</DefaultSchema>
+    <PreviousProjectVersion>3.5</PreviousProjectVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\sql\release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetConnectionString>
+    </TargetConnectionString>
+    <TargetDatabase>Synologen OPQ Database</TargetDatabase>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SuppressWarnings>
+    </SuppressWarnings>
+    <DeploymentConfigFile>Properties\Database.sqldeployment</DeploymentConfigFile>
+    <SqlCommandVariablesFile>Properties\Database.sqlcmdvars</SqlCommandVariablesFile>
+    <DeployToDatabase>False</DeployToDatabase>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\sql\debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetConnectionString>Data Source=DEV\SQL2008;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
+    <TargetDatabase>WpcSynologenOpqDataTest</TargetDatabase>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SuppressWarnings>
+    </SuppressWarnings>
+    <DeploymentConfigFile>Properties\Database.sqldeployment</DeploymentConfigFile>
+    <SqlCommandVariablesFile>Properties\Database.sqlcmdvars</SqlCommandVariablesFile>
+    <DeployToDatabase>False</DeployToDatabase>
+  </PropertyGroup>
+  <!--Import the settings-->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\TeamData\Microsoft.Data.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Schema Objects\" />
+    <Folder Include="Schema Objects\Programmability\" />
+    <Folder Include="Schema Objects\Programmability\Defaults\" />
+    <Folder Include="Schema Objects\Programmability\Functions\" />
+    <Folder Include="Schema Objects\Programmability\Rules\" />
+    <Folder Include="Schema Objects\Programmability\Stored Procedures\" />
+    <Folder Include="Schema Objects\Programmability\Types\" />
+    <Folder Include="Schema Objects\Programmability\Types\User Defined Data Types\" />
+    <Folder Include="Schema Objects\Security\" />
+    <Folder Include="Schema Objects\Security\Roles\" />
+    <Folder Include="Schema Objects\Security\Roles\Application Roles\" />
+    <Folder Include="Schema Objects\Security\Roles\Database Roles\" />
+    <Folder Include="Schema Objects\Security\Users\" />
+    <Folder Include="Schema Objects\Storage\" />
+    <Folder Include="Schema Objects\Storage\Filegroups\" />
+    <Folder Include="Schema Objects\Storage\Files\" />
+    <Folder Include="Schema Objects\Storage\Full Text Catalogs\" />
+    <Folder Include="Schema Objects\Tables\" />
+    <Folder Include="Schema Objects\Tables\Constraints\" />
+    <Folder Include="Schema Objects\Tables\Indexes\" />
+    <Folder Include="Schema Objects\Tables\Keys\" />
+    <Folder Include="Schema Objects\Tables\Statistics\" />
+    <Folder Include="Schema Objects\Tables\Triggers\" />
+    <Folder Include="Schema Objects\Views\" />
+    <Folder Include="Schema Objects\Views\Indexes\" />
+    <Folder Include="Schema Objects\Views\Statistics\" />
+    <Folder Include="Schema Objects\Views\Triggers\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Administration" />
+    <Folder Include="Scripts\Default Data" />
+    <Folder Include="Scripts\Test Data" />
+    <Folder Include="Scripts\Pre-Deployment" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Data Generation Plans" />
+    <Folder Include="Schema Comparisons" />
+    <Folder Include="Scripts\Test Data\Business Layer Tests" />
+    <Folder Include="Scripts\Test Data\Data Layer Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <PropertiesFile Include="Properties\Database.sqlsettings">
+    </PropertiesFile>
+    <PropertiesFile Include="Properties\Database.sqldeployment">
+    </PropertiesFile>
+    <PropertiesFile Include="Properties\Database.sqlcmdvars">
+    </PropertiesFile>
+    <Build Include="Properties\Database.sqlpermissions">
+      <ModelBuilderType>Permissions</ModelBuilderType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseAddFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseRemoveFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseSearchFiles.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseUpdateFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spSynologenOpqRestoreOrder.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqFiles.DF_SynologenOpqFiles_Order.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqNodes.DF_SynologenOpqNodes_Order.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cExtranet.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cFrontType.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_ForcLogin.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_IsAnonymous.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_LastAction.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_PasswordFormat.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_PasswordQuestion.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_Salt.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_Approved.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_DateCreated.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_LastActivity.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_LastLogin.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cCategoryId.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cContactInfoVisible.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cShopAccess.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentHistories.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocuments.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentShops.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentTypes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqFileCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqFiles.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqFileShops.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqNodes.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqNodeSupplierConnections.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.SynologenOpqShopConnections.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblBaseFile.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblBaseLocations.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblCommerceProductFileCategory.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPage.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPageFile.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPageType.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblForumUsers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMemberCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMembers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMemberUserConnection.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenConcern.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShop.table.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategory.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategoryMemberCategoryConnection.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopGroup.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopMemberConnection.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_forums_Users.index.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_forums_Users_1.index.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_Users.index.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.SynologenOpqDocumentHistories_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.SynologenOpqDocuments_SynologenOpqDocumentHistories_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.tblBaseUsers_SynologenOpqDocumentHistories_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.FK_SynologenOpqDocuments_tblSynologenShopGroup.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.SynologenOpqDocuments_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.SynologenOpqDocumentTypes_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.SynologenOpqNodes_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblBaseUsers_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblBaseUsers_SynologenOpqDocuments_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblBaseUsers_SynologenOpqDocuments_FK3.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblBaseUsers_SynologenOpqDocuments_FK4.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblSynologenConcern_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblSynologenShop_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentShops.SynologenOpqDocumentShops_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentShops.SynologenOpqDocuments_SynologenOpqDocumentShops_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentShops.tblSynologenShop_SynologenOpqDocumentShops_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentTypes.SynologenOpqDocumentTypes_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileCategories.SynologenOpqFileCategories_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileCategories.tblBaseUsers_SynologenOpqFileCategories_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileCategories.tblBaseUsers_SynologenOpqFileCategories_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.FK_SynologenOpqFiles_tblSynologenShopGroup.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.SynologenOpqFileCategories_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.SynologenOpqFiles_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.SynologenOpqNodes_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseFile_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseUsers_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseUsers_SynologenOpqFiles_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseUsers_SynologenOpqFiles_FK3.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseUsers_SynologenOpqFiles_FK4.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblSynologenConcern_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblSynologenShop_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileShops.SynologenOpqFileShops_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileShops.SynologenOpqFiles_SynologenOpqFileShops_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileShops.tblSynologenShop_SynologenOpqFileShops_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.SynologenOpqNodes_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.SynologenOpqNodes_SynologenOpqNodes_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.tblBaseUsers_SynologenOpqNodes_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.tblBaseUsers_SynologenOpqNodes_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.tblBaseUsers_SynologenOpqNodes_FK3.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodes.tblBaseUsers_SynologenOpqNodes_FK4.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodeSupplierConnections.SynologenOpqNodeSupplierConnections_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodeSupplierConnections.SynologenOpqNodes_SynologenOpqNodeSupplierConnections_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqNodeSupplierConnections.tblBaseUsers_SynologenOpqNodeSupplierConnections_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqShopConnections.SynologenOpqShopConnections_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqShopConnections.tblSynologenShop_SynologenOpqShopConnections_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqShopConnections.tblSynologenShop_SynologenOpqShopConnections_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseFile.PK_tblBaseFile.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.FK_tblBaseUsers_tblBaseLocations.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.IX_tblBaseUsers.ukey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.PK_tblBaseUsers.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblCommerceProductFileCategory.PK_tblCommerceProductFileCategory.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPage.FK_tblContPage_tblContPageType.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPage.PK_tblContPage.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.FK_tblContPageFile_tblBaseFile.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.FK_tblContPageFile_tblContPage.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.PK_tblContPageFile.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageType.PK_tblContPageType.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblForumUsers.IX_forums_Users_2.ukey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblForumUsers.PK_forums_Users.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberCategories.PK_tblMemberCategories.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMembers.PK_tblMembers.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.FK_tblMemberUserConnection_tblBaseUsers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.FK_tblMemberUserConnection_tblMembers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.PK_tblMemberUserConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenConcern.tblSynologenConcern_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShop.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShopCategory.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShopGroup.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.PK_tblSynologenShop.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategory.PK_tblSynologenShopCategory.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.FK_tblSynologenShopCategoryMemberCategoryConnection_tblMemberCategories.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.FK_tblSynologenShopCategoryMemberCategoryConnection_tblSynologenShopCategory.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.PK_tblShopCategoryMemberCategoryConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopGroup.PK_tblSynologenShopGroup.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.FK_tblSynologenShopMemberConnection_tblMembers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.FK_tblSynologenShopMemberConnection_tblSynologenShop.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.PK_tblSynologenShopMemberConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo_1.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumInsertUser.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumUpdateUser.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterInsert.trigger.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterUpdate.trigger.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterDelete.trigger.sql">
+      <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterInsert.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterUpdate.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterDelete.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Views\dbo.SynologenOpqDocumentView.view.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql">
+      <SubType>Code</SubType>
+    </PreDeploy>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql">
+      <SubType>Code</SubType>
+    </PostDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <NotInBuild Include="Schema Comparisons\Project - BLACK.scmp">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Schema Comparisons\Project-Test.scmp">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Administration\CleanTestData.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Administration\Visio_generated.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Default Data\DocumentTypes.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Test Data\Business Layer Tests\TestData.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Test Data\Data Layer Tests\TestData.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\master.dbschema">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\master.dbschema</HintPath>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+    <ArtifactReference Include="..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\msdb.dbschema">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\msdb.dbschema</HintPath>
+      <DatabaseVariableLiteralValue>msdb</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+</Project>

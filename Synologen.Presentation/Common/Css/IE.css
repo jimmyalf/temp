@@ -1,0 +1,76 @@
+/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+	Description: This file contains filters that
+	targets IE-browsers earlier then version 7.
+	It also contains general rules for use in
+	both IE 6- and IE 7.
+	All filters should be well documented!
+	
+	Filters used
+	--------------------------
+	IE 6-:		* html
+	--------------------------
+
+================================================*/
+/* =Valid colors
+	---------------------------------
+	#990000		Background (error)
+	#444		Text
+	#AAA		Borders, Background (dark)
+	#DDD		Background, Gradient (medium)
+	#EEE		Background, Gradient (light)
+	#FFFFDD		Hoverstyle
+	White		Background, Borders, Text
+	---------------------------------
+*/
+
+/* =Shared style rules for IE 7-
+================================================*/
+fieldset {background-color: Transparent;}
+#dHeader {background: #d9d9d9 url('../img/HeaderBG.png') repeat-x top left;}
+#dCompNavigation ul {background: #b1b1b1 url('../img/CompNavigationBG.png') repeat-x bottom left;}
+ul#ContentMenu {background: #6cb4ff url('../img/CompNavigationBG_Blue.png') repeat-x bottom left;}
+ul#FilesMenu {background: #ffb977 url('../img/CompNavigationBG_Orange.png') repeat-x bottom left;}
+ul#ComponentsMenu {background: #6ced00 url('../img/CompNavigationBG_Green.png') repeat-x bottom left;}
+ul#LayoutMenu {background: #ffe570 url('../img/CompNavigationBG_Yellow.png') repeat-x bottom left;}
+#dCompNavigation li.Selected {border-bottom: solid 1px #d9d9d9;}
+#dCompNavigation li.Selected a,
+#dCompNavigation li.Selected a:link,
+#dCompNavigation li.Selected a:visited,
+#dCompNavigation li.Selected a:hover,
+#dCompNavigation li.Selected a:focus {background-color: #d9d9d9;}
+#dCompSubNavigation ul {background: #d9d9d9 url('../img/CompSubNavigationBG.png') repeat-x bottom left;}
+#dCompSubNavigation {float: left; clear: both; min-height: 0;}
+#dCompSubNavigation ul {float: left; clear: both;}
+#dCompSidebar {width: 28%;}
+#dFooter {background: #c7c7c7 url('../img/FooterBG.png') repeat-x top left;}
+.btnBig	{padding: .2em .3em;}
+ul.tabs {height: 1%;}
+div.error {background: #8f0000 url(../img/ErrorBG.png) repeat-x top left;}
+div.success {color: #339900 !important; background: #298f00 url(../img/SuccessBG.png) repeat-x top left;}
+
+/* =Page specific style rules for IE 7-
+================================================*/
+.Files-FilesMain-aspx .tableContainer {overflow: inherit;}
+.Files-FilesMain-aspx .displayAsTable .tableCell {float: left; max-width: 50%; margin: 0 15px 15px 0;}
+.Files-FilesMain-aspx .margin {width: 100%;}
+.Files-FilesMain-aspx .sidebarClose {display: none;}
+.Files-NewFolder-ascx .formCommands,
+.Files-ImageManager-ascx .formCommands {width: 100%;}
+.Wysiwyg-InternalLink-aspx #dMainColumn,
+.Wysiwyg-InternalLink-aspx #dSecondaryColumn {width: 50%;}
+
+/* =Filters for IE 6-
+================================================*/
+* html legend {margin-bottom: .5em;}
+* html #dCompSidebar a {border: 0;}
+* html .btnSmall {padding: 0 .1em;}
+* html .txt {width: 20em; padding-left: 0.2em; font-size: 1em; font-family: "Lucida Grande", Verdana, Arial, Tahoma, Sans-Serif; color: #444; background: White;}
+* html .DateTimeCalendar-ascx .calendarBtn {padding: .1em 0; font-size: 1em;}
+* html .DateTimeCalendar-ascx .calendarContainer {position: relative;}
+
+/* =Page specific filters for IE 6-
+================================================*/
+* html #dLoginContainer #dHeader {height: 70px;}
+* html .Files-FilesMain-aspx .displayAsTable .tableCell {width: 40%;}

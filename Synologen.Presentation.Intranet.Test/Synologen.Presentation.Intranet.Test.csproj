@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83C0A49C-97F9-46DB-9B71-3201CDB6F477}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Intranet.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Intranet.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Newtonsoft.Json\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebFormsMvp, Version=1.4.1.0, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebFormsMvp.1.4.1.0\lib\WebFormsMvp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssertionHelpers\AssertionExtensions.cs" />
+    <Compile Include="ContractSaleTests\Factories\ContractCompanyFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ArticleFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ContractSaleFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\SalesItemFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ShopFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\SubscriptionFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\TransactionFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ShopSettlementFactory.cs" />
+    <Compile Include="ContractSaleTests\TestHelpers\ViewSettlementTestbase.cs" />
+    <Compile Include="ContractSaleTests\ViewSettlementPresenterTests.cs" />
+    <Compile Include="EqualityComparers\EyeParameterEqualityComparer.cs" />
+    <Compile Include="Factories\RepositoryFactory.cs" />
+    <Compile Include="FrameOrderTests\EditFrameOrderPresenterTests.cs" />
+    <Compile Include="FrameOrderTests\FrameOrderServiceTest.cs" />
+    <Compile Include="FrameOrderTests\SynologenSettingsServiceTest.cs" />
+    <Compile Include="FrameOrderTests\ListFrameOrdersPresenterTest.cs" />
+    <Compile Include="FrameOrderTests\ViewFrameOrderPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateCustomerPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateSubscriptionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateTransactionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\EditCustomerPresenterTests.cs.cs" />
+    <Compile Include="LensSubscriptionTests\EditSubscriptionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\CountryFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\CustomerFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\ShopFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\SubscriptionErrorFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\SubscriptionFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\TransactionFactory.cs" />
+    <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />
+    <Compile Include="LensSubscriptionTests\ListSubscriptionErrorPresenterTest.cs" />
+    <Compile Include="LensSubscriptionTests\ListTransactionsPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\ShopSubscriptionErrorListPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ShopSubscriptionsPresenterTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ShopSubscriptionErrorListTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\CreateCustomerTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\CreateSubscriptionTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\CreateTransactionTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\EditCustomerTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ListCustomersTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ListSubscriptionErrorsTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ListTransactionsTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
+    <Compile Include="Orders\Create_Order_Tests.cs" />
+    <Compile Include="Orders\OrderFactory.cs" />
+    <Compile Include="Orders\OrderWithdrawalService_Tests.cs" />
+    <Compile Include="Orders\Save_Customer.cs" />
+    <Compile Include="Orders\Test_Task_Ordering.cs" />
+    <Compile Include="TestHelpers\PresenterTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\EditSubscriptionTestbase.cs" />
+    <Compile Include="MockHelpers\HttpContextMock.cs" />
+    <Compile Include="MockHelpers\MvpHelpers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FrameOrderTests\ServiceFactory.cs" />
+    <Compile Include="YammerTests\Factories\YammerFactory.cs" />
+    <Compile Include="YammerTests\TestHelpers\YammerTestbase.cs" />
+    <Compile Include="YammerTests\YammerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
+      <Name>Synologen.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="YammerTests\Factories\messages.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

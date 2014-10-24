@@ -1,0 +1,1 @@
+<%@ Application Inherits="Spinit.Wpc.Base.Presentation.WpcAdminGlobal" Language="C#" %>

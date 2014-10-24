@@ -1,0 +1,3 @@
+<link rel="stylesheet" type="text/css" href="<%=Spinit.Wpc.Base.Business.Globals.BaseUrl%>common/css/Style.css" media="screen,projection" />
+<link rel="stylesheet" type="text/css" href="<%=Spinit.Wpc.Base.Business.Globals.BaseUrl%>common/css/Print.css" media="print" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="<%=Spinit.Wpc.Base.Business.Globals.BaseUrl%>common/css/IE.css" media="screen,projection" /><![endif]-->

@@ -86,7 +86,6 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
         public int? ContractId { get; set; }
         public int? CompanyId { get; set; }
 
-        // TODO: Is this parameter actually needed?
         public int? ReportTypeId { get; set; }
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }

@@ -23,7 +23,7 @@
 					</div>				
 					<div class="formItem clearLeft">
 						<label class="labelLong">Fakuterars ej</label>
-						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.IsNoOp%>' />				
+						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.DisableInvoice%>' />				
 					</div>													
                 </fieldset>			
 				                	

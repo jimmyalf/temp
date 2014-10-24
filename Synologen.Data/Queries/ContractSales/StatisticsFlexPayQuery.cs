@@ -48,35 +48,27 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                 INNER JOIN tblSynologenArticle ON tblSynologenArticle.cId = tblSynologenOrderItems.cArticleId
                 INNER JOIN tblSynologenContractArticleConnection ON tblSynologenContractArticleConnection.cArticleId = tblSynologenOrderItems.cArticleId AND tblSynologenContractArticleConnection.cContractCustomerId = tblSynologenContract.cId")
 
-                    // TODO: Hard coded contract id, i assume this line should be removed
-                    .Where("tblSynologenContract.cId = 32")
+                .Where("tblSynologenContract.cId = @ContractId")
+                .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,7,8")
+                .Where("tblSynologenContract.cId = @ContractId").If(ContractId.HasValue)
+                .Where("tblSynologenCompany.cId = @CompanyId").If(CompanyId.HasValue)
+                .Where("tblSynologenOrder.cCreatedDate >= @From").If(From.HasValue)
+                .Where("tblSynologenOrder.cCreatedDate < @To").If(To.HasValue)
 
-                    // TODO: Remove unused comments
-                    //--WHERE tblSynologenOrder.cCreatedDate >= @From
-                    //--WHERE tblSynologenOrder.cCreatedDate < @To
-                    .GroupBy(@"tblSynologenOrder.cInvoiceNumber
-                    ,tblSynologenContractArticleConnection.cDiscountId
-                    ,tblSynologenOrder.cCreatedDate
-                    ,tblSynologenCompany.cName
-                    ,tblSynologenCompany.cOrganizationNumber
-                    ,tblSynologenOrder.cPersonalIdNumber
-                    ,tblSynologenContractArticleConnection.cCustomerArticleId
-                    ,tblSynologenOrder.cInvoiceSumExcludingVAT")
+                .GroupBy(@"tblSynologenOrder.cInvoiceNumber
+                ,tblSynologenContractArticleConnection.cDiscountId
+                ,tblSynologenOrder.cCreatedDate
+                ,tblSynologenCompany.cName
+                ,tblSynologenCompany.cOrganizationNumber
+                ,tblSynologenOrder.cPersonalIdNumber
+                ,tblSynologenContractArticleConnection.cCustomerArticleId")
 
-                    .OrderBy("tblSynologenOrder.cInvoiceNumber")
+                .OrderBy("tblSynologenOrder.cInvoiceNumber")
 
-                    // TODO: I assume that all the commented out code below should actually not be commented out
-                    //.Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,7,8")
-                    //.Where("tblSynologenContract.cId = @ContractId").If(ContractId.HasValue)
-                    //.Where("tblSynologenCompany.cId = @CompanyId").If(CompanyId.HasValue)
-                    //.Where("tblSynologenOrder.cCreatedDate >= @From").If(From.HasValue)
-                    //.Where("tblSynologenOrder.cCreatedDate < @To").If(To.HasValue)
-                    //.GroupBy(@"tblSynologenArticle.cId, tblSynologenArticle.cName, tblSynologenCompany.cName, tblSynologenShop.cShopName, tblSynologenShop.cCity")
-                    //.OrderBy(@"tblSynologenShop.cCity, tblSynologenShop.cShopName")
-                    .AddParameters(new { ContractId, CompanyId, From, To });
+                .AddParameters(new { ContractId, CompanyId, From, To });
             
             var dbData = persistence.Query(queryBuilder, Parser).ToList();
-            var deleveryId = Spinit.Wpc.Synologen.Business.Globals.FlexPayReportDeliveryId;
+            var deleveryId = Spinit.Wpc.Synologen.Business.Globals.FlexPayReportDeliveryNumber;
             foreach (var data in dbData)
             {
                 data.LeverantörsId = deleveryId;
@@ -89,8 +81,6 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
         {
             return new FluentDataParser<OrderStatisticsFlexPaySummaryRow>(record) { ColumnPrefix = null }
 
-                // TODO: Remove unused comments
-                //.Parse(x => x.LeverantörsId)
                 .Parse(x => x.FörmånsId)
                 .Parse(x => x.Fakturanr)
                 .Parse<string, DateTime>(x => x.Period, x => x.ToString("yyyy-MM"))

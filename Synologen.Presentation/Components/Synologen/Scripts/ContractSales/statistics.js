@@ -19,7 +19,7 @@ function StatisticsViewModel(model) {
     }, self);
 
     self.selectableReportTypes = ko.computed(function () {
-        if (self.selectedCompany()) {
+        if (self.selectedContract()) {
             return ko.utils.arrayFilter(self.reportTypes(), function (item) {
                 return item.Id;
             });
@@ -43,9 +43,6 @@ function StatisticsViewModel(model) {
     }, self);
 
     self.selectedReportType = ko.computed(function () {
-        if(self.selectedReportType()) {
-            return ko.utils.arrayFirst(self.reportTypes(), function (item) { return item.Id == self.selectedReportType(); }).Name;
-        }
-        return null;
+        return ko.utils.arrayFirst(self.reportTypes(), function (item) { return item.Id == self.selectedReportType(); }).Name;
     }, self);
 }

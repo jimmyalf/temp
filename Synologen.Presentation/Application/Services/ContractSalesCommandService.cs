@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = contractArticleConnection.NoVAT,
 				Price = (float) contractArticleConnection.Price,
 				SPCSAccountNumber = contractArticleConnection.SPCSAccountNumber,
-                CustomerArticleId = contractArticleConnection.CustomerArticleId,
+                CustomerArticleNumber = contractArticleConnection.CustomerArticleNumber,
                 DiscountId = contractArticleConnection.DiscountId,
 
 			};
@@ -73,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			contractArticle.NoVAT = contractArticleConnection.NoVAT;
 			contractArticle.Price = (float) contractArticleConnection.Price;
 			contractArticle.SPCSAccountNumber = contractArticleConnection.SPCSAccountNumber;
-			contractArticle.CustomerArticleId = contractArticleConnection.CustomerArticleId;
+			contractArticle.CustomerArticleNumber = contractArticleConnection.CustomerArticleNumber;
 			contractArticle.DiscountId = contractArticleConnection.DiscountId;
 
 			_synologenSqlProvider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Update, ref contractArticle);

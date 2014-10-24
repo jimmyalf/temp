@@ -35,7 +35,6 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
-        // TODO: The procedure called below does not exist in update-script, so i cannot verify functionality
 		public void SetInvoiceMethodForContractCompanies(int contractId, InvoicingMethod invoiceMethod) {
             SqlParameter[] parameters = {
                         new SqlParameter ("@contractId", SqlDbType.Int, 4),
@@ -58,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			try {
 				var contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);
 				var contractCustomerDataRow = contractCustomerDataSet.Tables[0].Rows[0];
-                var contract = new Contract { Address = Util.CheckNullString(contractCustomerDataRow, "cAddress"), Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2"), City = Util.CheckNullString(contractCustomerDataRow, "cCity"), Code = Util.CheckNullString(contractCustomerDataRow, "cCode"), Description = Util.CheckNullString(contractCustomerDataRow, "cDescription"), Email = Util.CheckNullString(contractCustomerDataRow, "cEmail"), Fax = Util.CheckNullString(contractCustomerDataRow, "cFax"), Id = Util.CheckNullInt(contractCustomerDataRow, "cId"), Name = Util.CheckNullString(contractCustomerDataRow, "cName"), Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone"), Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2"), Zip = Util.CheckNullString(contractCustomerDataRow, "cZip"), Active = (bool)contractCustomerDataRow["cActive"], IsNoOp = (bool)contractCustomerDataRow["cIsNoOp"] };
+                var contract = new Contract { Address = Util.CheckNullString(contractCustomerDataRow, "cAddress"), Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2"), City = Util.CheckNullString(contractCustomerDataRow, "cCity"), Code = Util.CheckNullString(contractCustomerDataRow, "cCode"), Description = Util.CheckNullString(contractCustomerDataRow, "cDescription"), Email = Util.CheckNullString(contractCustomerDataRow, "cEmail"), Fax = Util.CheckNullString(contractCustomerDataRow, "cFax"), Id = Util.CheckNullInt(contractCustomerDataRow, "cId"), Name = Util.CheckNullString(contractCustomerDataRow, "cName"), Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone"), Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2"), Zip = Util.CheckNullString(contractCustomerDataRow, "cZip"), Active = (bool)contractCustomerDataRow["cActive"], DisableInvoice = (bool)contractCustomerDataRow["cIsNoOp"] };
 				return contract;
 			}
 			catch (Exception ex) {
@@ -147,7 +146,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = contract.Fax ?? SqlString.Null;
 					parameters[counter++].Value = contract.Email ?? SqlString.Null;
 					parameters[counter++].Value = contract.Active;
-					parameters[counter++].Value = contract.IsNoOp;
+					parameters[counter++].Value = contract.DisableInvoice;
 				}
 		        parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 		        if (action == Enumerations.Action.Create){

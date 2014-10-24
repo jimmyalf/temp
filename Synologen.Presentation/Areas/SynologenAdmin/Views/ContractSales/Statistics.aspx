@@ -34,7 +34,7 @@
 				</div>
 				<div class="formItem clearLeft">
 					<%= Html.LabelFor(x => x.SelectedReportTypeId) %>
-					<%= Html.DropDownListFor(x => x.SelectedReportTypeId, Model.GetReportTypes(), "-- Välj rapport --", new Dictionary<string, object> { {"data-bind", "options: selectableReportTypes, optionsText: 'Name', optionsValue: 'Id', value: selectedReportType, optionsCaption: '-- Välj rapport --'"} }) %>
+					<%= Html.DropDownListFor(x => x.SelectedReportTypeId, Model.GetReportTypes(), new Dictionary<string, object> { {"data-bind", "options: selectableReportTypes, optionsText: 'Name', optionsValue: 'Id', value: selectedReportType, optionsCaption: selectedReportType"} }) %>
 				</div>
 				<div class="formItem clearLeft">
 					<%= Html.LabelFor(x => x.From) %>

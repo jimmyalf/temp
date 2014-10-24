@@ -46,7 +46,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         private void ProcessOrder(IOrder order)
         {
             UpdateOrderStatus(order.Id);
-            AddOrderHistory(order.Id, order.InvoiceNumber, "Fakturan har behandlats. Ingen faktura har skickats eftersom faktureringstypen är 'Faktureras ej'");
+            Provider.AddOrderHistory(order.Id, "Fakturan har behandlats. Ingen faktura har skickats eftersom faktureringstypen är 'Faktureras ej'");
         }
 
         public override bool IHandle(InvoicingMethod method)

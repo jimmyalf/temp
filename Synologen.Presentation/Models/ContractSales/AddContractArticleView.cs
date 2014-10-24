@@ -24,10 +24,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		[DisplayName("Tillgänglig för försäljning")]
 		public bool IsActive { get; set; }
 
-        [DisplayName("Kundens artikelnummer"), RegularExpression("^[1-9]{1}[0-9]*$")]
+        [DisplayName("Kundens artikelnummer"), RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "Ogiltigt artikelnummer. Ange enbart siffror och inga specialtecken.")]
         public string CustomerArticelId { get; set; }
 
-        [DisplayName("Förmåns Id"), RegularExpression("^[1-9]{1}[0-9]*$")]
+        [DisplayName("Förmåns Id"), RegularExpression("^[1-9]{1}[0-9]*$", ErrorMessage = "Ogiltigt förmåns id. Ange enbart siffror och inga specialtecken.")]
         public string DiscountId { get; set; }
 
 		public string ContractArticleListUrl { get; set; }

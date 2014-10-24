@@ -16,7 +16,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public string Email { get; set; }
         public bool Active { get; set; }
 
-        // TODO: A more descriptive name would be nice here. Maybe like DisableInvocing or similar
-		public bool IsNoOp { get; set; }
+		public bool DisableInvoice { get; set; }
 	}
 }

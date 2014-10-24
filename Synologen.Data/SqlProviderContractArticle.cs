@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = connection.Active;
 					parameters[counter++].Value = connection.SPCSAccountNumber;
 					parameters[counter++].Value = connection.EnableManualPriceOverride;
-					parameters[counter++].Value = connection.CustomerArticleId;
+					parameters[counter++].Value = connection.CustomerArticleNumber;
                     parameters[counter++].Value = connection.DiscountId;
 
 				}
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Data
 					NoVAT = (bool) articleDataRow["cNoVAT"], 
 					SPCSAccountNumber = Util.CheckNullString(articleDataRow, "cSPCSAccountNumber"),
 					EnableManualPriceOverride = (bool) articleDataRow["cEnableManualPriceOverride"],
-                    CustomerArticleId = Util.CheckNullInt(articleDataRow, "cCustomerArticleId"), 
+                    CustomerArticleNumber = Util.CheckNullInt(articleDataRow, "cCustomerArticleId"), 
                     DiscountId = Util.CheckNullInt(articleDataRow, "cDiscountId"), 
 				};
 				return articleRow;

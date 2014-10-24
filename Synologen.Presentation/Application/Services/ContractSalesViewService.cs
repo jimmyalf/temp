@@ -152,7 +152,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				SPCSAccountNumber = contractArticle.SPCSAccountNumber,
                 ArticleName = contractArticle.ArticleName,
 				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
-                CustomerArticelId = contractArticle.CustomerArticleId > 0 ? contractArticle.CustomerArticleId.ToString() : string.Empty,
+                CustomerArticelId = contractArticle.CustomerArticleNumber > 0 ? contractArticle.CustomerArticleNumber.ToString() : string.Empty,
                 DiscountId = contractArticle.DiscountId > 0 ? contractArticle.DiscountId.ToString() : string.Empty,
 			};
 		}
@@ -210,7 +210,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = addContractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(addContractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = addContractArticleView.SPCSAccountNumber,
-                CustomerArticleId = Convert.ToInt32(addContractArticleView.CustomerArticelId),
+                CustomerArticleNumber = Convert.ToInt32(addContractArticleView.CustomerArticelId),
 				DiscountId = Convert.ToInt32(addContractArticleView.DiscountId),
 			};
 		}
@@ -228,7 +228,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = contractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(contractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
-                CustomerArticleId = Convert.ToInt32(contractArticleView.CustomerArticelId),
+                CustomerArticleNumber = Convert.ToInt32(contractArticleView.CustomerArticelId),
                 DiscountId = Convert.ToInt32(contractArticleView.DiscountId),
 			};
 		}
@@ -259,6 +259,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	    {
 	        model.Contracts = GetAllContracts();
             model.Companies = GetAllCompanies();
+	        model.ReportTypes = GetAllReportTypes();
 	    }
 
 	    protected List<ContractListItem> GetAllContracts()

@@ -35,11 +35,29 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
+		public void SetInvoiceMethodForContractCompanies(int contractId, InvoicingMethod invoiceMethod) {
+            SqlParameter[] parameters = {
+                        new SqlParameter ("@contractId", SqlDbType.Int, 4),
+						new SqlParameter ("@invoiceMethod", SqlDbType.Int, 4)
+						
+					};
+            parameters[0].Value = contractId;
+		    parameters[1].Value = (int) invoiceMethod;
+		    
+            try
+            {
+                RunProcedure("spSynologenSetInvoiceMethodForContractCompanies", parameters);
+        	}
+			catch (SqlException e) {
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while updating invoice methods for contract companies.", e);
+			}
+		}
+
 		public Contract GetContract(int contractCustomerId) {
 			try {
 				var contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);
 				var contractCustomerDataRow = contractCustomerDataSet.Tables[0].Rows[0];
-				var contract = new Contract {Address = Util.CheckNullString(contractCustomerDataRow, "cAddress"), Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2"), City = Util.CheckNullString(contractCustomerDataRow, "cCity"), Code = Util.CheckNullString(contractCustomerDataRow, "cCode"), Description = Util.CheckNullString(contractCustomerDataRow, "cDescription"), Email = Util.CheckNullString(contractCustomerDataRow, "cEmail"), Fax = Util.CheckNullString(contractCustomerDataRow, "cFax"), Id = Util.CheckNullInt(contractCustomerDataRow, "cId"), Name = Util.CheckNullString(contractCustomerDataRow, "cName"), Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone"), Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2"), Zip = Util.CheckNullString(contractCustomerDataRow, "cZip"), Active = (bool) contractCustomerDataRow["cActive"]};
+                var contract = new Contract { Address = Util.CheckNullString(contractCustomerDataRow, "cAddress"), Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2"), City = Util.CheckNullString(contractCustomerDataRow, "cCity"), Code = Util.CheckNullString(contractCustomerDataRow, "cCode"), Description = Util.CheckNullString(contractCustomerDataRow, "cDescription"), Email = Util.CheckNullString(contractCustomerDataRow, "cEmail"), Fax = Util.CheckNullString(contractCustomerDataRow, "cFax"), Id = Util.CheckNullInt(contractCustomerDataRow, "cId"), Name = Util.CheckNullString(contractCustomerDataRow, "cName"), Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone"), Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2"), Zip = Util.CheckNullString(contractCustomerDataRow, "cZip"), Active = (bool)contractCustomerDataRow["cActive"], DisableInvoice = (bool)contractCustomerDataRow["cIsNoOp"] };
 				return contract;
 			}
 			catch (Exception ex) {
@@ -108,6 +126,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		            new SqlParameter("@fax", SqlDbType.NVarChar, 50),
 		            new SqlParameter("@email", SqlDbType.NVarChar, 50),
 					new SqlParameter("@active", SqlDbType.Bit),
+					new SqlParameter("@isnoop", SqlDbType.Bit),
 		            new SqlParameter("@status", SqlDbType.Int, 4),
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
@@ -127,6 +146,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = contract.Fax ?? SqlString.Null;
 					parameters[counter++].Value = contract.Email ?? SqlString.Null;
 					parameters[counter++].Value = contract.Active;
+					parameters[counter++].Value = contract.DisableInvoice;
 				}
 		        parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 		        if (action == Enumerations.Action.Create){

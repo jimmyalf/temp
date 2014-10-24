@@ -62,22 +62,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 
 		public static FrameColor GetMockedFrameColor(int id)
 		{
-		    return new FrameColor
-		    {
-		        Id = id,
-		        Name = "Brun",
-		    };
-					
+		    return new FrameColor { Id = id, Name = "Brun", };
 		}
 
 		public static FrameBrand GetMockedFrameBrand(int id)
 		{
-		    return new FrameBrand
-		    {
-		        Id = id,
-		        Name = "Björn borg",
-		    };
-					
+		    return new FrameBrand { Id = id, Name = "Björn borg", };
 		}
 
 		public static FrameGlassType GetMockedFrameGlass(int id)
@@ -87,7 +77,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		        Id = id,
 		        Name = "Närprogressiv",
 		        IncludeAdditionParametersInOrder = true,
-		        IncludeHeightParametersInOrder = true
+		        IncludeHeightParametersInOrder = true,
+                Supplier = GetMockedFrameSupplier(id)
 		    }
 			.SetInterval(x => x.Sphere, -6, 6, 0.25M)
 			.SetInterval(x => x.Cylinder, -2, 6, 0.25M);
@@ -96,13 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 
         public static FrameSupplier GetMockedFrameSupplier(int id)
         {
-            return new FrameSupplier
-                       {
-                           Id = id,
-                           Name = "Hoya",
-                           Email = "kundservice@hoya.se"
-
-                       };
+            return new FrameSupplier { Id = id, Name = "Hoya", Email = "kundservice@hoya.se" };
         }
 
 		public static FrameOrder GetMockedFrameOrder(int id)

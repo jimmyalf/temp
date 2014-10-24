@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations
 	public interface IExternalDeviationListView : IView<ExternalDeviationListModel>
 	{
         event EventHandler<ExternalDeviationListEventArgs> SupplierSelected;
+        int? ViewPageId { get; set; }
 	}
 }

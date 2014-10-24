@@ -12,5 +12,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
     	public string ClearingNumber { get; set; }
 		public decimal? MonthlyFee { get; set; }
 		public decimal? MonthlyProduct { get; set; }
+        public string Title { get; set; }
     }
 }

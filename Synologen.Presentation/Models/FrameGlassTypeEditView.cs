@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Validation;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models
@@ -8,6 +10,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		public int Id { get; set; }
 		public string FormLegend { get; set; }
+
+        [DisplayName("Leverantör")]
+        [Required(ErrorMessage = "Leverantör saknas")]
+        public int SupplierId { get; set; }
 
 		[DisplayName("Namn")]
 		[Required(ErrorMessage = "Namn måste anges")]
@@ -45,7 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		[Required(ErrorMessage="Cylinder min saknas")]
 		public decimal CylinderMinValue { get; set; }
 
-		public static FrameGlassTypeEditView GetDefaultInstance(string formLegend)
+	    public IEnumerable<FrameSupplier> AvailableFrameSuppliers { get; set; }
+
+	    public static FrameGlassTypeEditView GetDefaultInstance(string formLegend, IEnumerable<FrameSupplier> availableFramesuppliers)
 		{
 			return new FrameGlassTypeEditView
 			{
@@ -56,6 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 				CylinderMinValue = -2,
 				CylinderMaxValue = 0,
 				CylinderIncrementation = 0.25M,
+                AvailableFrameSuppliers = availableFramesuppliers
 			};
 		}
 	}

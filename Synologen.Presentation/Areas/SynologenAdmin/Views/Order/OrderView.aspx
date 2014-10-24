@@ -66,6 +66,7 @@
 			</fieldset>
 			<fieldset>
 				<legend>Abonemmangsinformation</legend>
+                <p><%= Html.LabelFor(x => x.Title)%><%= Html.DisplayFor(x => x.Title)%></p>
 				<p><%= Html.LabelFor(x => x.DeliveryOption)%><%= Html.DisplayFor(x => x.DeliveryOption)%></p>
 				<p><%= Html.LabelFor(x => x.ProductPrice)%><%= Html.DisplayFor(x => x.ProductPrice)%></p>
 				<p><%= Html.LabelFor(x => x.FeePrice)%><%= Html.DisplayFor(x => x.FeePrice)%></p>

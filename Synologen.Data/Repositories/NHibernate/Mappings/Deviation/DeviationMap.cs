@@ -14,13 +14,16 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Deviations
             Table("SynologenDeviations");
             Id(x => x.Id);
             Map(x => x.ShopId);
+            Map(x => x.Status).Column("StatusId").CustomType<DeviationStatus>();
             Map(x => x.CreatedDate);
             Map(x => x.Type).Column("TypeId").CustomType<DeviationType>();
             Map(x => x.DefectDescription);
+            Map(x => x.Title);
 
             References(x => x.Category).Column("CategoryId");
             References(x => x.Supplier).Column("SupplierId");
             HasManyToMany(x => x.Defects).Table("SynologenDeviationDefectToDeviation").ParentKeyColumn("DeviationId").ChildKeyColumn("DefectId").Cascade.All();
+            HasManyToMany(x => x.Comments).Table("SynologenDeviationCommentToDeviation").ParentKeyColumn("DeviationId").ChildKeyColumn("CommentId").Cascade.All();
         }
 
 	}

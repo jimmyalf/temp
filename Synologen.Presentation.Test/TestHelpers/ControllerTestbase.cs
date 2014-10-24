@@ -6,9 +6,8 @@ using Spinit.Wpc.Synologen.Presentation.Helpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 {
-	[TestFixture]
 	public abstract class ControllerTestbase<TController>
-		where TController: Controller
+		where TController : Controller
 	{
 		protected ControllerTestbase()
 		{
@@ -36,9 +35,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected TController Controller;
 	}
 
-	[TestFixture]
-	public abstract class ControllerTestbase<TController,TViewModel> : ControllerTestbase<TController>
-		where TController: Controller where TViewModel : class
+	public abstract class ControllerTestbase<TController, TViewModel> : ControllerTestbase<TController>
+		where TController : Controller where TViewModel : class
 	{
 		protected ControllerTestbase()
 		{

@@ -121,7 +121,7 @@
     <value>Välj användare:</value>
   </data>
   <data name="ErrorConnect" xml:space="preserve">
-    <value>Fel vid anslutning till NETCOMPETENCE. Försök igen senare!</value>
+    <value>Fel vid anslutning till kunskapstestet. Försök igen senare!</value>
   </data>
   <data name="ErrorNoEncryption" xml:space="preserve">
     <value>Krypteringsnyckel saknas!</value>
@@ -136,15 +136,15 @@
     <value>Exception i sänd "{0}".</value>
   </data>
   <data name="GoToNetCompetence" xml:space="preserve">
-    <value>Gå till NETCOMPETENCE</value>
+    <value>Gå till valt test</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Anslut till NETCOMPETENCE</value>
+    <value>Anslut till Optikbranschens kunskapstest</value>
   </data>
   <data name="NoShopException" xml:space="preserve">
     <value>Det finns ingen butik kopplad till din användarprofil!</value>
   </data>
   <data name="ShowLink" xml:space="preserve">
-    <value>Länk till NETCOMPETENCE: "{0}".</value>
+    <value>Länk till kunskapstest: "{0}".</value>
   </data>
 </root>

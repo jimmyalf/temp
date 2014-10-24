@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -17,7 +18,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
@@ -35,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -74,6 +77,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Logic\Enumerations\SubscriptionType.cs" />
+    <Compile Include="Logic\EventArguments\Deviations\ViewDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Deviations\ExternalDeviationListEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Deviations\CreateDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\Deviations\DeviationStatusListItem.cs" />
     <Compile Include="Models\Deviations\DeviationSupplierListItem.cs" />
     <Compile Include="Models\Deviations\DeviationDefectListItem.cs" />
     <Compile Include="Models\Deviations\ViewDeviationModel.cs" />
@@ -211,7 +216,7 @@
     <Compile Include="Models\Deviations\ExternalDeviationListModel.cs" />
     <Compile Include="Models\Deviations\DeviationCategoryListItem.cs" />
     <Compile Include="Models\Deviations\InternalDeviationListModel.cs" />
-    <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
+    <Compile Include="Models\FrameOrders\EntityListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
@@ -225,8 +230,6 @@
     <Compile Include="Logic\Views\FrameOrders\IListFrameOrdersView.cs" />
     <Compile Include="Logic\Views\FrameOrders\IViewFrameOrderView.cs" />
     <Compile Include="Models\FrameOrders\EyeParameterIntervalListAndSelection.cs" />
-    <Compile Include="Models\FrameOrders\FrameGlassTypeListItem.cs" />
-    <Compile Include="Models\FrameOrders\FrameListItem.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderBaseModel.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderListItemModel.cs" />
     <Compile Include="Models\FrameOrders\IntervalListItem.cs" />
@@ -606,6 +609,13 @@
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
       <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx.cs">
+      <DependentUpon>AdminMemberNews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx.designer.cs">
+      <DependentUpon>AdminMemberNews.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx.cs">
       <DependentUpon>AdminMemberPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -780,6 +790,9 @@
     <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
     <Content Include="Orders.Master" />
+    <Content Include="Wpc\Synologen\Orders\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Testpages\CityShopList.aspx" />
@@ -788,9 +801,9 @@
     <None Include="Testpages\LensSubscription\CreateCustomer.aspx" />
     <None Include="Testpages\LensSubscription\CreateSubscription.aspx" />
     <None Include="Testpages\LensSubscription\CustomersList.aspx" />
-    <None Include="Testpages\FrameOrderList.aspx" />
-    <None Include="Testpages\FrameOrderView.aspx" />
-    <None Include="Testpages\FrameOrder.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderList.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderView.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrder.aspx" />
     <None Include="Testpages\LensSubscription\EditCustomer.aspx" />
     <None Include="Testpages\LensSubscription\TransactionsList.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionErrorsList.aspx" />
@@ -811,6 +824,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\AdminMemberNews.ascx" />
     <Content Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx" />
     <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Testpages\AddActionMessage.aspx" />
@@ -818,24 +832,68 @@
     <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ActiveReports.Document, Version=6.2.3681.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports.Document.dll</HintPath>
-    </Reference>
-    <Reference Include="ActiveReports.PdfExport, Version=6.2.3681.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports.PdfExport.dll</HintPath>
-    </Reference>
-    <Reference Include="ActiveReports6, Version=6.2.3681.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports6.dll</HintPath>
-    </Reference>
     <Reference Include="EnsureThat">
       <HintPath>..\packages\Ensure.That.0.6.0\lib\net40\EnsureThat.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Chart.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Chart.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Diagnostics.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Diagnostics.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Document.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Document.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Document.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Document.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Html.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Html.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Image.Unsafe.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Image.Unsafe.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Image.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Image.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Pdf.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Pdf.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Rdf.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Rdf.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Xaml.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Export.Xaml.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Extensibility.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Viewer.Win.v7.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Web.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\ActiveReports7\GrapeCity.ActiveReports.Web.v7.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -853,13 +911,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\PDFThumbnail.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -908,6 +966,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Presentation.Site.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.News.Data">
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.News.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Synologen.Presentation.Intranet.dll.GrapeCity.Licenses">
+      <HintPath>..\Dependancies\ActiveReports7\Spinit.Wpc.Synologen.Presentation.Intranet.dll.GrapeCity.Licenses.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
@@ -941,9 +1005,9 @@
     <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebFormsMvp, Version=0.9.7.4, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
+    <Reference Include="WebFormsMvp, Version=1.4.1.0, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\WebFormsMvp\WebFormsMvp.dll</HintPath>
+      <HintPath>..\packages\WebFormsMvp.1.4.1.0\lib\WebFormsMvp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -951,6 +1015,7 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Testpages\Supplier\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionsList.aspx" />

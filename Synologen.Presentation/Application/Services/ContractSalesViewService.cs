@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using AutoMapper;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
-using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
-	public class ContractSalesViewService : IContractSalesViewService 
+    using Spinit.Wpc.Synologen.Core.Extensions;
+    using Spinit.Wpc.Utility.Business;
+
+    public class ContractSalesViewService : IContractSalesViewService 
 	{
 		private readonly ISettlementRepository _settlementRepository;
 		private readonly IContractSaleRepository _contractSaleRepository;
@@ -133,7 +133,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				ContractName = contract.Name,
 				Articles = articleSelectList,
                 IsActive = true,
-                ContractArticleListUrl = GetContractArticleRoute(contractId)
+                ContractArticleListUrl = GetContractArticleRoute(contractId),
 			};
 		}
 
@@ -151,7 +151,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				PriceWithoutVAT = contractArticle.Price.ToString(),
 				SPCSAccountNumber = contractArticle.SPCSAccountNumber,
                 ArticleName = contractArticle.ArticleName,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
+                CustomerArticelNumber = contractArticle.CustomerArticleNumber > 0 ? contractArticle.CustomerArticleNumber.ToString() : string.Empty,
+                DiscountId = contractArticle.DiscountId > 0 ? contractArticle.DiscountId.ToString() : string.Empty,
 			};
 		}
 
@@ -172,7 +174,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,
                 ArticleId = contractArticleView.ArticleId,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
 			};
 		}
 
@@ -190,7 +192,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,   
 				ArticleName = contractArticle.ArticleName,
-				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id),
+                CustomerArticelNumber = contractArticleView.CustomerArticelNumber,
+                DiscountId = contractArticleView.DiscountId,
 			};
 		}
 
@@ -206,6 +210,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = addContractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(addContractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = addContractArticleView.SPCSAccountNumber,
+                CustomerArticleNumber = Convert.ToInt32(addContractArticleView.CustomerArticelId),
+				DiscountId = Convert.ToInt32(addContractArticleView.DiscountId),
 			};
 		}
 
@@ -222,6 +228,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				NoVAT = contractArticleView.IsVATFreeArticle,
 				Price = Convert.ToInt32(contractArticleView.PriceWithoutVAT),
 				SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
+                CustomerArticleNumber = Convert.ToInt32(contractArticleView.CustomerArticelNumber),
+                DiscountId = Convert.ToInt32(contractArticleView.DiscountId),
 			};
 		}
 
@@ -236,5 +244,57 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			return _articleRepository.Get(articleId);
 		}
+
+	    public StatisticsView GetStatisticsView()
+	    {
+	        return new StatisticsView
+	        {
+	            Contracts = GetAllContracts(), 
+                Companies = GetAllCompanies(),
+                ReportTypes = GetAllReportTypes(),
+	        };
+	    }
+
+	    public void UpdateStatisticsView(StatisticsView model)
+	    {
+	        model.Contracts = GetAllContracts();
+            model.Companies = GetAllCompanies();
+	        model.ReportTypes = GetAllReportTypes();
+	    }
+
+	    protected List<ContractListItem> GetAllContracts()
+        {
+            return _synologenSqlProvider.GetContracts(FetchCustomerContract.All, 0, 0, null)
+                .Tables[0].AsEnumerable()
+                .Select(x => new ContractListItem
+                {
+                    Name = x.Field<string>("cName"),
+                    Id = x.Field<int>("cId")
+                }).ToList();
+        }
+
+        protected List<CompanyListItem> GetAllCompanies()
+        {
+            return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both)
+                .Tables[0].AsEnumerable()
+                .Select(x => new CompanyListItem
+                {
+                    Name = x.Field<string>("cName"),
+                    Id = x.Field<int>("cId"),
+                    ContractId = x.Field<int>("cContractCustomerId")
+                }).ToList();
+        }
+
+        protected List<ReportTypeListItem> GetAllReportTypes()
+        {
+            var reportTypes = 
+                EnumExtensions.Enumerate<StatisticsReportTypes>()
+                .Select(reportType => new ReportTypeListItem
+                                  {
+                                      Id = (int)reportType, 
+                                      Name = reportType.GetEnumDisplayName()
+                                  }).ToList();
+            return reportTypes;
+        }
 	}
 }

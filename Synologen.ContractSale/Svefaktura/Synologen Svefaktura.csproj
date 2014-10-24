@@ -56,6 +56,7 @@
     <Compile Include="CustomEnumerations\ValidationType.cs" />
     <Compile Include="CustomTypes\PropertyValidationRule.cs" />
     <Compile Include="CustomTypes\SFTIInvoiceList.cs" />
+    <Compile Include="SBDH\StandardBusinessDocument.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressLineType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressType.cs" />
     <Compile Include="Svefakt2\UBL\Codelist\AllowanceChargeReasonCodeContentType.cs" />
@@ -307,6 +308,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -319,5 +326,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  
 </Project>

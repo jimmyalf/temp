@@ -98,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 			//Act
 			controller.ModelState.AddModelError("*", "Invalid model state");
-			var result = controller.EditGlassType(null);
+			var result = controller.EditGlassType(new FrameGlassTypeEditView());
 			var viewResult = result as ViewResult ?? new ViewResult();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
 
@@ -171,7 +171,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 			//Act
 			controller.ModelState.AddModelError("*", "Invalid model state");
-			var result = controller.AddGlassType(null);
+			var result = controller.AddGlassType(new FrameGlassTypeEditView());
 			var viewResult = result as ViewResult ?? new ViewResult();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
 

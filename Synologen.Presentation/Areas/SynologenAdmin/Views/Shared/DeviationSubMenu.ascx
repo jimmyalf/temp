@@ -6,13 +6,13 @@
 		</li>
 		<li>|</li>
 		<li>
-			<%=Html.ActionLink("Kategorier","ListCategories","Deviation") %>
+			<%=Html.ActionLink("Kategorier","Categories","Deviation") %>
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","AddCategory","Deviation") %>
 		</li>
 		<li>|</li>
 		<li>
-			<%=Html.ActionLink("Leverantörer","ListSuppliers","Deviation") %>
+			<%=Html.ActionLink("Leverantörer","Suppliers","Deviation") %>
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","AddSupplier","Deviation") %>
 		</li>

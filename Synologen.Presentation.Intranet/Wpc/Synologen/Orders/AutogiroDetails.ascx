@@ -2,7 +2,7 @@
 
 <div id="page" class="step5">
     <header>
-		<h1>Linsabonnemang demo</h1>
+		<h1>Linsabonnemang</h1>
 		<span class="customer-name"><b>Kund:</b> <%#Model.CustomerName %></span>
 	</header>
 
@@ -13,6 +13,10 @@
    				<label>Steg 5 av 6</label>
 	 			<div id="progressbar"></div>
    			</div>
+    		<p>
+    			<label>Rubrik</label>
+    			<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
+    		</p>
     		<p>
     			<label>Bankontonummer</label>
     			<asp:TextBox ID="txtBankAccountNumber" runat="server" Enabled="<%#Model.IsNewSubscription %>" Text='<%#Model.BankAccountNumber%>' />
@@ -89,7 +93,7 @@
 				Personkonto i <strong>Nordea</strong> har clearingsnummer <em>3300</em> och kontonumret är detsamma som kundens personnummer; <em>3300 – ÅÅMMDDXXXX.</em>
 			</p>
 			<p>
-				Personkonto i <strong>Nordea</strong> där kontonumret inte är ett personnummer, så är clearingsnumret de fyra sista i kontonumret.
+				Personkonto i <strong>Nordea</strong> där kontonumret inte är ett personnummer, så är clearingsnumret de fyra första i kontonumret.
 			</p>
 			<p>
 				PlusGirokonto i <strong>Nordea</strong> har clearingsnummer <em>9960</em>.

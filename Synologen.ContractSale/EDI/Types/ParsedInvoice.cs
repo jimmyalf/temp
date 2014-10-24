@@ -16,7 +16,7 @@ namespace Spinit.Wpc.Synologen.EDI.Types {
 
 		//Header
 		private const string ServiceStringAdvice = "UNA:+,? '";
-		private const string InterchangeHeaderFormat = "UNB+UNOA:1+{0}:14+{1}:30+{2}+{3}'";
+		private const string InterchangeHeaderFormat = "UNB+UNOA:1+{0}+{1}+{2}+{3}'";
 		private const string MessageReferenceFormat = "UNH+{0}+INVOIC:D:93A:UN'";
 		private const string BeginingOfMessageFormat = "BGM+380+{0}+9'";
 		private const string InvoiceCreatedDateFormat = "DTM+137:{0}:102'";

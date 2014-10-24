@@ -51,8 +51,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data">
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -140,6 +145,9 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

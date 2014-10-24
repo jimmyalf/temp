@@ -8,7 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	public interface IContractSalesViewService
 	{
 		SettlementView GetSettlement(int settlementId);
-		//SettlementListView GetSettlements();
 		int CreateSettlement();
 		OrderView GetOrder(int orderId);
 		Article ParseArticle(ArticleView articleView);
@@ -22,5 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		ContractArticleConnection ParseContractArticle(EditContractArticleView addContractArticleView);
 		string GetContractArticleRoute(int contractId);
 		Core.Domain.Model.ContractSales.Article GetArticle(int articleId);
+	    StatisticsView GetStatisticsView();
+        void UpdateStatisticsView(StatisticsView model);
 	}
 }

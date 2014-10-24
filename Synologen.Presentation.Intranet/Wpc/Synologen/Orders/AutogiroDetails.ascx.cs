@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -54,7 +53,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 ClearingNumber = txtClearingNumber.Text,
                 ProductPrice = txtProductAmount.Text.ToNullableDecimal(),
                 FeePrice = txtFeeAmount.Text.ToNullableDecimal(),
-				Type = GetSubscriptionType()
+				Type = GetSubscriptionType(),
+                Title = txtName.Text
             };
 			if(args.Type == SubscriptionType.Ongoing)
 			{

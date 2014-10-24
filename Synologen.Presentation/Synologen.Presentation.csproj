@@ -59,6 +59,7 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\Statistics.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddCategory.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\_DefectsForm.ascx" />
@@ -66,10 +67,10 @@
     <Content Include="Areas\SynologenAdmin\Views\Deviation\EditSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\_CategoryForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\EditCategory.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\Deviation\ListSuppliers.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\Deviation\ListCategories.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\Suppliers.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\Categories.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\ViewDeviation.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\Deviation\Index.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\Deviations.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\SupplierForm.ascx" />
@@ -198,6 +199,8 @@
     <Content Include="Common\StyleSheetLoader.ascx" />
     <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
+    <Content Include="Components\Synologen\Scripts\ContractSales\statistics.js" />
+    <Content Include="Components\Synologen\Scripts\modernizr.custom.97088.js" />
     <Content Include="Components\Synologen\SynologenSubMenu.ascx" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
     <Content Include="Components\Synologen\CreateShopOwners.aspx" />
@@ -311,6 +314,7 @@
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\TestEventListener.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
+    <Compile Include="Application\Web\ExcelFileResult.cs" />
     <Compile Include="Application\Web\ReportController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
@@ -350,10 +354,14 @@
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
     <Compile Include="Models\ContractSales\SettlementView.cs" />
     <Compile Include="Models\ContractSales\ShopSettlementItem.cs" />
+    <Compile Include="Models\ContractSales\StatisticsView.cs" />
+    <Compile Include="Models\Deviation\CategoryDefectListItemView.cs" />
     <Compile Include="Models\Deviation\CategoryFormView.cs" />
-    <Compile Include="Models\Deviation\CommonFormView.cs" />
-    <Compile Include="Models\Deviation\CommonListView.cs" />
+    <Compile Include="Models\Deviation\CategoryListItemView.cs" />
     <Compile Include="Models\Deviation\CategoryListView.cs" />
+    <Compile Include="Models\Deviation\SupplierCategoryListItemView.cs" />
+    <Compile Include="Models\Deviation\SupplierListItemView.cs" />
+    <Compile Include="Models\Deviation\DeviationListItemView.cs" />
     <Compile Include="Models\Deviation\SupplierFormView.cs" />
     <Compile Include="Models\Deviation\SupplierListView.cs" />
     <Compile Include="Models\Deviation\DeviationListView.cs" />
@@ -611,10 +619,6 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
-      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Reports\Synologen.Reports.csproj">
       <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
       <Name>Synologen.Reports</Name>
@@ -627,6 +631,9 @@
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -641,17 +648,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Common.WebControls, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Common.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -827,9 +834,6 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
     <Content Include="BaseMainMVC.master" />
@@ -848,6 +852,15 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Imagemanager.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

@@ -27,15 +27,19 @@
 				SkinID="Striped" 
                 AllowSorting="true">
                 <Columns>
-					<asp:BoundField headerText="SPCS Id" DataField="cCompanyCode" SortExpression="cCompanyCode"/>
-					<asp:BoundField headerText="Org Nr" DataField="cOrganizationNumber" SortExpression="cOrganizationNumber"/>
-                    <asp:BoundField headerText="Företag" DataField="cName" SortExpression="cName"/>
-                    <%--<asp:BoundField headerText="Faktureringsnamn" DataField="cInvoiceCompanyName" SortExpression="cInvoiceCompanyName"/>--%>
-                    <asp:BoundField headerText="Valideringar" DataField="cNumberOfValidationRules" SortExpression="cNumberOfValidationRules"/>
-                    <asp:BoundField headerText="Faktureringstyp" DataField="cInvoiceMethodName" SortExpression="cInvoiceMethodName"/>
-                    <asp:BoundField headerText="Ort" DataField="cCity" SortExpression="cCity"/>
+					<asp:BoundField headerText="SPCS Id" DataField="cCompanyCode" />
+					<asp:BoundField headerText="Org Nr" DataField="cOrganizationNumber" />
+                    <asp:BoundField headerText="Företag" DataField="cName" />
+                    <asp:BoundField headerText="Valideringar" DataField="cNumberOfValidationRules" />
+                    <asp:TemplateField HeaderText="Faktureringstyp">
+                        <ItemTemplate>
+                            <asp:Literal runat="server" Text='<%#GetInvoiceMethodText((int)Eval("cInvoicingMethodId")) %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField headerText="Ort" DataField="cCity"/>
                     
-					<asp:TemplateField headertext="Aktiv" SortExpression="cActive">
+                    
+					<asp:TemplateField headertext="Aktiv">
 							<ItemStyle CssClass="center" />
 							<ItemTemplate>
 								<asp:Image id="imgActive" runat="server" />

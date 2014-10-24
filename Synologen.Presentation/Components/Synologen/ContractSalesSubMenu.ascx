@@ -20,5 +20,9 @@
 		<li>
 			<a href="/components/synologen/OrderStatus.aspx">Orderstatus</a>
 		</li>
+		<li>|</li>
+		<li>
+			<a href="/components/synologen/contract-sales/statistics">Statistik</a>
+		</li>
 	</ul>
 </div>

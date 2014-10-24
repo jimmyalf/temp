@@ -11,16 +11,16 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using AmountType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
-using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
-using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
-using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
+using AmountType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
+using NameType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
+using PercentType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
+using QuantityType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Invoicing
 {
-	public static partial class Convert
+    [Obsolete("This class was previously used to generate svefaktura invoices")]
+	public static class Svefaktura_Convert_Old
 	{
-
 		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) 
 		{
 			if (invoice.InvoiceLine == null) return;
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems /*, ICompany company*/) {
+		public static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems /*, ICompany company*/) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
 			var freeTextRows = order.ParseFreeText(); //CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
@@ -72,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			return legalTotal;
 		}
 
-		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<OrderItem> orderItems , decimal VATAmount) {
+		public static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<OrderItem> orderItems , decimal VATAmount) {
 			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
 			var lineItemCount = 0;
 			foreach (var orderItem in orderItems){
@@ -106,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		}
 
 		#region SellerParty
-		private static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IShop shop) {
+		public static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IShop shop) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
 			invoice.SellerParty.Party = new SFTIPartyType 
 			{
@@ -181,7 +181,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		#endregion
 
 		#region BuyerParty
-		private static void TryAddBuyerParty(SFTIInvoiceType invoice, ICompany company, IOrder order) {
+		public static void TryAddBuyerParty(SFTIInvoiceType invoice, ICompany company, IOrder order) {
 			if (invoice.BuyerParty == null) invoice.BuyerParty = new SFTIBuyerPartyType();
 			invoice.BuyerParty.Party = new SFTIPartyType
 			{
@@ -237,7 +237,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		#endregion
 
 		#region PaymentMeans
-		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, ICompany company, SvefakturaConversionSettings settings) {
+		public static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, ICompany company, SvefakturaConversionSettings settings) {
 			if (HasNotBeenSet(settings.InvoiceIssueDate) || HasNotBeenSet(giroNumber)) return;
 			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
 			invoice.PaymentMeans.Add(
@@ -268,7 +268,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
 		#endregion
 
 		#region PaymentTerms
-		private static void TryAddPaymentTerms(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, ICompany company) {
+		public static void TryAddPaymentTerms(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, ICompany company) {
 			if (AllAreNullOrEmpty(settings.InvoicePaymentTermsTextFormat, settings.InvoiceExpieryPenaltySurchargePercent)) return;
 			var text = ParseInvoicePaymentTermsFormat(settings.InvoicePaymentTermsTextFormat, company);
 			invoice.PaymentTerms = new SFTIPaymentTermsType 
@@ -522,5 +522,24 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			return allowanceChargeType.TaxCategory[0].Percent.Value;
 		}
 		#endregion
+
+        public static bool AllAreNullOrEmpty(params object[] args)
+        {
+            foreach (var value in args)
+            {
+                if (value == null) continue;
+                if (value is string && HasNotBeenSet(value as string)) continue;
+                if (value is decimal? && HasNotBeenSet(value as decimal?)) continue;
+                return false;
+            }
+            return true;
+        }
+        public static bool HasNotBeenSet(string value) { return String.IsNullOrEmpty(value); }
+        public static bool HasNotBeenSet(decimal? value) { return !value.HasValue; }
+        public static bool HasNotBeenSet(DateTime value) { return value.Equals(DateTime.MinValue); }
+        public static bool OneOrMoreHaveValue(params object[] args)
+        {
+            return !AllAreNullOrEmpty(args);
+        }
 	}
 }

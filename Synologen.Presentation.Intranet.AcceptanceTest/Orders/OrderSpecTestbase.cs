@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
@@ -95,6 +96,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => getSubscriptions(shop, customer));
 		}
 
+        protected IEnumerable<SubscriptionItem> CreateSubscriptionItems(Subscription subscription)
+        {
+            var first = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0, Title = "Title A" }
+                .Setup(12, 1000, 200);
+            Save(first);
+            var second = new SubscriptionItem { Subscription = subscription, PerformedWithdrawals = 0 }
+                .Setup(250, 50, 1600, 200);
+            Save(second);
+            return new[] { first, second };
+        }
+
 		protected Subscription CreateSubscription(Shop shop, OrderCustomer customer = null, bool active = false, DateTime? consentedDate = null, SubscriptionConsentStatus? consentStatus = null)
 		{
 			customer = customer ?? CreateCustomer(shop);
@@ -116,5 +128,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if (subscription.Errors != null && subscription.Errors.Any(e => !e.IsHandled)) return "Transaktion ej genomförd";
 			return subscription.ConsentStatus.GetEnumDisplayName();
 		}
+
+        protected void AssertSubscriptionItemStatus(string viewModelValue, SubscriptionItem item)
+        {
+            switch (item.Status)
+            {
+                case SubscriptionItemStatus.Active:
+                    viewModelValue.ShouldBe("Aktiv");
+                    break;
+                case SubscriptionItemStatus.Stopped:
+                    viewModelValue.ShouldBe("Stoppad");
+                    break;
+                case SubscriptionItemStatus.Expired:
+                    viewModelValue.ShouldBe("Utgången");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 	}
 }

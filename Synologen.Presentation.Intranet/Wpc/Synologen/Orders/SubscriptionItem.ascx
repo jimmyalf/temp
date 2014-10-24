@@ -3,6 +3,10 @@
 	<fieldset class="synologen-form">
 		<legend>Delabonnemang för konto <%=Model.SubscriptionBankAccountNumber %> för <%=Model.CustomerName %></legend>
     	<p>
+    		<label>Rubrik</label>
+    		<asp:TextBox ID="txtName" runat="server" Text='<%#Model.Title%>' />
+    	</p>
+    	<p>
     		<label>Produkt</label>
 			<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" />
 			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
@@ -51,8 +55,18 @@
 			<label>Dragningsbelopp</label>
 			<span><%#Model.MonthlyWithdrawalAmount %></span>
     	</p>
+    	<p>
+			<label>Status</label>
+			<span><%#Model.Status %></span>
+    	</p>
 		<p class="control-actions">
-			<asp:Button runat="server" OnClick="Submit_SubscriptionItem" Text="Spara"/>
+   			<asp:Button runat="server" OnClick="Submit_SubscriptionItem" Text="Spara"/>
+            <% if (Model.IsActive) { %>
+            <asp:Button runat="server" OnClick="Stop_SubscriptionItem" Text="Stoppa"/>
+            <% } %>
+            <% if (Model.IsStopped) { %>
+            <asp:Button runat="server" OnClick="Start_SubscriptionItem" Text="Starta"/>
+            <% } %>
 		</p>
 		<asp:ValidationSummary runat="server" CssClass="error-list" />
 		<p>

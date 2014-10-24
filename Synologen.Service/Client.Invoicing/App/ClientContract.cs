@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 namespace Synologen.Service.Client.Invoicing.App {
 	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService
 	{
-		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 10, 0);
+		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 20, 0);
 
 		/// <summary>
 		/// Default Constructor attempts to use config-definded service endpoint.
@@ -100,18 +100,6 @@ namespace Synologen.Service.Client.Invoicing.App {
 		/// </summary>
 		public void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed) {
 			Channel.UpdateOrderStatuses(invoiceNumber, invoiceIsCanceled, invoiceIsPayed);
-		}
-
-		//public void UpdateOrderStatuses(PaymentInfo invoiceStatus) {
-		//    Channel.UpdateOrderStatuses(invoiceStatus);
-		//}
-
-		/// <summary>
-		/// Sends given order as invoice
-		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
-		/// </summary>
-		public void SendInvoice(int orderId) {
-			Channel.SendInvoice(orderId);
 		}
 
 		/// <summary>

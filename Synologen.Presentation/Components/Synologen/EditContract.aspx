@@ -20,6 +20,10 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Koppla avtalet till alla synologbutiker</label>
 						<asp:CheckBox id="chkShopConnection" runat="server" Checked="true" />				
+					</div>				
+					<div class="formItem clearLeft">
+						<label class="labelLong">Faktureras ej</label>
+						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.DisableInvoice%>' />				
 					</div>													
                 </fieldset>			
 				                	

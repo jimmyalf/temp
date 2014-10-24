@@ -4,10 +4,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 {
 	public class EditFrameOrderModel : FrameOrderBaseModel
 	{
-		
-		public IEnumerable<FrameListItem> FramesList { get; set; }
-		public IEnumerable<FrameGlassTypeListItem> GlassTypesList { get; set; }
-        public IEnumerable<FrameSupplierListItem> SupplierList { get; set; }
+
+        public IEnumerable<EntityListItem> FramesList { get; set; }
+        public IEnumerable<EntityListItem> GlassTypesList { get; set; }
+        public IEnumerable<EntityListItem> SupplierList { get; set; }
 		public EyeParameterIntervalListAndSelection Cylinder { get; set; }
 		public EyeParameterIntervalListAndSelection Sphere { get; set; }
 		public EyeParameterIntervalListAndSelection PupillaryDistance { get; set; }
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 		public string PupillaryDistanceRequiredErrorMessage { get; set; }
 		public string GlassTypeRequiredErrorMessage { get; set; }
 		public string SphereRequiredErrorMessage { get; set; }
-		//public string CylinderRequiredErrorMessage { get; set; }
+		
 		public string AdditionRequiredErrorMessage { get; set; }
 		public string HeightRequiredMessage { get; set; }
 		public string AxisRequiredMessage { get; set; }

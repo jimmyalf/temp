@@ -27,11 +27,16 @@
 		<include name="${dir.source}Synologen.ContractSale\Invoicing.Test\Synologen.Invoicing.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.Test\Autogiro.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.FileIO.Test\Autogiro.FileIO.Test.csproj"/>
-		<include name="${dir.source}Synologen.Service\Client.SubscriptionTaskRunner.Test\Client.SubscriptionTaskRunner.Test.csproj"/>
-		<include name="${dir.source}Synologen.Service\Client.BGCTaskRunner.Test\Client.BGCTaskRunner.Test.csproj"/>
-		<include name="${dir.source}Synologen.Service\Web.BGC.Test\Web.BGC.Test.csproj" />
+		
+		<!-- Synologen Tasks and Task runner -->
 		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
+		<include name="${dir.source}Synologen.Service\Client.SubscriptionTaskRunner.Test\Client.SubscriptionTaskRunner.Test.csproj"/>
+		
+		<!-- BGC Tasks and Task runner -->
 		<include name="${dir.source}Synologen.LensSubscription\BGServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
+		<include name="${dir.source}Synologen.Service\Client.BGCTaskRunner.Test\Client.BGCTaskRunner.Test.csproj"/>
+		
+		<include name="${dir.source}Synologen.Service\Web.BGC.Test\Web.BGC.Test.csproj" />
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj" if="${configuration=='NightlyBuild'}"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj" if="${configuration=='NightlyBuild'}"/>

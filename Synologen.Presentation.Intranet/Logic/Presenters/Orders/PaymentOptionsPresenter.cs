@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
-using WebFormsMvp;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
@@ -46,8 +43,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var order = _orderRepository.Get(RequestOrderId);
 			CheckAccess(order.Shop);
     	    var customer = order.Customer;
-            View.Model.Subscriptions = GetSubscriptionList(customer);
-    		View.Model.SelectedOption = SetSelectedOption(order);
+            View.Model.SubscriptionsItems = GetSubscriptionList(customer.Id);
+            View.Model.SelectedOption = SetSelectedOption(order);
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 
@@ -101,26 +98,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                     order.SelectedPaymentOption.SubscriptionId = null;
                 }
 			}
-		}   
-
-		private void Redirect(int pageId, object routeData = null)
-		{
-			var url = _routingService.GetPageUrl(pageId, routeData);
-			HttpContext.Response.Redirect(url);
 		}
 
-		private IEnumerable<ListItem> GetSubscriptionList(Entity customer)
-		{
-    		var subscriptions = _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customer.Id));
-			Func<Subscription, string> getText = subscription => "{AccountNumber} ({ConsentStatus})".ReplaceWith(new {AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName()});
-			Func<Subscription, ListItem> parser = subscription => new ListItem(getText(subscription), subscription.Id);
-			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
-		}
+        protected IList<SubscriptionItemListModel> GetSubscriptionList(int customerId)
+        {
+            var items = _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customerId));
+            return BuildSubscriptionItemList(items).ToList();
+        }
 
-    	private int RequestOrderId
-    	{
-    		get { return HttpContext.Request.Params["order"].ToInt(); }
-    	}
+        protected IEnumerable<SubscriptionItemListModel> BuildSubscriptionItemList(IEnumerable<Subscription> subscriptions)
+        {
+            yield return new SubscriptionItemListModel();
+            foreach (var subscription in subscriptions)
+            {
+                var subscriptionItems = subscription.SubscriptionItems.ToList();
+                for (var index = 0; index < subscriptionItems.Count; index++)
+                {
+                    yield return new SubscriptionItemListModel(subscription, subscriptionItems[index], index);
+                }
+            }
+        }
 
         public override void ReleaseView()
         {
@@ -128,6 +125,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Submit -= View_Submit;
 			View.Previous -= View_Previous;
 			View.Load -= View_Load;
+        }
+
+
+        private int RequestOrderId
+        {
+            get { return HttpContext.Request.Params["order"].ToInt(); }
+        }
+
+        private void Redirect(int pageId, object routeData = null)
+        {
+            var url = _routingService.GetPageUrl(pageId, routeData);
+            HttpContext.Response.Redirect(url);
         }
     }
 }

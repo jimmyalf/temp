@@ -57,13 +57,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+    <Reference Include="Spinit">
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data">
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -86,15 +84,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
+    <Compile Include="Domain\Model\ContractSales\EdiAddress.cs" />
     <Compile Include="Domain\Model\ContractSales\NewTransaction.cs" />
+    <Compile Include="Domain\Model\ContractSales\OrderStatisticsFlexPaySummaryRow.cs" />
+    <Compile Include="Domain\Model\ContractSales\OrderStatisticsSummaryRow.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationStatus.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationComment.cs" />
     <Compile Include="Domain\Model\Deviations\Deviation.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationCategory.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationDefect.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationSupplier.cs" />
     <Compile Include="Domain\Model\Deviations\DeviationType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameSupplier.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionItemStatus.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPaymentAmount.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionVersion.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfGlassTypesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameSupplierRepository.cs" />
     <Compile Include="Domain\Testing\TestRunnerDetector.cs" />
     <Compile Include="Domain\EventArgs\OnCommandSentEventArgs.cs" />
@@ -409,6 +414,7 @@
     <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
     <Compile Include="Utility\ActionSwitch.cs" />
     <Compile Include="Utility\Ensure.cs" />
+    <Compile Include="Utility\Evaluate.cs" />
     <Compile Include="Utility\ReturnSwitch.cs" />
     <Compile Include="Utility\Switch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

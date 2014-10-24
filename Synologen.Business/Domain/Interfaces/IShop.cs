@@ -37,5 +37,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces
 		bool HasConcern { get; }
 		ShopAccess Access { get; set; }
 		string OrganizationNumber { get; set; }
+	    string Format(string format);
 	}
 }

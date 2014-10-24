@@ -13,7 +13,9 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public string Phone { get; set; }
 		public string Phone2 { get; set; }
 		public string Fax { get; set; }
-		public bool Active { get; set; }
 		public string Email { get; set; }
+        public bool Active { get; set; }
+
+		public bool DisableInvoice { get; set; }
 	}
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Web;
 using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Member.Data;
+using Spinit.Wpc.Utility.Core;
 using File = Spinit.Wpc.Base.Data.File;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
@@ -26,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
 			var extensionWithoutDot = fileInfo.Extension.Replace(".", "");
 			if (Base.Business.Globals.ImageType.Contains(extensionWithoutDot))
 			{
-				return GetImageSrcImage(fleRow, urlname);
+				return GetImageSrcImage(fileInfo, urlname);
 			}
 
 			if (Base.Business.Globals.MediaType.Contains(extensionWithoutDot))
@@ -72,14 +73,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
             }
 		}
 		
-		protected virtual string GetImageSrcImage(FileRow fleRow, string urlname)
+		protected virtual string GetImageSrcImage(FileInfo file, string urlname)
 		{
+		    var ext = file.Extension.Trim('.');
 			return "{Url}?filename={FileName}&width={Width}&height={Height}&ext={Extension}"
 				.Replace("{Url}", "/Wpc/Synologen/Supplier/ViewMemberImage.aspx")
 				.Replace("{FileName}", HttpUtility.UrlEncode(urlname))
 				.Replace("{Width}", "100")
 				.Replace("{Height}", "100")
-				.Replace("{Extension}", fleRow.ContentInfo.ToLower());
+				.Replace("{Extension}", /*fleRow.ContentInfo.ToLower()*/ ext);
 		}
 		
 		protected virtual IEnumerable<string> AllowedExtensions
@@ -104,6 +106,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
 			var category = UrlFriendlyRenamingService.Rename(fileCategory);
 			return new DirectoryInfo(Base.Business.Globals.CommonFilePath + lrow.Name + "\\Member\\" + orgName + "\\" + category);
 		}
+
+        protected virtual string GetMemberBaseDirectory(IBaseLocationRow lrow, MemberRow memberRow)
+        {
+            var di = GetMemberDirectory(LocationRow, memberRow);
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+
+            var orgName = UrlFriendlyRenamingService.Rename(memberRow.OrgName);
+            return string.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, orgName);
+        }
 		
 		protected virtual string GetFileUrl(LocationRow lrow, MemberRow memberRow, FileCategoryRow fileCategory, string fileName)
 		{

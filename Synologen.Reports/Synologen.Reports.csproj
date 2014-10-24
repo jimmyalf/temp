@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Spinit">
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -71,9 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\InvoiceCopyReport.cs" />
+    <Compile Include="Models\InvoiceCreditReport.cs" />
+    <Compile Include="Models\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Invoicing\InvoiceCredit.rdlc" />
     <EmbeddedResource Include="Invoicing\InvoiceCopy.rdlc" />
   </ItemGroup>
   <ItemGroup>

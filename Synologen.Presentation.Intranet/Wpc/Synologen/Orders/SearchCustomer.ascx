@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SearchCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.SearchCustomer" %>
 <div id="page" class="step1">
     <div>
-		<h1>Linsabonnemang demo</h1>
+		<h1>Linsabonnemang</h1>
 	</div>
 
 	<WpcSynologen:OrderMenu runat="server" />

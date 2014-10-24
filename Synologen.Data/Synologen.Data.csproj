@@ -66,13 +66,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+    <Reference Include="Spinit">
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data">
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -124,6 +122,8 @@
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
     <Compile Include="Queries\AbstractListQuery.cs" />
+    <Compile Include="Queries\ContractSales\StatisticsFlexPayQuery.cs" />
+    <Compile Include="Queries\ContractSales\StatisticsQuery.cs" />
     <Compile Include="Queries\Deviations\SuppliersQuery.cs" />
     <Compile Include="Queries\Deviations\CategoriesQuery.cs" />
     <Compile Include="Queries\Deviations\DefectsQuery.cs" />
@@ -174,6 +174,7 @@
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfCategoriesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfSuppliersMatchingCriteriaConvertner.cs" />
+    <Compile Include="Repositories\CriteriaConverters\PageOfGlassTypesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ActiveSubscriptionsForCustomerCritieriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldTransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\PendingPaymentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Deviation\CommentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\SupplierMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\DefectMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\CategoryMap.cs" />
@@ -268,7 +270,6 @@
     <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
-    <Compile Include="SqlProviderInvoicingMethod.cs" />
     <Compile Include="SqlProviderCompany.cs" />
     <Compile Include="SqlProviderLog.cs" />
     <Compile Include="SqlProviderOrderHistory.cs" />

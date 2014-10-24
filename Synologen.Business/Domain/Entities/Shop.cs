@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
@@ -45,7 +46,58 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public string ExternalAccessUsername { get; set; }
 		public string ExternalAccessHashedPassword { get; set; }
 		public string OrganizationNumber { get; set; }
-		public bool HasConcern { get{ return Concern != null;} }
+
+	    public string Format(string format)
+	    {
+	        return format.ReplaceWith(new
+	        {
+	            Environment.NewLine,
+	            OrganizationNumber,
+	            ShopId,
+	            Name,
+	            Number,
+	            Description,
+	            Active,
+	            Address,
+	            Address2,
+	            Zip,
+	            City,
+	            Latitude,
+	            Longitude,
+	            Phone,
+	            Phone2,
+	            Fax,
+	            Email,
+	            ContactFirstName,
+	            ContactLastName,
+	            CategoryId,
+	            Url,
+	            MapUrl,
+	            GiroId,
+	            GiroNumber,
+	            GiroSupplier,
+	            ContactCombinedName,
+	            AddressLine = GetShopAddressLine(this),
+	            ZipAndCity = GetShopZipAndCity(this),
+	        });
+	    }
+
+        protected string GetShopAddressLine(IShop shop)
+        {
+            if (string.IsNullOrEmpty(shop.Address2))
+            {
+                return shop.Address ?? string.Empty;
+            }
+
+            return shop.Address2;
+        }
+
+        protected string GetShopZipAndCity(IShop shop)
+        {
+            return "{Zip} {City}".ReplaceWith(new { shop.Zip, shop.City });
+        }
+
+	    public bool HasConcern { get{ return Concern != null;} }
 		public ShopAccess Access { get; set; }
 	}
 }

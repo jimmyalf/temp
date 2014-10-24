@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 		{
         	if (Page.IsPostBack) return;
 			var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
-        	var commonWysiwygPathArray = new[] {GetDirectory(LocationRow, memberRow)};
+        	var commonWysiwygPathArray = new[] {GetMemberBaseDirectory(LocationRow, memberRow)};
 
         	txtBody.ImagesPaths = commonWysiwygPathArray;
         	txtBody.DocumentsPaths = commonWysiwygPathArray;
@@ -24,14 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
         	txtBody.UploadMediaPaths = commonWysiwygPathArray;
 
         	if (base.MemberId > 0) PopulateMember(memberRow);
-		}
-
-		private string GetDirectory(IBaseLocationRow lrow, MemberRow memberRow)
-		{
-			var di = GetMemberDirectory(LocationRow, memberRow);
-    		if (!di.Exists) di.Create();
-			var orgName = UrlFriendlyRenamingService.Rename(memberRow.OrgName);
-			return String.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, orgName);
 		}
 
         private void PopulateMember(IMemberRow memberRow) 

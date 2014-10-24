@@ -17,6 +17,7 @@
 			$.Synologen.initMVCValidationMessageSuccessHiding();
 			$.Synologen.initHelpDialogs();
 			$.Synologen.initMainMenuSelection();
+		    $.Synologen.initDatePickers();
 		},
 
 		initHelpDialogs: function () {
@@ -97,7 +98,15 @@
 			if (match != null) {
 				match.parent('li').addClass('Selected');
 			}
-		}
+		},
+		
+		initDatePickers: function ()
+		{
+		    if (!Modernizr.inputtypes.date)
+		    {
+		        $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });;
+		    }
+	    }
 	});
 
 })(jQuery);

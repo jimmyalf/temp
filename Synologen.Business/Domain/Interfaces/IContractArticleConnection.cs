@@ -11,5 +11,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		bool NoVAT { get; set; }
 		string SPCSAccountNumber { get; set; }
 		bool EnableManualPriceOverride { get; set; }
+	    int CustomerArticleNumber { get; set; }
+	    int DiscountId { get; set; }
 	}
 }

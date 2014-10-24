@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Reports.Models
 			return new List<InvoiceCopyReport>();
 		}
 
-		public InvoiceCopyReport SetInvoiceRecipient(ICompany company, IOrder order)
+		public void SetInvoiceRecipient(ICompany company, IOrder order)
 		{
 			InvoiceRecipient = InvoiceRecipientFormat.ReplaceWith(new
 			{
@@ -42,20 +42,6 @@ namespace Spinit.Wpc.Synologen.Reports.Models
 				CountryName = company.With(x => x.Country).Return(x => x.Name, string.Empty),
 				NewLine = "\r\n"
 			}).RegexReplace("(\r\n){2,}", "\r\n");
-			return this;
-		}
-	}
-
-	public class InvoiceRow
-	{
-		public string RowAmount { get; set; }
-		public string Description { get; set; }
-		public string Quantity { get; set; }
-		public string SinglePrice { get; set; }
-
-		public static IList<InvoiceRow> GetList()
-		{
-			return new List<InvoiceRow>();
 		}
 	}
 }

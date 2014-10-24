@@ -122,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			}
 			var connection = new ContractArticleConnection {Id = connectionId};
 			Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Delete, ref connection);
-			Response.Redirect(ComponentPages.ContractArticles);
+            Response.Redirect(ComponentPages.ContractArticles + "?contractId=" + _contractId);
 		}
 
 		private void EditArticleConnection(int connectionId)

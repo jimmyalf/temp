@@ -27,6 +27,7 @@
                         <label class="labelLong">Website tillhörigheter *</label>					
 						<asp:CheckBoxList ID="chkLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatLayout="Flow"/>
 						<%--<asp:RequiredFieldValidator id="reqLocation" InitialValue="0" runat="server" errormessage="Location saknas" controltovalidate="drpLocations" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>--%>
+						<p><strong>OBS</strong> För leverantörer skall Website tillhörighet <em>www.synologen.nu</em> väljas.</p>
 					</div>						
 					<div class="formItem infoItem" style="display:none;visibility:hidden;">
 						<span>*</span><p>Kopplingen används ej för Leverantörer.</p>

@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			CompanyValidationRules = company.CompanyValidationRules;
 			InvoiceFreeTextFormat = company.InvoiceFreeTextFormat;
 			Country = company.Country;
+            DerivedFromCompanyId = company.DerivedFromCompanyId;
 		}
 
 		[DataMember] public int Id { get; set; }
@@ -63,6 +64,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public bool HasValidationRule(int validationRuleId){
 			return CompanyValidationRules != null && _companyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
 		}
-		[DataMember] public Country Country { get; set;} 
+		[DataMember] public Country Country { get; set;}
+        [DataMember] public int DerivedFromCompanyId { get; set; } 
 	}
 }

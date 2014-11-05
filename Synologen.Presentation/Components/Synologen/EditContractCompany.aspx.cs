@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
@@ -43,11 +44,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
                 .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
 
 		    var contract = Provider.GetContract(_selectedContractId);
+
+		    if (contract.ForceCustomAddress)
+		    {
+		        items = new List<ListItem> { ConvertInvoiceMethodToListItem(InvoicingMethod.LetterInvoice) };
+		    }
 		    if (contract.DisableInvoice)
 		    {
-                items = EnumExtensions
-                    .Enumerate<InvoicingMethod>().Where(y => y == InvoicingMethod.NoOp)
-                    .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
+                items = new List<ListItem> { ConvertInvoiceMethodToListItem(InvoicingMethod.NoOp) };
 		    }
 
 			drpInvoicingMethods.DataValueField = "Value";
@@ -187,6 +191,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				}
 			}
 		}
+
+	    private ListItem ConvertInvoiceMethodToListItem(InvoicingMethod invoiceMethod)
+	    {
+	        return EnumExtensions
+                   .Enumerate<InvoicingMethod>().Where(y => y == invoiceMethod)
+                   .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString())).SingleOrDefault();
+	    }
 	}
 
 }

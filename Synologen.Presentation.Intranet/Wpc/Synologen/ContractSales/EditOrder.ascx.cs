@@ -123,7 +123,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpCompany.SelectedValue == "0") return;
-			PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue), Controls);
+            var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+
+            // TODO: Check for custom address using company
+            PopulateValidationRules(company, Controls);
 		}
 
 
@@ -177,7 +180,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			if(drpCompany.SelectedValue != null && drpCompany.SelectedValue != "0"){
-				PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue), Controls);
+                var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+				PopulateValidationRules(company, Controls);
 				Page.Validate(btnSave.ValidationGroup);
 			}
 			if (!Page.IsValid) return;
@@ -337,7 +341,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			try{
 				drpCompany.SelectedValue = companyId.ToString();
 				if (companyId <= 0) return;
-				PopulateValidationRules(companyId, Controls);
+                var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+				PopulateValidationRules(company, Controls);
 			}
 			catch { drpCompany.SelectedValue = "0"; }
 		}

@@ -44,7 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			contract.Name = txtContractCustomerName.Text;
 			contract.Active = chkActive.Checked;
 		    contract.DisableInvoice = chkIsNoOp.Checked;
-
+		    contract.ForceCustomAddress = chkForceCustomAddress.Checked;
 			Provider.AddUpdateDeleteContract(action, ref contract);
 			ConnectToAllMainShops(contract.Id);
 		    

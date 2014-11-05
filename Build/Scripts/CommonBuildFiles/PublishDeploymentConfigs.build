@@ -1,0 +1,12 @@
+<project name="Publish Deployment Configs" default="PublishConfig">
+
+	<target name="PublishConfig" description="Publishes Deployment Config files">
+		<echo message="Copy config file from ${srcDeploymentConfig} to ${deployPath}" />
+		<copy todir="${deployPath}" includeemptydirs="true">
+			<fileset basedir="${srcDeploymentConfig}">
+				<include name="*.config" />
+			</fileset>
+		</copy>
+	</target>
+	
+</project>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+	<!-- General -->
+	<resource name="Yes">Ja</resource>
+	<resource name="No">Nej</resource>
+	<resource name="0">0</resource>
+	<resource name="1">1</resource>
+	<resource name="2">2</resource>
+	<resource name="3">3</resource>
+	<resource name="4">4</resource>
+	<resource name="5">5</resource>
+	<resource name="6">6</resource>
+	<resource name="7">7</resource>
+	<resource name="8">8</resource>
+	<resource name="9">9</resource>
+
+	
+	<!-- Main FTB Stuff -->
+	<resource name="DesignModeTab">Design</resource>
+	<resource name="HtmlModeTab">HTML</resource>
+	
+	<!-- Buttons -->
+	<resource name="Bold">Fed</resource>
+	<resource name="BulletedList">Opstilling med punkttegn</resource>
+	<resource name="Copy">Kopier</resource>
+	<resource name="CreateLink">Indst hyperlink</resource>
+	<resource name="Cut">Klip</resource>
+	<resource name = "Delete">Slet</resource>
+	<resource name = "Indent">Forøg indrykning</resource>
+	<resource name = "InsertDate">Indsæt dato</resource>
+	<resource name = "InsertImage">Indsæt billede</resource>
+	<resource name = "InsertRule">Indsæt streg</resource>
+	<resource name = "InsertTime">Indsæt tid</resource>
+	<resource name = "Italic">Kursiv</resource>	
+	<resource name = "JustifyRight">Højrejusteret</resource>	
+	<resource name = "JustifyCenter">Centreret</resource>	
+	<resource name = "JustifyFull">Lige margener</resource>	
+	<resource name = "JustifyLeft">Venstrejustret</resource>
+	<resource name = "NumberedList">Opstilling med tal</resource>	
+	<resource name = "Outdent">Formindsk indrykning</resource>	
+	<resource name = "Paste">Sæt ind</resource>	
+	<resource name = "Print">Print</resource>	
+	<resource name = "Redo">Genskab</resource>	
+	<resource name = "RemoveFormat">Fjern al formatering</resource>	
+	<resource name = "Save">Gem</resource>
+	<resource name = "StrikeThrough">Gennemstreg</resource>
+	<resource name = "SuperScript">Hævet skrift</resource>
+	<resource name = "SubScript">Sænket skrift</resource>	
+	<resource name = "Underline">Understreg</resource>	
+	<resource name = "Undo">Fortryd</resource>
+	<resource name = "Unlink">Fjern hyperlink</resource>
+	
+
+	<!-- DropDownLists -->
+	<resource name = "FontForeColorsMenu">Farve</resource>
+	<resource name = "FontBackColorsMenu">Fremhæv</resource>
+	<resource name = "FontSizesMenu">Størrelse</resource>
+	<resource name = "ParagraphMenu">Afsnit</resource>
+	<resource name = "FontFacesMenu">Font</resource>
+	<resource name = "InsertHtmlMenu">Indsæt Html</resource>
+	<resource name = "SymbolsMenu">Symboler</resource>
+	<resource name = "StylesMenu">Stilart</resource>
+
+</root>

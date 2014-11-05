@@ -1,0 +1,34 @@
+<project name="Deploy Public Project" default="Publish">
+	<target name="Publish" description="Publish Public files" >
+		<echo message="Copy files for deployment from ${srcPath} to ${deployPath}" />
+		<copy todir="${deployPath}" includeemptydirs="true">
+			<fileset basedir="${srcPath}">
+				<exclude name="web.config" />
+				<include name="bin/**/*.dll" />
+				<include name="*.asax" />
+				
+				<include name="wpc/Synologen/**/*.master" />
+				<include name="wpc/Synologen/**/*.aspx" />
+				<include name="wpc/Synologen/**/*.ascx" />
+				<include name="wpc/Synologen/**/*.asmx" />
+				<include name="wpc/Synologen/**/*.resx" />
+				<include name="wpc/Synologen/**/*.css" />
+				<include name="wpc/Synologen/**/*.js" />
+				<include name="wpc/Synologen/**/*.jpg" />
+				<include name="wpc/Synologen/**/*.png" />
+				<include name="wpc/Synologen/**/*.gif" />
+				
+				<include name="wpc/Ogonapoteket/**/*.master" />
+				<include name="wpc/Ogonapoteket/**/*.aspx" />
+				<include name="wpc/Ogonapoteket/**/*.ascx" />
+				<include name="wpc/Ogonapoteket/**/*.asmx" />
+				<include name="wpc/Ogonapoteket/**/*.resx" />
+				<include name="wpc/Ogonapoteket/**/*.css" />
+				<include name="wpc/Ogonapoteket/**/*.js" />
+				<include name="wpc/Ogonapoteket/**/*.jpg" />
+				<include name="wpc/Ogonapoteket/**/*.png" />
+				<include name="wpc/Ogonapoteket/**/*.gif" />
+			</fileset>
+		</copy>	
+	</target>
+</project>

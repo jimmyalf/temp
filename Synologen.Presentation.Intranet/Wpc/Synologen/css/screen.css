@@ -1,0 +1,368 @@
+﻿/* HTML RESET
+///////////////////////////////////////////// */
+
+/*
+   http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {display: block;}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {border-collapse: collapse;border-spacing: 0;}
+
+
+/* Html and body elements
+-------------------------------------------------------------- */
+
+html {margin: 0; padding: 0; height: 100%;}
+
+body {font: 0.875em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0; padding: 0 5%;
+   
+	background: #fff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%) fixed; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)) fixed; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%) fixed; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%) fixed; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+	background: linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%) fixed; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ) fixed; /* IE6-9 */
+}
+    
+    
+
+
+
+/* Headings
+-------------------------------------------------------------- */
+h1,h2,h3,h4,h5,h6 {font-weight: normal; line-height: 1.3em; margin: 1em 0 0.5em 0;}
+
+h1 {font-size: 2em; margin: 0.2em 0;}
+h2 {font-size: 1.8em}
+h3 {font-size: 1.2em}
+h4 {font-size: 1em text-transform: uppercase; text-decoration: underline; font-weight: bold;}
+h5 {font-size: 1.2em}
+h6 {font-size: 1.1em}
+
+/* Text elements
+-------------------------------------------------------------- */
+abbr {}
+acronym {}
+address {margin-bottom:1em;}
+blockquote {margin-bottom:1em;}
+code {}
+del {}
+dfn {}
+dfn {}
+em {}
+p {margin-bottom:1em;}
+b {font-weight: bold;}
+pre {}
+strong {font-weight: bold;}
+address { font-style: normal; font-weight: bold;}
+figcaption {font-size: 0.9em; font-style: italic;}
+
+
+/* Link elements 
+-------------------------------------------------------------- */
+a { color: #1D3945; text-decoration: underline; font-weight: bold; }
+a:visited {}
+a:hover { text-decoration: none; }
+a:active {}
+
+/* List elements 
+-------------------------------------------------------------- */
+ul {list-style: none; margin-bottom:1em;}
+article ul, aside ul {margin: 1.5em; list-style: disc;}
+article ul li, aside ul li {margin-bottom: 1em;}
+ol {margin-bottom:1em;}
+ol li { }
+
+ol.tumblr_posts { list-style: none;}
+ol.tumblr_posts li {margin-bottom: 20px;}
+
+dl {margin-bottom:1em;}
+dl dt {}
+dl dd {}
+
+/* Tables
+-------------------------------------------------------------- */
+table {width: 100%; margin: 1em 0 1.5em 0; background: #fff; font-size: .9em; clear: both;}
+caption {padding-bottom: .5em; text-align: left; font-weight: bold;  color: #555555; font-size: 1.8em; font-weight: normal; margin-top: 1.5em;}
+
+thead th, thead td {padding: 0.5em 0.8337em; color: #fff; font-weight: normal; font-size: 1.2em; text-shadow: 1px 1px 0 #000; 
+
+background: #818181; /* Old browsers */
+background: -moz-linear-gradient(top, #818181 0%, #838383 50%, #444444 51%, #494949 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#818181), color-stop(50%,#838383), color-stop(51%,#444444), color-stop(100%,#494949)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #818181 0%,#838383 50%,#444444 51%,#494949 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #818181 0%,#838383 50%,#444444 51%,#494949 100%); /* Opera11.10+ */
+background: -ms-linear-gradient(top, #818181 0%,#838383 50%,#444444 51%,#494949 100%); /* IE10+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#818181', endColorstr='#494949',GradientType=0 ); /* IE6-9 */
+background: linear-gradient(top, #818181 0%,#838383 50%,#444444 51%,#494949 100%); /* W3C */
+}
+
+tbody {border-bottom: 2px solid black;}
+
+tbody tr:nth-child(odd) {background: #E9F4F8;}
+tbody tr,
+tbody td {border-bottom: 1px solid #cadde7; border-right: 1px solid #cadde7; line-height: 1em; height: 20px; text-align: center; } /* IE-fix */
+tbody th {font-weight: bold; background: #f4f4f4; border-right: 1px solid #cadde7;}
+tbody th,
+td {padding: .25em;}
+table form {margin: 0;}
+table.details th {width: 20%; min-width: 125px; text-align: left;}
+
+td.right {text-align: right;}
+td.left {text-align: left;}
+
+/* Some general classes
+-------------------------------------------------------------- */
+.align-left {float:left;}
+.align-right {float:right;}
+.clear-fix {clear: both; }
+
+.bottom {margin-bottom:0; padding-bottom:0;}
+.hide {display:none;}
+.highlight {}
+.large {}
+small {font-size: 0.8em;}
+.off-screen {position:absolute; left:-999em;}
+.top {margin-top:0; padding-top:0;}
+.flyer {margin: 15px 25px 10px 0;}
+.bookmark-pictures {margin-top: 110px;}
+
+/* Containers
+---------------------------------------------------------------*/
+#wrapper { margin: 0 auto; max-width: 960px;}
+
+#tab-container {border: 1px #ccc solid; clear: both; margin: 0 auto; overflow: hidden; background: white; margin-bottom: 30px;}
+header h1 {float: left; margin-right: 0.5em; width: auto;}
+header {overflow: hidden;}
+span.customer-name {font-size: 1.1em; float: left; margin-top: 1em; vertical-align: center; padding-left: 0.5em; border-left: 0.12em solid #ddd;}
+
+
+/*  Forms
+-------------------------------------------------------------- */
+form {}
+form p, form div {overflow: hidden; clear: both; margin-bottom: 0.5em;}
+fieldset {padding: 2.22222222222%; clear: both; width: 40em;}
+legend {font-size: 1.5em; color: #555; margin: 0; padding: 0;}
+label {font-weight: bold; margin-right: 0.5em; width: 10em; float: left;}
+label + ul {width: 18em;}
+input, textarea, select {padding: 0.5em; border: 1px #ccc solid; background: none; float: left; width: 18em; margin-right: 0.5em;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	}
+
+
+.progress {margin-bottom: 2em; border-bottom: 0.12em #eee dashed; overflow: hidden; padding-bottom: 0.2em; width: auto;}
+.progress label {margin: 0 1em 0.2em 0; font-size: 1.15em; color: #555; font-weight: normal; width: auto; float: left;}
+progress {width: 23em; height: 1.5em;}
+
+.ui-progressbar-value { background-image: url(smoothness/images/pbar-ani.gif) !important; }
+.ui-progressbar {width: 20em; height: 22px !important; float: left; clear: none;}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {background: #fcffde;}
+
+.button:hover,
+input[type="button"]:hover,
+input[type="button"]:active,
+input[type="button"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:active,
+input[type="submit"]:focus {border: 1px solid #888; cursor: pointer; color: #222; background: #eee;}
+input[type="radio"],
+input[type="checkbox"] {margin: 0 .5em 0 0; padding: 0; width: 1.2em; height: 1.2em;}
+input[disabled],
+input[disabled]:hover,
+input[disabled]:active,
+input[disabled]:focus {border: 1px solid #ddd; color: #ccc; cursor: default;}
+
+.button,
+input[type="button"],
+input[type="submit"] 
+{
+	padding: 0.5em;
+	width: auto;
+	color: #555;
+	background: #c6c6c6 url(/Skins/Default/Images/button-bg.gif) repeat-x;
+	background: -moz-linear-gradient(center bottom, #ebebeb 0, #ebebeb 50%, #fff 55%, #fff 100%);
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ebebeb), color-stop(0.5, #ebebeb), color-stop(0.55, #fff), color-stop(1.00, #fff));
+	border: 1px solid #aaa;
+	-moz-box-shadow: 0 0 2px #CCC;
+	-webkit-box-shadow: 0 0 2px #CCC;
+	box-shadow: 0 0 2px #CCC;
+	font-weight: bold;
+	text-shadow: 1px 1px 0 #EBEBEB;
+	text-transform: uppercase;
+}
+
+input.placeholder { color:#666; }
+
+
+input[disabled='disabled'] {color: #666;}
+
+fieldset p span {float: left;}
+fieldset p span input+input {float: none;}
+.next-step {width: 100%; font-size: 1.1em !important; overflow: hidden; margin: 1em 0 0 0; text-align: center !important;}
+.next-step input {margin: 0 0.5em 0 0; display: inline;}
+
+fieldset.left-eye, fieldset.right-eye {float: left; overflow: hidden; margin: 1em 0.5em 1em 0; clear: none; width: 20em;}
+fieldset.left-eye select, fieldset.right-eye select, fieldset.left-eye input, fieldset.right-eye input {width: 8em;}
+
+label + .radio-list {float: left;}
+.radio-list {margin: 0; padding: 0.5em; overflow: hidden; float: left;}
+.radio-list li {float: left; width: 18em; margin: 0.2em 0.5em 0.2em 0;}
+.radio-list label {width: 10em;}
+.radio-list input[type="radio"] {width: 1.2em; height: 1.2em;}
+.radio-list input[type="text"] {width: 8em; margin: 0;}
+.inactive {color: #ccc;}
+
+.confirm-button {font-size: 1.2em;}
+
+/* Navigation
+---------------------------------------------------------------*/
+#tab-navigation ul {text-transform: uppercase; width: 100%; overflow: hidden; margin: 0 0 -1px 0; padding: 0;}
+#tab-navigation li {float: left; padding: 0.5em 1.1111111111%; position: relative; border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; height: 2em; vertical-align: middle; text-align: center; color: #555; font-size: 0.875em; line-height: 2em; 
+
+-webkit-border-top-right-radius: 20px;
+-moz-border-radius-topright: 20px;
+border-top-right-radius: 20px;
+
+background: #e8e8e8; /* Old browsers */
+background: -moz-linear-gradient(top, #e8e8e8 0%, #b5b5b5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e8e8), color-stop(100%,#b5b5b5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* IE10+ */
+background: linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* W3C */
+}
+
+#tab-navigation li a {font-weight: normal; margin:0; text-decoration: none;}
+#tab-navigation li span {font-size: 1.2em; font-weight: bold; margin-right: 0.1em;}
+#tab-navigation li.selected {background: white;}
+#tab-navigation li.selected a {color: black;}
+#tab-navigation li a:hover, #tab-navigation li.selected a:hover {text-decoration: underline;}
+
+       
+}
+
+
+/* Error Messages
+-------------------------------------------------------------------*/
+.error-message { color: red;}
+.error-list { color: red; margin: 2em 0; padding: 0.5em; border: red 1px solid; background: #fee0e0; width: 24em; font-size: 0.875em;}
+input.error-form { color: red; border: red 1px solid; background: #fee0e0; }
+.error-list li:before { content:"* "; }
+
+
+@media screen and (min-width:1134px) {
+    body {
+        font-size: 1em;
+    }
+}
+    
+
+@media screen and (max-width:1133px) {
+    body {
+        font-size: 0.9em;
+    }
+}
+ 
+ 
+@media screen and (max-width:1120px) {
+    body {
+        font-size: 0.875em;
+    }
+}
+
+@media screen and (max-width:992px) {
+    body {
+        font-size: 0.825em;
+    }
+}
+
+
+@media screen and (max-width:938px) {
+    body {
+        font-size: 0.8em;
+    }
+}
+
+
+@media screen and (max-width:909px) {
+    body {
+        font-size: 0.785em;
+    }
+}
+
+
+@media screen and (max-width:893px) {
+    body {
+        font-size: 0.755em;
+    }
+}
+
+
+@media screen and (max-width:859px) {
+    body {
+        font-size: 0.725em;
+    }
+}
+
+@media screen and (max-width:826px) {
+
+
+}
+
+@media screen and (max-width: 757px) {
+   #tab-navigation li span {display: none;}
+
+}
+
+@media screen and (max-width: 672px) {
+	body {font-size: 0.8em; }
+   #tab-navigation {display: none;}
+
+}
+
+@media screen and (max-width: 600px) {
+   body {padding: 2%; font-size: 0.875em;}
+
+}

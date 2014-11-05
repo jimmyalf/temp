@@ -1,0 +1,29 @@
+
+#ImageUploader
+{
+	width: 652px; 
+	height:402px; 
+	background-color: #eeeeee; 
+	position:static; 
+	border: solid 1px Black;
+}
+
+#file-settings
+{
+	border: solid 1px #000000;
+	width: 652px;
+}
+
+
+#file-settings {font:1em Arial, Verdana, sans-serif; border:1px solid; margin-bottom:1em; padding:1.5em; background:#fff; height:1%}
+#file-settings input {position:absolute; top:.4em; left:.4em; }
+#file-settings #confirm-upload {text-align:right; margin:0}
+#file-settings #confirm-upload input {position:static; clear:left}
+#file-settings ul {list-style:none outside; padding:0; margin:0}
+#file-settings ul li {border:1px solid #e9e9e9; float:left; text-align:center; margin:.5em; padding:.5em; position:relative; }
+#file-settings .filename {display:block; margin-top:.5em 0;}
+#file-settings .properties {text-align:left;}
+#file-settings .properties label {margin-left:.5em;}
+#file-settings .properties input {position:static}
+
+#file-settings .remove a {position:absolute; top:.4em; left:.4em; }

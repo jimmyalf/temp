@@ -1,0 +1,14 @@
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master"  AutoEventWireup="true" CodeBehind="QuickMailMain.Master.cs" Inherits="Spinit.Wpc.QuickMail.Presentation.QuickMailMain" %>
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+<div id="dCompMain" class="ShopMain-master">
+<div id="dCompNavigation">
+	<asp:PlaceHolder ID="phQuickMailMenu" runat="server" />
+</div>
+<div id="dCompSubNavigation">
+	<asp:PlaceHolder ID="phQuickMailSubMenu" runat="server" />
+</div>
+<div class="Components-GC">
+<asp:contentplaceholder id="ComponentQuickMail" runat="server"></asp:contentplaceholder>
+</div>
+</div>
+</asp:Content>

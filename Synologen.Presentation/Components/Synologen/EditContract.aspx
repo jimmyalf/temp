@@ -24,6 +24,10 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Faktureras ej</label>
 						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.DisableInvoice%>' />				
+					</div>						
+					<div class="formItem clearLeft">
+						<label class="labelLong">Fakturera med brev</label>
+						<asp:CheckBox id="chkForceCustomAddress" runat="server" Checked='<%#Contract.ForceCustomAddress%>' />				
 					</div>													
                 </fieldset>			
 				                	

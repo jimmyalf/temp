@@ -17,5 +17,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
         public bool Active { get; set; }
 
 		public bool DisableInvoice { get; set; }
+	    public bool ForceCustomAddress { get; set; }
 	}
 }

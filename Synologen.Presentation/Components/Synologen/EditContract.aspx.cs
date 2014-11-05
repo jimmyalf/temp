@@ -47,11 +47,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		    contract.ForceCustomAddress = chkForceCustomAddress.Checked;
 			Provider.AddUpdateDeleteContract(action, ref contract);
 			ConnectToAllMainShops(contract.Id);
-		    
-            if (chkIsNoOp.Checked)
+
+            if (chkForceCustomAddress.Checked)
+            {
+                Provider.SetInvoiceMethodForContractCompanies(contract.Id, InvoicingMethod.LetterInvoice);
+            }
+            else if (chkIsNoOp.Checked)
 		    {
                 Provider.SetInvoiceMethodForContractCompanies(contract.Id, InvoicingMethod.NoOp);
 		    }
+		   
 			
             Response.Redirect(ComponentPages.Contracts, true);
 		}

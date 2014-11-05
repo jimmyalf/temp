@@ -40,6 +40,7 @@ namespace Spinit.Wpc.Synologen.Data
 					new SqlParameter("@invoicingMethodId", SqlDbType.Int, 4 ),
 					new SqlParameter("@invoiceFreeText", SqlDbType.NVarChar, 2000),
 					new SqlParameter("@countryId", SqlDbType.Int, 4),
+					new SqlParameter("@derivedfromcompanyid", SqlDbType.Int, 4),
 		            new SqlParameter("@status", SqlDbType.Int, 4),
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
@@ -66,6 +67,7 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 					parameters[counter].Value = GetNullableSqlType(company.Country.Id);
+					parameters[counter].Value = GetNullableSqlType(company.DerivedFromCompanyId);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) 

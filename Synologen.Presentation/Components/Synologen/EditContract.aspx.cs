@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
             {
                 Provider.SetInvoiceMethodForContractCompanies(contract.Id, InvoicingMethod.LetterInvoice);
             }
-            else if (chkIsNoOp.Checked)
+            if (chkIsNoOp.Checked)
 		    {
                 Provider.SetInvoiceMethodForContractCompanies(contract.Id, InvoicingMethod.NoOp);
 		    }

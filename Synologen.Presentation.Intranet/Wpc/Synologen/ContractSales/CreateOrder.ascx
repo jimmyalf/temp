@@ -51,6 +51,34 @@
 		<asp:TextBox id="txtEmail" runat="server" />
 		<asp:CustomValidator id="vldEmail" runat="server" ControlToValidate="txtEmail" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
 	</p>
+    <div ID="invoiceAddressFields" Visible="False" runat="server">
+        <br/>
+        <h4>Fakturaadress</h4>
+        <br/>
+
+        <p>
+		    <label>Postbox<asp:Literal ID="ltAddress1" runat="server" /></label>
+		    <asp:TextBox id="txtAddress1" runat="server" />
+		    <%--<asp:RequiredFieldValidator ID="reqtxtAddress1" runat="server" ErrorMessage="Företags namn måste anges" ControlToValidate="txtAddress1" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>--%>
+	        <asp:CustomValidator id="vldAddress1" runat="server" ErrorMessage="Postbox eller gatuaddress/företagsnamn måste anges." ControlToValidate="txtEmail" OnServerValidate="IsValueAddress1OrAddress2" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
+        </p>
+        <p>
+            <label>Gatuadress/<br />Företagsnman<asp:Literal ID="ltAddress2" runat="server" /></label>
+		    <asp:TextBox id="txtAddress2" runat="server" />
+            <!-- Note that this is validated in Address1-->
+	    </p>
+        <p>
+		    <label>Postnummer *<asp:Literal ID="ltZip" runat="server" /></label>
+		    <asp:TextBox id="txtZip" runat="server" />
+		    <asp:RequiredFieldValidator ID="reqZip" runat="server" ErrorMessage="Postnummer måste anges" ControlToValidate="txtZip" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>
+		    <asp:RegularExpressionValidator ID="regexZip" ValidationExpression="^(\d|\s)+$" runat="server" ErrorMessage="Postnummret innehåller ogiltiga tecken." Display="Dynamic" ControlToValidate="txtZip" ValidationGroup="vldSubmit" >*</asp:RegularExpressionValidator>
+	    </p>
+        <p>
+		    <label>Ort *<asp:Literal ID="ltCity" runat="server" /></label>
+		    <asp:TextBox id="txtCity" runat="server" />
+		    <asp:RequiredFieldValidator ID="reqCity" runat="server" ErrorMessage="Ort måste anges" ControlToValidate="txtCity" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>
+	    </p>
+    </div>
 </fieldset>	
 	<br />
 	<fieldset id="article-selection">

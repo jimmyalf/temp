@@ -62,6 +62,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		#region Events
 		protected void drpContracts_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpContracts.SelectedValue != "0") {
+                var contract = Provider.GetContract(Convert.ToInt32(drpContracts.SelectedValue));
+			    
+                invoiceAddressFields.Visible = contract.ForceCustomAddress;
+
 				PopulateCompanies();
 				PopulateArticles();
 				PopulateItemNumbers();
@@ -76,7 +80,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpCompany.SelectedValue == "0") return;
 		    var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+		    if (company.DerivedFromCompanyId != null)
+		    {
 
+		    }
             // TODO: Check for custom address using company
 			PopulateValidationRules(company, Controls);
 		}
@@ -94,6 +101,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			RemoveOrderItemFromCart(temporaryId);
 			PopulateShoppingCart();
 		}
+
+        protected void IsValueAddress1OrAddress2(object source, ServerValidateEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(txtAddress1.Text) || !string.IsNullOrEmpty(txtAddress2.Text))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
 
 		protected void OrderItemsValidation(object source, ServerValidateEventArgs args) {
 			args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
@@ -208,5 +227,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		#endregion
 
+	  
 	}
 }

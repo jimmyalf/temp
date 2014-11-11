@@ -274,49 +274,49 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl invoiceAddressFields;
         
         /// <summary>
-        /// ltAddress1 control.
+        /// ltPostBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltAddress1;
+        protected global::System.Web.UI.WebControls.Literal ltPostBox;
         
         /// <summary>
-        /// txtAddress1 control.
+        /// txtPostBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress1;
+        protected global::System.Web.UI.WebControls.TextBox txtPostBox;
         
         /// <summary>
-        /// vldAddress1 control.
+        /// vldPostBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator vldAddress1;
+        protected global::System.Web.UI.WebControls.CustomValidator vldPostBox;
         
         /// <summary>
-        /// ltAddress2 control.
+        /// ltStreetName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltAddress2;
+        protected global::System.Web.UI.WebControls.Literal ltStreetName;
         
         /// <summary>
-        /// txtAddress2 control.
+        /// txtStreetName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress2;
+        protected global::System.Web.UI.WebControls.TextBox txtStreetName;
         
         /// <summary>
         /// ltZip control.

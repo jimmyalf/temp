@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Data
                     parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Quantifier, null));
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
-					parameters[counter].Value = GetNullableSqlType(company.Country.Id);
+					parameters[counter++].Value = GetNullableSqlType(company.Country.Id);
 					parameters[counter].Value = GetNullableSqlType(company.DerivedFromCompanyId);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
@@ -138,6 +138,38 @@ namespace Spinit.Wpc.Synologen.Data
 				throw new Exception("Exception found while parsing a Company object: " + ex.Message);
 			}
 		}
+
+        public Company CreateCompanyFromReference(int companyReferenceId, string postBox, string streetName, string zip, string city)
+        {
+            var referenceCompany = GetCompanyRow(companyReferenceId);
+
+            referenceCompany.Id = 0;
+            referenceCompany.PostBox = postBox;
+            referenceCompany.StreetName = streetName;
+            referenceCompany.Zip = zip;
+            referenceCompany.City = city;
+            referenceCompany.DerivedFromCompanyId = companyReferenceId;
+
+            AddUpdateDeleteCompany(Enumerations.Action.Create, ref referenceCompany);
+
+            return referenceCompany;
+        }
+
+        public Company CreateCompanyFromReference(Company companyReference, string postBox, string streetName, string zip, string city)
+        {
+            var referenceCompany = companyReference;
+
+            referenceCompany.PostBox = postBox;
+            referenceCompany.StreetName = streetName;
+            referenceCompany.Zip = zip;
+            referenceCompany.City = city;
+            referenceCompany.DerivedFromCompanyId = referenceCompany.Id;
+            referenceCompany.Id = 0;
+
+            AddUpdateDeleteCompany(Enumerations.Action.Create, ref referenceCompany);
+
+            return referenceCompany;
+        }
 
 		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
 			try {

@@ -57,15 +57,15 @@
         <br/>
 
         <p>
-		    <label>Postbox<asp:Literal ID="ltAddress1" runat="server" /></label>
-		    <asp:TextBox id="txtAddress1" runat="server" />
-		    <%--<asp:RequiredFieldValidator ID="reqtxtAddress1" runat="server" ErrorMessage="Företags namn måste anges" ControlToValidate="txtAddress1" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>--%>
-	        <asp:CustomValidator id="vldAddress1" runat="server" ErrorMessage="Postbox eller gatuaddress/företagsnamn måste anges." ControlToValidate="txtEmail" OnServerValidate="IsValueAddress1OrAddress2" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
+		    <label>Postbox<asp:Literal ID="ltPostBox" runat="server" /></label>
+		    <asp:TextBox id="txtPostBox" runat="server" />
+		    <%--<asp:RequiredFieldValidator ID="reqtxtPostBox" runat="server" ErrorMessage="Företags namn måste anges" ControlToValidate="txtPostBox" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>--%>
+	        <asp:CustomValidator id="vldPostBox" runat="server" ErrorMessage="Postbox eller gatuaddress/företagsnamn måste anges." ControlToValidate="txtEmail" OnServerValidate="IsValuePostBoxOrStreetName" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
         </p>
         <p>
-            <label>Gatuadress/<br />Företagsnman<asp:Literal ID="ltAddress2" runat="server" /></label>
-		    <asp:TextBox id="txtAddress2" runat="server" />
-            <!-- Note that this is validated in Address1-->
+            <label>Gatuadress/<br />Företagsnman<asp:Literal ID="ltStreetName" runat="server" /></label>
+		    <asp:TextBox id="txtStreetName" runat="server" />
+            <!-- Note that this is validated in PostBox-->
 	    </p>
         <p>
 		    <label>Postnummer *<asp:Literal ID="ltZip" runat="server" /></label>

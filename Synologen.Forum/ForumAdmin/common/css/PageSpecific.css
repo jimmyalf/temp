@@ -1,0 +1,193 @@
+/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+================================================*/
+/* =Valid colors
+	---------------------------------
+	#990000		Background (error)
+	#444		Text
+	#AAA		Borders, Background (dark)
+	#DDD		Background, Gradient (medium)
+	#EEE		Background, Gradient (light)
+	#FFFFDD		Hoverstyle
+	White		Background, Borders, Text
+	---------------------------------
+*/
+
+/* =error-aspx
+================================================*/
+.error-aspx #dErrorContainer {width: 60em; margin: 20px 20px;}
+.error-aspx h1 {margin-bottom: .6em; font-size: 2em; color: Red; font-weight: normal;}
+.error-aspx h2 {margin-bottom: 0; font-size: 1.1em;}
+.error-aspx p {margin-top: 0;}
+.error-aspx #dError,
+.error-aspx #dErrorDetails,
+.error-aspx #dCopyright {font-size: 1.3em;}
+.error-aspx #dCopyright {float: none; padding: .6em 0;}
+
+/* =logout-aspx
+================================================*/
+.logout-aspx #dLogoutContainer {width: 30em; margin: 20px auto; text-align: center;}
+
+
+/* =index-aspx
+================================================*/
+#dLoginContainer {width: 50em; margin: 20px auto; border: solid 1px #AAA;}
+#dLoginContainer #dHeader {min-height: 70px;}
+#dLoginContainer #dHeaderMessage {float: left; margin: 0; padding: 10px 15px;}
+#dLoginContainer #dBranding {float: right; margin: 0; padding: 10px 15px;}
+#dLoginContainer #dError {float: left; width: 100%; padding: .5em 0; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; color: White; background-color: #990000; border-bottom: solid 1px #AAA;}
+#dLoginContainer #dError strong {padding: 0 15px;}
+#dLoginContainer #dMain {float: left; padding: 10px; font-size: 1.1em;}
+#dLoginContainer #dFooter {border-top: solid 1px #AAA; border-bottom: 0;}
+#dLoginContainer #dCopyright {padding: 10px 15px;}
+#dLoginContainer h1 {font-size: 2em;}
+
+/* =Files-FilesMain-aspx
+================================================*/
+.Files-FilesMain-aspx .tableContainer tbody tr td:first-child {text-align: center;}
+.Files-FilesMain-aspx .tableContainer tbody tr td:first-child + td {text-align: center;}
+.Files-FilesMain-aspx .filesSiderbar {width: 380px; padding: 10px; background-color: #DDD;}
+.Files-FilesMain-aspx .margin {float: left; width: 380px; padding: 10px 0; background-color: #EEE;}
+.Files-FilesMain-aspx .sidebarClose {position: absolute; right: 20px;}
+.Files-FilesMain-aspx .sidebarClose a {position: relative; top: -20px; padding: .5em; color: White; background-color: #AAA; border: 0;}
+.Files-FilesMain-aspx #colSelect,
+.Files-FilesMain-aspx #colThumbnails,
+.Files-FilesMain-aspx #colActions {text-indent: -9999px;}
+.Files-FilesMain-aspx .filesSiderbar fieldset {margin: .5em 0 0 0; border-left: 0; border-right: 0; border-bottom: 0;}
+/*
+=Files-Additional-ascx
+=Files-General-ascx
+=Files-Connections-ascx
+================================================*/
+.Files-Additional-ascx fieldset,
+.Files-General-ascx fieldset {margin: 0; padding: 0; border: 0;}
+.Files-Additional-ascx legend,
+.Files-General-ascx legend {display: none;}
+.Files-Additional-ascx .formItem,
+.Files-General-ascx .formItem {clear: both;}
+.Files-Connections-ascx caption {display: table-caption; text-align: left;}
+
+/* =Files-Delete-ascx
+================================================*/
+.Files-Delete-ascx table {margin-bottom: .5em;}
+
+/* =Files-CopyMove-ascx
+================================================*/
+.Files-CopyMove-ascx .treeView {margin-bottom: .5em; clear: both;}
+.Files-CopyMove-ascx .treeView label {float: none;}
+
+/* =Files-ImageManager-ascx
+================================================*/
+.Files-ImageManager-ascx #dImagePreview {float: left; clear: both; width: 100%; height: 200px; overflow: auto; margin-bottom: .5em; background-color: White; border: solid 1px #AAA; text-align: center;}
+.Files-ImageManager-ascx fieldset {float: left; clear: both; margin-top: .5em;}
+.Files-ImageManager-ascx .formItem {clear: left;}
+
+/* =Files-PropertiesManager-ascx
+================================================*/
+.Files-PropertiesManager-ascx .tabsContentContainer {padding-bottom: 15px;}
+
+/* =Content-Main-aspx
+================================================*/
+.Content-Main-aspx .wrap {padding: 0 15px; width: auto !important;}
+.Content-Main-aspx .wrap > * {margin-right: 0; margin-left: 0;}
+.Content-Main-aspx table + h2 {margin-top: 1em;}
+.Content-Main-aspx .box {width: 100%; margin-right: 0;}
+
+/* =Content-PageControl-ascx
+================================================*/
+.Content-PageControl-ascx .formItem {width: 30em;}
+
+/* =Content-EditPage-aspx
+================================================*/
+.Content-EditPage-aspx #dContentButtons {position: absolute; right: 20px; margin: 10px 0 0 0; padding: 0;}
+
+/* =Content-EditMenu-aspx
+================================================*/
+.Content-EditMenu-aspx #dError {float: left; width: 100%; padding: .5em 0; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; color: White; background-color: #990000; border-bottom: solid 1px #AAA;}
+.Content-EditMenu-aspx #dError strong {padding: 0 15px;}
+
+/* =Content-EditArchive-aspx
+================================================*/
+.Content-EditArchive-aspx #dError {float: left; width: 100%; padding: .5em 0; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; color: White; background-color: #990000; border-bottom: solid 1px #AAA;}
+.Content-EditArchive-aspx #dError strong {padding: 0 15px;}
+
+/* =Content-PageProperties-aspx
+================================================*/
+.Content-PageProperties-aspx .wrap {padding: 0 15px; width: auto !important;}
+.Content-PageProperties-aspx .wrap > * {margin-right: 0; margin-left: 0;}
+
+/* =Content-TreeAccess-aspx
+================================================*/
+.Content-TreeAccess-aspx .box {width: 20em; height: 16em;}
+.Content-TreeAccess-aspx .center {width: 6em; text-align: center;}
+.Content-TreeAccess-aspx .box input {margin-top: 7em;}
+.Content-TreeAccess-aspx .box select {float: left; clear: left; width: 20em; height: 14em;}
+
+/* =Content-Layout-ListContentTemplate-aspx
+   =Content-Layout-ListPageTemplate-aspx
+   =Content-Layout-ListMenuTemplate-aspx
+   =Content-Layout-ListStylesheet-aspx
+   =Content-Layout-ListSnippets-aspx
+================================================*/
+.Content-Layout-ListContentTemplate-aspx .formCommands,
+.Content-Layout-ListPageTemplate-aspx .formCommands,
+.Content-Layout-ListMenuTemplate-aspx .formCommands,
+.Content-Layout-ListStylesheet-aspx .formCommands,
+.Content-Layout-ListSnippets-aspx .formCommands {margin: 1em 15px;}
+
+/* =Content-Layout-EditContentLayout-aspx
+================================================*/
+.Content-Layout-EditContentLayout-aspx #dWysiwyg {margin-bottom: 1em;}
+.Content-Layout-EditContentLayout-aspx #dError {float: left; width: 100%; padding: .5em 0; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; color: White; background-color: #990000; border-bottom: solid 1px #AAA;}
+.Content-Layout-EditContentLayout-aspx #dError strong {padding: 0 15px;}
+
+/* =Content-Layout-EditTemplate-ascx
+================================================*/
+.Content-Layout-EditTemplate-ascx #dError {float: left; width: 100%; padding: .5em 0; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-size: 1.1em; color: White; background-color: #990000; border-bottom: solid 1px #AAA;}
+.Content-Layout-EditTemplate-ascx #dError strong {padding: 0 15px;}
+
+/* =Content-Layout-TemplateControl-aspx
+================================================*/
+.Content-Layout-TemplateControl-aspx #dWysiwyg {margin-bottom: 1em;}
+
+/* =Wysiwyg-InternalLink-aspx
+================================================*/
+.Wysiwyg-InternalLink-aspx h1 {display: none;}
+.Wysiwyg-InternalLink-aspx p {margin-bottom: .3em;}
+.Wysiwyg-InternalLink-aspx label {padding-left: 0;}
+.Wysiwyg-InternalLink-aspx fieldset {background-color: Transparent;}
+.Wysiwyg-InternalLink-aspx legend {font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-weight: bold; color: White;}
+.Wysiwyg-InternalLink-aspx #dMainColumn,
+.Wysiwyg-InternalLink-aspx #dSecondaryColumn {float: left; width: 350px;}
+.Wysiwyg-InternalLink-aspx #dMainColumn fieldset,
+.Wysiwyg-InternalLink-aspx #dSecondaryColumn fieldset {height: 400px;}
+.Wysiwyg-InternalLink-aspx .InternalLinkSecondPage-ascx {float: left; width: 100%;}
+.Wysiwyg-InternalLink-aspx #dTreeContainer {float: left; height: 330px; width: 300px; padding: 1px 5px 1px 5px; overflow: auto;}
+.Wysiwyg-InternalLink-aspx #InternalLinkMenu {margin-bottom: 5px;}
+.Wysiwyg-InternalLink-aspx .formCommands {padding: 10px;}
+
+/* =Settings-UserEdit-aspx
+================================================*/
+.Settings-UserEdit-aspx .box {width: 20em; height: 16em;}
+.Settings-UserEdit-aspx .center {width: 6em; text-align: center;}
+.Settings-UserEdit-aspx .box input {margin-top: 7em;}
+.Settings-UserEdit-aspx .box select {float: left; clear: left; width: 20em; height: 14em;}
+
+/* =Settings-EditLocation-aspx
+================================================*/
+.Settings-EditLocation-aspx .componentsList {width: 100%; border: 0 !important; border-collapse: separate;}
+.Settings-EditLocation-aspx .componentsList td {background-color: Transparent;}
+
+/* =Settings-GroupEdit-aspx
+================================================*/
+.Settings-GroupEdit-aspx .tabs {margin-top: 1em;}
+.Settings-GroupEdit-aspx .tabsContentContainer {margin-bottom: 1em;}
+
+/* =Settings-GroupObject-ascx
+================================================*/
+.Settings-GroupObject-ascx dl {width: 30em; margin: 0 0 15px 0; border: solid 1px #AAA;}
+.Settings-GroupObject-ascx dt {float: left; clear: both; width: 40%; padding: .3em .4em .2em .4em; font-weight: bold; background-color: White;}
+.Settings-GroupObject-ascx dd {margin: 0; padding: .2em .4em; background-color: White;}
+.Settings-GroupObject-ascx dd label,
+.Settings-GroupObject-ascx dd input {vertical-align: middle;}

@@ -90,6 +90,7 @@
     <Compile Include="Domain\Entities\PaymentInfo.cs" />
     <Compile Include="Domain\Enumerations\ActiveFilter.cs" />
     <Compile Include="Domain\Enumerations\ConnectionAction.cs" />
+    <Compile Include="Domain\Enumerations\ReferenceFilter.cs" />
     <Compile Include="Domain\Enumerations\FetchCustomerContract.cs" />
     <Compile Include="Domain\Enumerations\FetchShop.cs" />
     <Compile Include="Domain\Enumerations\FileCategoryGetAction.cs" />

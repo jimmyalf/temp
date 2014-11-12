@@ -78,6 +78,7 @@
 		    <asp:TextBox id="txtCity" runat="server" />
 		    <asp:RequiredFieldValidator ID="reqCity" runat="server" ErrorMessage="Ort måste anges" ControlToValidate="txtCity" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RequiredFieldValidator>
 	    </p>
+        <br />
     </div>
 </fieldset>	
 	<br />

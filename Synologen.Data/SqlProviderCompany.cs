@@ -130,6 +130,7 @@ namespace Spinit.Wpc.Synologen.Data
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
 					CompanyValidationRules = GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")),
+					DerivedFromCompanyId = Util.CheckNullInt(dataRow, "cDerivedFromCompanyId"),
 				};
 				return companyRow;
 			}
@@ -139,7 +140,7 @@ namespace Spinit.Wpc.Synologen.Data
 			}
 		}
 
-        public Company CreateCompanyFromReference(int companyReferenceId, string postBox, string streetName, string zip, string city)
+        public Company CreateReferenceCompanyFromCompany(int companyReferenceId, string postBox, string streetName, string zip, string city)
         {
             var referenceCompany = GetCompanyRow(companyReferenceId);
 
@@ -155,7 +156,7 @@ namespace Spinit.Wpc.Synologen.Data
             return referenceCompany;
         }
 
-        public Company CreateCompanyFromReference(Company companyReference, string postBox, string streetName, string zip, string city)
+        public Company CreateReferenceCompanyFromCompany(Company companyReference, string postBox, string streetName, string zip, string city)
         {
             var referenceCompany = companyReference;
 
@@ -171,7 +172,7 @@ namespace Spinit.Wpc.Synologen.Data
             return referenceCompany;
         }
 
-		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
+		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter, ReferenceFilter referenceFilter = ReferenceFilter.Both) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
@@ -179,12 +180,14 @@ namespace Spinit.Wpc.Synologen.Data
 					new SqlParameter ("@companyId", SqlDbType.Int, 4),
 					new SqlParameter ("@contractId", SqlDbType.Int, 4),
 					new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
+					new SqlParameter ("@references", SqlDbType.Int, 4),
 					new SqlParameter ("@status", SqlDbType.Int, 4)
 				};
 				parameters[counter++].Value = (int)activeFilter;
 				parameters[counter++].Value = companyId;
 				parameters[counter++].Value = contractId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
+                parameters[counter++].Value = (int)referenceFilter;
 				parameters[counter].Direction = ParameterDirection.Output;
 				var retSet = RunProcedure("spSynologenGetContractCompanies", parameters, "tblSynologenContractCompany");
 				return retSet;

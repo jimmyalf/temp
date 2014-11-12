@@ -49,8 +49,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		}
 		private void PopulateCompanies() {
 			var contractId = Int32.Parse(drpContracts.SelectedValue);
-			drpCompany.DataSource = Provider.GetCompanies(0, contractId, null, ActiveFilter.Active);
-			drpCompany.DataBind();
+            //TODO Look in the TryParse Company and reference to the parent company if its a reference company
+			drpCompany.DataSource = Provider.GetCompanies(0, contractId, null, ActiveFilter.Active, ReferenceFilter.NoReferences);
+			
+            drpCompany.DataBind();
 			drpCompany.Items.Insert(0, new ListItem("-- Välj företag --", "0"));
 			drpCompany.Enabled = true;
 		}
@@ -87,11 +89,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			txtEmail.Text = _order.Email;
 			txtPhone.Text = _order.Phone;
 			txtCustomerOrderNumber.Text = _order.CustomerOrderNumber;
-			var company = Provider.GetCompanyRow(_order.CompanyId);
-			TrySetContract(company.ContractId);
+
+            var selectListCompany = Provider.GetCompanyRow(_order.CompanyId);
+            if (selectListCompany.DerivedFromCompanyId > 0)
+            {
+                selectListCompany = Provider.GetCompanyRow(selectListCompany.DerivedFromCompanyId);
+            }
+
+			TrySetContract(selectListCompany.ContractId);
 			PopulateCompanies();
 			PopulateArticles();
-			TrySetCompany(_order.CompanyId);
+            TrySetCompany(selectListCompany);
+
 			txtRST.Text = _order.RstText;
 			ltCreatedDate.Text = _order.CreatedDate.ToShortDateString();
 			if (_order.UpdateDate != DateTime.MinValue) {
@@ -103,13 +112,44 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			//ltSalesPersonName.Text = salesPerson.ContactFirst + " " + salesPerson.ContactLast;
 			var user = Provider.GetUserRow(_order.SalesPersonMemberId);
 			ltSalesPersonName.Text = user.FirstName + " " + user.LastName;
+
+		    if (drpContracts.SelectedValue != "0")
+		    {
+		        var contract = Provider.GetContract(Convert.ToInt32(drpContracts.SelectedValue));
+		        if (contract.ForceCustomAddress)
+		        {
+                    invoiceAddressFields.Visible = true;
+                    var companyReferfence = Provider.GetCompanyRow(_order.CompanyId);
+                    SetInvoiceAddress(companyReferfence);
+                } 
+                else
+                {
+                    invoiceAddressFields.Visible = false;
+                    ClearInvoiceAddress();
+                }
+
+		    }
+		    
 			CheckEnableSaveAndAbortOrder();
 		}
-		#endregion
+
+	    #endregion
 
 		#region Events
 		protected void drpContracts_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpContracts.SelectedValue != "0") {
+                var contract = Provider.GetContract(Convert.ToInt32(drpContracts.SelectedValue));
+
+			    if (contract.ForceCustomAddress)
+			    {
+                    invoiceAddressFields.Visible = true;
+                    ClearInvoiceAddress();
+			    }
+                else
+                {
+                    invoiceAddressFields.Visible = false;
+			    }
+
 				PopulateCompanies();
 				PopulateArticles();
 				PopulateItemNumbers();
@@ -123,10 +163,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpCompany.SelectedValue == "0") return;
-            var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
 
-            // TODO: Check for custom address using company
-            PopulateValidationRules(company, Controls);
+            var selectedCompany = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+            var orderCompany = Provider.GetCompanyRow(_order.CompanyId);
+		    if (selectedCompany.Id == orderCompany.DerivedFromCompanyId)
+		    {
+                SetInvoiceAddress(orderCompany);
+		    }
+		    else
+		    {
+		        ClearInvoiceAddress();
+		    }
+
+            PopulateValidationRules(selectedCompany, Controls);
 		}
 
 
@@ -248,7 +297,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			_order.SalesPersonShopId = (int) MemberShopId;
 			_order.RstText = txtRST.Text;
 			_order.CustomerOrderNumber = txtCustomerOrderNumber.Text;
-			_order.CompanyId = Int32.Parse(drpCompany.SelectedValue);
+
+            var selectedCompany = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+            var orderCompany = Provider.GetCompanyRow(_order.CompanyId);
+
+		    if (selectedCompany.Id == orderCompany.DerivedFromCompanyId)
+		    {
+		        orderCompany.PostBox = txtPostBox.Text;
+		        orderCompany.StreetName = txtStreetName.Text;
+		        orderCompany.Zip = txtZip.Text;
+		        orderCompany.City = txtCity.Text;
+
+		        Provider.AddUpdateDeleteCompany(Enumerations.Action.Update, ref orderCompany);
+		        _order.CompanyId = orderCompany.Id;
+		    }
+		    else
+		    {
+                var newReferenceCompany = Provider.CreateReferenceCompanyFromCompany(selectedCompany, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
+                _order.CompanyId = newReferenceCompany.Id;
+		    }
+
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref _order);
 
 		}
@@ -337,15 +405,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			catch { drpContracts.SelectedValue = "0"; }
 		}
 
-		private void TrySetCompany(int companyId) {
+		private void TrySetCompany(Company companyId) {
 			try{
-				drpCompany.SelectedValue = companyId.ToString();
-				if (companyId <= 0) return;
+				drpCompany.SelectedValue = companyId.Id.ToString();
+				//if (companyId <= 0) return;
                 var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
-				PopulateValidationRules(company, Controls);
+			    
+                PopulateValidationRules(companyId, Controls);
+				
 			}
 			catch { drpCompany.SelectedValue = "0"; }
 		}
+
+        protected void IsValuePostBoxOrStreetName(object source, ServerValidateEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(txtPostBox.Text) || !string.IsNullOrEmpty(txtStreetName.Text))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
+
+        private void SetInvoiceAddress(Company company)
+        {
+            
+            txtPostBox.Text = company.PostBox;
+            txtStreetName.Text = company.StreetName;
+            txtZip.Text = company.Zip;
+            txtCity.Text = company.City;
+        }
+        private void ClearInvoiceAddress()
+        {
+            txtPostBox.Text = string.Empty;
+            txtStreetName.Text = string.Empty;
+            txtZip.Text = string.Empty;
+            txtCity.Text = string.Empty;
+        }
 
 		#endregion
 

@@ -81,11 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpCompany.SelectedValue == "0") return;
 		    var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
-            if (company.DerivedFromCompanyId != null)
-		    {
-
-		    }
-            // TODO: Check for custom address using company
+           
             PopulateValidationRules(company, Controls);
 		}
 
@@ -102,18 +98,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			RemoveOrderItemFromCart(temporaryId);
 			PopulateShoppingCart();
 		}
-
-        protected void IsValuePostBoxOrStreetName(object source, ServerValidateEventArgs args)
-        {
-            if (!string.IsNullOrEmpty(txtPostBox.Text) || !string.IsNullOrEmpty(txtStreetName.Text))
-            {
-                args.IsValid = true;
-            }
-            else
-            {
-                args.IsValid = false;
-            }
-        }
 
 		protected void OrderItemsValidation(object source, ServerValidateEventArgs args) {
 			args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
@@ -156,7 +140,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		    var companyId = company.Id;
             if (contract.ForceCustomAddress)
 		    {
-                var newCompanyFromReference = Provider.CreateCompanyFromReference(companyId, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
+                var newCompanyFromReference = Provider.CreateReferenceCompanyFromCompany(companyId, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
 		        companyId = newCompanyFromReference.Id;
 		    }
 
@@ -236,6 +220,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			}
 			catch{return false;}
 		}
+
+        protected void IsValuePostBoxOrStreetName(object source, ServerValidateEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(txtPostBox.Text) || !string.IsNullOrEmpty(txtStreetName.Text))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
 
 		#endregion
 

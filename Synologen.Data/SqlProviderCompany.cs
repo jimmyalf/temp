@@ -172,7 +172,7 @@ namespace Spinit.Wpc.Synologen.Data
             return referenceCompany;
         }
 
-		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter, ReferenceFilter referenceFilter = ReferenceFilter.Both) {
+		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter, ReferenceFilter referenceFilter = ReferenceFilter.NoReferences) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {

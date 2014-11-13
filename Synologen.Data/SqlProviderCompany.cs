@@ -95,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Data
 		}
 
 		public Company GetCompanyRow(int companyId) {
-			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both);
+			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both, ReferenceFilter.Both);
 			var contractCompanyDataRow = contractCompanyDataSet.Tables[0].Rows[0];
 			return ParseCompanyRow(contractCompanyDataRow);
 		}

@@ -59,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
         private void PopulateCompanies()
         {
             var contractId = Int32.Parse(drpContracts.SelectedValue);
-            drpCompany.DataSource = Provider.GetCompanies(0, contractId, null, ActiveFilter.Active, ReferenceFilter.NoReferences);
+            drpCompany.DataSource = Provider.GetCompanies(0, contractId, null, ActiveFilter.Active);
             drpCompany.DataBind();
             drpCompany.Items.Insert(0, new ListItem("-- Välj företag --", "0"));
             drpCompany.Enabled = true;

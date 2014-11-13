@@ -275,7 +275,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
         protected List<CompanyListItem> GetAllCompanies()
         {
-            return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both)
+            return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both, ReferenceFilter.Both)
                 .Tables[0].AsEnumerable()
                 .Select(x => new CompanyListItem
                 {

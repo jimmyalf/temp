@@ -273,6 +273,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                 }).ToList();
         }
 
+        //TODO: Seems to fetch all companies, not just parent ones?
         protected List<CompanyListItem> GetParentCompanies()
         {
             return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both)

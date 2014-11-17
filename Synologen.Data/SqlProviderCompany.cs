@@ -140,25 +140,9 @@ namespace Spinit.Wpc.Synologen.Data
 			}
 		}
 
-        public Company CreateReferenceCompanyFromCompany(int companyReferenceId, string postBox, string streetName, string zip, string city)
+        public Company CreateReferenceCompanyFromCompany(Company company, string companyName, string postBox, string streetName, string zip, string city)
         {
-            var referenceCompany = GetCompanyRow(companyReferenceId);
-
-            referenceCompany.Id = 0;
-            referenceCompany.PostBox = postBox;
-            referenceCompany.StreetName = streetName;
-            referenceCompany.Zip = zip;
-            referenceCompany.City = city;
-            referenceCompany.DerivedFromCompanyId = companyReferenceId;
-
-            AddUpdateDeleteCompany(Enumerations.Action.Create, ref referenceCompany);
-
-            return referenceCompany;
-        }
-
-        public Company CreateReferenceCompanyFromCompany(Company companyReference, string postBox, string streetName, string zip, string city)
-        {
-            var referenceCompany = companyReference;
+            var referenceCompany = company;
 
             referenceCompany.PostBox = postBox;
             referenceCompany.StreetName = streetName;
@@ -168,6 +152,14 @@ namespace Spinit.Wpc.Synologen.Data
             referenceCompany.Id = 0;
 
             AddUpdateDeleteCompany(Enumerations.Action.Create, ref referenceCompany);
+
+            return referenceCompany;
+        }
+
+        public Company CreateReferenceCompanyFromCompany(int companyReferenceId, string companyName, string postBox, string streetName, string zip, string city)
+        {
+            var company = GetCompanyRow(companyReferenceId);
+            var referenceCompany = CreateReferenceCompanyFromCompany(company, companyName, postBox, streetName, zip, city);
 
             return referenceCompany;
         }

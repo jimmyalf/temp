@@ -140,7 +140,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		    var companyId = company.Id;
             if (contract.ForceCustomAddress)
 		    {
-                var newCompanyFromReference = Provider.CreateReferenceCompanyFromCompany(companyId, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
+                var newCompanyFromReference = Provider.CreateReferenceCompanyFromCompany(companyId, txtCompanyName.Text, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
 		        companyId = newCompanyFromReference.Id;
 		    }
 

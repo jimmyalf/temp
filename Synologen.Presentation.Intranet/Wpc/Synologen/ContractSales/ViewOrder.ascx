@@ -12,6 +12,16 @@
 		<p><label>Personnummer:</label><span><%=Order.PersonalIdNumber%></span></p>
 		<p><label>Epost:</label><a href="mailto:<%=Order.Email%>"><%=Order.Email%></a></p>
 		<p><label>Telefon:</label><span><%=Order.Phone%></span></p>
+        <div ID="invoiceAddressFields" Visible="False" runat="server">
+            <br/>
+            <h4>Fakturaadress</h4>
+            <br/>
+            <p><label>PostBox</label><span><asp:Literal ID="ltPostBox" runat="server" /></span></p>
+            <p><label>Address</label><span><asp:Literal ID="ltStreetName" runat="server" /></span></p>
+            <p><label>Postnummer</label><span><asp:Literal ID="ltZip" runat="server" /></span></p>
+            <p><label>Ort</label><span><asp:Literal ID="ltCity" runat="server" /></span></p>
+            <br />
+        </div>
 		<p><label>Försäljare:</label><span><asp:Literal ID="ltSalesPersonName" runat="server" /></span></p>
 		<p><label>Status:</label><span><asp:Literal ID="ltOrderStatus" runat="server" /></span></p>
 		<p><label>Skapad:</label><span><%=Order.CreatedDate.ToShortDateString()%></span></p>

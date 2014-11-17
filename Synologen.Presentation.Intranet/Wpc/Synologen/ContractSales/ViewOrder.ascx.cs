@@ -26,8 +26,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			ltTotalPrice.Text = GetTotalCartPrice().ToString();
 		}
 
-		private void PopulateOrder() {
-			ltCompany.Text = Provider.GetCompanyRow(_order.CompanyId).Name;
+		private void PopulateOrder()
+		{
+		    var company = Provider.GetCompanyRow(_order.CompanyId);
+            ltCompany.Text = company.Name;
+
+		    if (company.DerivedFromCompanyId > 0)
+		    {
+		        invoiceAddressFields.Visible = true;
+                
+                ltPostBox.Text = company.PostBox;
+                ltStreetName.Text = company.StreetName;
+                ltZip.Text = company.Zip;
+                ltCity.Text = company.City;
+		    }
+
 			var userRow = Provider.GetUserRow(_order.SalesPersonMemberId);
 			ltSalesPersonName.Text = userRow.FirstName + " " + userRow.LastName;
 			ltOrderStatus.Text = Provider.GetOrderStatusRow(_order.StatusId).Name;

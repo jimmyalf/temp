@@ -343,6 +343,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
             if (selectedCompany.Id == orderCompany.DerivedFromCompanyId)
             {
+                orderCompany.Name = txtCompanyName.Text;
                 orderCompany.PostBox = txtPostBox.Text;
                 orderCompany.StreetName = txtStreetName.Text;
                 orderCompany.Zip = txtZip.Text;
@@ -353,7 +354,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
             }
             else
             {
-                var newReferenceCompany = Provider.CreateReferenceCompanyFromCompany(selectedCompany, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
+                var newReferenceCompany = Provider.CreateReferenceCompanyFromCompany(selectedCompany, txtCompanyName.Text, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
                 _order.CompanyId = newReferenceCompany.Id;
             }
 
@@ -497,13 +498,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
         private void SetInvoiceAddress(Company company)
         {
+            txtCompanyName.Text = company.Name;
             txtPostBox.Text = company.PostBox;
             txtStreetName.Text = company.StreetName;
             txtZip.Text = company.Zip;
             txtCity.Text = company.City;
         }
+
         private void ClearInvoiceAddress()
         {
+            txtCompanyName.Text = string.Empty;
             txtPostBox.Text = string.Empty;
             txtStreetName.Text = string.Empty;
             txtZip.Text = string.Empty;

@@ -5,12 +5,14 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Business.Utility;
+using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals = Spinit.Wpc.Synologen.Business.Globals;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 {
+  
     public partial class EditOrder : SynologenSalesUserControl
     {
         private int _orderId;
@@ -104,9 +106,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
             txtCustomerOrderNumber.Text = _order.CustomerOrderNumber;
 
             var selectListCompany = Provider.GetCompanyRow(_order.CompanyId);
-            if (selectListCompany.DerivedFromCompanyId > 0)
+
+            if (selectListCompany.DerivedFromCompanyId.HasValueAndPositive())
             {
-                selectListCompany = Provider.GetCompanyRow(selectListCompany.DerivedFromCompanyId);
+                selectListCompany = Provider.GetCompanyRow((int) selectListCompany.DerivedFromCompanyId);
             }
 
             TrySetContract(selectListCompany.ContractId);

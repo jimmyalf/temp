@@ -121,6 +121,7 @@
     <Compile Include="Commands\Deviations\CreateDeviationCommand.cs" />
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
+    <Compile Include="Extensions\DataTypeExtensions.cs" />
     <Compile Include="Queries\AbstractListQuery.cs" />
     <Compile Include="Queries\ContractSales\StatisticsFlexPayQuery.cs" />
     <Compile Include="Queries\ContractSales\StatisticsQuery.cs" />

@@ -121,7 +121,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		public Contract Contract { get; set; }
 
-
         protected void drpInvoiceOption_SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedInvoiceOption = Int32.Parse(drpInvoiceOptions.SelectedValue);

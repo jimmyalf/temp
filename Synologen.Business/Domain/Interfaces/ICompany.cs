@@ -25,6 +25,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		string InvoiceFreeTextFormat { get; set; }
 		bool HasValidationRule(int validationRuleId);
 		Country Country { get; set;}
-	    int DerivedFromCompanyId { get; set; }
+	    int? DerivedFromCompanyId { get; set; }
 	}
 }

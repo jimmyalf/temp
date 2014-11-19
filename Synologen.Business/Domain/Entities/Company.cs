@@ -66,7 +66,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		}
 		[DataMember] public Country Country { get; set;}
 
-        //TODO: Should be nullable
-        [DataMember] public int DerivedFromCompanyId { get; set; } 
+        [DataMember] public int? DerivedFromCompanyId { get; set; } 
 	}
 }

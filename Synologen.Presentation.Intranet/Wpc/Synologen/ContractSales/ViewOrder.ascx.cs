@@ -1,5 +1,6 @@
 using System;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -31,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		    var company = Provider.GetCompanyRow(_order.CompanyId);
             ltCompany.Text = company.Name;
 
-		    if (company.DerivedFromCompanyId > 0)
+		    if (company.DerivedFromCompanyId.HasValueAndPositive())
 		    {
 		        invoiceAddressFields.Visible = true;
                 

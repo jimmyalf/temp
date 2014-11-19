@@ -10,8 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code {
 		private int _maxNumberOfItems = 15;
 		protected List<ICompanyValidationRule> contractValidationRules = new List<ICompanyValidationRule>();
 
-        //TODO: Rensa bort glömda kommentarer
-		protected void PopulateValidationRules(/*int selectedCompanyId*/ Company company, ControlCollection controls) {
+		protected void PopulateValidationRules(Company company, ControlCollection controls) {
             contractValidationRules = new List<ICompanyValidationRule>(company.CompanyValidationRules);
 			SetRequiredAsteriskInLabels(controls);
 		}

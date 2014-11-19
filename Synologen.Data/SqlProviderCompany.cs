@@ -144,6 +144,8 @@ namespace Spinit.Wpc.Synologen.Data
         {
             var referenceCompany = company;
 
+            referenceCompany.Name = companyName;
+            referenceCompany.InvoiceCompanyName = companyName;
             referenceCompany.PostBox = postBox;
             referenceCompany.StreetName = streetName;
             referenceCompany.Zip = zip;

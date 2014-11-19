@@ -107,12 +107,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		    if (company.DerivedFromCompanyId.HasValueAndPositive())
 		    {
 		        drpCompanies.Visible = false;
-                labelCompany.Visible = true;
-                labelCompany.Text = company.Name;
+		        labelCompany.Visible = true;
+		        labelCompany.Text = company.Name;
+                drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both, ReferenceFilter.Both);
+                drpCompanies.DataBind();
+		    }
+		    else
+		    {
+                drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both);
+                drpCompanies.DataBind();
 		    }
 		    
-            drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both);
-            drpCompanies.DataBind();
+            
 		}
 
 		private void PopulateArticles() {

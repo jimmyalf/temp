@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data{

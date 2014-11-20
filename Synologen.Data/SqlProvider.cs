@@ -9,6 +9,7 @@ namespace Spinit.Wpc.Synologen.Data {
 	/// <summary>
 	/// Base class for SqlProvider
 	/// </summary>
+
 	public partial  class SqlProvider: Member.Data.SqlProvider, ISqlProvider 
 	{
 		private PersistenceBase Persistence { get; set; }

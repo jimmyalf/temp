@@ -15,6 +15,7 @@
 					</div>
 					<div class="formItem">
 						<label class="labelLong">Företag</label>
+                        <asp:Label id="labelCompany" runat="server" Visible="false"/>
 						<asp:DropDownList ID="drpCompanies" runat="server" DataValueField="cId" DataTextField="cName" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" AutoPostBack="true"  />
 					</div>
 					<div class="formItem">

@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Data
                     parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Quantifier, null));
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
-					parameters[counter].Value = GetNullableSqlType(company.Country.Id);
+					parameters[counter++].Value = GetNullableSqlType(company.Country.Id);
 					parameters[counter].Value = GetNullableSqlType(company.DerivedFromCompanyId);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
@@ -95,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Data
 		}
 
 		public Company GetCompanyRow(int companyId) {
-			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both);
+			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both, ReferenceFilter.Both);
 			var contractCompanyDataRow = contractCompanyDataSet.Tables[0].Rows[0];
 			return ParseCompanyRow(contractCompanyDataRow);
 		}
@@ -130,6 +130,7 @@ namespace Spinit.Wpc.Synologen.Data
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
 					CompanyValidationRules = GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")),
+					DerivedFromCompanyId = Util.CheckNullInt(dataRow, "cDerivedFromCompanyId"),
 				};
 				return companyRow;
 			}
@@ -139,7 +140,33 @@ namespace Spinit.Wpc.Synologen.Data
 			}
 		}
 
-		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
+        public Company CreateReferenceCompanyFromCompany(Company company, string companyName, string postBox, string streetName, string zip, string city)
+        {
+            var referenceCompany = company;
+
+            referenceCompany.Name = companyName;
+            referenceCompany.InvoiceCompanyName = companyName;
+            referenceCompany.PostBox = postBox;
+            referenceCompany.StreetName = streetName;
+            referenceCompany.Zip = zip;
+            referenceCompany.City = city;
+            referenceCompany.DerivedFromCompanyId = referenceCompany.Id;
+            referenceCompany.Id = 0;
+
+            AddUpdateDeleteCompany(Enumerations.Action.Create, ref referenceCompany);
+
+            return referenceCompany;
+        }
+
+        public Company CreateReferenceCompanyFromCompany(int companyReferenceId, string companyName, string postBox, string streetName, string zip, string city)
+        {
+            var company = GetCompanyRow(companyReferenceId);
+            var referenceCompany = CreateReferenceCompanyFromCompany(company, companyName, postBox, streetName, zip, city);
+
+            return referenceCompany;
+        }
+
+		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter, ReferenceFilter referenceFilter = ReferenceFilter.NoReferences) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
@@ -147,12 +174,14 @@ namespace Spinit.Wpc.Synologen.Data
 					new SqlParameter ("@companyId", SqlDbType.Int, 4),
 					new SqlParameter ("@contractId", SqlDbType.Int, 4),
 					new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
+					new SqlParameter ("@references", SqlDbType.Int, 4),
 					new SqlParameter ("@status", SqlDbType.Int, 4)
 				};
 				parameters[counter++].Value = (int)activeFilter;
 				parameters[counter++].Value = companyId;
 				parameters[counter++].Value = contractId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
+                parameters[counter++].Value = (int)referenceFilter;
 				parameters[counter].Direction = ParameterDirection.Output;
 				var retSet = RunProcedure("spSynologenGetContractCompanies", parameters, "tblSynologenContractCompany");
 				return retSet;

@@ -1,0 +1,2 @@
+<%@ Control Inherits="System.Web.Mvc.ViewUserControl<WpcMenuItem>" %>
+<li><a href="<%= Model.Url %>"<%if(!String.IsNullOrEmpty(Model.CssClass)){%> class="<%=Model.CssClass%>"<%} %>><%= Model.Text %></a><% Html.RenderPartial("ChildMenu", Model); %></li>

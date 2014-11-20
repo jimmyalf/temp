@@ -1,0 +1,23 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master"
+	AutoEventWireup="true" CodeBehind="SynologenOpq.master.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen.SynologenOpq" %>
+
+<%@ Register Src="~/Components/Synologen/OpqTreeView.ascx" TagName="Tree" TagPrefix="cnt" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
+    <div id="dCompMain" class="Components-Synologen-Opq">
+		<opq:UserMessageManager ID="opqUserMessageManager" ControlId="Opq-UserMessage-Administration"
+			runat="server" PositiveCssClass="message success" NegativeCssClass="message error" />
+		<asp:PlaceHolder ID="phOpq" runat="server">
+			<div id="dOpqColumnContainer">
+				<div id="dOpqMainColumn">
+					<asp:ContentPlaceHolder ID="phOpqMainContent" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
+				<div id="dOpqSidebar">
+					<div class="wrap">
+						<cnt:Tree ID="opqTree" runat="server" />
+					</div>
+				</div>
+			</div>
+		</asp:PlaceHolder>
+	</div>
+</asp:Content>

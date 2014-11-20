@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DA48962-8E31-4E14-9E25-E43430E982D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Business</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Business</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/Spinit.Wpc.Synologen.Business/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Spinit">
+      <HintPath>..\Synologen.Presentation\bin\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Entities\Article.cs" />
+    <Compile Include="Domain\Entities\Company.cs" />
+    <Compile Include="Domain\Entities\Concern.cs" />
+    <Compile Include="Domain\Entities\ContractArticleConnection.cs" />
+    <Compile Include="Domain\Entities\Contract.cs" />
+    <Compile Include="Domain\Entities\ContractValidationRule.cs" />
+    <Compile Include="Domain\Entities\Country.cs" />
+    <Compile Include="Domain\Entities\CartOrderItem.cs" />
+    <Compile Include="Domain\Entities\PaymentInfo.cs" />
+    <Compile Include="Domain\Enumerations\ActiveFilter.cs" />
+    <Compile Include="Domain\Enumerations\ConnectionAction.cs" />
+    <Compile Include="Domain\Enumerations\ContractSpecialOptions.cs" />
+    <Compile Include="Domain\Enumerations\ReferenceFilter.cs" />
+    <Compile Include="Domain\Enumerations\FetchCustomerContract.cs" />
+    <Compile Include="Domain\Enumerations\FetchShop.cs" />
+    <Compile Include="Domain\Enumerations\FileCategoryGetAction.cs" />
+    <Compile Include="Domain\Enumerations\FileCategoryType.cs" />
+    <Compile Include="Domain\Enumerations\InvoicingMethod.cs" />
+    <Compile Include="Domain\Enumerations\LogType.cs" />
+    <Compile Include="Domain\Enumerations\RoundDecimals.cs" />
+    <Compile Include="Domain\Enumerations\ShopMemberConnectionAction.cs" />
+    <Compile Include="Domain\Enumerations\StatisticsReportTypes.cs" />
+    <Compile Include="Domain\Exceptions\FtpException.cs" />
+    <Compile Include="Domain\Exceptions\WebserviceException.cs" />
+    <Compile Include="Domain\Interfaces\IAdkHandler.cs" />
+    <Compile Include="Domain\Interfaces\IOrderStatus.cs" />
+    <Compile Include="Domain\Interfaces\IShopCategory.cs" />
+    <Compile Include="Domain\Interfaces\ISettlement.cs" />
+    <Compile Include="Domain\Interfaces\IContract.cs" />
+    <Compile Include="Domain\Interfaces\IContractArticleConnection.cs" />
+    <Compile Include="Domain\Interfaces\IArticleRow.cs" />
+    <Compile Include="Domain\Entities\OrderItem.cs" />
+    <Compile Include="Domain\Entities\Order.cs" />
+    <Compile Include="Domain\Entities\OrderStatus.cs" />
+    <Compile Include="Domain\Entities\Settlement.cs" />
+    <Compile Include="Domain\Entities\ShopCategory.cs" />
+    <Compile Include="Domain\Entities\ShopEquipment.cs" />
+    <Compile Include="Domain\Entities\Shop.cs" />
+    <Compile Include="Domain\Enumerations\ValidationType.cs" />
+    <Compile Include="Domain\Interfaces\ISqlProvider.cs" />
+    <Compile Include="Domain\Interfaces\ISynologenService.cs" />
+    <Compile Include="Domain\Interfaces\IYammerService.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Domain\Interfaces\ICompany.cs" />
+    <Compile Include="Domain\Interfaces\ICompanyValidationRule.cs" />
+    <Compile Include="Domain\Interfaces\IConcern.cs" />
+    <Compile Include="Domain\Interfaces\ICountry.cs" />
+    <Compile Include="Domain\Interfaces\IInvoiceStatus.cs" />
+    <Compile Include="Domain\Interfaces\IOrder.cs" />
+    <Compile Include="Domain\Interfaces\IOrderItem.cs" />
+    <Compile Include="Domain\Interfaces\IShop.cs" />
+    <Compile Include="Domain\Interfaces\IShopEquipment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynologenRoles.cs" />
+    <Compile Include="Utility\Configuration\BaseConfiguration.cs" />
+    <Compile Include="Utility\Cache.cs" />
+    <Compile Include="Utility\Configuration\Common.cs" />
+    <Compile Include="Utility\General.cs" />
+    <Compile Include="Utility\Numerical.cs" />
+    <Compile Include="Utility\Session.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

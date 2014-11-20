@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE1DD539-C8F3-4BBE-B339-2B8C6CD38D82}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.AcceptanceTest</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.AcceptanceTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data.NHibernate, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=5.0.29.4350, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.3.606.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StoryQ\StoryQ.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="App\IoC\TestRegistry.cs" />
+    <Compile Include="ContractArticleConnection_Edit.cs" />
+    <Compile Include="Article_Edit.cs" />
+    <Compile Include="ContractSales\Statistics.cs" />
+    <Compile Include="Helpers\ContractArticleFactory.cs" />
+    <Compile Include="Helpers\ArticleFactory.cs" />
+    <Compile Include="CancelInvoice.cs" />
+    <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="Helpers\CustomUserContextService.cs" />
+    <Compile Include="Helpers\ContractSalesOrderFactory.cs" />
+    <Compile Include="Helpers\LensSubscriptionFactory.cs" />
+    <Compile Include="Helpers\OrderFactory.cs" />
+    <Compile Include="ManualDataManagement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\SpecTestbase.cs" />
+    <Compile Include="Helpers\StoryQ.flit.sv-SE.g.cs" />
+    <Compile Include="ContractArticleConnection_Add.cs" />
+    <Compile Include="Article_Add.cs" />
+    <Compile Include="CreateSettlement.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
+      <Name>Synologen.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data.Test\Synologen.Data.Test.csproj">
+      <Project>{93FA7ED3-64A1-4E4B-B27B-5DED2AACF34A}</Project>
+      <Name>Synologen.Data.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
+      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
+      <Name>Synologen.Presentation %28Presentation\Synologen.Presentation%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Data\Synologen.Test.Data.csproj">
+      <Project>{8452B179-0891-4BBF-9A1E-381A31E41FA3}</Project>
+      <Name>Synologen.Test.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

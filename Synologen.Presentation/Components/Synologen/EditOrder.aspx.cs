@@ -5,6 +5,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Business.Utility;
+using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -100,9 +101,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (order.InvoiceSumExcludingVAT > 0) ltSPCSValueExcludingVAT.Text = order.InvoiceSumExcludingVAT.ToString();
 		}
 
-		private void PopulateCompanies() {
-			drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both);
-			drpCompanies.DataBind();
+		private void PopulateCompanies()
+		{
+		    var company = Provider.GetCompanyRow(order.CompanyId);
+		    if (company.DerivedFromCompanyId.HasValueAndPositive())
+		    {
+		        drpCompanies.Visible = false;
+		        labelCompany.Visible = true;
+		        labelCompany.Text = company.Name;
+                drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both, ReferenceFilter.Both);
+                drpCompanies.DataBind();
+		    }
+		    else
+		    {
+                drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both);
+                drpCompanies.DataBind();
+		    }
+		    
+            
 		}
 
 		private void PopulateArticles() {

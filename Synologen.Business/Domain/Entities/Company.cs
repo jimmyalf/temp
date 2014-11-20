@@ -65,6 +65,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			return CompanyValidationRules != null && _companyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
 		}
 		[DataMember] public Country Country { get; set;}
-        [DataMember] public int DerivedFromCompanyId { get; set; } 
+
+        [DataMember] public int? DerivedFromCompanyId { get; set; } 
 	}
 }

@@ -250,7 +250,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	        return new StatisticsView
 	        {
 	            Contracts = GetAllContracts(), 
-                Companies = GetAllCompanies(),
+                Companies = GetParentCompanies(),
                 ReportTypes = GetAllReportTypes(),
 	        };
 	    }
@@ -258,7 +258,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	    public void UpdateStatisticsView(StatisticsView model)
 	    {
 	        model.Contracts = GetAllContracts();
-            model.Companies = GetAllCompanies();
+            model.Companies = GetParentCompanies();
 	        model.ReportTypes = GetAllReportTypes();
 	    }
 
@@ -273,7 +273,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                 }).ToList();
         }
 
-        protected List<CompanyListItem> GetAllCompanies()
+        protected List<CompanyListItem> GetParentCompanies()
         {
             return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both)
                 .Tables[0].AsEnumerable()

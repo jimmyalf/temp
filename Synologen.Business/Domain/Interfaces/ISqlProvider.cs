@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		Concern GetConcern(int concernId);
 		bool AddUpdateDeleteCompany(Wpc.Utility.Business.Enumerations.Action action, ref Company company);
 		Company GetCompanyRow(int companyId);
-		DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter);
+		DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter, ReferenceFilter references = ReferenceFilter.NoReferences);
 		DataSet GetCompanyValidationRulesDataSet(int? validationRuleId, int? companyId);
 		bool CompanyHasConnectedOrders(int companyId);
 		int ConnectCompanyToValidationRule(int companyId, int validationRuleId);

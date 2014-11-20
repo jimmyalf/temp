@@ -1,5 +1,6 @@
 using System;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -26,8 +27,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			ltTotalPrice.Text = GetTotalCartPrice().ToString();
 		}
 
-		private void PopulateOrder() {
-			ltCompany.Text = Provider.GetCompanyRow(_order.CompanyId).Name;
+		private void PopulateOrder()
+		{
+		    var company = Provider.GetCompanyRow(_order.CompanyId);
+            ltCompany.Text = company.Name;
+
+		    if (company.DerivedFromCompanyId.HasValueAndPositive())
+		    {
+		        invoiceAddressFields.Visible = true;
+                
+                ltPostBox.Text = company.PostBox;
+                ltStreetName.Text = company.StreetName;
+                ltZip.Text = company.Zip;
+                ltCity.Text = company.City;
+		    }
+
 			var userRow = Provider.GetUserRow(_order.SalesPersonMemberId);
 			ltSalesPersonName.Text = userRow.FirstName + " " + userRow.LastName;
 			ltOrderStatus.Text = Provider.GetOrderStatusRow(_order.StatusId).Name;

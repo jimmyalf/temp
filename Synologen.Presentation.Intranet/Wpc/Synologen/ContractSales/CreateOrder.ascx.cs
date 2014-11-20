@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 	public partial class CreateOrder : SynologenSalesUserControl
 	{
 		private const bool ActiveArticles = true;
+
 		protected void Page_Load(object sender, EventArgs e) {
 			btnSave.Enabled = CheckEnableSaveOrder();
 			if (Page.IsPostBack) return;
@@ -62,6 +63,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		#region Events
 		protected void drpContracts_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpContracts.SelectedValue != "0") {
+                var contract = Provider.GetContract(Convert.ToInt32(drpContracts.SelectedValue));
+			    
+                invoiceAddressFields.Visible = contract.ForceCustomAddress;
+
 				PopulateCompanies();
 				PopulateArticles();
 				PopulateItemNumbers();
@@ -75,7 +80,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
 			if (drpCompany.SelectedValue == "0") return;
-			PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue), Controls);
+		    var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+           
+            PopulateValidationRules(company, Controls);
 		}
 
 		//TODO: Each selection hits the database, fix by caching or store whole objects in drop down(if possible).
@@ -120,11 +127,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
-			if(drpCompany.SelectedValue != null && drpCompany.SelectedValue != "0"){
-				PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue), Controls);
+            var company = Provider.GetCompanyRow(Convert.ToInt32(drpCompany.SelectedValue));
+            var contract = Provider.GetContract(Convert.ToInt32(drpContracts.SelectedValue));
+
+            if(drpCompany.SelectedValue != null && drpCompany.SelectedValue != "0")
+			{
+				PopulateValidationRules(company, Controls);
 				Page.Validate(btnSave.ValidationGroup);
 			}
 			if (!Page.IsValid) return;
+
+		    var companyId = company.Id;
+            if (contract.ForceCustomAddress)
+		    {
+                var newCompanyFromReference = Provider.CreateReferenceCompanyFromCompany(companyId, txtCompanyName.Text, txtPostBox.Text, txtStreetName.Text, txtZip.Text, txtCity.Text);
+		        companyId = newCompanyFromReference.Id;
+		    }
+
 			var order = new Order
 			{
 				PersonalIdNumber = txtPersonalIDNumber.Text.Replace("-", ""),
@@ -137,8 +156,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 				SalesPersonShopId = (int) MemberShopId,
 				RstText = txtRST.Text,
 				CustomerOrderNumber = txtCustomerOrderNumber.Text,
-				CompanyId = Convert.ToInt32(drpCompany.SelectedValue)
+                CompanyId = companyId
 			};
+
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
 			SaveOrderItems(order.Id);
 			ClearAllInputControls();
@@ -201,7 +221,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			catch{return false;}
 		}
 
+        protected void IsValuePostBoxOrStreetName(object source, ServerValidateEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(txtPostBox.Text) || !string.IsNullOrEmpty(txtStreetName.Text))
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
+
 		#endregion
 
+	  
 	}
 }

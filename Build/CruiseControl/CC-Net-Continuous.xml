@@ -13,7 +13,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		  <repo>http://ccnet:_CruiseControl11@code/hg/hgweb.cgi/spinit/wpc/synologen/#develop</repo>
 		  <workingDirectory>C:\Develop\Synologen</workingDirectory>
 		  <branch>develop</branch>
-		  <timeout units="minutes">20</timeout>
+		  <timeout units="minutes">40</timeout>
 		</sourcecontrol>		
 		
 		

@@ -20,15 +20,13 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Koppla avtalet till alla synologbutiker</label>
 						<asp:CheckBox id="chkShopConnection" runat="server" Checked="true" />				
-					</div>				
-					<div class="formItem clearLeft">
-						<label class="labelLong">Faktureras ej</label>
-						<asp:CheckBox id="chkIsNoOp" runat="server" Checked='<%#Contract.DisableInvoice%>' />				
-					</div>						
-					<div class="formItem clearLeft">
-						<label class="labelLong">Fakturera med brev</label>
-						<asp:CheckBox id="chkForceCustomAddress" runat="server" Checked='<%#Contract.ForceCustomAddress%>' />				
-					</div>													
+					</div>		
+                    <div class="formItem clearLeft">
+						<label class="labelLong">Specialhantering</label>
+                        
+						<asp:DropDownList ID="drpInvoiceOptions" runat="server" DataValueField="cId" DataTextField="cInvoiceOptions" OnSelectedIndexChanged="drpInvoiceOption_SelectedIndexChanged" AutoPostBack="true"  />
+					    <p><strong>OBS</strong> När specialhantering ändras kommer företag och ordrar under kontraktet att påverkas!</p>
+                    </div>						
                 </fieldset>			
 				                	
 				<fieldset>													

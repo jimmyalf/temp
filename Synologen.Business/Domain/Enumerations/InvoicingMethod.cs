@@ -16,7 +16,10 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Enumerations
         [EnumDisplayName("SAAB-Svefaktura")]
         SAAB_Svefaktura = 4,
 
+        [EnumDisplayName("PDF-Fakturering")]
+        PDF_Fakturering = 5,
+
         [EnumDisplayName("Faktureras ej")]
-        NoOp = 5
+        NoOp = 6
 	}
 }

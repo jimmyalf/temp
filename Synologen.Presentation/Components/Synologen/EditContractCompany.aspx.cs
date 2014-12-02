@@ -168,6 +168,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		    company.EDIRecipient = GetEdiAddress();
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
+		    company.Email = txtEmail.Text.Trim();
+
 			if (drpCountry.SelectedValue != "0"){
 				company.Country = Provider.GetCountryRow(Int32.Parse(drpCountry.SelectedValue));
 			}

@@ -132,6 +132,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
             }
         }
 
+        protected void Validate_Email_If_PDF_Invoicing(object source, ServerValidateEventArgs args)
+        {
+            if (drpInvoicingMethods.SelectedIndex == (int)InvoicingMethod.PDF_Fakturering && txtEmail.Text.IsNullOrEmpty())
+            {
+                args.IsValid = false;
+            }
+        }
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			if(!Page.IsValid) return;
@@ -161,6 +168,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		    company.EDIRecipient = GetEdiAddress();
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
+		    company.Email = txtEmail.Text.Trim();
+
 			if (drpCountry.SelectedValue != "0"){
 				company.Country = Provider.GetCountryRow(Int32.Parse(drpCountry.SelectedValue));
 			}
@@ -198,6 +207,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
                    .Enumerate<InvoicingMethod>().Where(y => y == invoiceMethod)
                    .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString())).SingleOrDefault();
 	    }
+
 	}
 
 }

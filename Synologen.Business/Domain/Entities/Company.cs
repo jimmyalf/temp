@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[Obsolete("Use Streetname instead")] public string Address2 { get; set; }
 		[DataMember] public string Zip { get; set; }
 		[DataMember] public string City { get; set; }
+        [DataMember] public string Email { get; set; }
 		[DataMember] public string SPCSCompanyCode { get; set; }
 		[DataMember] public string BankCode { get; set; }
 		[DataMember] public bool Active { get; set; }
@@ -66,6 +67,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		}
 		[DataMember] public Country Country { get; set;}
 
-        [DataMember] public int? DerivedFromCompanyId { get; set; } 
+        [DataMember] public int? DerivedFromCompanyId { get; set; }
+	    
 	}
 }

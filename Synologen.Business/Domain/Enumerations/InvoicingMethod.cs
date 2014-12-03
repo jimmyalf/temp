@@ -20,6 +20,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Enumerations
         NoOp = 5,
         
         [EnumDisplayName("PDF-Fakturering")]
-        PDF_Fakturering = 6,
+        PDF_Invoicing = 6,
 	}
 }

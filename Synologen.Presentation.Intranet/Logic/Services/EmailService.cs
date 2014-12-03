@@ -10,6 +10,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			SpinitServices.SendMail(to, null, from, null, subject, body, null, SpinitServices.Priority.Medium, null, DateTime.Now);
 		}
 
-        public void SendMailWithAttacj
 	}
 }

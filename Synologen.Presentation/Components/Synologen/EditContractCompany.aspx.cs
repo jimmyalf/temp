@@ -134,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
         protected void Validate_Email_If_PDF_Invoicing(object source, ServerValidateEventArgs args)
         {
-            if (drpInvoicingMethods.SelectedIndex == (int)InvoicingMethod.PDF_Fakturering && txtEmail.Text.IsNullOrEmpty())
+            if (drpInvoicingMethods.SelectedIndex == (int)InvoicingMethod.PDF_Invoicing && txtEmail.Text.IsNullOrEmpty())
             {
                 args.IsValid = false;
             }

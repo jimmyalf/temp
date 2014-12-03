@@ -9,5 +9,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		public void SendEmail(string from, string to, string subject, string body) {
 			SpinitServices.SendMail(to, null, from, null, subject, body, null, SpinitServices.Priority.Medium, null, DateTime.Now);
 		}
+
+        public void SendMailWithAttacj
 	}
 }

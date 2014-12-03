@@ -3,7 +3,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Reports.Models
+namespace Spinit.Wpc.Synologen.Reports.Invoicing
 {
 	public class InvoiceCopyReport
 	{

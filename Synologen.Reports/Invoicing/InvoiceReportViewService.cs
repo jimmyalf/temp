@@ -5,11 +5,8 @@ using Microsoft.Reporting.WebForms;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Reports.Models;
-using InvoiceRow = Spinit.Wpc.Synologen.Reports.Models.InvoiceRow;
 
-namespace Spinit.Wpc.Synologen.Presentation.Application.Services
+namespace Spinit.Wpc.Synologen.Reports.Invoicing
 {
     public class InvoiceReportViewService : IInvoiceReportViewService
     {

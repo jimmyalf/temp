@@ -48,6 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
@@ -66,8 +71,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -81,6 +88,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationSettings\WebServiceConfiguration.cs" />
     <Compile Include="OrderProcessing\OrderProcessorFactory.cs" />
+    <Compile Include="OrderProcessing\OrderProcessors\PDF_OrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\NoOpProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\EdiOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\IOrderProcessConfiguration.cs" />
@@ -141,12 +149,23 @@
       <Project>{766ee1e3-4fe5-4792-9927-df94ba26fe8a}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Presentation\Synologen.Presentation.csproj">
+      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
+      <Name>Synologen.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Reports\Synologen.Reports.csproj">
+      <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
+      <Name>Synologen.Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ServiceResources.resx\ServiceResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ServiceResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

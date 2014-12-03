@@ -53,6 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Reporting\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit">
       <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
@@ -60,6 +64,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -70,14 +75,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\InvoiceCopyReport.cs" />
-    <Compile Include="Models\InvoiceCreditReport.cs" />
-    <Compile Include="Models\InvoiceRow.cs" />
+    <Compile Include="Invoicing\IInvoiceReportViewService.cs" />
+    <Compile Include="Invoicing\InvoiceCopyReport.cs" />
+    <Compile Include="Invoicing\InvoiceCreditReport.cs" />
+    <Compile Include="Invoicing\InvoiceReportViewService.cs" />
+    <Compile Include="Invoicing\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Invoicing\InvoiceCredit.rdlc" />
-    <EmbeddedResource Include="Invoicing\InvoiceCopy.rdlc" />
+    <EmbeddedResource Include="Invoicing\ReportDesign\InvoiceCredit.rdlc" />
+    <EmbeddedResource Include="Invoicing\ReportDesign\InvoiceCopy.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">

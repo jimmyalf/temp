@@ -325,8 +325,6 @@
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Controllers\FrameOrderController.cs" />
-    <Compile Include="Application\Services\InvoiceReportViewService.cs" />
-    <Compile Include="Application\Services\IInvoiceReportViewService.cs" />
     <Compile Include="Controllers\FrameSupplierController.cs" />
     <Compile Include="Controllers\LensSubscriptionController.cs" />
     <Compile Include="Application\Web\PDFReportResult.cs" />

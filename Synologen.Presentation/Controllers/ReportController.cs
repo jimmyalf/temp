@@ -2,9 +2,8 @@
 using Microsoft.Reporting.WebForms;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Web;
-using Spinit.Wpc.Synologen.Reports.Models;
+using Spinit.Wpc.Synologen.Reports.Invoicing;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
@@ -23,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         {
             var invoice = _sqlProvider.GetOrder(id);
             var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
-            const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.InvoiceCopy.rdlc";
+            const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.InvoiceCopy.rdlc";
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }
 
@@ -31,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         {
             var invoice = _sqlProvider.GetOrder(id);
             var dataSources = _invoiceReportViewService.GetCreditInvoiceReportDataSources(invoice, creditInvoiceNumber);
-            const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.InvoiceCredit.rdlc";
+            const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.InvoiceCredit.rdlc";
             return PDFReportInAssemblyOf<InvoiceCreditReport>(EmbeddedReportFullName, dataSources);
         }
 

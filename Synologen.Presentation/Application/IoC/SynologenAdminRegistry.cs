@@ -17,6 +17,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.Reports.Invoicing;
 using StructureMap.Configuration.DSL;
 using ContractSales_IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales.IArticleRepository;
 using ContractSales_ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories.ArticleRepository;

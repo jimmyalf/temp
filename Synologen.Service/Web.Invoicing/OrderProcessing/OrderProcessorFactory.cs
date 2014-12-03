@@ -46,6 +46,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
                 new SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
                 new SAAB_SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
                 new NoOpProcessor(_provider, _ftpService, _mailService, _fileService, _configuration),
+                new PDF_OrderProcessor(_provider, _ftpService, _mailService, _fileService, _configuration),
             };
         }
     }

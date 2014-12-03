@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Reports.Models
+﻿namespace Spinit.Wpc.Synologen.Reports.Invoicing
 {
     public class InvoiceCreditReport : InvoiceCopyReport
     {

@@ -1,10 +1,5 @@
 ﻿using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Data;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
-using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Reports.Invoicing;
 using Synologen.Service.Web.Invoicing.Services;
 
@@ -61,6 +56,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 
                 //TODO
                 //Send mail with pdf
+
             }
             
             

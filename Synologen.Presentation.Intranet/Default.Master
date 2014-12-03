@@ -1,0 +1,48 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true"  Inherits="Spinit.Wpc.Content.Presentation.Site.Code.ContentSiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <%--<link media="screen" rel="stylesheet" type="text/css" href="http://demo.ogonapoteket.se/CommonResources/Css/Screen_476.css" />--%>
+    <!--<link media="screen" rel="stylesheet" type="text/css" href="Default.css">-->
+    <link href="http://nu.synologen.spinit.local/commonresources/styles/Extranet.css" type="text/css" rel="stylesheet" media="screen" /> 
+    <style type="text/css">
+    .shop-city {background-color: rgb(213, 222, 213);}
+    .shop-link,
+    .shop-no-link {font-weight: bold;}
+	.user-validation-form 
+	{
+		background-color: white;
+		position:relative; 
+		padding:20px 20px 50px 20px;
+		border: solid 1px #98A399;
+		width: 300px;
+		margin: 20% auto;
+	}
+	.user-validation-form-container
+	{
+		width:100%;
+		height:100%;
+		position:absolute; 
+		left:0px; 
+		top:0px;
+		background-image:url(http://www.ogonapoteket.se/CommonResources/Files/www.ogonapoteket.se/Images/Bilder/Mallelement/pop-up-box-bg.png);
+		z-index:15;
+	}
+	.user-validation-form .error{display:block; float:left; clear:both;}
+    
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="wrapper">
+    	<wpcsynologen:actionmessage runat="server"/>
+		<a href="Testpages/Login/Logout.aspx">Logga ut</a>
+        <asp:ContentPlaceHolder ID="Content" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿div.AspNet-TreeView {margin: 0; float:left; width:200px; margin:0; padding:15px; list-style:none outside; background:#fbfbfb; border-right:1px solid #000; margin-right:-1px;}
+div.AspNet-TreeView label {display: inline; float: none; padding: 0; vertical-align: middle;}
+div.AspNet-TreeView input {vertical-align: middle;}
+div.AspNet-TreeView ul {margin: 0; padding: 0; list-style: none; background: url('../img/ListLine.gif') repeat-y top left;}
+div.AspNet-TreeView ul:first-child {background: none;}
+div.AspNet-TreeView ul li {margin-top: 1px; padding: 5px 0 0px 12px; white-space: nowrap; background: url('../img/ListItemLine.gif') no-repeat left 11px;}
+div.AspNet-TreeView ul ul {margin: 0 0 0 7px;}
+div.AspNet-TreeView ul li img {margin: -2px 2px 0 -3px; vertical-align: middle; border: none;}
+div.AspNet-TreeView ul li a {padding-left: 3px; background-color: Transparent; border: 0;}
+div.AspNet-TreeView .AspNet-TreeView-ClickableNonlink {cursor: pointer;}
+div.AspNet-TreeView .AspNet-TreeView-Collapse {display: block; float: left; width: 10px; height: 10px; overflow: hidden; margin-top: 1px; margin-left: -16px; cursor: pointer; background: url(../Img/Collapse.gif) no-repeat left 1px;}
+div.AspNet-TreeView .AspNet-TreeView-Expand {display: block; float: left; width: 10px; height: 10px; overflow: hidden; margin-top: 1px; margin-left: -16px; cursor: pointer; background: url(../Img/Expand.gif) no-repeat left 1px;}
+.AspNet-TreeView-Show {}
+.AspNet-TreeView-Hide {display:none;}
+.AspNet-TreeView-Selected > span {display: block; margin-right: 3px !important;}
+.AspNet-TreeView-Selected > a {display: block; margin-top: -2px !important; padding-top: 2px !important; padding-bottom: 0px !important; background-color: #FFFFDD !important;}
+.AspNet-TreeView-ChildSelected {}
+.AspNet-TreeView-ParentSelected {}
+
+/* =IE 7
+	Bug fixes for IE 7 and lower.
+	IE 7 CSS filter: http://thingsilearn.wordpress.com/2007/01/31/hello-world/
+*/
+* + html .AspNet-TreeView-Selected + a {margin-top: -14px !important;}
+
+/* =IE 6-
+	Bug fixes for IE 6 and lower.
+*/
+* html div.AspNet-TreeView ul li a:hover {background-color: Transparent;}
+* html div.AspNet-TreeView ul li {margin-top: 1px; padding: 3px 0 3px 12px; white-space: nowrap; background: url('../img/ListItemLine.gif') no-repeat left 8px;}
+* html div.AspNet-TreeView ul li img {margin: -2px 2px 0 -7px;}
+* html div.AspNet-TreeView .AspNet-TreeView-Collapse {display: inline; width: 10px; cursor:pointer; background: url(../Img/Collapse.gif) no-repeat left 1px;}
+* html div.AspNet-TreeView .AspNet-TreeView-Expand {display: inline; width: 10px; cursor: pointer; background: url(../Img/Expand.gif) no-repeat left 1px;}
+
+/* =Temp (Org mod)
+div.AspNet-TreeView .AspNet-TreeView-Collapse {float:left; width: 12px; cursor: n-resize; background: url(../Img/Collapse.gif) -3px -3px no-repeat;}
+div.AspNet-TreeView .AspNet-TreeView-Expand {float:left; width: 12px; overflow: hidden; cursor: n-resize; background: url(../Img/Expand.gif) -3px -3px no-repeat;}
+*/
+
+/* =Temp (Org tree)
+div.AspNet-TreeView {margin: 0; padding: 0;}
+div.AspNet-TreeView label {display: inline; float: none; padding: 0; vertical-align: middle;}
+div.AspNet-TreeView input {vertical-align: middle;}
+div.AspNet-TreeView ul {margin: 0; padding: 0; list-style: none;}
+div.AspNet-TreeView ul li {padding: 3px 0 2px 3px; white-space: nowrap;}
+div.AspNet-TreeView ul ul {margin: 2px 0 2px 10px;}
+div.AspNet-TreeView ul li img {margin: 0 2px 0 0; vertical-align: middle; border: none;}
+div.AspNet-TreeView li a {background-color: Transparent; border: 0;}
+div.AspNet-TreeView li.AspNet-TreeView-Leaf {margin-left: 25px;}
+div.AspNet-TreeView .AspNet-TreeView-ClickableNonlink {cursor: pointer;}
+div.AspNet-TreeView .AspNet-TreeView-Collapse {float:left; width: 25px; cursor: n-resize; background: url(../Img/Collapse.gif) 5px -2px no-repeat;}
+div.AspNet-TreeView .AspNet-TreeView-Expand {float:left; width: 25px; cursor: n-resize; background: url(../Img/Expand.gif) 5px -2px no-repeat;}
+.AspNet-TreeView-Show {}
+.AspNet-TreeView-Hide {display:none;}
+.AspNet-TreeView-Selected {}
+.AspNet-TreeView-ChildSelected {}
+.AspNet-TreeView-ParentSelected {}
+*/

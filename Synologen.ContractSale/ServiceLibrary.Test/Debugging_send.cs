@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         public void Send_PDF_Invoice_service()
         {
             var client = GetClient();
-            var listOfIds = new List<int> { 67 };
+            var listOfIds = new List<int> { 12563 };
 
             client.SendInvoices(listOfIds, _reportEmail);
         }

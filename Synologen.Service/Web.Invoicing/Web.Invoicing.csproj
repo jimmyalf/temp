@@ -57,6 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Services.Client">
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Services.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Member.Data, Version=4.3.25.4350, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
@@ -79,6 +82,7 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -88,7 +92,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationSettings\WebServiceConfiguration.cs" />
     <Compile Include="OrderProcessing\OrderProcessorFactory.cs" />
-    <Compile Include="OrderProcessing\OrderProcessors\PDF_OrderProcessor.cs" />
+    <Compile Include="OrderProcessing\OrderProcessors\PDF_InvoiceOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\NoOpProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\EdiOrderProcessor.cs" />
     <Compile Include="OrderProcessing\OrderProcessors\IOrderProcessConfiguration.cs" />
@@ -156,6 +160,10 @@
     <ProjectReference Include="..\..\Synologen.Reports\Synologen.Reports.csproj">
       <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
       <Name>Synologen.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.OrderEmailSender\Client.OrderEmailSender.csproj">
+      <Project>{78B28448-BF30-4DCA-889A-684E08FAF06C}</Project>
+      <Name>Client.OrderEmailSender</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

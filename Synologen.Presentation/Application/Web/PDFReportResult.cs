@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Web
 			_dataSources = dataSources;
 		}
 
-		private byte[] GetFileContents()
+		public byte[] GetFileContents()
 		{
 			var localReport =  (String.IsNullOrEmpty(_reportPathOnDisk)) 
 				? GetLocalReport(_reportAssembly,_embeddedReportFullNameSpaceName)

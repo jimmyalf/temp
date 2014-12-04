@@ -1,10 +1,13 @@
-﻿using System.Net.Mail;
+﻿using System.IO;
+using System.Net.Mail;
+using Spinit.Services.Client;
 
 namespace Synologen.Service.Web.Invoicing.Services
 {
     public class MailService : IMailService
     {
         private readonly IMailServiceConfiguration _configuration;
+        private readonly EmailClient2 _client;
 
         public MailService(IMailServiceConfiguration configuration)
         {
@@ -21,5 +24,7 @@ namespace Synologen.Service.Web.Invoicing.Services
             mailMessage.Body = message;
             smtpClient.Send(mailMessage);
         }
+
+           
     }
 }

@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types
         string EmailSpinitServiceAddress { get; set; }
         string EmailSpinitServiceSendUser { get; set; }
         string EmailSpinitServicePassword { get; set; }
+        bool PDF_OrderInvoiceDebugMode { get; set; }
     }
 
     public class PDF_OrderInvoiceConversionSettings : I_PDF_OrderInvoiceConversionSettings
@@ -21,5 +22,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types
         public string EmailSpinitServiceAddress { get; set; }
         public string EmailSpinitServiceSendUser { get; set; }
         public string EmailSpinitServicePassword { get; set; }
+        public bool PDF_OrderInvoiceDebugMode { get; set; }
     }
 }

@@ -94,25 +94,20 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         {
             var company = Provider.GetCompanyRow(order.CompanyId);
             var customerEmail = company.Email;
+            var invoiceDate = order.CreatedDate.ToString("dd-MM-yyyy");
 
-            var invoiceMonthDay = order.CreatedDate.ToString("dd-MM-yyyy");
-            //TODO Uncomment this line before release to send invoice to real customer
-            //var to = customerEmail;
-            //var friendlyTo = customerEmail;
-            var to = "sebastian.applerolsson@spinit.se";
-            var friendlyTo = "sebastian.applerolsson@spinit.se";
-
+            var to = _settings.PDF_OrderInvoiceDebugMode ? _settings.EmailAdminAddress : customerEmail;
+            var friendlyTo = _settings.PDF_OrderInvoiceDebugMode ? _settings.EmailAdminAddress : customerEmail;
             var from = _settings.EmailSynologenInvoiceSender;
             var friendlyFrom = _settings.EmailSynologenInvoiceSender;
-
             var errorAddress = _settings.EmailAdminAddress;
-            var subject = string.Format("Faktura {0}", invoiceMonthDay);
-            var body = "Faktura.";
-            var altBody = "Faktura.";
+            var subject = string.Format("Faktura {0}", invoiceDate);
+            const string body = "Faktura.";
+            const string altBody = "Faktura.";
 
             _mailClient.StartSequence();
             var emailId = _mailClient.SendMailSequence(to, friendlyTo, from, friendlyFrom, errorAddress, subject, body, altBody, EmailPriority.Medium);
-            _mailClient.SendAttachment(string.Format("{0}_{1}.pdf", order.InvoiceNumber, invoiceMonthDay), invoiceOrderPdf);
+            _mailClient.SendAttachment(string.Format("{0}_{1}.pdf", order.InvoiceNumber, invoiceDate), invoiceOrderPdf);
             _mailClient.StopSequence();
 
             return emailId;

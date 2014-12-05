@@ -3,7 +3,7 @@
     public interface IMailServiceConfiguration
     {
         string SMTPServer { get; }
-        string AdminEmail { get; }
+        string EmailAdminAddress { get; }
         string ErrorEmailSenderAddress { get; }
     }
 }

@@ -4,6 +4,7 @@ using Spinit.Services.Client;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Presentation.Application.Web;
 using Spinit.Wpc.Synologen.Reports.Invoicing;
 using Synologen.Service.Web.Invoicing.Services;
@@ -19,14 +20,16 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
     {
         private readonly IInvoiceReportViewService _invoiceReportViewService;
         private readonly EmailClient2 _mailClient;
-
-        public PDF_InvoiceOrderProcessor(ISqlProvider provider, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration)
+        private readonly I_PDF_OrderInvoiceConversionSettings _settings;
+        public PDF_InvoiceOrderProcessor(ISqlProvider provider, I_PDF_OrderInvoiceConversionSettings pdfInvoiceOrderSettings, IFtpService ftpService, IMailService mailService, IFileService fileService, IOrderProcessConfiguration orderProcessConfiguration)
             : base(provider, ftpService, mailService, fileService, orderProcessConfiguration)
         {
+            _settings = pdfInvoiceOrderSettings;
+
             ClientFactory.SetConfigurtion(ClientFactory.CreateConfiguration(
-                      "http://services.spinit.se",
-                      "SynologenSendUser",
-                      "yM-28iB",
+                      _settings.EmailSpinitServiceAddress,
+                      _settings.EmailSpinitServiceSendUser,
+                      _settings.EmailSpinitServicePassword,
                       PasswordEncryptionType.Sha1,
                       "Utf-8")
               );
@@ -42,36 +45,38 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             {
                 return result;
             }
-            
-            var ftpStatusMessage = SendEmailInvoicesWithPdf(ordersToProcess, out result);
 
-            foreach (var order in ordersToProcess)
-            {
-                try
-                {
-                    ProcessOrder(order);
-                    result.AddSentOrderId(order.Id);
-                }
-                catch (Exception ex)
-                {
-                    result.AddFailedOrderId(order.Id, ex);
-                }
-            }
-
+            SendEmailInvoicesWithPdf(ordersToProcess, out result);
+           
             return result;
         }
 
-        private string SendEmailInvoicesWithPdf(IList<IOrder> ordersToProcess, out OrderProcessResult result)
+        private void SendEmailInvoicesWithPdf(IList<IOrder> ordersToProcess, out OrderProcessResult result)
         {
             result = new OrderProcessResult();
-           
-            foreach (var order in ordersToProcess)
-            {   
-                var invoiceOrderPdf = GetOrderInvoicePdf(order);
-                SendMailWithInvoicePdf(order, invoiceOrderPdf);
-            }
             
-            return "Not Implemented";
+            foreach (var order in ordersToProcess)
+            {
+                var emailId = 0;
+                var logMessage = string.Empty;
+                try
+                {
+                    var invoiceOrderPdf = GetOrderInvoicePdf(order);
+                    emailId = SendMailWithInvoicePdf(order, invoiceOrderPdf);
+
+                    result.AddSentOrderId(order.Id);
+                    logMessage = string.Format("{0}: Faktura {1} har skickats", DateTime.Now.ToShortTimeString(), order.InvoiceNumber);
+                }
+                catch (Exception exception)
+                {
+                    logMessage = string.Format("{0}: SynologenService.SendInvoice failed to send invoice [OrderId: {1}, MailId: {2}]", DateTime.Now.ToShortTimeString(), order.Id, emailId);
+                    result.AddFailedOrderId(order.Id, exception);
+                    LogAndCreateException(logMessage, exception);
+                }
+
+                UpdateOrderStatus(order.Id);
+                AddOrderHistory(order.Id, order.InvoiceNumber, logMessage);
+            }
         }
 
         private Stream GetOrderInvoicePdf(IOrder order)
@@ -85,7 +90,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return new MemoryStream(reportResultsContentPdf);
         }
 
-        private void SendMailWithInvoicePdf(IOrder order, Stream invoiceOrderPdf)
+        private int SendMailWithInvoicePdf(IOrder order, Stream invoiceOrderPdf)
         {
             var company = Provider.GetCompanyRow(order.CompanyId);
             var customerEmail = company.Email;
@@ -97,24 +102,20 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             var to = "sebastian.applerolsson@spinit.se";
             var friendlyTo = "sebastian.applerolsson@spinit.se";
 
-            var from = "faktura@synologen.se";
-            var friendlyFrom = "faktura@synologen.se";
-            
-            var errorAddress = "sebastian.applerolsson@spinit.se";
+            var from = _settings.EmailSynologenInvoiceSender;
+            var friendlyFrom = _settings.EmailSynologenInvoiceSender;
+
+            var errorAddress = _settings.EmailAdminAddress;
             var subject = string.Format("Faktura {0}", invoiceMonthDay);
-            var body = "Test";
-            var altBody = "Test";
+            var body = "Faktura.";
+            var altBody = "Faktura.";
 
             _mailClient.StartSequence();
-            _mailClient.SendMailSequence(to, friendlyTo, from, friendlyFrom, errorAddress, subject, body, altBody, EmailPriority.Medium);
-            _mailClient.SendAttachment(string.Format("{0}_{1}.pdf", order.Id, invoiceMonthDay), invoiceOrderPdf);
+            var emailId = _mailClient.SendMailSequence(to, friendlyTo, from, friendlyFrom, errorAddress, subject, body, altBody, EmailPriority.Medium);
+            _mailClient.SendAttachment(string.Format("{0}_{1}.pdf", order.InvoiceNumber, invoiceMonthDay), invoiceOrderPdf);
             _mailClient.StopSequence();
-        }
 
-        private void ProcessOrder(IOrder order)
-        {
-            UpdateOrderStatus(order.Id);
-            Provider.AddOrderHistory(order.Id, "Fakturan har skickats med mail.");
+            return emailId;
         }
 
         public override bool IHandle(InvoicingMethod method)

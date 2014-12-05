@@ -94,7 +94,7 @@ namespace Synologen.Service.Web.Invoicing
 						.Replace("{Sent-Invoices}", result.SentOrdersIds.ToFormattedString(", "))
 						.Replace("{Not-Sent-Invoices}", result.FailedOrders.Select(x => x.OrderId).ToFormattedString(", "));
                     TrySendErrorEmail(result.GetErrorDetails("\r\n\r\n"));
-					SendEmail(_config.ErrorEmailSenderAddress, _config.AdminEmail, subject, body);
+					SendEmail(_config.ErrorEmailSenderAddress, _config.EmailAdminAddress, subject, body);
                     SendEmail(_config.ErrorEmailSenderAddress, reportToEmail, subject, body);
                 }
 				else
@@ -102,7 +102,7 @@ namespace Synologen.Service.Web.Invoicing
 					var subject = ServiceResources.resx.ServiceResources.BatchInvoiceSuccessEmailSubject.Replace("{Date-Time}",DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
 					var body = ServiceResources.resx.ServiceResources.BatchInvoiceSuccessEmailBody
 						.Replace("{Sent-Invoices}", result.SentOrdersIds.ToFormattedString(", "));
-					SendEmail(_config.StatusEmailSenderAddress, _config.AdminEmail, subject, body);
+					SendEmail(_config.StatusEmailSenderAddress, _config.EmailAdminAddress, subject, body);
 					SendEmail(_config.StatusEmailSenderAddress, reportToEmail, subject, body);
 				}
 			}
@@ -337,7 +337,7 @@ namespace Synologen.Service.Web.Invoicing
             {
 				var smtpClient = new SmtpClient(_config.SMTPServer);
 				var mailMessage = new MailMessage();
-				mailMessage.To.Add(_config.AdminEmail);
+				mailMessage.To.Add(_config.EmailAdminAddress);
 				mailMessage.From = new MailAddress(_config.ErrorEmailSenderAddress);
 				mailMessage.Subject = ServiceResources.resx.ServiceResources.ErrorEmailSubject;
 				mailMessage.Body = message;

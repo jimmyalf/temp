@@ -37,7 +37,8 @@ namespace Synologen.Service.Web.Invoicing
             var fileService = new FileService(_config);
             var svefakturaSettings = Settings.GetSvefakturaSettings();
             var ediSettings = Settings.GetEDISetting();
-            return new OrderProcessorFactory(_provider, ediSettings, svefakturaSettings, ftpService, fileService, _mailService, _config);
+            var pdfOrderInvoiceSettings = Settings.GetPDF_OrderInvoiceSettings();
+            return new OrderProcessorFactory(_provider, ediSettings, svefakturaSettings, pdfOrderInvoiceSettings, ftpService, fileService, _mailService, _config);
         }
 
 		public List<Order> GetOrdersForInvoicing()

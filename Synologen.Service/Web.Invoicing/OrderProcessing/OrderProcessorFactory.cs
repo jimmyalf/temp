@@ -17,8 +17,9 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
         private readonly IMailService _mailService;
         private readonly IOrderProcessConfiguration _configuration;
         private readonly ISvefakturaConversionSettings _svefakturaSettings;
+        private readonly I_PDF_OrderInvoiceConversionSettings _pdfInvoiceOrderSettings;
 
-        public OrderProcessorFactory(ISqlProvider provider, EDIConversionSettings ediSettings, ISvefakturaConversionSettings svefakturaSettings, IFtpService ftpService, IFileService fileService, IMailService mailService, IOrderProcessConfiguration configuration)
+        public OrderProcessorFactory(ISqlProvider provider, EDIConversionSettings ediSettings, ISvefakturaConversionSettings svefakturaSettings, I_PDF_OrderInvoiceConversionSettings pdfInvoiceOrderSettings, IFtpService ftpService, IFileService fileService, IMailService mailService, IOrderProcessConfiguration configuration)
         {
             _provider = provider;
             _ediSettings = ediSettings;
@@ -27,6 +28,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
             _mailService = mailService;
             _configuration = configuration;
             _svefakturaSettings = svefakturaSettings;
+            _pdfInvoiceOrderSettings = pdfInvoiceOrderSettings;
             OrderProcessors = InstantiateOrderProcessors();
         }
 
@@ -46,7 +48,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing
                 new SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
                 new SAAB_SvefakturaOrderProcessor(_provider, _svefakturaSettings, _ftpService, _mailService, _fileService, _configuration),
                 new NoOpProcessor(_provider, _ftpService, _mailService, _fileService, _configuration),
-                new PDF_InvoiceOrderProcessor(_provider, _ftpService, _mailService, _fileService, _configuration),
+                new PDF_InvoiceOrderProcessor(_provider, _pdfInvoiceOrderSettings, _ftpService, _mailService, _fileService, _configuration),
             };
         }
     }

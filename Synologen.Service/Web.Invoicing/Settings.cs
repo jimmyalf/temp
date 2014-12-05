@@ -80,5 +80,18 @@ namespace Synologen.Service.Web.Invoicing
                 NumberOfDecimalsUsedAtRounding = 2,
             };
         }
+
+        public static PDF_OrderInvoiceConversionSettings GetPDF_OrderInvoiceSettings()
+        {
+            var config = new WebServiceConfiguration();
+            return new PDF_OrderInvoiceConversionSettings
+            {
+                EmailAdminAddress = config.EmailAdminAddress,
+                EmailSynologenInvoiceSender = config.EmailSynologenInvoiceSender,
+                EmailSpinitServiceAddress = config.EmailSpinitServiceAddress,
+                EmailSpinitServiceSendUser = config.EmailSpinitServiceSendUser,
+                EmailSpinitServicePassword = config.EmailSpinitServicePassword,
+            };
+        }
     }
 }

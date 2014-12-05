@@ -18,7 +18,7 @@ namespace Synologen.Service.Web.Invoicing.Services
         {
             var smtpClient = new SmtpClient(_configuration.SMTPServer);
             var mailMessage = new MailMessage();
-            mailMessage.To.Add(_configuration.AdminEmail);
+            mailMessage.To.Add(_configuration.EmailAdminAddress);
             mailMessage.From = new MailAddress(_configuration.ErrorEmailSenderAddress);
             mailMessage.Subject = ServiceResources.resx.ServiceResources.ErrorEmailSubject;
             mailMessage.Body = message;

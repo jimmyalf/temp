@@ -170,6 +170,7 @@
     <EmbeddedResource Include="ServiceResources.resx\ServiceResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ServiceResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -63,11 +63,6 @@ namespace Synologen.Service.Web.Invoicing.ConfigurationSettings
 			get { return GetSafeValue("InvoiceCancelledStatusId", 7); }
 		}
 
-		public string AdminEmail 
-        {
-			get { return GetSafeValue("AdminEmail", String.Empty); }
-		}
-
 		public string ErrorEmailSenderAddress 
         {
 			get { return GetSafeValue("SenderEmail", String.Empty); }
@@ -91,6 +86,31 @@ namespace Synologen.Service.Web.Invoicing.ConfigurationSettings
         {
 			get { return GetSafeValue("Postgiro", String.Empty); }
 		}
+
+        public string EmailAdminAddress
+        {
+            get { return GetSafeValue("EmailAdminAddress", String.Empty); }
+        }
+
+        public string EmailSynologenInvoiceSender
+        {
+            get { return GetSafeValue("EmailSynologenInvoiceSender", String.Empty); }
+        }
+
+        public string EmailSpinitServiceAddress
+        {
+            get { return GetSafeValue("EmailSpinitServiceAddress", String.Empty); }
+        }
+
+        public string EmailSpinitServiceSendUser
+        {
+            get { return GetSafeValue("EmailSpinitServiceSendUser", String.Empty); }
+        }
+
+        public string EmailSpinitServicePassword
+        {
+            get { return GetSafeValue("EmailSpinitServicePassword", String.Empty); }
+        }
 
         public EdiAddress EDISenderId
         {

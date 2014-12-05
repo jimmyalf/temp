@@ -114,6 +114,7 @@
     <Compile Include="Svefaktura\SvefakturaBuilders\SvefakturaBuilder.cs" />
     <Compile Include="Svefaktura\Formatters\SvefakturaFormatter.cs" />
     <Compile Include="Svefaktura\Validators\SvefakturaBuilderValidator.cs" />
+    <Compile Include="Types\PDF_OrderInvoiceConversionSettings.cs" />
     <Compile Include="Types\EDIConversionSettings.cs" />
     <Compile Include="Types\RuleViolation.cs" />
     <Compile Include="Types\SvefakturaConversionSettings.cs" />

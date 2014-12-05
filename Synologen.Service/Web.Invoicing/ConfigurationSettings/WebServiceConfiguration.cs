@@ -311,5 +311,13 @@ namespace Synologen.Service.Web.Invoicing.ConfigurationSettings
 		}
 
 		#endregion
-	}
+        #region PDF order invoice specific settings
+        public bool PDF_OrderInvoiceDebugMode
+        {
+            get { return GetSafeValue("PDF_OrderInvoiceDebugMode", true); }
+        }
+		
+        #endregion
+
+    }
 }

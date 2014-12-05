@@ -91,6 +91,7 @@ namespace Synologen.Service.Web.Invoicing
                 EmailSpinitServiceAddress = config.EmailSpinitServiceAddress,
                 EmailSpinitServiceSendUser = config.EmailSpinitServiceSendUser,
                 EmailSpinitServicePassword = config.EmailSpinitServicePassword,
+                PDF_OrderInvoiceDebugMode = config.PDF_OrderInvoiceDebugMode
             };
         }
     }

@@ -133,6 +133,7 @@ namespace Spinit.Wpc.Synologen.Data
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
 					CompanyValidationRules = GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")),
 					DerivedFromCompanyId = Util.CheckNullInt(dataRow, "cDerivedFromCompanyId"),
+                    Email = Util.CheckNullString(dataRow, "cEmail"), 
 				};
 				return companyRow;
 			}

@@ -32,7 +32,7 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">E-post</label>
 						<asp:TextBox id="txtEmail" runat="server" />
-                        <asp:CustomValidator ID="txtMailValidator" runat="server" OnServerValidate="Validate_Email_If_PDF_Invoicing" ErrorMessage="E-post är obligatoriskt vid PDF-fakturering." Display="Dynamic" ValidationGroup="Error">*></asp:CustomValidator>
+                        <asp:CustomValidator ID="txtMailValidator" runat="server" OnServerValidate="Validate_Email_If_PDF_Invoicing" ErrorMessage="E-post är obligatoriskt vid PDF-fakturering." Display="Dynamic" ValidationGroup="Error">*</asp:CustomValidator>
 					    <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Ogiltig e-postaddress" ValidationGroup="Error" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">(Ogiltig E-post)</asp:RegularExpressionValidator>
                     </div>
 					<div class="formItem clearLeft">

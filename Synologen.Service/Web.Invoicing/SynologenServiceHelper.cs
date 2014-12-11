@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Extensions;
@@ -319,10 +320,17 @@ namespace Synologen.Service.Web.Invoicing
 		#endregion
 
 		#region Error Handling
-		private Exception LogAndCreateException(string message, Exception ex) 
+		private Exception LogAndCreateException(string message, Exception ex, bool skipDatabaseLogging = false) 
         {
 			var exception = new WebserviceException(message, ex);
-			LogMessage(LogType.Error, ex.ToString());
+            try
+            {
+                if (!skipDatabaseLogging)
+                {
+                    LogMessage(LogType.Error, ex.ToString());
+                }
+            }
+            catch{ }
 			if (_config.SendAdminEmailOnError) 
             {
 				TrySendErrorEmail(exception.ToString());

@@ -114,7 +114,7 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			catch (Exception ex) 
             {
-				throw LogAndCreateException("SynologenService.LogMessage failed", ex);
+				throw LogAndCreateException("SynologenService.LogMessage failed", ex, true);
 			}
 
 			return returnValue;

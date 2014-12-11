@@ -48,6 +48,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
             {
                 drpInvoiceOptions.Items.Add(invoiceOption);
             }
+
+            if (_contractCustomerId == 0) return;
+
 			var contract = Provider.GetContract(_contractCustomerId);
             if (contract.ForceCustomAddress)
             {

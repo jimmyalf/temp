@@ -102,8 +102,12 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             var friendlyFrom = _settings.EmailSynologenInvoiceSender;
             var errorAddress = _settings.EmailAdminAddress;
             var subject = string.Format("Faktura {0}", invoiceDate);
-            const string body = "Faktura.";
-            const string altBody = "Faktura.";
+            const string bodyText = "Hej,<br/>" +
+                                    "Bifogat finner ni faktura gällande arbetsglasögon.<br/><br/>" +
+                                    "Med vänlig hälsning<br/>" +
+                                    "Synologen";
+            const string body = bodyText;
+            const string altBody = bodyText;
 
             _mailClient.StartSequence();
             var emailId = _mailClient.SendMailSequence(to, friendlyTo, from, friendlyFrom, errorAddress, subject, body, altBody, EmailPriority.Medium);

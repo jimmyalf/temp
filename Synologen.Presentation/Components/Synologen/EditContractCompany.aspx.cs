@@ -90,6 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtAddress2.Text = company.StreetName;
 			txtZip.Text = company.Zip;
 			txtCity.Text = company.City;
+			txtEmail.Text = company.Email;
 			txtCompanyCode.Text = company.SPCSCompanyCode;
 			drpContracts.SelectedValue = company.ContractId.ToString();
 			txtBankIDCode.Text = company.BankCode;

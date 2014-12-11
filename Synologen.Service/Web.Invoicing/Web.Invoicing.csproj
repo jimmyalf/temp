@@ -161,7 +161,7 @@
       <Name>Synologen.Presentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Reports\Synologen.Reports.csproj">
-      <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
+      <Project>{126da313-2592-4002-82ab-d25ddb743256}</Project>
       <Name>Synologen.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\Client.OrderEmailSender\Client.OrderEmailSender.csproj">

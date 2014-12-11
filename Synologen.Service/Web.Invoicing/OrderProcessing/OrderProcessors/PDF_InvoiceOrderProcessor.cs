@@ -101,7 +101,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             var from = _settings.EmailSynologenInvoiceSender;
             var friendlyFrom = _settings.EmailSynologenInvoiceSender;
             var errorAddress = _settings.EmailAdminAddress;
-            var subject = string.Format("Faktura {0}", invoiceDate);
+            var subject = string.Format("Faktura Synologen {0}", order.InvoiceNumber);
             const string bodyText = "Hej,<br/>" +
                                     "Bifogat finner ni faktura gällande arbetsglasögon.<br/><br/>" +
                                     "Med vänlig hälsning<br/>" +

@@ -104,7 +104,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             var subject = string.Format("Faktura Synologen {0}", order.InvoiceNumber);
             const string bodyText = "Hej,<br/>" +
                                     "Bifogat finner ni faktura gällande arbetsglasögon.<br/><br/>" +
-                                    "Med vänlig hälsning<br/>" +
+                                    "Vänliga hälsningar<br/>" +
                                     "Synologen";
             const string body = bodyText;
             const string altBody = bodyText;

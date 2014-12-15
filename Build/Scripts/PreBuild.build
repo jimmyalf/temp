@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="PreBuild" default="PreBuild">
+	<target name="PreBuild" description="Performing prebuild tasks (NAnt)">
+		<echo message="Performing prebuild tasks (NAnt)" />
+				
+		<echo message="Cleaning up reports directory" />
+		<delete>
+			<fileset>
+				<include name="${dir.build.reports}**.*" />
+			</fileset>
+		</delete>
+		<echo message="Cleaning up output directory" />
+		<delete>
+			<fileset basedir="${dir.build.output}">
+				<include name="**/*.*" />
+			</fileset>
+		</delete>
+	</target>
+</project>

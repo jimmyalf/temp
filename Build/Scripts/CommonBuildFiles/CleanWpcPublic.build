@@ -1,0 +1,23 @@
+<project name="Clean Public Project" default="Clean">
+	<target name="Clean" description="Cleans deployment directory">
+		<echo message="Clearing public deployment folder ${deployPath}" />
+		<delete>
+			<fileset basedir="${deployPath}">
+				<include name="**/*" />
+				<exclude name="wpc/**" />
+				<exclude name="bin/**" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset basedir="${deployPath}\wpc">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset basedir="${deployPath}\bin">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+</project>
+	

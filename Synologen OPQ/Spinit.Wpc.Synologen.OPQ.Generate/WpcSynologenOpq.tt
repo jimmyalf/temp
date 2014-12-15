@@ -1,0 +1,52 @@
+﻿<#@ template language="C#" hostspecific="True" debug="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation"#>
+<#@ assembly name="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.Modeling.10.0.dll"#>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ include file="Definitions.ttinclude"#>
+<#  
+	// Data context class
+	ProcessTemplate ("DataContext.tt1", dataContextClassName + ".cs", manager.GetProjectPath (manager.OutputProjectData)); 
+	manager.AddToProject (
+		manager.OutputProjectData, 
+		Path.Combine (manager.GetProjectPath (manager.OutputProjectData), dataContextClassName + ".cs")); 
+	// Configuration class
+	if (options.CreateConfigFile) { 
+		ProcessTemplate ("Configuration.tt1", "Configuration.cs", manager.GetProjectPath (manager.OutputProjectCore)); 
+		manager.AddToProject (manager.OutputProjectCore, Path.Combine (manager.GetProjectPath (manager.OutputProjectCore), "Configuration.cs"));
+	}  
+	// Repository class 
+	ProcessTemplate ("Repository.tt1", repositoryClassName + ".cs", manager.GetProjectPath (manager.OutputProjectData));
+	manager.AddToProject (manager.OutputProjectData, Path.Combine (manager.GetProjectPath (manager.OutputProjectData), repositoryClassName + ".cs"));
+	// Repository manager class
+	if (options.CreateRepositoryManagerFile) {
+		ProcessTemplate ("RepositoryManager.tt1", repositoryClassName + ".Managers.cs", manager.GetProjectPath (manager.OutputProjectData));
+		manager.AddToProject (manager.OutputProjectData, repositoryClassName + ".cs", Path.Combine (manager.GetProjectPath (manager.OutputProjectData), repositoryClassName + ".Managers.cs"));
+	}
+	// Entity-classes
+	ProcessTemplate ("EntityClasses.tt1"); 
+	//Core-entity-classes 
+	ProcessTemplate ("CoreEntityClasses.tt1");
+#>
+ 
+<#+
+  void ProcessTemplate (string templateFileName)
+  {
+    string template = File.ReadAllText (Host.ResolvePath (templateFileName));
+    Engine engine = new Engine ();
+    engine.ProcessTemplate (template, Host);  
+  }  
+#>
+
+<#+
+void ProcessTemplate (string templateFileName, string outputFileName, string projectPath)
+{
+	string templateDirectory = Path.GetDirectoryName (Host.TemplateFile);
+	string outputFilePath = Path.Combine (projectPath, outputFileName);  
+
+	string template = File.ReadAllText (Host.ResolvePath (templateFileName));
+	Engine engine = new Engine ();
+	string output = engine.ProcessTemplate (template, Host);  
+
+	File.WriteAllText (outputFilePath, output);  
+}
+#>

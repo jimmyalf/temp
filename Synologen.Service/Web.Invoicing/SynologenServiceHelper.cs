@@ -329,6 +329,10 @@ namespace Synologen.Service.Web.Invoicing
                 {
                     LogMessage(LogType.Error, ex.ToString());
                 }
+                else
+                {
+                    _log.Error(message, ex);
+                }
             }
             catch{ }
 			if (_config.SendAdminEmailOnError) 

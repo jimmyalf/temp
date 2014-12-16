@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Data;
 using Synologen.Service.Web.Invoicing.ConfigurationSettings;
 using Synologen.Service.Web.Invoicing.OrderProcessing;
 using Synologen.Service.Web.Invoicing.Services;
+using log4net;
 
 namespace Synologen.Service.Web.Invoicing
 {
@@ -20,6 +21,7 @@ namespace Synologen.Service.Web.Invoicing
 	    private readonly IOrderProcessorFactory _orderProcessorFactory;
 	    private readonly WebServiceConfiguration _config;
 	    private readonly MailService _mailService;
+	    private readonly ILog _log;
 
 	    public SynologenService() : this(new SqlProvider(new WebServiceConfiguration().ConnectionString)){ }
 
@@ -29,6 +31,8 @@ namespace Synologen.Service.Web.Invoicing
 		    _config = new WebServiceConfiguration();
             _mailService = new MailService(_config);
 		    _orderProcessorFactory = CreateOrderProcessorFactory();
+		    log4net.Config.XmlConfigurator.Configure();
+		    _log = LogManager.GetLogger("SynologenService");
         }
 
         protected IOrderProcessorFactory CreateOrderProcessorFactory()
@@ -88,11 +92,13 @@ namespace Synologen.Service.Web.Invoicing
 					case LogType.Error:
 						if (_config.SendAdminEmailOnError) 
                         {
+                            _log.Error(message);
 							TrySendErrorEmail(message);
 						}
 
 						break;
 					case LogType.Information:
+                        _log.Info(message);
                         if (!_config.LogInformation)
                         {
                             return 0;
@@ -100,6 +106,7 @@ namespace Synologen.Service.Web.Invoicing
 
                         break;
 					case LogType.Other:
+                        _log.Info(message);
                         if (!_config.LogOther)
                         {
                             return 0;
@@ -114,6 +121,7 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			catch (Exception ex) 
             {
+                _log.Error("SynologenService.LogMessage failed", ex);
 				throw LogAndCreateException("SynologenService.LogMessage failed", ex, true);
 			}
 

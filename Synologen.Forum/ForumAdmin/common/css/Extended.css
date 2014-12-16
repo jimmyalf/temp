@@ -1,0 +1,298 @@
+﻿/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+================================================*/
+/* =Valid colors
+	---------------------------------
+	#990000		Background (error)
+	#444		Text, Calendar background
+	#999		Calendar background
+	#AAA		Borders, Background (dark)
+	#B9B9B9		Background (selected components menu items)
+	#DDD		Background, Gradient (medium)
+	#EEE		Background, Gradient (light)
+	#FFFFDD		Hoverstyle
+	White		Background, Borders, Text
+	---------------------------------
+*/
+
+/* =Structure
+================================================*/
+#dContainer {min-width: 950px;} 
+#dWinContainer {width: 100%; padding-top: 10px;}
+
+#dHeader {float: left; min-height: 92px; width: 100%; margin-bottom: 1px; background: #DDD url('../img/HeaderBG.png') repeat-x top left; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-weight: bold; border-bottom: double 3px #AAA;}
+#dSkipNavigation {display: none;}
+#dAppHeader {float: right; width: 34em; margin-bottom: 0; background-color: #EEE; font-size: 1.1em; border-left: double 3px #AAA;}
+#dAppNavigation {float: left; clear: both; width: 100%; background: #DDD url('../img/AppNavigationBG.png') repeat-x bottom left; border-bottom: solid 1px #AAA;}
+#dAppInfo {float: left; clear: both; width: 100%; background: #EEE url('../img/AppInfoBG.png') repeat-x bottom left;}
+#dMainNavigation {float: left; font-size: 1.4em; width: 28em;}
+
+#dCompContainer {clear: both; width: 100%; font-size: 1.1em;}
+
+#dCompNavigation,
+#dCompSubNavigation {float: left; clear: both; width: 100%; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-weight: bold; text-transform: uppercase;}
+#dCompSubNavigation {text-transform: none;}
+
+#dCompMain {float: left; clear: both; width: 100%; padding-top: 10px;}
+
+#dCompColumnContainer {float: left; clear: both; width: 100%;}
+#dCompMainColumn {float: right; width: 70%; padding-top: 10px;} 
+#dCompSidebar {float: left; width: 30%; padding-top: 10px; overflow: auto; background-color: #DDD;}
+
+#dFooter {position: relative; float: left; width: 100%; background: #CCC url('../img/FooterBG.png') repeat-x top left; border-top: solid 1px #AAA; border-bottom: solid 1px #AAA;}
+#dBranding {float: right; margin: 0; padding: 0 .5em;}
+#dCopyright {float: left; margin: 0; padding: .6em .5em;}
+
+
+/* =Global selectors
+================================================*/
+/* =App navigaion */
+#dAppNavigation ul {margin: 0; padding: 0;}
+#dAppNavigation li {float: left; margin: 0; padding: .7em 0; text-transform: uppercase; border-right: solid 1px #AAA; border-left: solid 1px White;}
+#dAppNavigation a,
+#dAppNavigation a:link,
+#dAppNavigation a:visited {padding: .7em 1.2em; color: #444; background-color: Transparent; border: 0;}
+#dAppNavigation a:hover,
+#dAppNavigation a:focus {color: #444; background-color: #FFFFDD;}
+#dAppNavigation li.Selected,
+#dAppNavigation li.Selected a {color: #444; background-color: #EEE;}
+
+/* =App info */
+#dAppInfo dl {margin: .3em 0 0 0; padding: 0;}
+#dAppInfo dt,
+#dAppInfo dd {float: left; margin: 0; padding: .2em 1em;}
+#dAppInfo dt {clear: left; width: 12em;}
+#dAppInfo dd {clear: right; width: 18em;}
+
+#dAppInfo ul {margin-left: 15px; padding-left: 15px; list-style-image: url("../icons/arrow_right_9x8.png"); list-style-position: outside;}
+#dAppInfo li:last-child {padding-bottom: .2em;}
+
+#dAppInfo select {width: 100%;}
+#dAppInfo .btnSmall {margin-top: .2em;}
+
+/* =Main navigaion */
+#dMainNavigation ul {margin: 0; padding: 0;}
+#dMainNavigation li {float: left; min-width: 52px; padding: 42px .3em 30px .3em; text-transform: uppercase; text-align: center;}
+#dMainNavigation a,
+#dMainNavigation a:link,
+#dMainNavigation a:visited {padding: 0 .3em; color: #444; background-color: #E1E1E1; border-top: dotted 1px #AAA; border-bottom: dotted 1px #AAA;}
+#dMainNavigation a:hover,
+#dMainNavigation a:focus {color: #444; background-color: #FFFFDD; border-top: solid 1px #AAA; border-bottom: solid 1px #AAA;}
+
+#liNavContent {background-image: url('../icons/ContentIcon.png'); background-repeat: no-repeat; background-position: center top;}
+#liNavContent.Selected {background-image: url('../icons/ContentIconSel.png'); background-repeat: no-repeat; background-position: center top;}
+#liNavFiles {background: Transparent url('../icons/FilesIcon.png') no-repeat center top;}
+#liNavFiles.Selected {background: Transparent url('../icons/FilesIconSel.png') no-repeat  center top;}
+#liNavComponents {background: Transparent url('../icons/ComponentsIcon.png') no-repeat center top;}
+#liNavComponents.Selected {background: Transparent url('../icons/ComponentsIconSel.png') no-repeat  center top;}
+#liNavLayout {background: Transparent url('../icons/LayoutIcon.png') no-repeat center top;}
+#liNavLayout.Selected {background: Transparent url('../icons/LayoutIconSel.png') no-repeat center top;}
+
+/* =Component navigation */
+#dCompNavigation ul {float: left; clear: both; width: 100%; margin: 0; padding: 0; background: #b9b9b9 url('../img/CompNavigationBG.png') repeat-x bottom left;}
+ul#ContentMenu {float: left; clear: both; width: 100%; margin: 0; padding: 0; background: #78bcff url('../img/CompNavigationBG_Blue.png') repeat-x bottom left;}
+ul#FilesMenu {float: left; clear: both; width: 100%; margin: 0; padding: 0; background: #ffc082 url('../img/CompNavigationBG_Orange.png') repeat-x bottom left;}
+ul#ComponentsMenu {float: left; clear: both; width: 100%; margin: 0; padding: 0; background: #78ef01 url('../img/CompNavigationBG_Green.png') repeat-x bottom left;}
+ul#LayoutMenu {float: left; clear: both; width: 100%; margin: 0; padding: 0; background: #ffe87c url('../img/CompNavigationBG_Yellow.png') repeat-x bottom left;}
+#dCompNavigation li {float: left; margin-top: 5px; padding: 6px 0; background: #EEE url('../img/CompNavigationItemBG.png') repeat-x bottom left; border-right: solid 1px #AAA; border-bottom: solid 1px #AAA; border-left: solid 1px White; border-top: solid 1px White;}
+#dCompNavigation a,
+#dCompNavigation a:link,
+#dCompNavigation a:visited {padding: 6px 12px; color: #444; background-color: Transparent; border: 0;}
+#dCompNavigation a:hover,
+#dCompNavigation a:focus {color: #444; background-color: #FFFFDD;}
+#dCompNavigation li.Selected {border-bottom: solid 1px #DDD;}
+#dCompNavigation li.Selected a,
+#dCompNavigation li.Selected a:link,
+#dCompNavigation li.Selected a:visited,
+#dCompNavigation li.Selected a:hover,
+#dCompNavigation li.Selected a:focus {color: #444; background-color: #DDD;}
+#dCompNavigation li.noChildren {border-bottom: 0;}
+#dCompNavigation a[disabled="disabled"] {color: #777; background: inherit;}
+#dCompNavigation li:first-child {margin-left: 15px;}
+ul#ComponentsMenu li.Selected {border-bottom: solid 1px #B9B9B9;}
+ul#ComponentsMenu li.Selected a,
+ul#ComponentsMenu li.Selected a:link,
+ul#ComponentsMenu li.Selected a:visited,
+ul#ComponentsMenu li.Selected a:hover,
+ul#ComponentsMenu li.Selected a:focus {color: #444; background-color: #B9B9B9;}
+
+/* =Component sub navigation */
+#dCompSubNavigation ul {float: left; width: 100%; margin: 0; padding: 0; background: #DDD url('../img/CompSubNavigationBG.png') repeat-x bottom left; border-bottom: solid 1px #AAA;}
+#dCompSubNavigation li {float: left; padding: 6px 12px;}
+#dCompSubNavigation li:first-child {margin-left: 3px}
+
+/* =Global classes
+================================================*/
+/* =Wrappers (Divs) */
+.wrap {float: left; padding: 0 15px;}
+
+/* =Kludge
+	Makes all 100% wide and adds a margin to all
+	elements directly following the wrapper */
+.fullBox > .wrap {padding: 0; width: 100%;}
+.fullBox > .wrap > * {margin-right: 15px; margin-left: 15px;}
+
+.fullBox {float: left; clear: both; width: 100%; margin: 0 0 15px 0;}
+.columnBox {float: left; width: 300px; margin: 0 15px 15px 0;}
+.box {float: left; margin: 0 15px 15px 0;}
+
+.columnBoxLeft {float: left; width: 49%; margin-bottom: 15px;}
+.columnBoxRight {float: right; width: 49%; margin-bottom: 15px;}
+
+.floatLeft {float: left;}
+.floatRight {float: right;}
+
+.clearBoth {clear: both;}
+.clearLeft {clear: left;}
+.clearRight {clear: right;}
+
+.tableContainer {width: 100%; overflow: auto;}
+
+.displayAsTable {display: table; width: 100%; margin-bottom: 10px;}
+.displayAsTable .tableBody {display: table-row-group;}
+.displayAsTable .tableRow {display: table-row;}
+.displayAsTable .tableCell {display: table-cell;}
+
+
+/* =Clearer */
+.clearAfter:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+.clearAfter {display: inline-block;}
+/* =Filter. Hides from IE-mac \*/
+* html .clearAfter {height: 1%;}
+.clearAfter {display: block;}
+/* End hide from IE-mac */
+
+/* =displayAsNonTable (Invalid Tables) */
+.displayAsNonTable {width: auto;  border: 0; border-collapse: collapse;}
+.displayAsNonTable td {border: 0;}
+.displayAsNonTable tr:hover,
+.displayAsNonTable tr:hover td {color: inherit; background-color: inherit;}
+.displayAsNonTable tr:last-child td {border: 0;}
+
+/* =header (Invalid Tables) */
+table .header th {padding: .5em; text-align: center; color: #444; background: #DDD url(../img/TableHeaderBG.png) repeat-x bottom left; border: solid 1px #AAA;}
+
+/* =detailsMode (Tables) */
+.detailsMode {border-collapse: collapse;}
+.detailsMode tbody {border: solid 1px #AAA;}
+.detailsMode tr {border-bottom: solid 1px #DDD;}
+.detailsMode th {width: 50%; text-align: left;}
+.detailsMode td,
+.detailsMode th {padding: .3em .5em; border: 0;}
+.detailsMode tr:last-child th,
+.detailsMode tr:last-child td {border-bottom: solid 1px #AAA;}
+
+/* =striped (Tables) */
+table.striped {border-collapse: collapse;}
+table.striped tbody tr.odd th,
+table.striped tbody tr.odd td {color: inherit; background-color: #EEE;}
+table.striped tbody tr:hover.odd th,
+table.striped tbody tr:hover.odd td {color: inherit; background-color: #FFFFDD;}
+
+/* =striped (Definition lists) */
+dl.striped dd {border-bottom: solid 1px #DDD;}
+dl.striped dd:last-child {border-bottom: 0;}
+dl.striped dt.odd,
+dl.striped dd.odd {color: inherit; background-color: #EEE;}
+
+/* =fixedPadding (Tables)*/
+.fixedPadding tbody td {padding: 3px 2px;}
+
+/* =Forms */
+fieldset + .formCommands {margin-top: 1em;}
+.formItem {float: left; width: 28em; min-height: 40px; margin-bottom: .5em;}
+.formCommands {float: left; clear: both;}
+.checkBoxItem label {display: inline; float: none; padding: 0 0 0 .2em; vertical-align: middle; font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif;}
+.checkBoxItem input {vertical-align: middle;}
+.checkBoxItems label {display: inline; float: none; padding: 0 0 0 .2em; vertical-align: middle; font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif; font-weight: normal;}
+.checkBoxItems input {vertical-align: middle;}
+.radioButtonItems label {display: inline; float: none; padding: 0 0 0 .2em; vertical-align: middle; font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif; font-weight: normal;}
+.radioButtonItems input {vertical-align: middle;}
+.labelShort	{width: 150px; margin-right: 0;}
+.labelLong {width: 100%; margin-right: 0;}
+.btnBig	{padding: .3em .6em; font-size: 1.3em;}
+.btnSmall {padding: .1em .3em; font-size: 1em;}
+.formItem input[type="text"][disabled="disabled"],
+.formItem input[type="password"][disabled="disabled"],
+.formItem textarea[disabled="disabled"],
+.formItem select[disabled="disabled"] {background: White url(../img/DisabledBG.gif) repeat top left;}
+.smallItem {width: 15em;}
+.smallItem input[type="text"] {width: 12em; padding-left: 0.2em; font-size: 1em; font-family: "Lucida Grande", Verdana, Arial, Tahoma, Sans-Serif; color: #444;}
+
+/* =normalList */
+.normalList {list-style-type: disc;}
+.inlineList {float: left; display: inline; margin: 0 0 .5em 0;  padding: 0;}
+
+/* =center  */
+.center {text-align: center;}
+
+/* =tabs (UL) */
+ul.tabs {clear: both; margin: 1em 0 0 0; padding: 0;}
+ul.tabs li {float: left; margin-right: -1px; padding: 7px 0;  background-color: #DDD; border: solid 1px #AAA; border-bottom: 0;}
+ul.tabs a,
+ul.tabs a:link,
+ul.tabs a:visited {padding: 7px 1.2em 7px 1.2em; color: #444; background-color: Transparent; border: 0;}
+ul.tabs a:hover,
+ul.tabs a:focus {color: #444; background-color: #FFFFDD;}
+ul.tabs a[disabled="disabled"] {color: #AAA; background-color: inherit;}
+ul.tabs li.Selected a,
+ul.tabs li.Selected a:link,
+ul.tabs li.Selected a:visited,
+ul.tabs li.Selected a:hover,
+ul.tabs li.Selected a:focus {padding: 7px 1.2em 10px 1.2em; color: #444; background: #EEE; border: 0;}
+div.tabsContentContainer {clear: both; padding: 15px 0 0 0; color: inherit; background-color: #EEE; border: solid 1px #AAA;}
+div.tabsContentContainer fieldset {border-right: 0; border-bottom: 0; border-left: 0;}
+
+/* =vcard */
+.vcard {display: inline; font-style: normal;}
+.vcard .adr,
+.vcard .email,
+.vcard .tel {display: none;}
+
+/* =message (UL) */
+div.message {position: relative; top: -9px; padding: .5em 1em 1.5em 1em; font-family: Arial, Tahoma, "Lucida Grande", Verdana, Sans-Serif; font-weight: bold; font-size: 1.4em; border: solid 1px #AAA; border-top: 0; border-right: 0;}
+div.message ul {margin: .3em 0 0 1em; padding: 0; list-style-type: disc; list-style-position: inside;}
+div.message li {font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif; font-size: .7em; color: White; background-color: inherit;}
+div.error {color: inherit !important; background: #990000 url(../img/ErrorBG.png) repeat-x top left;}
+div.success {color: #339900 !important; background: #339900 url(../img/SuccessBG.png) repeat-x top left;}
+
+/* =DateTimeCalendar-ascx */
+.DateTimeCalendar-ascx .calendarBtn {padding: .1em .3em; font-size: 1em;}
+.DateTimeCalendar-ascx .calendarContainer {position: absolute; width: 220px; margin-top: 5px; background-color: #DDD; border: solid 1px #AAA;}
+.DateTimeCalendar-ascx .calendarWrap {padding: 0 10px;}
+.DateTimeCalendar-ascx .calendarItem {float: left; clear: both; width: 100%; padding: 8px 0;}
+.DateTimeCalendar-ascx .calendarItem label {display: block; float: left; width: 100%; padding-bottom: .2em; font-size: 1em; font-weight: bold;}
+.DateTimeCalendar-ascx .calendarItem label em {font-weight: normal; font-style: normal;}
+.DateTimeCalendar-ascx .calendarItem input {width: 100%;}
+.DateTimeCalendar-ascx .calendarControl {width: 100%; font-family: "Lucida Grande", Verdana, Tahoma, Arial, Sans-Serif; font-size: 1em; border: 0; border-collapse: collapse;}
+.DateTimeCalendar-ascx .calendarControl td {background-color: White; padding: .4em;}
+.DateTimeCalendar-ascx .calendarControl td,
+.DateTimeCalendar-ascx .calendarControl th,
+.DateTimeCalendar-ascx .calendarControl tr:last-child td {border: 0 !important;}
+.DateTimeCalendar-ascx .DayHeaderStyle {font-weight: bold; background-color: #AAA !important;}
+.DateTimeCalendar-ascx .DayStyle {background-color: White !important;}
+.DateTimeCalendar-ascx .NextPrevStyle {vertical-align: bottom !important; background-color: White !important;}
+.DateTimeCalendar-ascx .OtherMonthDayStyle,
+.DateTimeCalendar-ascx .OtherMonthDayStyle a {color: #CCC !important; background-color: #808080 !important;}
+.DateTimeCalendar-ascx .SelectedDayStyle {font-weight: bold; color: White !important; background-color: #444 !important;}
+.DateTimeCalendar-ascx .SelectorStyle {background-color: #CCC !important;}
+.DateTimeCalendar-ascx .TitleStyle {font-weight: bold; background-color: #CCC !important;}
+.DateTimeCalendar-ascx .TodayDayStyle {background-color: #CCC !important;}
+.DateTimeCalendar-ascx .WeekendDayStyle {background-color: #FFFFDD !important;}
+
+/* =?
+.DateTimeCalendar-ascx .calendar {position: absolute; width: 240px; margin-top: 5px; background-color: #DDD; border: solid 1px #AAA;}
+.DateTimeCalendar-ascx .formItem {padding: 10px 10px 0 10px;}
+.DateTimeCalendar-ascx table {width: 220px;}
+.DateTimeCalendar-ascx input[type="text"] {width: 214px;}
+.DateTimeCalendar-ascx .displayAsNonTable *:hover {color: inherit; background-color: inherit;}
+*/
+
+.wpcPager { margin-bottom:0.5em; margin-top:1em; text-align:center;}

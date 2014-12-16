@@ -1,12 +1,11 @@
 ﻿using System.IO;
 using Spinit.Security.Password;
 using Spinit.Services.Client;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Types;
-using Spinit.Wpc.Synologen.Presentation.Application.Web;
 using Spinit.Wpc.Synologen.Reports.Invoicing;
+using Spinit.Wpc.Synologen.Reports.Rendering;
 using Synologen.Service.Web.Invoicing.Services;
 using IFtpService = Synologen.Service.Web.Invoicing.Services.IFtpService;
 
@@ -85,7 +84,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
             const string embeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.Invoice.rdlc";
             var assembly = typeof(InvoiceCopyReport).Assembly;
-            var reportResultsContentPdf = new PDFReportResult(assembly, embeddedReportFullName, dataSources).GetFileContents();
+            var reportResultsContentPdf = new ReportRenderer(assembly, embeddedReportFullName, dataSources).GetFileContents();
 
             return new MemoryStream(reportResultsContentPdf);
         }

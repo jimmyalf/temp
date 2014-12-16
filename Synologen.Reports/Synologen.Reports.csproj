@@ -81,6 +81,7 @@
     <Compile Include="Invoicing\InvoiceReportViewService.cs" />
     <Compile Include="Invoicing\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\ReportRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Invoicing\ReportDesign\Invoice.rdlc" />

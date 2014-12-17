@@ -227,7 +227,6 @@
                       </Style>
                     </Textbox>
                     <ColSpan>4</ColSpan>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -1215,7 +1214,7 @@ Påminnelseavgift 45 kronor.</Value>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Att betala</Value>
+                              <Value>Att erhålla</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -1815,7 +1814,7 @@ Strandbergsgatan 61
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Klippan</Value>
+                  <Value>Stockholm</Value>
                   <Style />
                 </TextRun>
               </TextRuns>

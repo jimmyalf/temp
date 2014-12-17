@@ -73,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
                 InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
                 InvoiceNumber = order.InvoiceNumber.ToString(),
                 OrderCreatedDate = order.CreatedDate.ToString("yyyy-MM-dd"),
-                InvoiceDate = GetInvoiceDate(order),
+                InvoiceDate = DateTime.Now.ToString("yyyy-MM-dd"),
                 InvoiceDueDate = GetInvoiceDueDate(order),
                 InvoiceCreditNumber = invoiceCreditNumber
             };

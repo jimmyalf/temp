@@ -73,19 +73,21 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
                 InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
                 InvoiceNumber = order.InvoiceNumber.ToString(),
                 OrderCreatedDate = order.CreatedDate.ToString("yyyy-MM-dd"),
-                InvoiceDate = GetInvoiceDate(order),
-                InvoiceDueDate = GetInvoiceDueDate(order),
+                InvoiceDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                InvoiceDueDate = GetInvoiceDueDate(order, DateTime.Now),
                 InvoiceCreditNumber = invoiceCreditNumber
             };
             report.SetInvoiceRecipient(order.ContractCompany, order);
             return report;
         }
 
-        private static string GetInvoiceDueDate(IOrder order)
+        private static string GetInvoiceDueDate(IOrder order, DateTime? invoiceDate = null)
         {
+            var invoiceDueDate = invoiceDate == null && order.InvoiceDate.HasValue ? order.InvoiceDate.Value : (DateTime)invoiceDate;
+
             return order.InvoiceDate.HasValue && order.ContractCompany != null
-                       ? order.InvoiceDate.Value.AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyy-MM-dd")
-                       : "N/A";
+                ? invoiceDueDate.AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyy-MM-dd")
+                : "N/A";
         }
 
         private static string GetInvoiceDate(IOrder order)

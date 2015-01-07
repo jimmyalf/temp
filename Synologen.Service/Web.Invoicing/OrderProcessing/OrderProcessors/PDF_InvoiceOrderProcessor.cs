@@ -65,6 +65,9 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
 
                     result.AddSentOrderId(order.Id);
                     logMessage = string.Format("{0}: Faktura {1} har skickats", DateTime.Now.ToShortTimeString(), order.InvoiceNumber);
+
+                    UpdateOrderStatus(order.Id);
+                    AddOrderHistory(order.Id, order.InvoiceNumber, logMessage);
                 }
                 catch (Exception exception)
                 {
@@ -72,9 +75,6 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                     result.AddFailedOrderId(order.Id, exception);
                     LogAndCreateException(logMessage, exception);
                 }
-
-                UpdateOrderStatus(order.Id);
-                AddOrderHistory(order.Id, order.InvoiceNumber, logMessage);
             }
         }
 

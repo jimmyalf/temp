@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         public ActionResult InvoiceCopy(int id)
         {
             var invoice = _sqlProvider.GetOrder(id);
-            var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
+            var dataSources = _invoiceReportViewService.GetInvoiceCopyReportDataSources(invoice);
             const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.InvoiceCopy.rdlc";
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }
@@ -33,6 +33,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.InvoiceCredit.rdlc";
             return PDFReportInAssemblyOf<InvoiceCreditReport>(EmbeddedReportFullName, dataSources);
         }
-
     }
 }

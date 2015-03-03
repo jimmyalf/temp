@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 
         public Debugging_send()
         {
-            _reportEmail = "sebastian.applerolsson@spinit.se";
+            _reportEmail = "sebastian@spinit.se";
         }
 
         [Test, Explicit]
@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         public void Send_PDF_Invoice_service()
         {
             var client = GetClient();
-            var listOfIds = new List<int> { 7132 };
+            var listOfIds = new List<int> { 13944 };
 
             client.SendInvoices(listOfIds, _reportEmail);
         }

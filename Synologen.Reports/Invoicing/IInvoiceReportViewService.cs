@@ -7,5 +7,6 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
 	{
 		ReportDataSource[] GetInvoiceReportDataSources(Order invoice);
         ReportDataSource[] GetCreditInvoiceReportDataSources(Order invoice, string creditInvoiceNumber);
+	    ReportDataSource[] GetInvoiceCopyReportDataSources(Order invoice);
 	}
 }

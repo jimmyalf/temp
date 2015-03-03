@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Microsoft.Reporting.WebForms;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.Application.Web;
 using Spinit.Wpc.Synologen.Reports.Invoicing;
@@ -21,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         public ActionResult InvoiceCopy(int id)
         {
             var invoice = _sqlProvider.GetOrder(id);
-            var dataSources = _invoiceReportViewService.GetInvoiceCopyReportDataSources(invoice);
+            var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice, PDF_InvoiceType.Copy);
             const string EmbeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.InvoiceCopy.rdlc";
             return PDFReportInAssemblyOf<InvoiceCopyReport>(EmbeddedReportFullName, dataSources);
         }

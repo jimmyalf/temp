@@ -95,6 +95,7 @@
     <Compile Include="Domain\Enumerations\ActiveFilter.cs" />
     <Compile Include="Domain\Enumerations\ConnectionAction.cs" />
     <Compile Include="Domain\Enumerations\ContractSpecialOptions.cs" />
+    <Compile Include="Domain\Enumerations\PDF_InvoiceType.cs" />
     <Compile Include="Domain\Enumerations\ReferenceFilter.cs" />
     <Compile Include="Domain\Enumerations\FetchCustomerContract.cs" />
     <Compile Include="Domain\Enumerations\FetchShop.cs" />

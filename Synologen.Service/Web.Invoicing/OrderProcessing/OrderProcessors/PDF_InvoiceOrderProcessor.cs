@@ -81,7 +81,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
         private Stream GetOrderInvoicePdf(IOrder order)
         {
             var invoice = Provider.GetOrder(order.Id);
-            var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
+            var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice, PDF_InvoiceType.Mail);
             const string embeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.ReportDesign.Invoice.rdlc";
             var assembly = typeof(InvoiceCopyReport).Assembly;
             var reportResultsContentPdf = new ReportRenderer(assembly, embeddedReportFullName, dataSources).GetFileContents();

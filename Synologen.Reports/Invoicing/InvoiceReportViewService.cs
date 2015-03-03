@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Reporting.WebForms;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Reports.Invoicing
@@ -14,20 +15,9 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
 
         private const string NewLine = "\r\n";
 
-        public ReportDataSource[] GetInvoiceReportDataSources(Order invoice)
+        public ReportDataSource[] GetInvoiceReportDataSources(Order invoice, PDF_InvoiceType invoiceType)
         {
-            var invoiceDate = DateTime.Now;
-            var invoiceReport = GetInvoiceReport(invoice, invoiceDate);
-            var invoiceRows = invoice.OrderItems.Select(GetInvoiceRow).ToList();
-            var invoiceReportDataSource = new ReportDataSource(
-                "InvoiceReport", new List<InvoiceCopyReport> { invoiceReport });
-            var invoiceRowsDataSource = new ReportDataSource("InvoiceRow", invoiceRows);
-            return new[] { invoiceReportDataSource, invoiceRowsDataSource };
-        }
-
-        public ReportDataSource[] GetInvoiceCopyReportDataSources(Order invoice)
-        {
-            var invoiceReport = GetInvoiceReport(invoice, invoice.InvoiceDate);
+            var invoiceReport = GetInvoiceReport(invoice, invoiceType);
             var invoiceRows = invoice.OrderItems.Select(GetInvoiceRow).ToList();
             var invoiceReportDataSource = new ReportDataSource(
                 "InvoiceReport", new List<InvoiceCopyReport> { invoiceReport });
@@ -45,8 +35,19 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
             return new[] { invoiceReportDataSource, invoiceRowsDataSource };
         }
 
-        private static InvoiceCopyReport GetInvoiceReport(IOrder order, DateTime? invoiceDate)
+        private static InvoiceCopyReport GetInvoiceReport(IOrder order, PDF_InvoiceType invoiceType)
         {
+            DateTime? invoiceDate = null;
+
+            if (invoiceType == PDF_InvoiceType.Copy)
+            {
+                invoiceDate = order.InvoiceDate.HasValue ? (DateTime?) order.InvoiceDate.Value : null;
+            }
+            if (invoiceType == PDF_InvoiceType.Mail)
+            {
+                invoiceDate = DateTime.Now;
+            }
+
             var report = new InvoiceCopyReport
             {
                 Id = order.Id,
@@ -61,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
                 InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
                 InvoiceNumber = order.InvoiceNumber.ToString(),
                 OrderCreatedDate = order.CreatedDate.ToString("yyyy-MM-dd"),
-                InvoiceDate = invoiceDate.HasValue && invoiceDate.Value > DateTime.MinValue ? invoiceDate.Value.ToString("yyyy-MM-dd") : null,
+                InvoiceDate = invoiceDate.HasValue ? invoiceDate.Value.ToString("yyyy-MM-dd") : null,
                 InvoiceDueDate = GetInvoiceDueDate(order, invoiceDate),
             };
             report.SetInvoiceRecipient(order.ContractCompany, order);

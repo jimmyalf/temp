@@ -16,7 +16,18 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
 
         public ReportDataSource[] GetInvoiceReportDataSources(Order invoice)
         {
-            var invoiceReport = GetInvoiceReport(invoice);
+            var invoiceDate = DateTime.Now;
+            var invoiceReport = GetInvoiceReport(invoice, invoiceDate);
+            var invoiceRows = invoice.OrderItems.Select(GetInvoiceRow).ToList();
+            var invoiceReportDataSource = new ReportDataSource(
+                "InvoiceReport", new List<InvoiceCopyReport> { invoiceReport });
+            var invoiceRowsDataSource = new ReportDataSource("InvoiceRow", invoiceRows);
+            return new[] { invoiceReportDataSource, invoiceRowsDataSource };
+        }
+
+        public ReportDataSource[] GetInvoiceCopyReportDataSources(Order invoice)
+        {
+            var invoiceReport = GetInvoiceReport(invoice, invoice.InvoiceDate);
             var invoiceRows = invoice.OrderItems.Select(GetInvoiceRow).ToList();
             var invoiceReportDataSource = new ReportDataSource(
                 "InvoiceReport", new List<InvoiceCopyReport> { invoiceReport });
@@ -34,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
             return new[] { invoiceReportDataSource, invoiceRowsDataSource };
         }
 
-        private static InvoiceCopyReport GetInvoiceReport(IOrder order)
+        private static InvoiceCopyReport GetInvoiceReport(IOrder order, DateTime? invoiceDate)
         {
             var report = new InvoiceCopyReport
             {
@@ -50,8 +61,8 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
                 InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
                 InvoiceNumber = order.InvoiceNumber.ToString(),
                 OrderCreatedDate = order.CreatedDate.ToString("yyyy-MM-dd"),
-                InvoiceDate = GetInvoiceDate(order),
-                InvoiceDueDate = GetInvoiceDueDate(order),
+                InvoiceDate = invoiceDate.HasValue && invoiceDate.Value > DateTime.MinValue ? invoiceDate.Value.ToString("yyyy-MM-dd") : null,
+                InvoiceDueDate = GetInvoiceDueDate(order, invoiceDate),
             };
             report.SetInvoiceRecipient(order.ContractCompany, order);
             return report;
@@ -81,18 +92,18 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
             return report;
         }
 
-        private static string GetInvoiceDueDate(IOrder order, DateTime? invoiceDate = null)
+        private static string GetInvoiceDueDate(IOrder order, DateTime? invoiceDate)
         {
-            var invoiceDueDate = invoiceDate == null && order.InvoiceDate.HasValue ? order.InvoiceDate.Value : (DateTime)invoiceDate;
+            var invoiceDueDate = invoiceDate.HasValue && invoiceDate.Value > DateTime.MinValue ? invoiceDate : null;
 
-            return order.InvoiceDate.HasValue && order.ContractCompany != null
-                ? invoiceDueDate.AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyy-MM-dd")
-                : "N/A";
-        }
+            if (invoiceDueDate == null)
+            {
+                return null;
+            }
 
-        private static string GetInvoiceDate(IOrder order)
-        {
-            return order.InvoiceDate.HasValue ? order.InvoiceDate.Value.ToString("yyyy-MM-dd") : "N/A";
+            return order.ContractCompany != null 
+                ? ((DateTime) invoiceDueDate).AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyy-MM-dd")
+                : null;
         }
 
         private static string GetShopInvoiceContaxtText(IShop shop)

@@ -191,7 +191,7 @@ namespace Synologen.Service.Web.Invoicing
 			}
 			catch (Exception ex) 
             {
-				throw LogAndCreateException("SynologenService.SendInvoices failed ", ex);
+				throw LogAndCreateException("SynologenService.SendInvoic es failed ", ex);
 			}
 			finally
 			{

@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Reports.Invoicing
 
             if (invoiceType == PDF_InvoiceType.Copy)
             {
-                invoiceDate = order.InvoiceDate.HasValue ? (DateTime?) order.InvoiceDate.Value : null;
+                invoiceDate = order.InvoiceDate.HasValue && order.InvoiceDate > DateTime.MinValue ? (DateTime?) order.InvoiceDate.Value : null;
             }
             if (invoiceType == PDF_InvoiceType.Mail)
             {

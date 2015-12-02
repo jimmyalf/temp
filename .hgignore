@@ -63,3 +63,4 @@ UpgradeLog.*
 _UpgradeReport_Files/
 *.Release.config
 *.Debug.config
+CommonResources/

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditMember" Title="Untitled Page" Codebehind="EditMember.aspx.cs" MaintainScrollPositionOnPostback="true" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditMember" Title="Untitled Page" Codebehind="EditMember.aspx.cs" MaintainScrollPositionOnPostback="true" %>
 <%@ Register Src="SynologenSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
 <asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
 	<syn:SubMenu runat="server" />
@@ -24,13 +24,13 @@
                         <asp:DropDownList id="drpShops" runat="server" DataValueField="cId" DataTextField="cDetailName" Enabled="false" />
 					</div>
 					<div class="formItem clearLeft">
-                        <label class="labelLong">Website tillhörigheter *</label>					
+                        <label class="labelLong">Website tillhÃ¶righeter *</label>					
 						<asp:CheckBoxList ID="chkLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatLayout="Flow"/>
 						<%--<asp:RequiredFieldValidator id="reqLocation" InitialValue="0" runat="server" errormessage="Location saknas" controltovalidate="drpLocations" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>--%>
-						<p><strong>OBS</strong> För leverantörer skall Website tillhörighet <em>www.synologen.nu</em> väljas.</p>
+						<p><strong>OBS</strong> FÃ¶r leverantÃ¶rer skall Website tillhÃ¶righet <em>www.synologen.nu</em> vÃ¤ljas.</p>
 					</div>						
 					<div class="formItem infoItem" style="display:none;visibility:hidden;">
-						<span>*</span><p>Kopplingen används ej för Leverantörer.</p>
+						<span>*</span><p>Kopplingen anvÃ¤nds ej fÃ¶r LeverantÃ¶rer.</p>
 					</div>							
                 </fieldset>
                 <br />

@@ -48,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                 INNER JOIN tblSynologenArticle ON tblSynologenArticle.cId = tblSynologenOrderItems.cArticleId
                 INNER JOIN tblSynologenContractArticleConnection ON tblSynologenContractArticleConnection.cArticleId = tblSynologenOrderItems.cArticleId AND tblSynologenContractArticleConnection.cContractCustomerId = tblSynologenContract.cId")
 
-                .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,7,8")
+                .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,8")
                 .Where("tblSynologenContract.cId = @ContractId").If(ContractId.HasValue)
                 .Where("(tblSynologenCompany.cId = @CompanyId OR tblSynologenCompany.cDerivedFromCompanyId = @CompanyId)").If(CompanyId.HasValue)
                 .Where("tblSynologenOrder.cCreatedDate >= @From").If(From.HasValue)

@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                     // 7 Makulerad
                     // 8 Utbetalning till butik skapad
                     // 9 Ej fakturerbar
-                    .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,7,8")
+                    .Where("tblSynologenOrder.cStatusId IN ({0})", "5,6,8")
 
                     .Where("tblSynologenContract.cId = @ContractId").If(ContractId.HasValue)
                     .Where("(tblSynologenCompany.cId = @CompanyId OR tblSynologenCompany.cDerivedFromCompanyId = @CompanyId)").If(CompanyId.HasValue)

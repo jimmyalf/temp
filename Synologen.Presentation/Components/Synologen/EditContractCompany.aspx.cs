@@ -7,12 +7,14 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Core.Utility;
+using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
-	public partial class EditContractCompany : SynologenPage {
+namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
+{
+    public partial class EditContractCompany : SynologenPage {
 		private int _companyId = -1;
 		private int _selectedContractId = -1;
 
@@ -32,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			PopulateInvoicingMethods();
 			PopulateValidationRules();
 			PopulateCountries();
+            PopulateFtpProfiles();
 			if (_companyId > 0) {
 				SetupForEdit();
 
@@ -73,7 +76,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		private void PopulateValidationRules() {
+	    private void PopulateFtpProfiles()
+	    {
+	        var ftpProfiles = new ContractFtpProfileQuery(ConnectionString).Execute();
+	        drpFtpProfile.DataValueField = "Id";
+	        drpFtpProfile.DataTextField = "Name";
+	        drpFtpProfile.DataSource = ftpProfiles;
+            drpFtpProfile.DataBind();
+            drpFtpProfile.Items.Insert(0, new ListItem("-- Välj profil --", ""));
+	        SelectFtpProfile(_companyId);
+	    }
+
+        private void SelectFtpProfile(int companyId)
+        {
+            var ftpProfile = new ContractFtpProfileByCompanyIdQuery(companyId, ConnectionString).Execute();
+            if (ftpProfile != null)
+            {
+                drpFtpProfile.Items.FindByValue(ftpProfile.Id.ToString()).Selected = true;
+            }
+        }
+
+        private void PopulateValidationRules() {
 			chkValidationRules.DataSource = Provider.GetCompanyValidationRulesDataSet(null, null);
 			chkValidationRules.DataBind();
 		}
@@ -170,6 +193,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
 		    company.Email = txtEmail.Text.Trim();
+		    company.CustomFtpProfile = drpFtpProfile.SelectedValue.IsNullOrEmpty() ? (int?)null : int.Parse(drpFtpProfile.SelectedValue);
 
 			if (drpCountry.SelectedValue != "0"){
 				company.Country = Provider.GetCountryRow(Int32.Parse(drpCountry.SelectedValue));

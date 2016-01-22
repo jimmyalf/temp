@@ -22,6 +22,7 @@ namespace Synologen.Service.Web.Invoicing
 	    private readonly WebServiceConfiguration _config;
 	    private readonly MailService _mailService;
 	    private readonly ILog _log;
+	    private readonly IFtpProfileService _ftpProfileService;
 
 	    public SynologenService() : this(new SqlProvider(new WebServiceConfiguration().ConnectionString)){ }
 
@@ -30,14 +31,15 @@ namespace Synologen.Service.Web.Invoicing
 			_provider = sqlProvider;
 		    _config = new WebServiceConfiguration();
             _mailService = new MailService(_config);
-		    _orderProcessorFactory = CreateOrderProcessorFactory();
+            _ftpProfileService = new FtpProfileService(_config.ConnectionString);
+            _orderProcessorFactory = CreateOrderProcessorFactory();
 		    log4net.Config.XmlConfigurator.Configure();
 		    _log = LogManager.GetLogger("SynologenService");
         }
 
         protected IOrderProcessorFactory CreateOrderProcessorFactory()
         {
-            var ftpService = new FtpService(_config);
+            var ftpService = new FtpService(_config, _ftpProfileService);
             var fileService = new FileService(_config);
             var svefakturaSettings = Settings.GetSvefakturaSettings();
             var ediSettings = Settings.GetEDISetting();

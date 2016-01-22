@@ -93,6 +93,10 @@
 						<asp:DropDownList id="drpInvoicingMethods" runat="server" />
 						<asp:RequiredFieldValidator id="reqInvoicingMethods" InitialValue="0" runat="server" errormessage="Faktureringsmetod saknas" controltovalidate="drpInvoicingMethods" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
+                    <div class="formItem clearLeft">
+						<label class="labelLong">FTP Profil</label>
+						<asp:DropDownList id="drpFtpProfile" runat="server" />
+					</div>
 					<div class="formItem clearLeft" id="invoice-free-text-form-item">
 						<label class="labelLong">Fritextmall för fakturering</label>
 						<asp:TextBox id="txtInvoiceFreeTextTemplate" runat="server" TextMode="MultiLine" CssClass="txtAreaWide" />

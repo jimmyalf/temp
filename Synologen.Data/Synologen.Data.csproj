@@ -270,6 +270,7 @@
     <Compile Include="Repositories\OrderRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
+    <Compile Include="Queries\ContractSales\ContractFtpProfileQuery.cs" />
     <Compile Include="SqlProviderCountry.cs" />
     <Compile Include="SqlProviderCompany.cs" />
     <Compile Include="SqlProviderLog.cs" />

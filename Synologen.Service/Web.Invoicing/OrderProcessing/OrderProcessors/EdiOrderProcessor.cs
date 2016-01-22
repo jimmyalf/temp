@@ -65,7 +65,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                 }
 
                 var invoiceString = invoice.Parse().ToString();
-                return UploadTextFileToFTP(invoiceFileName, invoiceString);
+                return UploadTextFileToFTP(invoiceFileName, invoiceString, order.CompanyId);
             }
             catch (Exception ex)
             {

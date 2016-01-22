@@ -4,7 +4,8 @@ using System.Web;
 
 namespace Spinit.Wpc.Synologen.Business.Utility {
 	public class Session {
-		public static string GetSessionValue(string sessionName, string defaultValue) {
+
+        public static string GetSessionValue(string sessionName, string defaultValue) {
 			try {
 				return HttpContext.Current.Session[sessionName].ToString();
 			}

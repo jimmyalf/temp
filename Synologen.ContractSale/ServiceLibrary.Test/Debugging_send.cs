@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Text;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Synologen.Service.Client.Invoicing.App;
 
 namespace Spinit.Wpc.Synologen.Integration.Services.Test
@@ -12,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 
         public Debugging_send()
         {
-            _reportEmail = "sebastian@spinit.se";
+            _reportEmail = "martin.svensson@spinit.se";
         }
 
         [Test, Explicit]
@@ -20,6 +25,15 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
         {
             var client = GetClient();
             var listOfIds = new List<int> { 8432 };
+
+            client.SendInvoices(listOfIds, _reportEmail);
+        }
+
+        [Test, Explicit]
+        public void Send_FTP_Invoice()
+        {
+            var client = GetClient();
+            var listOfIds = new List<int> { 17793 };
 
             client.SendInvoices(listOfIds, _reportEmail);
         }

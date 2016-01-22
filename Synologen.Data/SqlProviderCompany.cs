@@ -38,12 +38,13 @@ namespace Spinit.Wpc.Synologen.Data
 					new SqlParameter("@ediRecipientId", SqlDbType.NVarChar, 50),
                     new SqlParameter("@ediRecipientQuantifier", SqlDbType.NVarChar, 50),
 					new SqlParameter("@invoicingMethodId", SqlDbType.Int, 4 ),
-					new SqlParameter("@invoiceFreeText", SqlDbType.NVarChar, 2000),
+                    new SqlParameter("@ftpProfileId", SqlDbType.Int, 4),
+                    new SqlParameter("@invoiceFreeText", SqlDbType.NVarChar, 2000),
 					new SqlParameter("@countryId", SqlDbType.Int, 4),
 					new SqlParameter("@derivedfromcompanyid", SqlDbType.Int, 4),
 					new SqlParameter("@email", SqlDbType.NVarChar, 100),
 		            new SqlParameter("@status", SqlDbType.Int, 4),
-		            new SqlParameter("@id", SqlDbType.Int, 4)
+		            new SqlParameter("@id", SqlDbType.Int, 4),
 		        };
 
 				var counter = 0;
@@ -66,11 +67,12 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Address, null));
                     parameters[counter++].Value = GetNullableSqlType(company.With(x => x.EDIRecipient).Return(x => x.Quantifier, null));
 					parameters[counter++].Value = company.InvoicingMethodId;
-					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
+                    parameters[counter++].Value = GetNullableSqlType(company.CustomFtpProfile);
+                    parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 					parameters[counter++].Value = GetNullableSqlType(company.Country.Id);
 					parameters[counter++].Value = GetNullableSqlType(company.DerivedFromCompanyId);
 					parameters[counter].Value = GetNullableSqlType(company.Email);
-				}
+                }
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) 
                 {
@@ -194,7 +196,7 @@ namespace Spinit.Wpc.Synologen.Data
 			}
 		}
 
-		public DataSet GetCompanyValidationRulesDataSet(int? validationRuleId, int? companyId) {
+        public DataSet GetCompanyValidationRulesDataSet(int? validationRuleId, int? companyId) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {

@@ -155,11 +155,11 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             catch { return; }
         }
 
-        protected string UploadTextFileToFTP(string fileName, string fileContent)
+        protected string UploadTextFileToFTP(string fileName, string fileContent, int companyId = 0)
         {
             try
             {
-                return FtpService.UploadTextFileToFTP(fileName, fileContent);
+                return FtpService.UploadTextFileToFTP(fileName, fileContent, companyId);
             }
             catch (Exception ex)
             {

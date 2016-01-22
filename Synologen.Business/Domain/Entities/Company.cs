@@ -33,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			InvoiceFreeTextFormat = company.InvoiceFreeTextFormat;
 			Country = company.Country;
             DerivedFromCompanyId = company.DerivedFromCompanyId;
+		    CustomFtpProfile = company.CustomFtpProfile;
 		}
 
 		[DataMember] public int Id { get; set; }
@@ -55,7 +56,9 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		#pragma warning disable 618,612
 		[DataMember] public string PostBox { get { return Address1; } set { Address1 = value; } }
 		[DataMember] public string StreetName { get { return Address2; } set { Address2 = value; } }
-		#pragma warning restore 618,612
+
+	    [DataMember] public int? CustomFtpProfile { get; set; }
+#pragma warning restore 618,612
 		public IList<ICompanyValidationRule> CompanyValidationRules {
 			get { return _companyValidationRules; }
 			set { _companyValidationRules = new List<ICompanyValidationRule>(value); }

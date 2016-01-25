@@ -14,13 +14,13 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		    Credentials = credentials;
 		}
 
-		public FtpWebResponse UploadStringAsFile(string fileName, string fileContent, bool passiveFTP, Encoding fileEncoding, bool useBinaryTransfer, bool useSafeFtpTransfer) {
+		public FtpWebResponse UploadStringAsFile(string fileName, string fileContent, bool passiveFTP, Encoding fileEncoding, bool useBinaryTransfer, bool useSecureTransfer) {
 			try {
 				var request = GetFtpRequest(fileName);
 				request.UseBinary = useBinaryTransfer;
 				request.Method = WebRequestMethods.Ftp.UploadFile;
 				request.UsePassive = passiveFTP;
-			    request.EnableSsl = useSafeFtpTransfer;
+			    request.EnableSsl = useSecureTransfer;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 var bytes = fileEncoding.GetBytes(fileContent);
 				using (var writer = request.GetRequestStream()) {

@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                 var queryBuilder = QueryBuilder.Build(@"SELECT f.cId, f.cName, f.cServerUrl, f.cProtocolType, f.cUsername, f.cPassword, f.cPassiveFtp
 	                                                    FROM tblSynologenContractFtpProfile AS f
 	                                                    JOIN tblSynologenCompany AS c on c.cCustomFtpProfileId = f.cId
-	                                                    WHERE c.cId = @CompanyId)")
+	                                                    WHERE c.cId = @CompanyId")
                                                 .AddParameter("CompanyId", _companyId);
                 return persistence.Query(queryBuilder, Parser).SingleOrDefault();
             }

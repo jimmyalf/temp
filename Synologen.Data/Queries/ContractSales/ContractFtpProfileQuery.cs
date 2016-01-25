@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,7 +27,8 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
                 var queryBuilder = QueryBuilder.Build(@"SELECT f.cId, f.cName, f.cServerUrl, f.cProtocolType, f.cUsername, f.cPassword, f.cPassiveFtp
 	                                                    FROM tblSynologenContractFtpProfile AS f
 	                                                    JOIN tblSynologenCompany AS c on c.cCustomFtpProfileId = f.cId
-	                                                    WHERE c.cId = " + _companyId);
+	                                                    WHERE c.cId = @CompanyId)")
+                                                .AddParameter("CompanyId", _companyId);
                 return persistence.Query(queryBuilder, Parser).SingleOrDefault();
             }
         }
@@ -60,7 +60,6 @@ namespace Spinit.Wpc.Synologen.Data.Queries.ContractSales
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                // Func<IDbConnection> connectionProvider = ((NHibernate.Impl.SessionFactoryImpl)Session.SessionFactory).ConnectionProvider.GetConnection;
                 var persistence = new PersistenceHandler(() => connection);
                 var queryBuilder = QueryBuilder.Build(@"SELECT * FROM tblSynologenContractFtpProfile");
                 return persistence.Query(queryBuilder, Parser).ToList();

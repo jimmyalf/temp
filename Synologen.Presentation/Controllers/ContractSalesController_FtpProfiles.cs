@@ -1,19 +1,14 @@
-using System;
-using System.Configuration;
 using System.Web.Mvc;
-using NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
-using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
 	public partial class ContractSalesController
 	{
-
 	    [HttpGet]
 		public ActionResult AddFtpProfile()
 		{
@@ -28,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 return View(_viewService.SetFtpProfileViewDefaults(ftpProfileView, "Skapa ny FTP-profil"));
             }
             var ftpProfile = _viewService.ParseFtpProfile(ftpProfileView);
-            Execute(new CreateContractFtpProfileCommand(ftpProfile, _session.Connection.ConnectionString));
+            Execute(new CreateContractFtpProfileCommand(ftpProfile, _settingsService.GetConnectionString()));
             MessageQueue.SetMessage("En ny ftp-profil har sparats");
             return Redirect(ComponentPages.FtpProfiles.Replace("~", ""));
         }
@@ -36,14 +31,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	    [HttpGet]
 	    public ActionResult EditFtpProfile(int id)
 	    {
-	        var ftpProfile = new ContractFtpProfileByIdQuery(id, _session.Connection.ConnectionString).Execute();
+	        var ftpProfile = new ContractFtpProfileByIdQuery(id, _settingsService.GetConnectionString()).Execute();
 	        return View(_viewService.GetFtpProfileView(ftpProfile, "Redigera profil"));
 	    }
 
 	    [HttpPost, ValidateAntiForgeryToken]
 	    public ActionResult EditFtpProfile(FtpProfileView ftpProfileView)
 	    {
-            var ftpProfile = new ContractFtpProfileByIdQuery(ftpProfileView.Id, _session.Connection.ConnectionString).Execute();
+            var ftpProfile = new ContractFtpProfileByIdQuery(ftpProfileView.Id, _settingsService.GetConnectionString()).Execute();
             if (!ModelState.IsValid)
 	        {
                 return View(_viewService.GetFtpProfileView(ftpProfile, "Redigera profil"));
@@ -56,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             ftpProfile.ServerUrl = ftpProfileView.ServerURL;
             ftpProfile.Username = ftpProfileView.Username;
 
-            Execute(new UpdateContractFtpProfileCommand(ftpProfile, _session.Connection.ConnectionString));
+            Execute(new UpdateContractFtpProfileCommand(ftpProfile, _settingsService.GetConnectionString()));
             MessageQueue.SetMessage("Ftp-profilen har redigerats");
             return Redirect(ComponentPages.FtpProfiles.Replace("~", ""));
         }

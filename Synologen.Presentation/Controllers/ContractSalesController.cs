@@ -9,6 +9,7 @@ using OfficeOpenXml.Table;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Commands.Finance;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Data.Queries;
 using Spinit.Wpc.Synologen.Data.Queries.ContractSales;
 using Spinit.Wpc.Synologen.Data.Queries.Finance;
@@ -20,16 +21,11 @@ using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-    using Spinit.Extensions;
-    using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
-    using Spinit.Wpc.Utility.Business;
-
     public partial class ContractSalesController : BaseController
 	{
 		private readonly IContractSalesViewService _viewService;
 		private readonly IContractSalesCommandService _contractSalesCommandService;
 		private readonly IAdminSettingsService _settingsService;
-        private readonly ISession _session;
 
         public ContractSalesController(
 			IContractSalesViewService viewService, 
@@ -40,7 +36,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			_viewService = viewService;
 			_contractSalesCommandService = contractSalesCommandService;
 			_settingsService = settingsService;
-		    _session = session;
 		}
 
 		public ActionResult ViewSettlement(int id)

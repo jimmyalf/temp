@@ -5,5 +5,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		int GetDefaultPageSize();
 		int GetContractSalesReadyForSettlementStatus();
 		int GetContractSalesAfterSettlementStatus();
+	    string GetConnectionString();
 	}
 }

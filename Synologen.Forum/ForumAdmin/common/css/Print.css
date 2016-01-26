@@ -1,0 +1,24 @@
+/*================================================
+	© 2006 Spinit AB, All rights reserved.
+	Author: Kristoffer Ahl
+================================================*/
+
+/* =Elements
+================================================*/
+body {font-family: Verdana, Tahoma, Arial, Sans-Serif; font-size: 62.5%; color: Black; background-color: White;}
+a {border-bottom: dotted 1px #444;}
+img  {border: 0;}
+
+/* =Structure
+================================================*/
+#dContainer {width: 100%;} 
+#dHeader {display: none;}
+
+#dCompNavigation {clear: both; width: 100%; font-size: 1.1em; font-family: Arial, Tahoma, Verdana, Sans-Serif; font-weight: bold; text-transform: uppercase;}
+#dCompContainer {clear: both; width: 100%; font-size: 1.1em;}
+#dCompSidebar {float: right; width: 30%;}
+#dCompMain {float: left;}
+
+#dFooter {clear: both; width: 100%; border-top: solid 1px #AAA;}
+#dBranding {display: none;}
+#dCopyright {margin: 0; padding: .6em 0;}

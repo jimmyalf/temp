@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Core</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit">
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data">
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
+    <Compile Include="Domain\Model\ContractSales\EdiAddress.cs" />
+    <Compile Include="Domain\Model\ContractSales\NewTransaction.cs" />
+    <Compile Include="Domain\Model\ContractSales\OrderStatisticsFlexPaySummaryRow.cs" />
+    <Compile Include="Domain\Model\ContractSales\OrderStatisticsSummaryRow.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationStatus.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationComment.cs" />
+    <Compile Include="Domain\Model\Deviations\Deviation.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationCategory.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationDefect.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationSupplier.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationType.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameSupplier.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionItemStatus.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionPendingPaymentAmount.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionVersion.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfGlassTypesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameSupplierRepository.cs" />
+    <Compile Include="Domain\Testing\TestRunnerDetector.cs" />
+    <Compile Include="Domain\EventArgs\OnCommandSentEventArgs.cs" />
+    <Compile Include="Domain\EventArgs\OnResponseReceivedEventArgs.cs" />
+    <Compile Include="Domain\Exceptions\AccessDeniedException.cs" />
+    <Compile Include="Domain\Exceptions\AutogiroFileDoesNotExistException.cs" />
+    <Compile Include="Domain\Exceptions\AutogiroFileExistsException.cs" />
+    <Compile Include="Domain\Exceptions\AutogiroFileSplitException.cs" />
+    <Compile Include="Domain\Exceptions\BGFtpPasswordServiceException.cs" />
+    <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileSection.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFileReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\EqualBase.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileBase.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFileSplitter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFooterWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentType.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentPeriodCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileConstants.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Consent.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentCommentCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentInformationCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Error.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ErrorCommentCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ErrorsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Payment.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\PaymentResult.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\Account.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\Consent.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\ConsentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\BGServer\Account.cs" />
+    <Compile Include="Domain\Model\BGServer\AutogiroPayer.cs" />
+    <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\BGFtpPassword.cs" />
+    <Compile Include="Domain\Model\BGServer\BGPaymentToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedError.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedPayment.cs" />
+    <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\IReceivedEntity.cs" />
+    <Compile Include="Domain\Model\BGServer\SectionType.cs" />
+    <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
+    <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
+    <Compile Include="Domain\Model\Autogiro\AutogiroServiceType.cs" />
+    <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
+    <Compile Include="Domain\Model\BGWebService\ReceivedConsent.cs" />
+    <Compile Include="Domain\Model\BGWebService\RecievedError.cs" />
+    <Compile Include="Domain\Model\BGWebService\ReceivedPayment.cs" />
+    <Compile Include="Domain\Model\ContractSales\Article.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractArticleConnection.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
+    <Compile Include="Domain\Model\ContractSales\NewCustomer.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldCustomer.cs" />
+    <Compile Include="Domain\Model\ContractSales\PendingPayment.cs" />
+    <Compile Include="Domain\Model\ContractSales\SaleItem.cs" />
+    <Compile Include="Domain\Model\ContractSales\Shop.cs" />
+    <Compile Include="Domain\Model\ContractSales\Settlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\ShopSettlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldSubscription.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldTransaction.cs" />
+    <Compile Include="Domain\Model\Entity.cs" />
+    <Compile Include="Domain\Model\Orders\OrderStatus.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionAmount.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />
+    <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
+    <Compile Include="Domain\Model\Orders\LensRecipe.cs" />
+    <Compile Include="Domain\Model\Orders\Shop.cs" />
+    <Compile Include="Domain\Model\Synologen\Shop.cs" />
+    <Compile Include="Domain\Model\ShopDetails\Coordinates.cs" />
+    <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
+    <Compile Include="Domain\Model\FrameOrder\IntervalContainer.cs" />
+    <Compile Include="Domain\Model\FrameOrder\NullableEyeParameter.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
+    <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Country.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
+    <Compile Include="Domain\Model\LensSubscription\CustomerAddress.cs" />
+    <Compile Include="Domain\Model\LensSubscription\CustomerContact.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Settlement.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionConsentStatus.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionError.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionErrorType.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionTransaction.cs" />
+    <Compile Include="Domain\Model\LensSubscription\TransactionArticle.cs" />
+    <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
+    <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
+    <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Model\Orders\Article.cs" />
+    <Compile Include="Domain\Model\Orders\ArticleCategory.cs" />
+    <Compile Include="Domain\Model\Orders\ArticleOptions.cs" />
+    <Compile Include="Domain\Model\Orders\ArticleSupplier.cs" />
+    <Compile Include="Domain\Model\Orders\ArticleType.cs" />
+    <Compile Include="Domain\Model\Orders\OrderShippingOption.cs" />
+    <Compile Include="Domain\Model\Orders\Order.cs" />
+    <Compile Include="Domain\Model\Orders\OrderCustomer.cs" />
+    <Compile Include="Domain\Model\Orders\PaymentOption.cs" />
+    <Compile Include="Domain\Model\Orders\PaymentOptionType.cs" />
+    <Compile Include="Domain\Model\Orders\SequenceDefinition.cs" />
+    <Compile Include="Domain\Model\Orders\Subscription.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionError.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionItem.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTransaction.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionConsentStatus.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionErrorType.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionStatus.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\TransactionReason.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\TransactionType.cs" />
+    <Compile Include="Domain\Model\ShopDetails\Shop.cs" />
+    <Compile Include="Domain\Model\ShopDetails\ShopEquipment.cs" />
+    <Compile Include="Domain\Model\ShopDetails\ShopEquipmentConnection.cs" />
+    <Compile Include="Domain\Model\Synologen\ShopGroup.cs" />
+    <Compile Include="Domain\Model\Yammer\AttachmentModel.cs" />
+    <Compile Include="Domain\Model\Yammer\BodyModel.cs" />
+    <Compile Include="Domain\Model\Yammer\ImageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\JsonMessageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\LikedByModel.cs" />
+    <Compile Include="Domain\Model\Yammer\MessageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\NameModel.cs" />
+    <Compile Include="Domain\Model\Yammer\ReferenceModel.cs" />
+    <Compile Include="Domain\Model\Yammer\StatsModel.cs" />
+    <Compile Include="Domain\Model\Yammer\YModuleModel.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IAutogiroPayerRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGFtpPasswordRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGPaymentToSendRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGReceivedErrorRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGReceivedPaymentRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGConsentToSendRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGReceivedConsentRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IFileSectionToSendRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IReceivedFileRepository.cs" />
+    <Compile Include="Domain\Persistence\ICommand.cs" />
+    <Compile Include="Domain\Persistence\IQuery.cs" />
+    <Compile Include="Domain\Persistence\ContractSales\IArticleRepository.cs" />
+    <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
+    <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGConsentsMatchingServiceTypeCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGErrorsMatchingServiceTypeCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsMatchingServiceTypeCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedErrorFileSectionsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedPaymentFileSectionsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ContractSales\AllArticlesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsForShop.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendPaymentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsForShop.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendConsentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendPaymentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfTransactionArticlesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithArticleTypeCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithSupplierCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllArticleTypesWithCategoryCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllOrdersToSendEmailForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllOrdersWithArticleCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\FindCustomerByPersonalNumberCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\FindShopByUserNameAndHashedPasswordCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticlesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticleTypesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\PageOfCategoriesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\PageOfOrdersMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\PageOfSuppliersMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\SortedPagedSearchCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ShopDetails\NearbyShopsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ActiveSubscriptionsForCustomerCritieria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ArticlesBySupplierAndArticleType.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ArticleSuppliersBySelectedArticleType.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesBySupplier.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\OrderArticlesByArticleType.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesByCategory.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\CustomerDetailsFromPersonalIdNumberCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ShopDetails\ActiveShopsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ShopDetails\SearchShopsCriteria.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameOrderRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\IContractSaleRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ICountryRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ICustomerRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionErrorRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
+    <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
+    <Compile Include="Domain\Persistence\Orders\IArticleCategoryRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IArticleSupplierRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IArticleTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IArticleRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ILensRecipeRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionErrorRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionItemRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionPendingPayment.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ITransactionRepository.cs" />
+    <Compile Include="Domain\Persistence\ShopDetails\IShopRepository.cs" />
+    <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebServiceClient.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
+    <Compile Include="Domain\Services\UrlFriendlyRenamingService.cs" />
+    <Compile Include="Domain\Services\Events\Synologen\ShopWasConnectedToShopGroupEvent.cs" />
+    <Compile Include="Domain\Services\FakeLoggingService.cs" />
+    <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />
+    <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
+    <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
+    <Compile Include="Domain\Services\Coordinator\TaskBaseWithWebService.cs" />
+    <Compile Include="Domain\Services\IAutogiroPaymentService.cs" />
+    <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />
+    <Compile Include="Domain\Services\IFileIOService.cs" />
+    <Compile Include="Domain\Services\IFileReaderService.cs" />
+    <Compile Include="Domain\Services\IFileWriterService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGFtpChangePasswordService.cs" />
+    <Compile Include="Domain\Services\IFtpService.cs" />
+    <Compile Include="Domain\Services\IGeocodingService.cs" />
+    <Compile Include="Domain\Services\IHashService.cs" />
+    <Compile Include="Domain\Services\Coordinator\ITask.cs" />
+    <Compile Include="Domain\Services\IEmailService.cs" />
+    <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
+    <Compile Include="Domain\Services\IAdminSettingsService.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameBrand.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameColor.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Interval.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameBrandRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameColorRepository.cs" />
+    <Compile Include="Domain\Services\IFrameOrderService.cs" />
+    <Compile Include="Domain\Services\IListener.cs" />
+    <Compile Include="Domain\Services\ILoggingService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebService.cs" />
+    <Compile Include="Domain\Services\IEventAggregator.cs" />
+    <Compile Include="Domain\Services\IRoutingService.cs" />
+    <Compile Include="Domain\Services\ISendOrderService.cs" />
+    <Compile Include="Domain\Services\IServiceCoordinatorSettingsService.cs" />
+    <Compile Include="Domain\Services\ISynologenMemberService.cs" />
+    <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
+    <Compile Include="Domain\Services\ITaskRunnerService.cs" />
+    <Compile Include="Domain\Services\SystemTime.cs" />
+    <Compile Include="Domain\Services\Web\External\AddEntityResponse.cs" />
+    <Compile Include="Domain\Services\Web\External\AddEntityResponseType.cs" />
+    <Compile Include="Domain\Services\Web\External\AuthenticationContext.cs" />
+    <Compile Include="Domain\Services\Web\External\AuthenticationFailedException.cs" />
+    <Compile Include="Domain\Services\Web\External\ServiceSettings.cs" />
+    <Compile Include="Domain\Services\Web\External\Customer.cs" />
+    <Compile Include="Domain\Services\Web\External\IAddCustomerService.cs" />
+    <Compile Include="Domain\Services\Web\External\ICustomerParser.cs" />
+    <Compile Include="Domain\Services\Web\External\IValidator.cs" />
+    <Compile Include="Domain\Services\Web\External\IShopAuthenticationService.cs" />
+    <Compile Include="Domain\Services\Web\External\SHA1HashService.cs" />
+    <Compile Include="Domain\Services\Web\External\ShopAuthenticationResult.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationError.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationFailedException.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationResult.cs" />
+    <Compile Include="Expressions\ExpressionEvaluator.cs" />
+    <Compile Include="Expressions\ExpressionReplacer.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
+    <Compile Include="Extensions\ComparisonExtensions.cs" />
+    <Compile Include="Extensions\DataRowCollectionExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\ExpressionNameVisitor.cs" />
+    <Compile Include="Extensions\GenericsExtensions.cs" />
+    <Compile Include="Extensions\IntegerExtionsions.cs" />
+    <Compile Include="Extensions\KeyEqualityComparer.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
+    <Compile Include="Utility\ActionSwitch.cs" />
+    <Compile Include="Utility\Ensure.cs" />
+    <Compile Include="Utility\Evaluate.cs" />
+    <Compile Include="Utility\ReturnSwitch.cs" />
+    <Compile Include="Utility\Switch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\SwitchMapDictionary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Domain\Model\LensSubscription\LensSubscription.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

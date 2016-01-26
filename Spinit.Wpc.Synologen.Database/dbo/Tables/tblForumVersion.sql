@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[tblForumVersion] (
+    [VERSION_MAJOR]    INT NOT NULL,
+    [VERSION_MINOR]    INT NOT NULL,
+    [VERSION_REVISION] INT NOT NULL,
+    [VERSION_BUILD]    INT NOT NULL
+);
+

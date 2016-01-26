@@ -18,6 +18,12 @@
 		</li>
 		<li>|</li>
 		<li>
+			<a href="/components/synologen/FtpProfiles.aspx">Ftp-profiler</a>
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","AddFtpProfile","ContractSales") %>
+		</li>
+		<li>|</li>
+		<li>
 			<a href="/components/synologen/OrderStatus.aspx">Orderstatus</a>
 		</li>
 		<li>|</li>

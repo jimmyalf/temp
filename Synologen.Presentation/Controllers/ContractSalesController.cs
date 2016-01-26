@@ -29,8 +29,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IContractSalesViewService _viewService;
 		private readonly IContractSalesCommandService _contractSalesCommandService;
 		private readonly IAdminSettingsService _settingsService;
+        private readonly ISession _session;
 
-		public ContractSalesController(
+        public ContractSalesController(
 			IContractSalesViewService viewService, 
 			IContractSalesCommandService contractSalesCommandService,
 			IAdminSettingsService settingsService,
@@ -39,6 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			_viewService = viewService;
 			_contractSalesCommandService = contractSalesCommandService;
 			_settingsService = settingsService;
+		    _session = session;
 		}
 
 		public ActionResult ViewSettlement(int id)

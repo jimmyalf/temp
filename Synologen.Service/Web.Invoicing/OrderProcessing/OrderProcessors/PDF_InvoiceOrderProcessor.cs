@@ -64,10 +64,10 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
                     emailId = SendMailWithInvoicePdf(order, invoiceOrderPdf);
 
                     result.AddSentOrderId(order.Id);
-                    logMessage = string.Format("{0}: Faktura {1} har skickats", DateTime.Now.ToShortTimeString(), order.InvoiceNumber);
+                    logMessage = string.Format("{0}: Faktura {1} har skickats som PDF", DateTime.Now.ToShortTimeString(), order.InvoiceNumber);
 
                     UpdateOrderStatus(order.Id);
-                    AddOrderHistory(order.Id, order.InvoiceNumber, logMessage);
+                    AddOrderHistory(order.Id, order.InvoiceNumber, logMessage, "Epost");
                 }
                 catch (Exception exception)
                 {

@@ -84,6 +84,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -116,11 +117,13 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\FtpProfileService.cs" />
     <Compile Include="Services\FtpService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="ConfigurationSettings\IFileServiceConfiguration.cs" />
     <Compile Include="ConfigurationSettings\IFtpServiceConfiguration.cs" />
     <Compile Include="ConfigurationSettings\IMailServiceConfiguration.cs" />
+    <Compile Include="Services\IFtpProfileService.cs" />
     <Compile Include="Services\IFtpService.cs" />
     <Compile Include="Services\IMailService.cs" />
     <Compile Include="Services\MailService.cs" />

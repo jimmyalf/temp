@@ -18,6 +18,12 @@
 		</li>
 		<li>|</li>
 		<li>
+			<a href="/components/synologen/FtpProfiles.aspx">Ftp-profiler</a>
+			&nbsp;>&nbsp;
+			<a href="/components/synologen/contract-sales/ftpprofile/add">Ny</a>
+		</li>
+		<li>|</li>
+		<li>
 			<a href="/components/synologen/OrderStatus.aspx">Orderstatus</a>
 		</li>
 		<li>|</li>

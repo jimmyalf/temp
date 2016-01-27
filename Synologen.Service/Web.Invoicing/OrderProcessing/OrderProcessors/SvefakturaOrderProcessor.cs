@@ -72,13 +72,14 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
 
             var invoiceStringContent = SerializeInvoice(invoice, order);
             var invoiceFileName = GetInvoiceFileName(invoice);
+            var invoiceCompanyId = order.CompanyId;
 
             if (OrderProcessConfiguration.SaveSvefakturaFileCopy)
             {
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
 
-            var ftpStatusMessage = UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
+            var ftpStatusMessage = UploadTextFileToFTP(invoiceFileName, invoiceStringContent, invoiceCompanyId);
 
             UpdateOrderStatus(order.Id);
             AddOrderHistory(order.Id, order.InvoiceNumber, ftpStatusMessage);

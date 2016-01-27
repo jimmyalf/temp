@@ -46,11 +46,12 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             return FilterOrdersMatchingInvoiceType(orders.Cast<IOrder>().ToList());
         }
 
-        protected string GetInvoiceSentHistoryMessage(long invoiceNumber, string ftpStatusMessage)
+        protected string GetInvoiceSentHistoryMessage(long invoiceNumber, string ftpStatusMessage, string transportation)
         {
             var message = ServiceResources.resx.ServiceResources.InvoiceSentHistoryMessage;
             message = message.Replace("{0}", invoiceNumber.ToString());
-            message = message.Replace("{1}", ftpStatusMessage);
+            message = message.Replace("{1}", transportation);
+            message = message.Replace("{2}", ftpStatusMessage);
             return message;
         }
 
@@ -60,9 +61,9 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             Provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
         }
 
-        protected void AddOrderHistory(int orderId, long invoiceNumber, string ftpStatusMessage)
+        protected void AddOrderHistory(int orderId, long invoiceNumber, string statusMessage, string transportation = "FTP")
         {
-            var orderHistoryMessage = GetInvoiceSentHistoryMessage(invoiceNumber, ftpStatusMessage);
+            var orderHistoryMessage = GetInvoiceSentHistoryMessage(invoiceNumber, statusMessage, transportation);
             Provider.AddOrderHistory(orderId, orderHistoryMessage);
         }
 
@@ -155,11 +156,11 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             catch { return; }
         }
 
-        protected string UploadTextFileToFTP(string fileName, string fileContent)
+        protected string UploadTextFileToFTP(string fileName, string fileContent, int companyId = 0)
         {
             try
             {
-                return FtpService.UploadTextFileToFTP(fileName, fileContent);
+                return FtpService.UploadTextFileToFTP(fileName, fileContent, companyId);
             }
             catch (Exception ex)
             {

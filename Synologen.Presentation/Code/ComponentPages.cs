@@ -20,7 +20,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Code
 		public const string Articles = PageBase + "Articles.aspx";
 		public const string EditOrder = PageBase + "EditOrder.aspx"; 
 		public const string Orders = PageBase + "Orders.aspx";
-		public const string NoAccess = "~/NoAccess.aspx";
+        public const string FtpProfiles = PageBase + "FtpProfiles.aspx";
+        public const string NoAccess = "~/NoAccess.aspx";
 		public const string ShopCategories = PageBase + "ShopCategories.aspx";
 		public const string ShopEquipment = PageBase + "ShopEquipment.aspx";
 		public const string OrderStatus = PageBase + "OrderStatus.aspx";

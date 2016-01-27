@@ -91,8 +91,10 @@
     <Compile Include="Domain\Entities\ContractValidationRule.cs" />
     <Compile Include="Domain\Entities\Country.cs" />
     <Compile Include="Domain\Entities\CartOrderItem.cs" />
+    <Compile Include="Domain\Entities\FtpProfile.cs" />
     <Compile Include="Domain\Entities\PaymentInfo.cs" />
     <Compile Include="Domain\Enumerations\ActiveFilter.cs" />
+    <Compile Include="Domain\Enumerations\FtpProtocolType.cs" />
     <Compile Include="Domain\Enumerations\ConnectionAction.cs" />
     <Compile Include="Domain\Enumerations\ContractSpecialOptions.cs" />
     <Compile Include="Domain\Enumerations\PDF_InvoiceType.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Domain\Enumerations\StatisticsReportTypes.cs" />
     <Compile Include="Domain\Exceptions\FtpException.cs" />
     <Compile Include="Domain\Exceptions\WebserviceException.cs" />
+    <Compile Include="Domain\Interfaces\IFtpProfile.cs" />
     <Compile Include="Domain\Interfaces\IAdkHandler.cs" />
     <Compile Include="Domain\Interfaces\IOrderStatus.cs" />
     <Compile Include="Domain\Interfaces\IShopCategory.cs" />

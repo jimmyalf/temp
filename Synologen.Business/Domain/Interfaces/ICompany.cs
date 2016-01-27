@@ -26,5 +26,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		bool HasValidationRule(int validationRuleId);
 		Country Country { get; set;}
 	    int? DerivedFromCompanyId { get; set; }
-	}
+        int? CustomFtpProfile { get; set; }
+    }
 }

@@ -134,7 +134,7 @@ Fakturor som inte kunde skickas {Not-Sent-Invoices}</value>
     <value>Ett fel har uppstått i Synologen Webservice</value>
   </data>
   <data name="InvoiceSentHistoryMessage" xml:space="preserve">
-    <value>Faktura {0} skickades via FTP: {1}</value>
+    <value>Faktura {0} skickades via {1}: {2}</value>
   </data>
   <data name="OrderAddedToVismaHistoryMessage" xml:space="preserve">
     <value>Ordern importerades till visma och fick ordernr {0}. Pris inkl moms {1}, exkl moms {2}.</value>

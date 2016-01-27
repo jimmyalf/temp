@@ -60,7 +60,8 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "ContractSalesManageOrder", urlPrefix + "contract-sales/order/{id}", new { controller = "ContractSales", action = "ManageOrder" } );
 			context.MapRoute(AreaName + "ContractSalesAddArticle", urlPrefix + "contract-sales/article/add", new { controller = "ContractSales", action = "AddArticle" } );
 			context.MapRoute(AreaName + "ContractSalesEditArticle", urlPrefix + "contract-sales/article/edit/{id}", new { controller = "ContractSales", action = "EditArticle" } );
-			context.MapRoute(AreaName + "ContractSalesAddContractArticle", urlPrefix + "contract-sales/contract/{contractId}/article/add", new { controller = "ContractSales", action = "AddContractArticle" } );
+            context.MapRoute(AreaName + "ContractSalesAddFtpProfile", urlPrefix + "contract-sales/ftpprofile/add", new { controller = "ContractSales", action = "AddFtpProfile" });
+            context.MapRoute(AreaName + "ContractSalesAddContractArticle", urlPrefix + "contract-sales/contract/{contractId}/article/add", new { controller = "ContractSales", action = "AddContractArticle" } );
 			context.MapRoute(AreaName + "ContractSalesEditContractArticle", urlPrefix + "contract-sales/contract/{contractId}/article/{contractArticleId}/edit", new { controller = "ContractSales", action = "EditContractArticle" } );
 			context.MapRoute(AreaName + "ContractSalesGetArticle", urlPrefix + "contract-sales/article/{articleId}/{format}", new { controller = "ContractSales", action = "GetArticle", format = UrlParameter.Optional } );
             context.MapRoute(AreaName + "ContractSalesDefault", urlPrefix + "contract-sales/{action}", new { controller = "ContractSales" });

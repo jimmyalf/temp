@@ -33,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			_synologenSqlProvider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref article);
 		}
 
-		public void UpdateArticle(Article article)
+        public void UpdateArticle(Article article)
 		{
 			var articleToUpdate = _synologenSqlProvider.GetArticle(article.Id);
 			articleToUpdate.DefaultSPCSAccountNumber = article.DefaultSPCSAccountNumber;

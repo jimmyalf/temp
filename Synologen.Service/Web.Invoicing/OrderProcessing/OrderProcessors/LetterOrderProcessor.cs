@@ -81,7 +81,7 @@ namespace Synologen.Service.Web.Invoicing.OrderProcessing.OrderProcessors
             {
                 TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
             }
-
+            
             return UploadTextFileToFTP(invoiceFileName, invoiceStringContent);
         }
 

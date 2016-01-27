@@ -35,6 +35,7 @@
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +60,9 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\AddFtpProfile.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\EditFtpProfile.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\FtpProfileForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\Statistics.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddCategory.aspx" />
@@ -197,6 +201,7 @@
     <Content Include="Common\Js\WPC-Wysiwyg-Include.js" />
     <Content Include="Common\Js\WPC-Wysiwyg-InternalLink.js" />
     <Content Include="Common\StyleSheetLoader.ascx" />
+    <Content Include="Components\Synologen\FtpProfiles.aspx" />
     <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
     <Content Include="Components\Synologen\Scripts\ContractSales\statistics.js" />
@@ -316,8 +321,16 @@
     <Compile Include="Application\Services\UserContextService.cs" />
     <Compile Include="Application\Web\ExcelFileResult.cs" />
     <Compile Include="Application\Web\ReportController.cs" />
+    <Compile Include="Components\Synologen\FtpProfiles.aspx.cs">
+      <DependentUpon>FtpProfiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\FtpProfiles.aspx.designer.cs">
+      <DependentUpon>FtpProfiles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
+    <Compile Include="Controllers\ContractSalesController_FtpProfiles.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
     <Compile Include="Controllers\ContractSalesController_ContractArticles.cs" />
     <Compile Include="Controllers\DeviationController.cs" />
@@ -343,9 +356,11 @@
     <Compile Include="Helpers\WpcActionMessageType.cs" />
     <Compile Include="Helpers\WpcDropDownList.cs" />
     <Compile Include="Helpers\WpcGridDeleteForm.cs" />
+    <Compile Include="Models\ContractSales\FtpProfileView.cs" />
     <Compile Include="Models\ContractSales\ArticleView.cs" />
     <Compile Include="Models\ContractSales\AddContractArticleView.cs" />
     <Compile Include="Models\ContractSales\EditContractArticleView.cs" />
+    <Compile Include="Models\ContractSales\FtpProtocolTypeView.cs" />
     <Compile Include="Models\ContractSales\IContractArticleView.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />

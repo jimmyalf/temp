@@ -233,7 +233,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			};
 		}
 
-		public string GetContractArticleRoute(int contractId)
+        public FtpProfile ParseFtpProfile(FtpProfileView ftpProfileView)
+        {
+            return new FtpProfile
+            {
+                Id = ftpProfileView.Id,
+                Name = ftpProfileView.Name,
+                PassiveFtp = ftpProfileView.PassiveFtp,
+                ProtocolType = (FtpProtocolType) ftpProfileView.SelectedFtpProtocolType,
+                Username = ftpProfileView.Username,
+                Password = ftpProfileView.Password,
+                ServerUrl = ftpProfileView.ServerURL
+            };
+        }
+
+        public string GetContractArticleRoute(int contractId)
 		{
 			return "{Url}?contractId={ContractId}"
 				.Replace("{Url}", ComponentPages.ContractArticles.Replace("~", "").ToLower())
@@ -262,7 +276,51 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	        model.ReportTypes = GetAllReportTypes();
 	    }
 
-	    protected List<ContractListItem> GetAllContracts()
+        public FtpProfileView SetFtpProfileViewDefaults(FtpProfileView ftpProfileView, string formLegend)
+        {
+            ftpProfileView.FormLegend = formLegend;
+            var ftpProtocolEnums = Enum.GetValues(typeof (FtpProtocolType));
+            var ftpProtocolList = new List<FtpProtocolTypeView>();
+            
+            foreach(var @enum in ftpProtocolEnums)
+            {
+                var ftpProtocol = new FtpProtocolTypeView((int)Enum.Parse(typeof(FtpProtocolType), @enum.ToString()), @enum.ToString());
+                ftpProtocolList.Add(ftpProtocol);
+            }
+
+            ftpProfileView.FtpProtocolType = ftpProtocolList;
+
+            return ftpProfileView;
+        }
+
+        public FtpProfileView GetFtpProfileView(FtpProfile ftpProfile, string formLegend)
+        {
+            var ftpProtocolEnums = Enum.GetValues(typeof(FtpProtocolType));
+            var ftpProtocolList = new List<FtpProtocolTypeView>();
+
+            foreach (var @enum in ftpProtocolEnums)
+            {
+                var ftpProtocol = new FtpProtocolTypeView((int)Enum.Parse(typeof(FtpProtocolType), @enum.ToString()), @enum.ToString());
+                ftpProtocolList.Add(ftpProtocol);
+            }
+
+            var ftpProfileView = new FtpProfileView
+            {
+                FormLegend = formLegend,
+                Id = ftpProfile.Id,
+                Name = ftpProfile.Name,
+                PassiveFtp = ftpProfile.PassiveFtp,
+                Username = ftpProfile.Username,
+                Password = ftpProfile.Password,
+                ServerURL = ftpProfile.ServerUrl,
+                FtpProtocolType = ftpProtocolList,
+                SelectedFtpProtocolType = (int) ftpProfile.ProtocolType
+            };
+
+            return ftpProfileView;
+        }
+
+        protected List<ContractListItem> GetAllContracts()
         {
             return _synologenSqlProvider.GetContracts(FetchCustomerContract.All, 0, 0, null)
                 .Tables[0].AsEnumerable()

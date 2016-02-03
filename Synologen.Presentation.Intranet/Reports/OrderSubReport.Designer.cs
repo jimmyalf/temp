@@ -143,7 +143,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             label4.Left = 0.0984252F;
             label4.Name = "label4";
             label4.Style = "";
-            label4.Text = "Strandbergsgatan 61, 3 tr";
+            label4.Text = "Finlandsgatan 16";
             label4.Top = 0.5905512F;
             label4.Width = 2.952756F;
             // 
@@ -511,7 +511,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label3.Left = 0.0984252F;
             this.label3.Name = "label3";
             this.label3.Style = "";
-            this.label3.Text = "112 51 STOCKHOLM";
+            this.label3.Text = "164 74 KISTA";
             this.label3.Top = 0.7874016F;
             this.label3.Width = 2.952756F;
             // 

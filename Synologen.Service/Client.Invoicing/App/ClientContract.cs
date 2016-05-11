@@ -106,8 +106,16 @@ namespace Synologen.Service.Client.Invoicing.App {
 		/// Sends given orders as invoices
 		/// </summary>
 		public void SendInvoices(List<int> orderIds, string statusReportEmailAddress){
-			TrySetOperationTimeout(Channel as IContextChannel);
-			Channel.SendInvoices(orderIds, statusReportEmailAddress);
+            try
+            {
+                TrySetOperationTimeout(Channel as IContextChannel);
+                Channel.SendInvoices(orderIds, statusReportEmailAddress);
+            }
+            catch (Exception ex)
+            {
+                LogMessage(LogType.Error, "ClientContract.SendInvoices caught exception: " + ex);
+                throw;
+            }
 		}
 
 		/// <summary>
